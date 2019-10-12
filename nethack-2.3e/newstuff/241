@@ -1,0 +1,19 @@
+Path: utzoo!attcan!uunet!husc6!bloom-beacon!bu-cs!purdue!decwrl!hplabs!sdcrdcf!trwrb!ucla-an!remsit!stb!michael
+From: michael@stb.UUCP (Michael)
+Newsgroups: comp.sources.games.bugs
+Subject: nethack #ifdef: u_init.c, MARKER
+Message-ID: <10310@stb.UUCP>
+Date: 19 May 88 19:57:08 GMT
+Reply-To: michael@stb.UUCP (Michael)
+Organization: STB BBS, La, Ca, Usa, +1 213 459 7231
+Lines: 9
+
+File u_init.c, line 451 has an if
+staement inside a #ifdef MARKER, with its "else" after the #endif
+			Michael
+: --- 
+: Michael Gersten			 uunet.uu.net!denwa!stb!michael
+:				 ihnp4!hermix!ucla-an!denwa!stb!michael
+:				sdcsvax!crash!gryphon!denwa!stb!michael
+: "Machine Takeover? Just say no."
+: "Sockets? Just say no."     <-- gasoline

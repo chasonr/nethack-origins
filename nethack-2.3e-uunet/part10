@@ -1,0 +1,3794 @@
+#! /bin/sh
+# This is a shell archive.  Remove anything before this line, then unpack
+# it by saving it into a file and typing "sh file".  To overwrite existing
+# files, type "sh file -c".  You can also feed this as standard input via
+# unshar, or by typing "sh <file", e.g..  If this archive is complete, you
+# will see the following message at the end:
+#		"End of archive 10 (of 13)."
+# Contents:  README.ORIG config.h data.base makemon.c nansi.doc
+#   o_init.c onames.h options.c save.c termcap.c unixtty.c
+# Wrapped by billr@tekred on Mon Jun 20 11:39:14 1988
+PATH=/bin:/usr/bin:/usr/ucb ; export PATH
+if test -f README.ORIG -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"README.ORIG\"
+else
+echo shar: Extracting \"README.ORIG\" \(10200 characters\)
+sed "s/^X//" >README.ORIG <<'END_OF_README.ORIG'
+X
+X	This file consists of all previous README files for the game, as
+Xreleased with the original version (Jay F.), first usenet version (Andries B.),
+Xand PC-Hack (Don K.).  This way "README" is current for this version.
+X
+X						Mike Stephenson
+X
+X-- Original README file --------------------------------------------------------
+X
+XThis is export hack, my first semester programming project.
+X
+XTo set it up for your system, you will have to do the following:
+X	1: create a hack uid, to own the top ten list, etc.
+X	2: create a hack directory "/usr/lib/game/hack" is the default.
+X	2.5: make the directory 700 mode.	/* sav files go in there...*/
+X	3: modify hack.main.c to use the new directory.
+X	4: modify hack.main.c so it uses the new hack gid.  Gid accounts can
+Xgo into magic mode without the password, can get cores with ^G, etc.
+X(make sure gid isn't checked anywhere else...)
+X	5: recompile hack.
+X	6: put it in games after making it set-uid hack.
+X	8: fix the bugs I undobtedly left in it.
+X	9: tell me what you think of it.
+X
+X	Hack uses the UCB file /etc/termcap to get your terminal escape codes.
+XIf you don't use it, you will have to make extensive changes to hack.pri.c
+X
+XIf you find any bugs (That you think I don't know about), or have any
+Xawesome new changes (Like a better save (One that works!)), or have ANY
+Xquestions, write me
+X		Jay Fenlason
+X		29 East St.
+X		Sudbury Mass.
+X			01776
+X
+Xor call me at (617) 443-5036.  Since I have both a modem and a teen-age
+Xsister, Good Luck.
+X
+X
+XHack is split (roughly) into several source files that do different things.
+XI have tried to fit all the procedures having to do with a certain segment
+Xof the game into a single file, but the job is not the best in the world.
+XThe rough splits are:
+X
+Xhack.c		General random stuff and things I never got around to moving.
+Xhack.main.c	main() and other random procedures, also the lock file stuff.
+Xhack.mon.c	Monsters, moving, attacking, etc.
+Xhack.do.c	drink, eat, read, wield, save, etc.
+Xhack.do1.c	zap, wear, remove, etc...
+Xhack.pri.c	stuff having to do with the screen, most of the terminal
+X		independant stuff is in here.
+Xhack.lev.c	temp files and calling of mklev.
+X
+XBecause of the peculiar restraints on our system, I make mklev (create
+Xa level) a separate procedure execd by hack when needed.  The source for
+Xmklev is (Naturaly) mklev.c.  You may want to put mklev back into hack.
+XGood luck.
+X
+XMost of hack was written by me, with help from
+X		Kenny Woodland (KW)	(general random things including
+X			the original BUZZ())
+X		Mike Thome	(MT)	(The original chamelian)
+X	and	Jon Payne	(JP)	(The original lock file kludge and
+X			the massive CURS())
+X
+XThis entire program would not have been possible without the SFSU Logo
+XWorkshop.  I am eternally grateful to all of our students (Especially K.L.),
+Xwithout whom I would never have seen Rogue.  I am especially grateful to
+XMike Clancy, without whose generous help I would never have gotten to play
+XROGUE.
+X
+X-- Hack 1.0.x README file ------------------------------------------------------
+X
+XHack is a display oriented dungeons & dragons - like game.
+XBoth display and command structure resemble rogue.
+X(For a game with the same structure but entirely different display -
+Xa real cave instead of dull rectangles - try Quest)
+X
+XHack was originally written by Jay Fenlason (at lincolnsudbury:
+X 29 East St., Sudbury Mass., 01776) with help from
+X Kenny Woodland, Mike Thome and Jon Payne.
+XBasically it was an implementation of Rogue, however, with 52+ instead of 26
+X monster types.
+XThe current version is more than thrice as large (with such new features as
+X the dog, the long worms, the shops, etc.) and almost entirely rewritten
+X (only the display routines are the original ones - I must rewrite these
+X too one day; especially when you are blind strange things still happen).
+X
+XFiles for hack:
+X	hack		The actual game
+X	record		Top 100 list (just start with an empty file)
+X	news		Tells about recent changes in hack, or bugs found ...
+X			(Just start with no news file.)
+X	data		Auxiliary file used by hack to give you the names
+X			and sometimes some more information on the
+X			objects and monsters.
+X	help		Introductory information (no doubt outdated).
+X	hh		Compactified version of help.
+X	perm		An empty file used for locking purposes.
+X	rumors		Texts for fortune cookies.
+X			(Some of these contain information on the game,
+X			others are just plain stupid. Additional rumors
+X			are appreciated.)
+X	hack.sh		A shell script.
+X			(We have hack.sh in /usr/games/hack and
+X			hack in /usr/games/lib/hackdir/hack and all the other
+X			hack stuff in /usr/games/lib/hackdir - perhaps this
+X			will make the script clear.
+X			There is no need for you to use it.)
+X	READ_ME		This file.
+X	Original_READ_ME Jay Fenlason's READ_ME
+X
+XSystem files used:
+X	/etc/termcap	Used in conjunction with the environment variable
+X			$TERM.
+X	/bin/cat
+X	/usr/ucb/more
+X	/bin/sh		Used when $SHELL is undefined.
+X
+XHow to install hack:
+X0. Compile the sources. Perhaps you should first look at the file config.h
+X   and define BSD if you are on a BSDtype system,
+X   define STUPID if your C-compiler chokes on complicated expressions.
+X   Make sure schar and uchar represent signed and unsigned types.
+X   If your C compiler doesnt allow initialization of bit fields
+X   change Bitfield. When config.h looks reasonable, say 'make'.
+X   (Perhaps you have to change TERMLIB in the makefile.)
+X1. If it didnt exist already, introduce a loginname `play' .
+X2. The program  hack  resides in a directory so that it is executable
+X   for everybody and is suid play:
+X	---s--s--x  1 play	206848 Apr  3 00:17 hack
+X   Perhaps you wish to restrict playing to certain hours, or have games
+X   running under nice; in that case you might write a program play.c
+X   such that the program play is suid play and executable for everybody
+X   while all the games in /usr/games are readable or executable for
+X   play only; all the program play does is asking for the name of a game,
+X   checking that time-of-day and system load do not forbid playing,
+X   and then executing the game. Thus:
+X	-r-sr-sr-x  1 play	 13312 May 24 12:52 play
+X	---x------  1 play	206848 Apr  3 00:17 hack
+X   If you are worried about security you might let play do
+X   chroot("/usr/games") so that no player can get access to the rest
+X   of the system via shell escapes and the likes.
+X   If you #define SECURE in config.h then hack will not setuid(getuid())
+X   before executing a chdir(). Hack will always do setuid(getuid()) with
+X   a fork. If you do not define UNIX then hack will not fork.
+X3. The rest of the stuff belonging to hack sits in a subdirectory hackdir
+X   (on our system /usr/games/lib/hackdir) with modes
+X	drwx------  3 play	1024 Aug  9 09:03 hackdir
+X   Here all the temporary files will be created (with names like xlock.17
+X   or user.5).
+X4. If you are not really short on file space, creating a subdirectory
+X   hackdir/save (modes again drwx------) will enable users to save their
+X   unfinished games.
+X
+XThe program hack is called
+X$ hack [-d hackdir] [maxnrofplayers]
+X(for playing) or
+X$ hack [-d hackdir] -s [listofusers | limit | all]
+X(for seeing part of the scorelist).
+XThe shell file hack (in this kit called hack.sh) takes care of
+Xcalling hack with the right arguments.
+X
+XSend complaints, bug reports, suggestions for improvements to
+Xmcvax!aeb - in real life Andries Brouwer.
+X
+X-- PC Hack 3.51 README file ----------------------------------------------------
+X
+X	Welcome to the sources for PC HACK (version 3.51).
+X
+XIntroduction
+X------------
+XThis is a version of the public domain program HACK 1.03 (copyright
+XStichting Mathematisch Centrum, Amsterdam, 1984, 1985.) implemented
+Xunder MSDOS with the Microsoft(tm) C v3.0 compiler.
+X
+XYou may copy this version of PC HACK and make any changes you want to
+Xit.  You may give it away, but you may not sell it.
+X
+X
+XThe sources are in ARC format in HACK351S.ARC.  The commands:
+X
+X	C> arc51 e hack351s makefile make.*
+X	C> arc51 e hack351s *.h
+X	C> arc51 e hack351s *.c
+X
+Xwill unpack the files.
+X
+XWith a hard disk system, you should be able to type `make' and the sources
+Xwill start to be compiled.  This takes a long time.  A floppy disk system
+Xdoes not really have enough storage.
+X
+X
+XCompiling
+X---------
+XThe LARGE compiler model is used.  To add WIZARD mode, add a -DWIZARD
+Xto the MAKEFILE, or a #define WIZARD to the CONFIG.H file.
+X
+XThe MAKEFILE included with PC HACK 3.51 sources is for my version of MAKE.
+XIt is very similar to UNIX(tm) `make'.  See MAKE.DOC for details.
+X
+XTo compile the sources by hand the command for each `filename.c' file is:
+X	msc -AL -DREGBUG -DLINT_ARGS -Ot -Gs filename.c;
+X
+X
+XLinking
+X-------
+XI used the Microsoft 8086 Linker version 3.01
+X
+XTo link the *.obj files by hand, the command is:
+X	link @linkfile
+X
+XWhere the contents of the linkfile (not supplied) should be:
+X
+Xdecl.obj apply.obj bones.obj cmd.obj do.obj +
+Xdo_name.obj do_wear.obj dog.obj eat.obj +
+Xend.obj engrave.obj fight.obj hack.obj +
+Xinvent.obj ioctl.obj lev.obj main.obj +
+Xmakemon.obj mhitu.obj mklev.obj mkmaze.obj +
+Xmkobj.obj mkshop.obj mon.obj monst.obj +
+Xo_init.obj objnam.obj options.obj pager.obj +
+Xpotion.obj pri.obj read.obj rip.obj +
+Xrumors.obj save.obj search.obj shk.obj +
+Xshknam.obj steal.obj termcap.obj +
+Xtimeout.obj topl.obj track.obj trap.obj +
+Xtty.obj unix.obj u_init.obj vault.obj +
+Xwield.obj wizard.obj worm.obj worn.obj +
+Xzap.obj version.obj rnd.obj alloc.obj +
+Xmsdos.obj 
+Xhack /NOIG /STACK:4000; 
+X
+X
+XDifferences from UNIX HACK
+X--------------------------
+XChanges that were introduced to port UNIX HACK to the MSDOS environment
+Xare surrounded with `#ifdef MSDOS', `#endif' directives.
+X
+XOther changes I have made are surrounded by `#ifdef DGK', `#endif'
+Xdirectives.  It should be possible to compile these sources without
+Xany of my changes by removing the `#define DGK' line from CONFIG.H.
+X
+XAlso, functions I have added are mainly restricted to the file msdos.c,
+Xalthough some of them are in other places (ie. wizard.c)
+X
+X
+XFinally
+X-------
+XIf you have any questions, contact me at one of:
+X
+X	Don Kneller
+X	UUCP:	...ucbvax!ucsfcgl!kneller
+X	ARPA:	kneller@ucsf-cgl.ARPA
+X	BITNET:	kneller@ucsfcgl.BITNET
+X	USMAIL:	D. G. Kneller
+X		2 Panoramic Way #204
+X		Berkeley, CA 94704
+X
+X--------------------------------------------------------------------------------
+XEND OF FILE
+END_OF_README.ORIG
+if test 10200 -ne `wc -c <README.ORIG`; then
+    echo shar: \"README.ORIG\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+if test -f config.h -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"config.h\"
+else
+echo shar: Extracting \"config.h\" \(8902 characters\)
+sed "s/^X//" >config.h <<'END_OF_config.h'
+X/*	SCCS Id: @(#)config.h	2.3	87/12/12
+X/* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+X
+X#ifndef CONFIG	/* make sure the compiler does not see the typedefs twice */
+X#define	CONFIG
+X
+X#define	CHDIR		/* delete if no chdir() available */
+X
+X/*
+X * Some include files are in a different place under SYSV
+X * 	BSD		   SYSV
+X * <strings.h>		<string.h>
+X * <sys/time.h>		<time.h>
+X * <sgtty.h>		<termio.h>
+X * Some routines are called differently
+X * index		strchr
+X * rindex		strrchr
+X * Also, the code for suspend and various ioctls is only given for BSD4.2
+X */
+X#ifdef __MSDOS__	/* Turbo C auto-defines __MSDOS__, others MSDOS */
+X/* # define MSDOS 	/* define for MS-DOS (actually defined by compiler) */
+X#endif
+X#define	UNIX		/* delete if no fork(), exec() available */
+X/* #define	GENIX		/* Yet Another Unix Clone */
+X#define BSD		/* defind for 4.n BSD  */
+X/* #define SYSV		/* define for System V */
+X/* #define NETWORK	/* if running on a networked system */
+X
+X/* #define BETA		/* if a beta-test copy  [MRS] */
+X#define VERSION	"2.3e"	/* version number. */
+X
+X#define PYRAMID_BUG 	/* avoid a bug on the Pyramid */
+X/* #define APOLLO		/* same for the Apollo */
+X/* #define STUPID		/* avoid some complicated expressions if
+X			   your C compiler chokes on them */
+X/* #define TERMINFO		/* uses "curses" rather than termcap */
+X
+X#ifdef __TURBOC__
+X#define	alloc	malloc
+X#define	signal	ssignal
+X#endif
+X
+X#ifndef WIZARD		/* allow for compile-time or Makefile changes */
+X# define WIZARD  "mike"	/* the person allowed to use the -D option */
+X#endif
+X
+X#define RECORD	"record"  /* the file containing the list of topscorers */
+X#define	LOGFILE	"logfile" /* larger file for debugging purposes */
+X#define	NEWS	"news"	  /* the file containing the latest hack news */
+X#define	HELP	"help"	  /* the file containing command descriptions */
+X#define	SHELP	"hh"	  /* abbreviated form of the same */
+X#define	RUMORFILE	"rumors"	/* a file with fortune cookies */
+X#define	DATAFILE	"data"	/* a file giving the meaning of symbols used */
+X#define	FMASK	0660	/* file creation mask */
+X
+X#ifdef UNIX
+X#define	HLOCK	"perm"	/* an empty file used for locking purposes */
+X#define LLOCK	"safelock"	/* link to previous */
+X
+X/*
+X * Define DEF_PAGER as your default pager, e.g. "/bin/cat" or "/usr/ucb/more"
+X * If defined, it can be overridden by the environment variable PAGER.
+X * Hack will use its internal pager if DEF_PAGER is not defined.
+X * (This might be preferable for security reasons.)
+X * #define DEF_PAGER	".../mydir/mypager"
+X */
+X
+X/*
+X * If you define MAIL, then the player will be notified of new mail
+X * when it arrives. If you also define DEF_MAILREADER then this will
+X * be the default mail reader, and can be overridden by the environment
+X * variable MAILREADER; otherwise an internal pager will be used.
+X * A stat system call is done on the mailbox every MAILCKFREQ moves.
+X */
+X#define	MAIL
+X#define	DEF_MAILREADER	"/usr/bin/mail"		/* or e.g. /bin/mail */
+X#define	MAILCKFREQ	1
+X
+X
+X#define SHELL		/* do not delete the '!' command */
+X
+X#ifdef BSD
+X#define	SUSPEND		/* let ^Z suspend the game */
+X#endif
+X
+X#ifdef BSD
+X/* Use the high quality random number routines. */
+Xextern long random();
+X#define rand()	random()
+X#define srand(seed) srandom(seed)
+X#else
+Xextern long lrand48();
+X#define rand()	lrand48()
+X#define srand(seed) srand48(seed)
+X#endif
+X#endif /* UNIX /**/
+X
+X#ifdef CHDIR
+X/*
+X * If you define HACKDIR, then this will be the default playground;
+X * otherwise it will be the current directory.
+X */
+X#define HACKDIR	"/usr/games/lib/nethackdir"
+X
+X/*
+X * Some system administrators are stupid enough to make Hack suid root
+X * or suid daemon, where daemon has other powers besides that of reading or
+X * writing Hack files. In such cases one should be careful with chdir's
+X * since the user might create files in a directory of his choice.
+X * Of course SECURE is meaningful only if HACKDIR is defined.
+X */
+X#define SECURE			/* do setuid(getuid()) after chdir() */
+X
+X/*
+X * If it is desirable to limit the number of people that can play Hack
+X * simultaneously, define HACKDIR, SECURE and MAX_NR_OF_PLAYERS.
+X * #define MAX_NR_OF_PLAYERS	6
+X */
+X#endif /* CHDIR /**/
+X
+X/* size of terminal screen is (at least) (ROWNO+2) by COLNO */
+X#define	COLNO	80
+X#define	ROWNO	22
+X
+X#ifdef BSD
+X#include <strings.h>		/* declarations for strcat etc. */
+X#define memcpy(d, s, n)		bcopy(s, d, n)
+X#define memcmp(s1, s2, n)	bcmp(s2, s1, n)
+X#else
+X#include <string.h>		/* idem on System V */
+X#define	index	strchr
+X#define	rindex	strrchr
+X#endif
+X
+X/*
+X * small signed integers (8 bits suffice)
+X *	typedef	char	schar;
+X * will do when you have signed characters; otherwise use
+X *	typedef	short int schar;
+X */
+Xtypedef	char	schar;
+X
+X/*
+X * small unsigned integers (8 bits suffice - but 7 bits do not)
+X * - these are usually object types; be careful with inequalities! -
+X *	typedef	unsigned char	uchar;
+X * will be satisfactory if you have an "unsigned char" type; otherwise use
+X *	typedef unsigned short int uchar;
+X */
+Xtypedef	unsigned char	uchar;
+X
+X/*
+X * small integers in the range 0 - 127, usually coordinates
+X * although they are nonnegative they must not be declared unsigned
+X * since otherwise comparisons with signed quantities are done incorrectly
+X */
+Xtypedef schar	xchar;
+Xtypedef	xchar	boolean;		/* 0 or 1 */
+X/* #define void	int			/* define if no "void" data type. */
+X#define	TRUE	1
+X#define	FALSE	0
+X
+X/*
+X * Declaration of bitfields in various structs; if your C compiler
+X * doesnt handle bitfields well, e.g., if it is unable to initialize
+X * structs containing bitfields, then you might use
+X *	#define Bitfield(x,n)	uchar x
+X * since the bitfields used never have more than 7 bits. (Most have 1 bit.)
+X * otherwise:
+X *	#define	Bitfield(x,n)	unsigned x:n
+X */
+X#define	Bitfield(x,n)	uchar x
+X
+X#define	SIZE(x)	(int)(sizeof(x) / sizeof(x[0]))
+X
+X#ifdef MSDOS
+X#include <fcntl.h>
+X#define	exit	msexit		/* do chdir first */
+X#ifdef getchar
+X#	undef getchar
+X#endif /* getchar /**/
+X#define getchar tgetch
+X#define DGK			/* MS DOS specific enhancements by dgk */
+X
+X#ifdef DGK
+X#  include "msdos.h"	/* contains necessary externs for msdos.c */
+X#  define SHELL		/* via exec of COMMAND.COM */
+X#  define PATHLEN	64	/* maximum pathlength */
+X#  define FILENAME 80	/* maximum filename length (conservative) */
+X#  define FROMPERM	1	/* for ramdisk use */
+X#  define TOPERM	2	/* for ramdisk use */
+X#  define glo(x)	name_file(lock, x)	/* name_file used for bones */
+X	extern char *configfile;
+X#endif /* DGK /**/
+X#endif /* MSDOS /**/
+X
+X/*
+X *	Conditional compilation of special options are controlled here.
+X *	If you define the following flags, you will add not only to the
+X *	complexity of the game but also to the size of the load module.
+X */ 
+X
+X#define	DOGNAME		/* Name of your first dog as an option */ 
+X#define	SPELLS		/* Spell casting by M. Stephenson */
+X#define	PRAYERS		/* Prayer code by M. Stephenson */
+X#define KAA		/* Various changes made by Ken Arromdee */
+X#define MARKER		/* Magic marker modification from Gil Neiger */
+X#define	NEWCLASS	/* Samurai/Ninja etc. by M. Stephenson */ 
+X#define	SAFE_ATTACK 	/* Safe attack code by Don Kneller */
+X#define	PROBING		/* Wand of probing code by Gil Neiger */
+X#define	DIAGS		/* Diagnostics after death/quit by Gil Neiger */
+X#define	SORTING		/* Sorted inventory by Don Kneller */
+X#define	DGKMOD		/* Additional features by Don Kneller */
+X#define REDO 		/* support for redoing last command - DGK */
+X#define	HARD		/* Enhanced wizard code by M. Stephenson */
+X#define	WALKIES		/* Leash code by M. Stephenson */
+X#define NEWTRAPS	/* Magic and Squeeky board traps by Scott R. Turner*/
+X#define FREEHAND	/* Cannot use Pick-axe without wielding it. */
+X#define SPIDERS		/* Spiders and webs by Scott R. Turner */
+X#define FOUNTAINS	/* Fountain code by SRT (+ GAN + EB) */
+X#define KOPS		/* Keystone Kops by Scott R. Turner */
+X#define ROCKMOLE	/* Rockmoles by Scott R. Turner */
+X#define COM_COMPL	/* Command line completion by John S. Bien */
+X#define GRAPHICS	/* Funky screen character support (Eric S. Raymond) */
+X#define HACKOPTIONS	/* Support DGK-style HACKOPTIONS processing (ESR) */
+X#define RPH		/* Various hacks by Richard P. Hughey */
+X#define KJSMODS		/* Various changes made by Kevin Sweet */
+X#define	BVH		/* Additions by Bruce Holloway */
+X#define SAC		/* Soldiers, barracks by Steve Creps */
+X#define	SHIRT		/* Hawaiian shirt code by Steve Linhart */
+X#define THEOLOGY	/* Smarter gods - The Unknown Hacker */
+X#define	STOOGES		/* Three wild and crazy guys - Bruce Mewborne */
+X#define SINKS		/* Kitchen sinks - Janet Walz */
+X
+X#ifdef MSDOS
+X#define TERMLIB		/* enable use of termcap file c:\etc\termcap	*/
+X			/* or .\termcap.cnf for MSDOS (SAC)		*/
+X# ifdef GRAPHICS
+X#  define MSDOSCOLOR
+X# endif
+X#endif
+X
+X/*
+X *	Status Line options.
+X */
+X
+X#define	GOLD_ON_BOTL
+X#define	EXP_ON_BOTL
+X#define SCORE_ON_BOTL		/* added by Gary Erickson (erickson@ucivax) */
+X	 
+X#ifdef REDO
+X#define DOAGAIN	'\001'		/* Used in tty.c and cmd.c */
+X#endif
+X
+X#ifdef DGKMOD
+X#define LARGEST_INT	((1 << 15) - 1)
+X#endif
+X
+X#endif /* CONFIG /**/
+END_OF_config.h
+if test 8902 -ne `wc -c <config.h`; then
+    echo shar: \"config.h\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+if test -f data.base -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"data.base\"
+else
+echo shar: Extracting \"data.base\" \(9613 characters\)
+sed "s/^X//" >data.base <<'END_OF_data.base'
+X	NetHack & Quest data file - version 2.0
+X@	human (or you in human guise)
+X-	a wall
+X|	a wall
+X+	a door
+X.	the floor of a room
+X	a dark part of a room
+X#	a corridor
+X}	water filled area
+X<	the staircase to the previous level
+X>	the staircase to the next level
+X^	a trap
+X$	a pile, pot or chest of gold
+X%	a piece of food
+X!	a potion
+X*	a gem
+X?	a scroll
+X=	a ring
+X/	a wand
+X[	a suit of armor
+X)	a weapon
+X(	a useful item (camera, key, rope etc.)
+X0	an iron ball
+X_	an iron chain
+X`	an enormous rock
+X"	an amulet
+X,	a trapper
+X:	a chameleon
+X;	a giant eel
+X'	a lurker above
+X&	a demon
+XA	a giant ant
+XB	a giant bat
+XC	a centaur;
+X	Of all the monsters put together by  the  Greek	 imagination
+X	the  Centaurs (Kentauroi) constituted a class in themselves.
+X	Despite a strong streak	 of  sensuality	 in  their  make-up,
+X	their  normal  behaviour  was  moral, and they took a kindly
+X	thought of man's welfare. The attempted outrage of Nessos on
+X	Deianeira,  and	 that  of the whole tribe of Centaurs on the
+X	Lapith women, are more than offset  by	the  hospitality  of
+X	Pholos	and  by	 the  wisdom of Cheiron, physician, prophet,
+X	lyrist, and the instructor of Achilles.	 Further,  the	Cen-
+X	taurs  were  peculiar in that their nature, which united the
+X	body of a horse with the trunk and head of a  man,  involved
+X	an  unthinkable	 duplication  of  vital organs and important
+X	members. So grotesque a combination seems  almost  un-Greek.
+X	These  strange	creatures were said to live in the caves and
+X	clefts of the mountains, myths associating  them  especially
+X	with the hills of Thessaly and the range of Erymanthos.
+X		       [Mythology of all races, Vol. 1, pp. 270-271]
+XD	a dragon;
+X	In the West the dragon was the natural	enemy  of  man.	 Although
+X	preferring to live in bleak and desolate regions, whenever it was
+X	seen among men it left in its wake a  trail  of	 destruction  and
+X	disease. Yet any attempt to slay this beast was a perilous under-
+X	taking. For the dragon's assailant had to contend not  only  with
+X	clouds	of  sulphurous fumes pouring from its fire-breathing nos-
+X	trils, but also with the thrashings of its tail, the most  deadly
+X	part of its serpent-like body.
+X	[From: Mythical Beasts by Deirdre Headon (The Leprechaun Library)]
+XE	a floating eye
+XF	a freezing sphere
+XG	a gnome;
+X	... And then a gnome came by, carrying a bundle, an old fellow
+X	three times as large as an imp and wearing clothes of a sort,
+X	especially a hat. And he was clearly just as frightened as the
+X	imps though he could not go so fast. Ramon Alonzo saw that there
+X	must be some great trouble that was vexing magical things; and,
+X	since gnomes speak the language of men, and will answer if spoken
+X	to gently, he raised his hat, and asked of the gnome his name.
+X	The gnome did not stop his hasty shuffle a moment as he answered
+X	'Alaraba' and grabbed the rim of his hat but forgot to doff it.
+X	'What is the trouble, Alaraba?' said Ramon Alonzo.
+X	'White magic. Run!' said the gnome ...
+X			[From: The Charwoman's Shadow, by Lord Dunsany.]
+XH	a hobgoblin;
+X	Hobgoblin. Used by the	Puritans  and  in  later  times	 for
+X	wicked	goblin	spirits,  as in Bunyan's 'Hobgoblin nor foul
+X	friend', but its more correct use is for the friendly  spir-
+X	its  of	 the brownie type.  In 'A midsummer night's dream' a
+X	fairy says to Shakespeare's Puck:
+X		Those that Hobgoblin call you, and sweet Puck,
+X		You do their work, and they shall have good luck:
+X		Are you not he?
+X	and obviously Puck would not wish to be called	a  hobgoblin
+X	if that was an ill-omened word.
+X	Hobgoblins are on the whole, good-humoured and ready  to  be
+X	helpful,  but fond of practical joking, and like most of the
+X	fairies rather nasty people to annoy. Boggarts hover on	 the
+X	verge of hobgoblindom.	Bogles are just over the edge.
+X	One Hob mentioned by Henderson, was Hob Headless who haunted
+X	the  road  between Hurworth and Neasham, but could not cross
+X	the little river Kent, which flowed into the  Tess.  He	 was
+X	exorcised  and	laid under a large stone by the roadside for
+X	ninety-nine years and a day. If anyone was so unwary  as  to
+X	sit  on	 that stone, he would be unable to quit it for ever.
+X	The ninety-nine years is nearly up, so trouble may  soon  be
+X	heard of on the road between Hurworth and Neasham.
+X		       [Katharine Briggs, A  dictionary	 of Fairies]
+XI	an invisible stalker
+XJ	a jackal
+XK	a kobold
+XL	a leprechaun;
+X	The Irish Leprechaun is the Faeries' shoemaker and is  known
+X	under  various	names  in different parts of Ireland: Cluri-
+X	caune in Cork, Lurican in Kerry, Lurikeen in Kildare and Lu-
+X	rigadaun  in  Tipperary.  Although he works for the Faeries,
+X	the Leprechaun is not of the same species. He is small,	 has
+X	dark  skin  and wears strange clothes.	His nature has some-
+X	thing of the manic-depressive about it: first  he  is  quite
+X	happy,	whistling merrily as he nails a sole on to a shoe; a
+X	few minutes later, he is sullen and  morose,  drunk  on	 his
+X	home-made  heather ale. The Leprechaun's two great loves are
+X	tobacco and whiskey, and he is a first-rate con-man,  impos-
+X	sible  to  out-fox.  No	 one, no matter how clever, has ever
+X	managed to cheat him out of his hidden pot of  gold  or	 his
+X	magic  shilling. At the last minute he always thinks of some
+X	way to divert his captor's attention  and  vanishes  in	 the
+X	twinkling  of  an eye.
+X			  [From: A Field Guide to the Little People
+X			     by	 Nancy Arrowsmith & George Moorse. ]
+XM	a mimic
+XN	a nymph
+XO	an orc
+XP	a purple worm
+XQ	a quasit
+XR	a rust monster
+XS	a snake
+XT	a troll
+XU	an umber hulk
+XV	a vampire
+XW	a wraith
+XX	a xorn
+XY	a yeti
+XZ	a zombie
+Xa	an acid blob
+Xb	a giant beetle
+Xc	a cockatrice;
+X	Once in a great while, when the positions of the  stars	 are
+X	just  right, a seven-year-old rooster will lay an egg. Then,
+X	along will come a snake, to coil around the egg, or a  toad,
+X	to  squat  upon	 the  egg, keeping it warm and helping it to
+X	hatch. When it hatches, out comes a creature  called  basil-
+X	isk, or cockatrice, the most deadly of all creatures. A sin-
+X	gle glance from its yellow, piercing toad's eyes  will	kill
+X	both  man  and beast. Its power of destruction is said to be
+X	so great that sometimes simply to hear its  hiss  can  prove
+X	fatal.	Its  breath is so venomous  that it causes all vege-
+X	tation to wither.
+X	There is, however, one	creature  which	 can  withstand	 the
+X	basilisk's deadly gaze, and this is the weasel. No one knows
+X	why this is so, but although the fierce weasel can slay	 the
+X	basilisk,  it will itself be killed in the struggle. Perhaps
+X	the weasel knows the basilisk's fatal weakness: if  it	ever
+X	sees  its own reflection in a mirror it will perish instant-
+X	ly. But even a dead basilisk is dangerous, for	it  is	said
+X	that merely touching its lifeless body can cause a person to
+X	sicken and die.
+X	    [From: Mythical Beasts by Deirdre Headon (The Leprechaun
+X		   Library) and other sources. ]
+Xd	a dog
+Xe	an ettin
+Xf	a fog cloud
+Xg	a gelatinous cube
+Xh	a homunculus
+Xi	an imp;
+X	 ... imps ... little creatures of two feet high	 that  could
+X	gambol and jump prodigiously; ...
+X			[From: The Charwoman's Shadow, by Lord Dunsany.]
+X
+X	An 'imp' is an off-shoot or cutting. Thus an 'ymp tree'	 was
+X	a grafted tree, or one grown from a cutting, not from seed.
+X	'Imp' properly means a small devil, an off-shoot  of  Satan,
+X	but  the distinction between goblins or bogles and imps from
+X	hell is hard to make, and many in the  Celtic  countries  as
+X	well as the English Puritans regarded all fairies as devils.
+X	The fairies of tradition often hover  uneasily	between	 the
+X	ghostly and the diabolic state.
+X			 [Katharine Briggs, A dictionary of Fairies]
+Xj	a jaguar
+Xk	a killer bee
+Xl	a leocrotta
+Xm	a minotaur
+Xn	a nurse
+Xo	an owlbear
+Xp	a piercer
+Xq	a quivering blob
+Xr	a giant rat
+Xs	a scorpion
+Xt	a tengu;
+X	The tengu was the  most	 troublesome  creature	of  Japanese
+X	legend.	  Part	bird  and part man, with red beak for a nose
+X	and flashing eyes, the tengu was notorious for	stirring  up
+X	feuds  and  prolonging	enmity between families. Indeed, the
+X	belligerent tengus were supposed to have  been	man's  first
+X	instructors in the use of arms.
+X			    [From: Mythical Beasts by Deirdre Headon
+X					 (The Leprechaun Library). ]
+Xu	a unicorn;
+X	Men have always sought the elusive unicorn, for	 the  single
+X	twisted	 horn  which projected from its forehead was thought
+X	to be a powerful talisman. It was said that the unicorn	 had
+X	simply	to  dip	 the tip of its horn in a muddy pool for the
+X	water to become pure. Men also believed that to	 drink	from
+X	this horn was a protection against all sickness, and that if
+X	the horn was ground to a powder it would act as an  antidote
+X	to  all poisons. Less than 200 years ago in France, the horn
+X	of a unicorn was used in a ceremony to test the	 royal	food
+X	for poison.
+X	Although only the size of a small horse, the  unicorn  is  a
+X	very  fierce  beast,  capable  of killing an elephant with a
+X	single thrust from its horn.  Its  fleetness  of  foot	also
+X	makes  this solitary creature difficult to capture. However,
+X	it can be tamed and captured by a maiden. Made gentle by the
+X	sight  of a virgin, the unicorn can be lured to lay its head
+X	in her lap, and in this docile mood, the maiden	 may  secure
+X	it with a golden rope.
+X			    [From: Mythical Beasts by Deirdre Headon
+X					 (The Leprechaun Library). ]
+Xv	a violet fungi
+Xw	a long worm;
+X	From its teeth the crysknife can be manufactured.
+X~	the tail of a long worm
+Xx	a xan;
+X	The xan were animals sent to prick the legs of the Lords of Xibalba.
+Xy	a yellow light
+Xz	a zruty;
+X	The zruty are wild and gigantic beings, living in the wildernesses
+X	of the Tatra mountains.
+X1	The wizard of Yendor
+X2	The mail daemon
+END_OF_data.base
+if test 9613 -ne `wc -c <data.base`; then
+    echo shar: \"data.base\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+if test -f makemon.c -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"makemon.c\"
+else
+echo shar: Extracting \"makemon.c\" \(9939 characters\)
+sed "s/^X//" >makemon.c <<'END_OF_makemon.c'
+X/*	SCCS Id: @(#)makemon.c	2.3	87/12/12
+X/* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+X
+X#include	"hack.h"
+Xextern char fut_geno[];
+Xextern char *index();
+Xextern struct obj *mkobj_at(), *mksobj(), *mkobj();
+Xstruct monst zeromonst;
+Xextern boolean in_mklev;
+X
+X#ifdef HARD		/* used in hell for bigger, badder demons! */
+X
+Xstruct permonst d_lord   = { "demon lord",	'&',12,13,-5,50,1,5,0 },
+X		d_prince = { "demon prince",	'&',14,14,-6,70,1,6,0 };
+X#endif
+X#ifdef KJSMODS
+X# ifdef KOPS
+Xstruct permonst kobold = { "kobold",'K',1,6,7,0,1,4,0 };
+X# endif
+X# ifdef ROCKMOLE
+Xstruct permonst giant_rat = { "giant rat",'r',0,12,7,0,1,3,0 };
+X# endif
+X#endif /* KJSMODS /**/
+X
+Xstruct permonst grey_dragon   = { "grey dragon",  'D',10,9,-1,20,3,8,0 };
+Xstruct permonst red_dragon    = { "red dragon",   'D',10,9,-1,20,3,8,0 };
+Xstruct permonst orange_dragon = { "orange dragon",'D',10,9,-1,20,3,8,0 };
+Xstruct permonst white_dragon  = { "white dragon", 'D',10,9,-1,20,3,8,0 };
+Xstruct permonst black_dragon  = { "black dragon", 'D',10,9,-1,20,3,8,0 };
+Xstruct permonst blue_dragon   = { "blue dragon",  'D',10,9,-1,20,3,8,0 };
+Xstruct permonst green_dragon  = { "green dragon", 'D',10,9,-1,20,3,8,0 };
+Xstruct permonst yellow_dragon = { "yellow dragon",'D',10,9,-1,20,3,8,0 };
+Xextern struct permonst pm_gremlin;
+X
+X/*
+X * called with [x,y] = coordinates;
+X *	[0,0] means anyplace
+X *	[u.ux,u.uy] means: call mnexto (if !in_mklev)
+X *
+X *	In case we make an Orc or killer bee, we make an entire horde
+X *	(swarm); note that in this case we return only one of them
+X *	(the one at [x,y]).
+X */
+Xstruct monst *
+Xmakemon(ptr,x,y)
+Xregister struct permonst *ptr;
+X{
+X	register struct monst *mtmp;
+X	register nleft, deep, ct;
+X	boolean anything = (!ptr);
+X	int zlevel = dlevel;
+X#ifdef BVH
+X	if(has_amulet()) zlevel = MAXLEVEL;
+X#endif
+X	/* if a monster already exists at the position, return */
+X	if(x != 0 || y != 0) if(m_at(x,y)) return((struct monst *) 0);
+X	if(ptr){
+X		/* if you are to make a specific monster and it has 
+X		   already been genocided, return */
+X		if(index(fut_geno, ptr->mlet)) return((struct monst *) 0);
+X	} else {
+X		/* make a random (common) monster. */
+X		nleft = CMNUM - strlen(fut_geno);
+X		if(index(fut_geno, 'm')) nleft++;  /* only 1 minotaur */
+X		if(index(fut_geno, '@')) nleft++;
+X		if(nleft <= 0)
+X		    return((struct monst *) 0);	/* no more monsters! */
+X
+X		/* determine the strongest monster to make. */
+X#ifdef ROCKMOLE
+X		deep = rn2(nleft*zlevel/24 + 6);
+X#else
+X		deep = rn2(nleft*zlevel/24 + 7);
+X#endif
+X		if(deep < zlevel - 4) deep = rn2(nleft*zlevel/24 + 12);
+X		/* if deep is greater than the number of monsters left 
+X		   to create, set deep to a random number between half 
+X		   the number left and the number left. */
+X		if(deep >= nleft) deep = rn1(nleft - nleft/2, nleft/2);
+X
+X		for(ct = 0 ; ct < CMNUM ; ct++){
+X			ptr = &mons[ct];
+X			if(index(fut_geno, ptr->mlet)) continue;
+X#ifdef KOPS
+X			if(ptr->mlet == 'K') {
+X# ifdef KJSMODS
+X				/* since this is a random monster, make 
+X				   a Kobold instead of a Kop. */
+X				ptr = &kobold;
+X# else
+X				deep--;
+X# endif
+X				continue;
+X			}
+X#endif /* KOPS /**/
+X			if(deep-- <= 0) goto gotmon;
+X		}
+X		/* this can happen if you are deep in the dungeon and 
+X		   mostly weak monsters have been genocided. */
+X		return((struct monst *) 0);
+X	}
+Xgotmon:
+X#if defined(KJSMODS) && defined(ROCKMOLE)
+X	/* make a giant rat */
+X	if((zlevel < 4 && ptr->mlet == 'r')
+X	   || (zlevel == 1 && (ptr->mlet == 'h' || ptr->mlet == 'i'))
+X	   || (zlevel == 2 && (ptr->mlet == 'o' || ptr->mlet == 'y'))
+X	) ptr = &giant_rat;
+X#endif
+X	mtmp = newmonst(ptr->pxlth);
+X	*mtmp = zeromonst;	/* clear all entries in structure */
+X	for(ct = 0; ct < ptr->pxlth; ct++)
+X		((char *) &(mtmp->mextra[0]))[ct] = 0;
+X	mtmp->nmon = fmon;
+X	fmon = mtmp;
+X	mtmp->m_id = flags.ident++;
+X	mtmp->data = ptr;
+X	mtmp->mxlth = ptr->pxlth;
+X	if(ptr->mlet == 'D') mtmp->mhpmax = mtmp->mhp = 80;
+X	else if(!ptr->mlevel) mtmp->mhpmax = mtmp->mhp = rnd(4);
+X	else mtmp->mhpmax = mtmp->mhp = d(ptr->mlevel, 8);
+X	mtmp->mx = x;
+X	mtmp->my = y;
+X	mtmp->mcansee = 1;
+X	if(ptr->mlet == 'D') {
+X		mtmp->dragon = rn2(8);
+X		switch(mtmp->dragon) {
+X			case 0:	mtmp->data = &grey_dragon;	break;
+X			case 1:	mtmp->data = &red_dragon;	break;
+X			case 2:	mtmp->data = &orange_dragon;	break;
+X			case 3:	mtmp->data = &white_dragon;	break;
+X			case 4:	mtmp->data = &black_dragon;	break;
+X			case 5:	mtmp->data = &blue_dragon;	break;
+X			case 6:	mtmp->data = &green_dragon;	break;
+X			case 7:	mtmp->data = &yellow_dragon;	break;
+X		}
+X	}
+X	/* if gnome, make a gremlin or if gremlin make sure it stays gremlin */
+X	if((ptr->mlet == 'G' && zlevel >= 10 && rn2(4)) || 
+X		!strcmp(ptr->mname, "gremlin")) {
+X		ptr = PM_GREMLIN;
+X		mtmp->data = PM_GREMLIN;
+X		mtmp->isgremlin = 1;
+X	}
+X	if(ptr->mlet == 'M'){
+X		mtmp->mimic = 1;
+X		mtmp->mappearance = ']';
+X	}
+X	if(!in_mklev) {
+X		if(x == u.ux && y == u.uy && ptr->mlet != ' ')
+X			mnexto(mtmp);
+X		if(x == 0 && y == 0)
+X			rloc(mtmp);
+X	}
+X	if(ptr->mlet == 's' || ptr->mlet == 'S') {
+X		mtmp->mhide = mtmp->mundetected = 1;
+X		if(in_mklev)
+X		if(mtmp->mx && mtmp->my)
+X			(void) mkobj_at(0, mtmp->mx, mtmp->my);
+X	}
+X	if(ptr->mlet == ':') {
+X#ifdef DGKMOD
+X		/* If you're protected with a ring, don't create
+X		 * any shape-changing chameleons -dgk
+X		 */
+X		if (Protection_from_shape_changers)
+X			mtmp->cham = 0;
+X		else {
+X			mtmp->cham = 1;
+X			(void) newcham(mtmp,
+X# ifndef RPH
+X				&mons[zlevel+14+rn2(CMNUM-14-zlevel)]);
+X# else
+X				(struct permonst *)0);
+X# endif
+X		}
+X#else
+X		mtmp->cham = 1;
+X		(void) newcham (mtmp,
+X# ifndef RPH
+X				&mons[zlevel+14+rn2(CMNUM-14-zlevel)]);
+X# else
+X				0);
+X# endif
+X#endif
+X	}
+X	if(ptr->mlet == 'I' || ptr->mlet == ';')
+X		mtmp->minvis = 1;
+X	if(ptr->mlet == 'L' || ptr->mlet == 'N'
+X	    || (in_mklev && index("&w;", ptr->mlet) && rn2(5))
+X	) mtmp->msleep = 1;
+X#ifdef HARD
+X	if(ptr->mlet == '&' && (Inhell || u.udemigod)) {
+X
+X		if(!rn2(3 + !Inhell + !u.udemigod)) {
+X		    if (rn2(3 + Inhell)) mtmp->data = &d_lord;
+X		    else  {
+X			mtmp->data = &d_prince;
+X			mtmp->mpeaceful = 1;
+X			mtmp->minvis = 1;
+X		    }
+X		}
+X#ifdef RPH
+X		if(uwep)
+X		    if(!strcmp(ONAME(uwep), "Excalibur"))
+X			mtmp->mpeaceful = mtmp->mtame = 0;
+X#endif
+X	}
+X#endif /* HARD /**/
+X#ifndef NOWORM
+X	if(ptr->mlet == 'w' && getwn(mtmp))  initworm(mtmp);
+X#endif
+X
+X	if(anything)
+X	    if(ptr->mlet == 'O' || ptr->mlet == 'k'
+X#ifdef SAC
+X	       || ptr->mlet == '3'
+X#endif /* SAC /**/
+X	       || (ptr->mlet == 'G' && mtmp->isgremlin)
+X				  ) {
+X
+X		coord mm;
+X		register int cnt = rnd(10);
+X		mm.x = x;
+X		mm.y = y;
+X		while(cnt--) {
+X			enexto(&mm, mm.x, mm.y);
+X			(void) makemon(ptr, mm.x, mm.y);
+X		}
+X	}
+X#ifdef DGKMOD
+X	m_initinv(mtmp);
+X#endif
+X	return(mtmp);
+X}
+X
+X#ifdef DGKMOD
+X/* Give some monsters an initial inventory to use */
+Xm_initinv(mtmp)
+Xstruct monst *mtmp;
+X{
+X	struct obj *otmp;
+X
+X	switch (mtmp->data->mlet) {
+X# ifdef KAA
+X	case '9':
+X		if (rn2(2)) {
+X			otmp = mksobj(ENORMOUS_ROCK);
+X			mpickobj(mtmp, otmp);
+X		}
+X# endif
+X# ifdef SAC
+X	case '3':			/* Outfit the troops */
+X		if (!rn2(5)) {
+X			otmp = mksobj(HELMET);
+X			mpickobj(mtmp, otmp); }
+X		if (!rn2(5)) {
+X			otmp = mksobj(CHAIN_MAIL);
+X			mpickobj(mtmp, otmp); }
+X		if (!rn2(4)) {
+X			otmp = mksobj(DAGGER);
+X			mpickobj(mtmp, otmp); }
+X		if (!rn2(7)) {
+X			otmp = mksobj(SPEAR);
+X			mpickobj(mtmp, otmp); }
+X		if (!rn2(3)) {
+X			otmp = mksobj(K_RATION);
+X			mpickobj(mtmp, otmp); }
+X		if (!rn2(2)) {
+X			otmp = mksobj(C_RATION);
+X			mpickobj(mtmp, otmp); }
+X# endif /* SAC /**/
+X# ifdef KOPS
+X	case 'K':		/* create Keystone Kops with cream pies to
+X				 * throw. As suggested by KAA.	   [MRS]
+X				 */
+X		if (!rn2(4)
+X#  ifdef KJSMODS
+X  		    && !strcmp(mtmp->data->mname, "Keystone Kop")
+X#  endif
+X								) {
+X			otmp = mksobj(CREAM_PIE);
+X			otmp->quan = 2 + rnd(2);
+X			otmp->owt = weight(otmp);
+X			mpickobj(mtmp, otmp);
+X		}
+X		break;
+X	case 'O':
+X# else
+X	case 'K':
+X# endif
+X		if (!rn2(4)) {
+X			otmp = mksobj(DART);
+X			otmp->quan = 2 + rnd(12);
+X			otmp->owt = weight(otmp);
+X			mpickobj(mtmp, otmp);
+X		}
+X		break;
+X
+X	case 'C':
+X		if (rn2(2)) {
+X			otmp = mksobj(CROSSBOW);
+X			otmp->cursed = rn2(2);
+X			mpickobj(mtmp, otmp);
+X			otmp = mksobj(CROSSBOW_BOLT);
+X			otmp->quan = 2 + rnd(12);
+X			otmp->owt = weight(otmp);
+X			mpickobj(mtmp, otmp);
+X		}
+X		break;
+X	default:
+X		break;
+X	}
+X}
+X#endif
+X
+Xenexto(cc, xx,yy)
+Xcoord	*cc;
+Xregister xchar xx,yy;
+X{
+X	register xchar x,y;
+X	coord foo[15], *tfoo;
+X	int range, i;
+X
+X	tfoo = foo;
+X	range = 1;
+X	do {	/* full kludge action. */
+X		for(x = xx-range; x <= xx+range; x++)
+X			if(goodpos(x, yy-range)) {
+X				tfoo->x = x;
+X				(tfoo++)->y = yy-range;
+X				if(tfoo == &foo[15]) goto foofull;
+X			}
+X		for(x = xx-range; x <= xx+range; x++)
+X			if(goodpos(x,yy+range)) {
+X				tfoo->x = x;
+X				(tfoo++)->y = yy+range;
+X				if(tfoo == &foo[15]) goto foofull;
+X			}
+X		for(y = yy+1-range; y < yy+range; y++)
+X			if(goodpos(xx-range,y)) {
+X				tfoo->x = xx-range;
+X				(tfoo++)->y = y;
+X				if(tfoo == &foo[15]) goto foofull;
+X			}
+X		for(y = yy+1-range; y < yy+range; y++)
+X			if(goodpos(xx+range,y)) {
+X				tfoo->x = xx+range;
+X				(tfoo++)->y = y;
+X				if(tfoo == &foo[15]) goto foofull;
+X			}
+X		range++;
+X	} while(tfoo == foo);
+Xfoofull:
+X	i = rn2(tfoo - foo);
+X	cc->x = foo[i].x;
+X	cc->y = foo[i].y;
+X	return(0);
+X}
+X
+Xgoodpos(x,y)	/* used only in mnexto and rloc */
+X{
+X	return(
+X	! (x < 1 || x > COLNO-2 || y < 1 || y > ROWNO-2 ||
+X	   m_at(x,y) || !ACCESSIBLE(levl[x][y].typ)
+X	   || (x == u.ux && y == u.uy)
+X	   || sobj_at(ENORMOUS_ROCK, x, y)
+X	));
+X}
+X
+Xrloc(mtmp)
+Xstruct monst *mtmp;
+X{
+X	register tx,ty;
+X	register char ch = mtmp->data->mlet;
+X
+X#ifndef NOWORM
+X	if(ch == 'w' && mtmp->mx) return;	/* do not relocate worms */
+X#endif
+X	do {
+X		tx = rn1(COLNO-3,2);
+X		ty = rn2(ROWNO);
+X	} while(!goodpos(tx,ty));
+X	mtmp->mx = tx;
+X	mtmp->my = ty;
+X	if(u.ustuck == mtmp){
+X		if(u.uswallow) {
+X			u.ux = tx;
+X			u.uy = ty;
+X			docrt();
+X		} else	u.ustuck = 0;
+X	}
+X	pmon(mtmp);
+X}
+X
+Xstruct monst *
+Xmkmon_at(let,x,y)
+Xchar let;
+Xregister int x,y;
+X{
+X	register int ct;
+X	register struct permonst *ptr;
+X
+X	for(ct = 0; ct < CMNUM; ct++) {
+X		ptr = &mons[ct];
+X		if(ptr->mlet == let)
+X			return(makemon(ptr,x,y));
+X	}
+X	return((struct monst *)0);
+X}
+END_OF_makemon.c
+if test 9939 -ne `wc -c <makemon.c`; then
+    echo shar: \"makemon.c\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+if test -f nansi.doc -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"nansi.doc\"
+else
+echo shar: Extracting \"nansi.doc\" \(9370 characters\)
+sed "s/^X//" >nansi.doc <<'END_OF_nansi.doc'
+XFrom utzoo!linus!harvard!rochester!srs!dan Wed Dec  9 21:22:38 1987
+XReceived: by genat.UUCP (5.52/4.7)
+X	id AA12320; Wed, 9 Dec 87 21:22:29 EST
+XReceived: by linus.research (3.2/4.7)
+X	id AA14176; Wed, 9 Dec 87 18:42:24 EST
+XFrom: <linus!harvard!rochester!srs!dan>
+XPosted-Date: Fri, 4 Dec 87 11:43:38 EST
+XReceived: by harvard.harvard.edu; Mon, 7 Dec 87 19:39:35 EST
+XReceived: by sol.cs.rochester.edu (3.2/h) id AA14555; Fri, 4 Dec 87 15:52:13 EST
+XReceived: from rem.srs.com by srs.com (3.2/SMI-3.2)
+X	id AA14965; Fri, 4 Dec 87 11:43:43 EST
+XReceived: by rem.srs.com (3.2/SMI-3.2)
+X	id AA00445; Fri, 4 Dec 87 11:43:38 EST
+XDate: Fri, 4 Dec 87 11:43:38 EST
+XMessage-Id: <8712041643.AA00445@rem.srs.com>
+XTo: rochester!harvard!linus!utzoo!genat!mike,
+X        rochester!harvard!linus!utzoo!genat!tekred!billr
+XSubject: nansi docs
+X
+X*sigh*
+XGee, guys, you could have given me some warning...
+XAnyway, here's the documentation for Nansi; perhaps you can poke it
+Xin the next patch distribution.
+XThanks,
+X   Dan Kegel
+Xnansi	- enhanced MS-DOS ansi console driver
+X
+XSYNOPSIS
+X	Include in \config.sys the line
+X		device=nansi.sys
+X
+XDESCRIPTION
+X	Nansi.sys is a console driver which understands ANSI control sequences.
+X	It has several advantages over ANSI.SYS (the driver supplied with DOS):
+X	1. It supports new escape sequences (see below).
+X	2. It provides MUCH faster output under certain conditions.
+X	3. It supports the 43-line mode of the EGA.
+X	4. The darned bell is now 1/4 second instead of 1/2 second long.
+X
+X	What a console driver does:
+X	When you, for example, type
+X		C:> type foo.txt
+X	COMMAND.COM opens the file foo.txt, reads it, and writes it to
+X	the console driver, which puts it up on the screen.
+X
+X	Both ansi.sys and nansi.sys use IBM Video BIOS to control the screen.
+X	However, nansi.sys bypasses BIOS if the screen is in a text mode; this
+X	allows much faster operation under certain conditions.
+X
+X	While putting text up on the screen, (n)ansi.sys keeps a lookout for
+X	the escape character (chr(27), known as ESC); this character signals
+X	the start of a terminal control sequence.
+X	Terminal control sequences follow the format
+X		ESC [ param; param; ...; param cmd
+X	where
+X		ESC	is the escape character chr$(27).
+X		[	is the left bracket character.
+X		param	is an ASCII decimal number, or a string in quotes.
+X		cmd	is a case-specific letter identifying the command.
+X	Usually, zero, one, or two parameters are given.  If parameters
+X	are omitted, they usually default to 1; however, some commands
+X	(KKR and DKOCT) treat the no-parameter case specially.
+X	Spaces are not allowed between parameters.
+X
+X	For example, both ESC[1;1H and ESC[H send the cursor to the home
+X	position (1,1), which is the upper left.
+X
+X	Either single or double quotes may be used to quote a string.
+X	Each character inside a quoted string is equivalent to one numeric
+X	parameter.  Quoted strings are normally used only for the Keyboard
+X	Key Reassignment command.
+X
+XControl Sequences
+X	The following table lists the sequences understood by nansi.sys.
+X	Differences between nansi.sys and the standard ansi.sys are marked
+X	with a vertical bar (|).
+X
+XCursor Positioning
+XShort	Long name		Format		Notes
+XCUP	cursor position		ESC[y;xH	Sets cursor position.
+XHVP	cursor position		ESC[y;xf	Same as CUP; not recommended.
+XCUU	cursor up		ESC[nA		n = # of lines to move
+XCUD	cursor down		ESC[nB
+XCUF	cursor forward		ESC[nC		n = # of columns to move
+XCUB	cursor backward		ESC[nD
+XDSR	Device Status, Report!	ESC[6n		Find out cursor position.
+XCPR	Cursor Position report	ESC[y;xR<CR>	Response to DSR, as if typed.
+XSCP	Save Cursor Position	ESC[s		Not nestable.
+XRCP	Restore Cursor Position ESC[u
+X
+XEditing
+XED	Erase in Display	ESC[2J	Clears screen.
+XEL	Erase in Line		ESC[K	Clears to end of line.
+XIL  |	Insert Lines		ESC[nL	Inserts n blank lines at cursor line.
+XDL  |	Delete Lines		ESC[nM	Deletes n lines, including cursor line.
+XICH |	Insert Characters	ESC[n@	Inserts n blank chars at cursor.
+XDCH |	Delete Characters	ESC[nP	Deletes n chars, including cursor char.
+X
+X
+XMode-Setting
+XSGR	Set Graphics Rendition	ESC[n;n;...nm	See character attribute table.
+XSM	Set Mode		ESC[=nh		See screen mode table.
+XRM	Reset Mode		ESC[=nl		See screen mode table.
+XIBMKKR	Keyboard Key Reass.	ESC["string"p
+X	The first char of the string gives the key to redefine; the rest
+X	of the string is the key's new value.
+X	To specify unprintable chars, give the ASCII value of the char
+X	outside of quotes, as a normal parameter.
+X	IBM function keys are two byte strings; see the IBM Basic manual.
+X	For instance, ESC[0;";dir a:";13;p redefines function key 1 to
+X	have the value "dir a:" followed by the ENTER key.
+X      | If no parameters given, all keys are reset to their default values.
+X
+XDKOCT | Output char translate	ESC[n;ny
+X      | When first char is encountered in output request, it is replaced with
+X      | the second char.  This might be useful for previewing text before
+X      | sending it to a printer with a funny print wheel.
+X      | If no parameters are given, all chars are reset to normal.
+X
+X
+XCharacter Attributes
+X	The Set Graphics Rendition command is used to select foreground
+X	and background colors or attributes.
+X	When you use multiple parameters, they are executed in sequence, and
+X	the effects are cumulative.
+X	   Attrib code		Value
+X		0		All attributes off (normal white on black)
+X		1		Bold
+X		4		Underline
+X		5		Blink
+X		7		Reverse Video
+X		8		Invisible (but why?)
+X		30-37		foregnd blk/red/grn/yel/blu/magenta/cyan/white
+X		40-47		background
+X
+XScreen Modes
+X	The IBM BIOS supports several video modes; the codes given in the
+X	BIOS documentation are used as parameters to the Set Mode command.
+X      | (In bitmap modes, the cursor is simulated with a small blob (^V).)
+X	    Mode Code		Value
+X		0		text 40x25 Black & White
+X		1		text 40x25 Color
+X		2		text 80x25 Black & White
+X		3		text 80x25 Color
+X		4		bitmap 320x200 4 bits/pixel
+X		5		bitmap 320x200 1 bit/pixel
+X		6		bitmap 640x200 1 bit/pixel
+X		7		(cursor wrap kludge)
+X		13		bitmap 320x200 4 bits/pixel
+X		14		bitmap 640x200 4 bits/pixel
+X		15		[ IBM Monochrome display 640x350 2 bits/pixel?]
+X		16		bitmap 640x350 4 bits/pixel [with full 256K]
+X	Mode 7 is an unfortunate kludge; Setting mode 7 tells the cursor
+X	to wrap around to the next line when it passes the end of a line;
+X	Resetting mode 7 tells the cursor to not wrap, but rather stay put.
+X      | If your computer has the Enhanced Graphics Adaptor, modes between
+X      | 8 and 15 are also supported; see the EGA BIOS for info.
+X      | The EGA also lets you use a shorter character cell in text modes
+X      | in order to squeeze 43 lines of text out of the 25-line text modes.
+X      | To enter 43 line mode, set the desired 25-line text mode (0 to 3),
+X      | then Set Mode 43.  For instance: ESC[=3h ESC[=43h.
+X      | To exit 43 line mode, set the desired 25-line text mode again.
+X      | Nansi.sys ignores mode 43 unless there is an EGA on your computer.
+X
+XFaster Output
+X      | Any program that sets the console to RAW mode, and buffers its
+X      | output properly, can achieve extremely high screen update speeds in
+X      | return for giving up the special functions of the keys ^C, ^S, and ^P.
+X      | See IOCTL in the MS-DOS 3.x Technical Reference for more info.
+X	Also, a small improvement in speed may be noticed with some
+X	programs that use the DOS console in normal mode, as this driver
+X	efficiently implements the (standard but undocumented) INT 29h
+X	most-favored-device putchar used by DOS.
+X
+XEXAMPLES
+X	See the files setraw.* for Macro Assembler, Lattice C,
+X	and Microsoft C routines for entering and leaving raw mode.
+X
+X	The files mode*.txt included with nansi.sys in the library
+X	new_ansi.lbr contain the Set Mode sequences to set various
+X	screen modes; for instance, to try out 43 line mode, type
+X		C:> type MODE43.TXT
+X	[ To get back to normality, type the file "mode3.txt"; don't use
+X	  the mode command, as that doesn't let nansi know what happened...]
+X
+X	The programs view.com and more.com are demos of this driver's
+X	blinding screen update speed; refer to view.doc and more.doc for
+X	details.  Briefly, typing
+X		C:> more foo.txt
+X	shows you the file foo.txt, pausing every 24 lines for you to hit
+X	the spacebar.  Typing
+X		C:> view foo.txt
+X	shows you the first page of the file foo.txt; typing PgUp or PgDn moves
+X	you backwards or forwards in the file; typing 'q' exits to DOS.
+X
+XBUGS
+X	Insert and delete character do not work in graphics modes.
+X
+X	Graphics mode writing is slow.
+X
+X	In graphics mode, the simulated cursor slows down single-char
+X	writes and screws up CED.COM; there should be a way to turn it off.
+X
+X	Does not support erase-to-end-of-screen and other useful functions.
+X
+X	Cursor Position Report has a carriage return in it, which is what
+X	ansi.sys does, but is nonstandard.
+X
+X	When using 43 line mode, typing MODE CO80 will get you back
+X	to 25 line mode- but NANSI will still scroll as if there were 43
+X	lines!  You have to use the SET MODE escape sequence instead of MODE.
+X
+XVersion
+X	(The version number can be found by typing TYPE NANSI.SYS.)
+X	This version, 2.2, created February 1986.
+X	A later version is now (April '87) in the works.
+X
+X	Problems should	be reported to Daniel Kegel:
+X	17 Mulberry St., Rochester, NY 14620
+X		    ...seismo!rochester!srs!dan
+X	Your suggestions for improvement would be most welcome.
+X
+XNOTE
+X	This program may be distributed for educational and personal use
+X	only.  Commercial use is verboten; get in touch with the author.
+X
+X
+X
+END_OF_nansi.doc
+if test 9370 -ne `wc -c <nansi.doc`; then
+    echo shar: \"nansi.doc\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+if test -f o_init.c -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"o_init.c\"
+else
+echo shar: Extracting \"o_init.c\" \(6079 characters\)
+sed "s/^X//" >o_init.c <<'END_OF_o_init.c'
+X/*	SCCS Id: @(#)o_init.c	2.3	88/01/24
+X/* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+X
+X#include	"config.h"		/* for typedefs */
+X#include	"objects.h"
+X#include	"onames.h"		/* for LAST_GEM */
+Xextern char *index();
+X
+Xint
+Xletindex(let) register char let; {
+Xregister int i = 0;
+Xregister char ch;
+X	while((ch = obj_symbols[i++]) != 0)
+X		if(ch == let) return(i);
+X	return(0);
+X}
+X
+Xinit_objects(){
+Xregister int i, j, first, last, sum, end;
+Xregister char let, *tmp;
+X
+X	/* bug fix to prevent "initialization error" abort on Intel Xenix.
+X	 * reported by mikew@semike
+X	 */
+X        for(i = 0; i != sizeof(obj_symbols); i++)
+X                bases[i] = 0;
+X
+X	/* init base; if probs given check that they add up to 100, 
+X	   otherwise compute probs; shuffle descriptions */
+X	end = SIZE(objects);
+X	first = 0;
+X	while( first < end ) {
+X		let = objects[first].oc_olet;
+X		last = first+1;
+X		while(last < end && objects[last].oc_olet == let
+X				 && objects[last].oc_name != NULL) last++;
+X		i = letindex(let);
+X		if((!i && let != ILLOBJ_SYM) || bases[i] != 0)
+X			error("initialization error");
+X		bases[i] = first;
+X
+X		if(let == GEM_SYM) setgemprobs();
+X	check:
+X		sum = 0;
+X		for(j = first; j < last; j++) sum += objects[j].oc_prob;
+X		if(sum == 0) {
+X			for(j = first; j < last; j++)
+X			    objects[j].oc_prob = (100+j-first)/(last-first);
+X			goto check;
+X		}
+X		if(sum != 100)
+X			error("init-prob error for %c (%d%%)", let, sum);
+X
+X		if(objects[first].oc_descr != NULL && let != TOOL_SYM){
+X			/* shuffle, also some additional descriptions */
+X			while(last < end && objects[last].oc_olet == let)
+X				last++;
+X			j = last;
+X			if (let == GEM_SYM) {
+X			    while(--j > first)
+X				/* NOTE:  longest color name must be default */
+X				if(!strcmp(objects[j].oc_name,"turquoise")) {
+X				    if(rn2(2)) /* change from green? */
+X					strcpy(objects[j].oc_descr,"blue");
+X				} else if (!strcmp(objects[j].oc_name,"aquamarine")) {
+X				    if(rn2(2)) /* change from green? */
+X					strcpy(objects[j].oc_descr,"blue");
+X				} else if (!strcmp(objects[j].oc_name,"fluorite")) {
+X				    switch (rn2(4)) { /* change from violet? */
+X					case 0:  break;
+X					case 1:
+X					    strcpy(objects[j].oc_descr,"blue");
+X					    break;
+X					case 2:
+X					    strcpy(objects[j].oc_descr,"white");
+X					    break;
+X					case 3:
+X					    strcpy(objects[j].oc_descr,"green");
+X					    break;
+X					}
+X				}
+X			} else
+X			    while(--j > first) {
+X				i = first + rn2(j+1-first);
+X				tmp = objects[j].oc_descr;
+X				objects[j].oc_descr = objects[i].oc_descr;
+X				objects[i].oc_descr = tmp;
+X			    }
+X		}
+X		first = last;
+X	}
+X}
+X
+Xprobtype(let) register char let; {
+Xregister int i = bases[letindex(let)];
+Xregister int prob = rn2(100);
+X	while((prob -= objects[i].oc_prob) >= 0) i++;
+X	if(objects[i].oc_olet != let || !objects[i].oc_name)
+X		panic("probtype(%c) error, i=%d", let, i);
+X	return(i);
+X}
+X
+Xsetgemprobs()
+X{
+X	register int j,first;
+X	extern xchar dlevel;
+X
+X	first = bases[letindex(GEM_SYM)];
+X
+X	for(j = 0; j < 9-dlevel/3; j++)
+X		objects[first+j].oc_prob = 0;
+X	first += j;
+X	if(first >= LAST_GEM || first >= SIZE(objects) ||
+X	    objects[first].oc_olet != GEM_SYM ||
+X	    objects[first].oc_name == NULL)
+X		printf("Not enough gems? - first=%d j=%d LAST_GEM=%d\n",
+X			first, j, LAST_GEM);
+X	for(j = first; j < LAST_GEM; j++)
+X		objects[j].oc_prob = (18+j-first)/(LAST_GEM-first);
+X}
+X
+Xoinit()			/* level dependent initialization */
+X{
+X	setgemprobs();
+X}
+X
+Xextern long *alloc();
+X
+Xsavenames(fd) register fd; {
+Xregister int i;
+Xunsigned len;
+Xstruct objclass *now = &objects[0];
+X	bwrite(fd, (char *) &now, sizeof now);
+X	bwrite(fd, (char *) bases, sizeof bases);
+X	bwrite(fd, (char *) objects, sizeof objects);
+X	/* as long as we use only one version of Hack/Quest we
+X	   need not save oc_name and oc_descr, but we must save
+X	   oc_uname for all objects */
+X	for(i=0; i < SIZE(objects); i++) {
+X		if(objects[i].oc_uname) {
+X			len = strlen(objects[i].oc_uname)+1;
+X			bwrite(fd, (char *) &len, sizeof len);
+X			bwrite(fd, objects[i].oc_uname, len);
+X		}
+X	}
+X}
+X
+Xrestnames(fd) register fd; {
+Xregister int i;
+Xunsigned len;
+Xstruct objclass *then;
+Xlong differ;
+X	mread(fd, (char *) &then, sizeof then);
+X	mread(fd, (char *) bases, sizeof bases);
+X	mread(fd, (char *) objects, sizeof objects);
+X#ifndef MSDOS
+X	differ = (char *)&objects[0] - (char *)then;
+X#else
+X	differ = (long)&objects[0] - (long)then;
+X#endif
+X	for(i=0; i < SIZE(objects); i++) {
+X		if (objects[i].oc_name) {
+X#ifndef MSDOS
+X			objects[i].oc_name += differ;
+X#else
+X			objects[i].oc_name =
+X			    (char *)((long)(objects[i].oc_name) + differ);
+X#endif
+X		}
+X		if (objects[i].oc_descr) {
+X#ifndef MSDOS
+X			objects[i].oc_descr += differ;
+X#else
+X			objects[i].oc_descr =
+X			    (char *)((long)(objects[i].oc_descr) + differ);
+X#endif
+X		}
+X		if (objects[i].oc_uname) {
+X			mread(fd, (char *) &len, sizeof len);
+X			objects[i].oc_uname = (char *) alloc(len);
+X			mread(fd, objects[i].oc_uname, len);
+X		}
+X	}
+X}
+X
+Xdodiscovered()				/* free after Robert Viduya */
+X{
+X    extern char *typename();
+X    register int i, end;
+X    int	ct = 0;
+X#ifdef DGKMOD
+X    char class = -1;
+X    extern char *let_to_name();
+X#endif
+X
+X    cornline(0, "Discoveries");
+X
+X    end = SIZE(objects);
+X    for (i = 0; i < end; i++) {
+X	if (interesting_to_discover (i)) {
+X	    ct++;
+X#ifdef DGKMOD
+X	    if (objects[i].oc_olet != class) {
+X		class = objects[i].oc_olet;
+X		cornline(1, let_to_name(class));
+X	    }
+X#endif
+X	    cornline(1, typename(i));
+X	}
+X    }
+X    if (ct == 0) {
+X	pline ("You haven't discovered anything yet...");
+X	cornline(3, (char *) 0);
+X    } else
+X	cornline(2, (char *) 0);
+X
+X    return(0);
+X}
+X
+Xinteresting_to_discover(i)
+Xregister int i;
+X{
+X    return(
+X	objects[i].oc_uname != NULL ||
+X	 (objects[i].oc_name_known && objects[i].oc_descr != NULL)
+X    );
+X}
+X
+Xinit_corpses() {
+X
+X#ifdef SPIDERS
+X	strcpy(objects[DEAD_GIANT_SPIDER].oc_name, "dead giant spider");
+X#endif
+X
+X#ifdef KOPS
+X	strcpy(objects[DEAD_KOP].oc_name, "dead Kop");
+X# endif
+X
+X#ifdef ROCKMOLE
+X	strcpy(objects[DEAD_ROCKMOLE].oc_name, "dead rockmole");
+X#endif
+X
+X#ifndef KAA
+X	strcpy(objects[DEAD_QUASIT].oc_name, "dead quasit");
+X	strcpy(objects[DEAD_VIOLET_FUNGI].oc_name, "dead violet fungi");
+X#endif
+X	return(0);
+X}
+END_OF_o_init.c
+if test 6079 -ne `wc -c <o_init.c`; then
+    echo shar: \"o_init.c\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+if test -f onames.h -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"onames.h\"
+else
+echo shar: Extracting \"onames.h\" \(8681 characters\)
+sed "s/^X//" >onames.h <<'END_OF_onames.h'
+X#define	STRANGE_OBJECT	0
+X#define	AMULET_OF_YENDOR	1
+X#define	FOOD_RATION	2
+X#define	TRIPE_RATION	3
+X#define	PANCAKE	4
+X#define	DEAD_LIZARD	5
+X#define	FORTUNE_COOKIE	6
+X#define	CARROT	7
+X#define	SLICE_OF_PIZZA	8
+X#define	CREAM_PIE	9
+X#define	TIN	10
+X#define	ORANGE	11
+X#define	APPLE	12
+X#define	PEAR	13
+X#define	MELON	14
+X#define	BANANA	15
+X#define	CANDY_BAR	16
+X#define	EGG	17
+X#define	CLOVE_OF_GARLIC	18
+X#define	LUMP_OF_ROYAL_JELLY	19
+X#define	DEAD_HUMAN	20
+X#define	DEAD_GIANT_ANT	21
+X#define	DEAD_GIANT_BAT	22
+X#define	DEAD_CENTAUR	23
+X#define	DEAD_DRAGON	24
+X#define	DEAD_FLOATING_EYE	25
+X#define	DEAD_FREEZING_SPHERE	26
+X#define	DEAD_GNOME	27
+X#define	DEAD_HOBGOBLIN	28
+X#define	DEAD_STALKER	29
+X#define	DEAD_JACKAL	30
+X#define	DEAD_KOBOLD	31
+X#define	DEAD_LEPRECHAUN	32
+X#define	DEAD_MIMIC	33
+X#define	DEAD_NYMPH	34
+X#define	DEAD_ORC	35
+X#define	DEAD_PURPLE_WORM	36
+X#define	DEAD_QUANTUM_MECHANIC	37
+X#define	DEAD_RUST_MONSTER	38
+X#define	DEAD_SNAKE	39
+X#define	DEAD_TROLL	40
+X#define	DEAD_UMBER_HULK	41
+X#define	DEAD_VAMPIRE	42
+X#define	DEAD_WRAITH	43
+X#define	DEAD_XORN	44
+X#define	DEAD_YETI	45
+X#define	DEAD_ZOMBIE	46
+X#define	DEAD_ACID_BLOB	47
+X#define	DEAD_GIANT_BEETLE	48
+X#define	DEAD_COCKATRICE	49
+X#define	DEAD_DOG	50
+X#define	DEAD_ETTIN	51
+X#define	DEAD_FOG_CLOUD	52
+X#define	DEAD_GELATINOUS_CUBE	53
+X#define	DEAD_HOMUNCULUS	54
+X#define	DEAD_IMP	55
+X#define	DEAD_JAGUAR	56
+X#define	DEAD_KILLER_BEE	57
+X#define	DEAD_LEOCROTTA	58
+X#define	DEAD_MINOTAUR	59
+X#define	DEAD_NURSE	60
+X#define	DEAD_OWLBEAR	61
+X#define	DEAD_PIERCER	62
+X#define	DEAD_QUIVERING_BLOB	63
+X#define	DEAD_GIANT_RAT	64
+X#define	DEAD_GIANT_SCORPION	65
+X#define	DEAD_TENGU	66
+X#define	DEAD_UNICORN	67
+X#define	DEAD_VIOLET_FUNGUS	68
+X#define	DEAD_LONG_WORM	69
+X#define	DEAD_XAN	70
+X#define	DEAD_YELLOW_LIGHT	71
+X#define	DEAD_ZRUTY	72
+X#define	DEAD_SOLDIER	73
+X#define	DEAD_GIANT	74
+X#define	DEAD_DEMON	75
+X#define	ARROW	76
+X#define	SLING_BULLET	77
+X#define	CROSSBOW_BOLT	78
+X#define	DART	79
+X#define	SHURIKEN	80
+X#define	ROCK	81
+X#define	BOOMERANG	82
+X#define	MACE	83
+X#define	AXE	84
+X#define	FLAIL	85
+X#define	LONG_SWORD	86
+X#define	TWO_HANDED_SWORD	87
+X#define	DAGGER	88
+X#define	WORM_TOOTH	89
+X#define	CRYSKNIFE	90
+X#define	AKLYS	91
+X#define	BARDICHE	92
+X#define	BEC_DE_CORBIN	93
+X#define	BILL_GUISARME	94
+X#define	CLUB	95
+X#define	FAUCHARD	96
+X#define	GLAIVE	97
+X#define	GUISARME	98
+X#define	HALBERD	99
+X#define	LUCERN_HAMMER	100
+X#define	JAVELIN	101
+X#define	KATANA	102
+X#define	LANCE	103
+X#define	MORNING_STAR	104
+X#define	PARTISAN	105
+X#define	RANSEUR	106
+X#define	SCIMITAR	107
+X#define	SPETUM	108
+X#define	BROAD_SWORD	109
+X#define	SHORT_SWORD	110
+X#define	TRIDENT	111
+X#define	VOULGE	112
+X#define	SPEAR	113
+X#define	BOW	114
+X#define	SLING	115
+X#define	CROSSBOW	116
+X#define	WHISTLE	117
+X#define	LEASH	118
+X#define	MAGIC_WHISTLE	119
+X#define	BLINDFOLD	120
+X#define	MIRROR	121
+X#define	EXPENSIVE_CAMERA	122
+X#define	ICE_BOX	123
+X#define	PICK_AXE	124
+X#define	MAGIC_MARKER	125
+X#define	STETHOSCOPE	126
+X#define	CAN_OPENER	127
+X#define	HEAVY_IRON_BALL	128
+X#define	IRON_CHAIN	129
+X#define	ENORMOUS_ROCK	130
+X#define	HELMET	131
+X#define	PLATE_MAIL	132
+X#define	SPLINT_MAIL	133
+X#define	BANDED_MAIL	134
+X#define	CHAIN_MAIL	135
+X#define	SCALE_MAIL	136
+X#define	RING_MAIL	137
+X#define	STUDDED_LEATHER_ARMOR	138
+X#define	ELFIN_CHAIN_MAIL	139
+X#define	BRONZE_PLATE_MAIL	140
+X#define	CRYSTAL_PLATE_MAIL	141
+X#define	LEATHER_ARMOR	142
+X#define	ELVEN_CLOAK	143
+X#define	SHIELD	144
+X#define	PAIR_OF_GLOVES	145
+X#define	POT_RESTORE_STRENGTH	146
+X#define	POT_GAIN_ENERGY	147
+X#define	POT_BOOZE	148
+X#define	POT_INVISIBILITY	149
+X#define	POT_FRUIT_JUICE	150
+X#define	POT_HEALING	151
+X#define	POT_PARALYSIS	152
+X#define	POT_MONSTER_DETECTION	153
+X#define	POT_OBJECT_DETECTION	154
+X#define	POT_SICKNESS	155
+X#define	POT_CONFUSION	156
+X#define	POT_GAIN_STRENGTH	157
+X#define	POT_SPEED	158
+X#define	POT_BLINDNESS	159
+X#define	POT_GAIN_LEVEL	160
+X#define	POT_EXTRA_HEALING	161
+X#define	POT_LEVITATION	162
+X#define	POT_HALLUCINATION	163
+X#define	POT_HOLY_WATER	164
+X#define	SCR_MAIL	167
+X#define	SCR_ENCHANT_ARMOR	168
+X#define	SCR_DESTROY_ARMOR	169
+X#define	SCR_CONFUSE_MONSTER	170
+X#define	SCR_SCARE_MONSTER	171
+X#define	SCR_BLANK_PAPER	172
+X#define	SCR_REMOVE_CURSE	173
+X#define	SCR_ENCHANT_WEAPON	174
+X#define	SCR_DAMAGE_WEAPON	175
+X#define	SCR_CREATE_MONSTER	176
+X#define	SCR_TAMING	177
+X#define	SCR_GENOCIDE	178
+X#define	SCR_LIGHT	179
+X#define	SCR_TELEPORTATION	180
+X#define	SCR_GOLD_DETECTION	181
+X#define	SCR_FOOD_DETECTION	182
+X#define	SCR_IDENTIFY	183
+X#define	SCR_MAGIC_MAPPING	184
+X#define	SCR_AMNESIA	185
+X#define	SCR_FIRE	186
+X#define	SCR_PUNISHMENT	187
+X#define	WAN_LIGHT	192
+X#define	WAN_SECRET_DOOR_DETECTION	193
+X#define	WAN_CREATE_MONSTER	194
+X#define	WAN_WISHING	195
+X#define	WAN_STRIKING	196
+X#define	WAN_NOTHING	197
+X#define	WAN_SLOW_MONSTER	198
+X#define	WAN_SPEED_MONSTER	199
+X#define	WAN_UNDEAD_TURNING	200
+X#define	WAN_POLYMORPH	201
+X#define	WAN_CANCELLATION	202
+X#define	WAN_TELEPORTATION	203
+X#define	WAN_MAKE_INVISIBLE	204
+X#define	WAN_PROBING	205
+X#define	WAN_DIGGING	206
+X#define	WAN_MAGIC_MISSILE	207
+X#define	WAN_FIRE	208
+X#define	WAN_SLEEP	209
+X#define	WAN_COLD	210
+X#define	WAN_DEATH	211
+X#define	SPE_MAGIC_MISSILE	214
+X#define	SPE_FIREBALL	215
+X#define	SPE_SLEEP	216
+X#define	SPE_CONE_OF_COLD	217
+X#define	SPE_FINGER_OF_DEATH	218
+X#define	SPE_HEALING	219
+X#define	SPE_DETECT_MONSTERS	220
+X#define	SPE_FORCE_BOLT	221
+X#define	SPE_LIGHT	222
+X#define	SPE_CONFUSE_MONSTER	223
+X#define	SPE_CURE_BLINDNESS	224
+X#define	SPE_SLOW_MONSTER	225
+X#define	SPE_CREATE_MONSTER	226
+X#define	SPE_DETECT_FOOD	227
+X#define	SPE_HASTE_SELF	228
+X#define	SPE_CAUSE_FEAR	229
+X#define	SPE_CURE_SICKNESS	230
+X#define	SPE_DETECT_UNSEEN	231
+X#define	SPE_EXTRA_HEALING	232
+X#define	SPE_CHARM_MONSTER	233
+X#define	SPE_LEVITATION	234
+X#define	SPE_RESTORE_STRENGTH	235
+X#define	SPE_INVISIBILITY	236
+X#define	SPE_DETECT_TREASURE	237
+X#define	SPE_DIG	238
+X#define	SPE_REMOVE_CURSE	239
+X#define	SPE_MAGIC_MAPPING	240
+X#define	SPE_IDENTIFY	241
+X#define	SPE_TURN_UNDEAD	242
+X#define	SPE_POLYMORPH	243
+X#define	SPE_CREATE_FAMILIAR	244
+X#define	SPE_TELEPORT_AWAY	245
+X#define	SPE_CANCELLATION	246
+X#define	SPE_GENOCIDE	247
+X#define	Adornment	u.uprops[0].p_flgs
+X#define	RIN_ADORNMENT	252
+X#define	HTeleportation	u.uprops[1].p_flgs
+X#define	Teleportation	((HTeleportation) || index("LNt", u.usym))
+X#define	RIN_TELEPORTATION	253
+X#define	HRegeneration	u.uprops[2].p_flgs
+X#define	Regeneration	((HRegeneration) || index("TVi", u.usym))
+X#define	RIN_REGENERATION	254
+X#define	Searching	u.uprops[3].p_flgs
+X#define	RIN_SEARCHING	255
+X#define	HSee_invisible	u.uprops[4].p_flgs
+X#define	See_invisible	((HSee_invisible) || index("I", u.usym))
+X#define	RIN_SEE_INVISIBLE	256
+X#define	Stealth	u.uprops[5].p_flgs
+X#define	RIN_STEALTH	257
+X#define	Levitation	u.uprops[6].p_flgs
+X#define	RIN_LEVITATION	258
+X#define	HPoison_resistance	u.uprops[7].p_flgs
+X#define	Poison_resistance	((HPoison_resistance) || index("abcghikqsuvxyADFQSVWXZ&", u.usym))
+X#define	RIN_POISON_RESISTANCE	259
+X#define	Aggravate_monster	u.uprops[8].p_flgs
+X#define	RIN_AGGRAVATE_MONSTER	260
+X#define	Hunger	u.uprops[9].p_flgs
+X#define	RIN_HUNGER	261
+X#define	HFire_resistance	u.uprops[10].p_flgs
+X#define	Fire_resistance	((HFire_resistance) || index("gD&", u.usym))
+X#define	RIN_FIRE_RESISTANCE	262
+X#define	HCold_resistance	u.uprops[11].p_flgs
+X#define	Cold_resistance	((HCold_resistance) || index("gFY", u.usym))
+X#define	RIN_COLD_RESISTANCE	263
+X#define	Protection_from_shape_changers	u.uprops[12].p_flgs
+X#define	RIN_PROTECTION_FROM_SHAPE_CHAN	264
+X#define	Conflict	u.uprops[13].p_flgs
+X#define	RIN_CONFLICT	265
+X#define	Gain_strength	u.uprops[14].p_flgs
+X#define	RIN_GAIN_STRENGTH	266
+X#define	Increase_damage	u.uprops[15].p_flgs
+X#define	RIN_INCREASE_DAMAGE	267
+X#define	Protection	u.uprops[16].p_flgs
+X#define	RIN_PROTECTION	268
+X#define	Warning	u.uprops[17].p_flgs
+X#define	RIN_WARNING	269
+X#define	HTeleport_control	u.uprops[18].p_flgs
+X#define	Teleport_control	((HTeleport_control) || index("t", u.usym))
+X#define	RIN_TELEPORT_CONTROL	270
+X#define	Polymorph	u.uprops[19].p_flgs
+X#define	RIN_POLYMORPH	271
+X#define	Polymorph_control	u.uprops[20].p_flgs
+X#define	RIN_POLYMORPH_CONTROL	272
+X#define	DILITHIUM_CRYSTAL	275
+X#define	DIAMOND	276
+X#define	RUBY	277
+X#define	SAPPHIRE	278
+X#define	EMERALD	279
+X#define	TURQUOISE	280
+X#define	AQUAMARINE	281
+X#define	TOURMALINE	282
+X#define	TOPAZ	283
+X#define	OPAL	284
+X#define	GARNET	285
+X#define	AMETHYST	286
+X#define	AGATE	287
+X#define	ONYX	288
+X#define	JASPER	289
+X#define	JADE	290
+X/* #define	WORTHLESS_PIECE_OF_BLUE_GLASS	291 */
+X/* #define	WORTHLESS_PIECE_OF_RED_GLASS	292 */
+X/* #define	WORTHLESS_PIECE_OF_YELLOW_GLASS	293 */
+X/* #define	WORTHLESS_PIECE_OF_GREEN_GLASS	294 */
+X
+X#define	CORPSE		DEAD_HUMAN
+X#define	DEAD_KOP		DEAD_KOBOLD
+X#define	DEAD_GIANT_SPIDER	DEAD_GIANT_SCORPION
+X#define	DEAD_ROCKMOLE		DEAD_GIANT_RAT
+X#define	LAST_GEM	(JADE+1)
+X#define	LAST_RING	21
+X#define MAXSPELL	35
+X#define	NROFOBJECTS	294
+END_OF_onames.h
+if test 8681 -ne `wc -c <onames.h`; then
+    echo shar: \"onames.h\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+if test -f options.c -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"options.c\"
+else
+echo shar: Extracting \"options.c\" \(10400 characters\)
+sed "s/^X//" >options.c <<'END_OF_options.c'
+X/*	SCCS Id: @(#)options.c	2.3	87/12/12
+X/* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+X
+X#include "config.h"
+X#include "hack.h"
+Xextern char *eos();
+X#ifdef SORTING
+Xstatic boolean set_order;
+X#endif
+X
+Xinitoptions()
+X{
+X	register char *opts;
+X	extern char *getenv();
+X
+X	flags.time = flags.nonews = flags.notombstone = flags.end_own =
+X	flags.standout = flags.nonull = FALSE;
+X	flags.no_rest_on_space = TRUE;
+X	flags.invlet_constant = TRUE;
+X	flags.end_top = 5;
+X	flags.end_around = 4;
+X	flags.female = FALSE;			/* players are usually male */
+X#ifdef SORTING
+X	flags.sortpack = TRUE;
+X#endif
+X#ifdef SAFE_ATTACK
+X	flags.confirm = TRUE;
+X#endif
+X#ifdef DGKMOD
+X	flags.silent = 	flags.pickup = TRUE;
+X#endif
+X#ifdef DGK
+X	flags.IBMBIOS = flags.DECRainbow = flags.rawio = FALSE;
+X	read_config_file();
+X#endif
+X#ifdef HACKOPTIONS
+X	if(opts = getenv("HACKOPTIONS"))
+X		parseoptions(opts,TRUE);
+X#endif
+X}
+X
+Xparseoptions(opts, from_env)
+Xregister char *opts;
+Xboolean from_env;
+X{
+X	register char *op,*op2;
+X	unsigned num;
+X	boolean negated;
+X
+X	if(op = index(opts, ',')) {
+X		*op++ = 0;
+X		parseoptions(op, from_env);
+X	}
+X	if(op = index(opts, ' ')) {
+X		op2 = op;
+X		while(*op++)
+X			if(*op != ' ') *op2++ = *op;
+X	}
+X	if(!*opts) return;
+X	negated = FALSE;
+X	while((*opts == '!') || !strncmp(opts, "no", 2)) {
+X		if(*opts == '!') opts++; else opts += 2;
+X		negated = !negated;
+X	}
+X	
+X#ifndef DGK
+X	if(!strncmp(opts,"standout",4)) {
+X		flags.standout = !negated;
+X		return;
+X	}
+X
+X	if(!strncmp(opts,"null",4)) {
+X		flags.nonull = negated;
+X		return;
+X	}
+X
+X	if(!strncmp(opts,"tombstone",4)) {
+X		flags.notombstone = negated;
+X		return;
+X	}
+X
+X	if(!strncmp(opts,"news",4)) {
+X		flags.nonews = negated;
+X		return;
+X	}
+X#endif
+X
+X#ifdef SAFE_ATTACK
+X	if (!strncmp(opts, "conf", 4)) {
+X		flags.confirm = !negated;
+X		return;
+X	}
+X
+X#endif
+X#ifdef DGKMOD
+X	if (!strncmp(opts, "sile", 4)) {
+X		flags.silent = !negated;
+X		return;
+X	}
+X
+X	if (!strncmp(opts, "pick", 4)) {
+X		flags.pickup = !negated;
+X		return;
+X	}
+X#endif
+X#ifdef DGK
+X	if (!strncmp(opts, "IBMB", 4)) {
+X		flags.IBMBIOS = !negated;
+X		return;
+X	}
+X
+X	if (!strncmp(opts, "rawi", 4)) {
+X		if (from_env)
+X			flags.rawio = !negated;
+X		else
+X			pline("'rawio' only settable from %s.", configfile);
+X		return;
+X	}
+X
+X	if (!strncmp(opts, "DECR", 4)) {
+X		flags.DECRainbow = !negated;
+X		return;
+X	}
+X#endif
+X
+X#ifdef SORTING
+X	if (!strncmp(opts, "sort", 4)) {
+X		flags.sortpack = !negated;
+X		return;
+X	}
+X
+X	/*
+X	 * the order to list the pack
+X	 */
+X	if (!strncmp(opts,"packorder",4)) {
+X		register char	*sp, *tmp;
+X		extern char	inv_order[];
+X		int tmpend;
+X
+X		op = index(opts,':');
+X		if(!op) goto bad;
+X		op++;			/* skip : */
+X
+X		/* Missing characters in new order are filled in at the end 
+X		 * from inv_order.
+X		 */
+X		for (sp = op; *sp; sp++)
+X			if (!index(inv_order, *sp))
+X				goto bad;		/* bad char in order */
+X			else if (index(sp + 1, *sp))
+X				goto bad;		/* dup char in order */
+X		tmp = (char *) alloc((unsigned)(strlen(inv_order)+1));
+X		(void) strcpy(tmp, op);
+X		for (sp = inv_order, tmpend = strlen(tmp); *sp; sp++)
+X			if (!index(tmp, *sp)) {
+X				tmp[tmpend++] = *sp;
+X				tmp[tmpend] = 0;
+X			}
+X		(void) strcpy(inv_order, tmp);
+X		free(tmp);
+X		set_order = TRUE;
+X		return;
+X	}
+X#endif
+X
+X	if(!strncmp(opts,"time",4)) {
+X		flags.time = !negated;
+X		flags.botl = 1;
+X		return;
+X	}
+X
+X	if(!strncmp(opts,"restonspace",4)) {
+X		flags.no_rest_on_space = negated;
+X		return;
+X	}
+X
+X	if(!strncmp(opts,"fixinv",4)) {
+X		flags.invlet_constant = !negated;
+X		if(!from_env && flags.invlet_constant) reassign ();
+X		return;
+X	}
+X
+X	if(!strncmp(opts,"male",4)) {
+X#ifdef KAA
+X		if(!from_env && flags.female != negated)
+X			pline("That is not anatomically possible.");
+X		else
+X#endif
+X			flags.female = negated;
+X		return;
+X	}
+X	if(!strncmp(opts,"female",6)) {
+X#ifdef KAA
+X		if(!from_env && flags.female == negated)
+X			pline("That is not anatomically possible.");
+X		else
+X#endif
+X			flags.female = !negated;
+X		return;
+X	}
+X
+X	/* name:string */
+X	if(!strncmp(opts,"name",4)) {
+X		extern char plname[PL_NSIZ];
+X		if(!from_env) {
+X#ifdef DGK
+X		  pline("'name' only settable from %s.", configfile);
+X#else
+X		  pline("The playername can be set only from HACKOPTIONS.");
+X#endif
+X		  return;
+X		}
+X		op = index(opts,':');
+X		if(!op) goto bad;
+X		nmcpy(plname, op+1, sizeof(plname)-1);
+X		return;
+X	}
+X
+X#ifdef GRAPHICS
+X	/* graphics:string */
+X	if(!strncmp(opts,"graphics",4)) {
+X		if(!from_env) {
+X#ifdef DGK
+X		  pline("'graphics' only settable from %s.", configfile);
+X#else
+X		  pline("The graphics string can be set only from HACKOPTIONS.");
+X#endif
+X		  return;
+X		}
+X		op = index(opts,':');
+X		if(!op)
+X		    goto bad;
+X		else
+X		    opts = op + 1;
+X/*
+X * You could have problems here if you configure FOUNTAINS, SPIDERS, NEWCLASS
+X * or SINKS in or out and forget to change the tail entries in your graphics
+X * string.
+X */
+X#define SETPCHAR(f, n)	showsyms.f = (strlen(opts) > n) ? opts[n] : defsyms.f
+X		SETPCHAR(stone, 0);
+X		SETPCHAR(vwall, 1);
+X		SETPCHAR(hwall, 2);
+X		SETPCHAR(tlcorn, 3);
+X		SETPCHAR(trcorn, 4);
+X		SETPCHAR(blcorn, 5);
+X		SETPCHAR(brcorn, 6);
+X		SETPCHAR(door, 7);
+X		SETPCHAR(room, 8);
+X		SETPCHAR(corr, 9);
+X		SETPCHAR(upstair, 10);
+X		SETPCHAR(dnstair, 11);
+X		SETPCHAR(trap, 12);
+X#ifdef FOUNTAINS
+X		SETPCHAR(pool, 13);
+X		SETPCHAR(fountain, 14);
+X#endif
+X#ifdef NEWCLASS
+X		SETPCHAR(throne, 15);
+X#endif
+X#ifdef SPIDERS
+X		SETPCHAR(web, 16);
+X#endif
+X#ifdef SINKS
+X		SETPCHAR(sink, 17);
+X#endif
+X#undef SETPCHAR
+X		return;
+X	}
+X#endif /* GRAPHICS */
+X
+X	/* endgame:5t[op] 5a[round] o[wn] */
+X	if(!strncmp(opts,"endgame",3)) {
+X		op = index(opts,':');
+X		if(!op) goto bad;
+X		op++;
+X		while(*op) {
+X			num = 1;
+X			if(digit(*op)) {
+X				num = atoi(op);
+X				while(digit(*op)) op++;
+X			} else
+X			if(*op == '!') {
+X				negated = !negated;
+X				op++;
+X			}
+X			switch(*op) {
+X			case 't':
+X				flags.end_top = num;
+X				break;
+X			case 'a':
+X				flags.end_around = num;
+X				break;
+X			case 'o':
+X				flags.end_own = !negated;
+X				break;
+X			default:
+X				goto bad;
+X			}
+X			while(letter(*++op)) ;
+X			if(*op == '/') op++;
+X		}
+X		return;
+X	}
+X#ifdef	DOGNAME
+X	if(!strncmp(opts, "dogname", 3)) {
+X		extern char dogname[];
+X		op = index(opts, ':');
+X		if (!op) goto bad;
+X		nmcpy(dogname, ++op, 62);
+X		return;
+X	}
+X#endif	/* DOGNAME */
+Xbad:
+X	if(!from_env) {
+X		if(!strncmp(opts, "help", 4)) {
+X			option_help();
+X			return;
+X		}
+X		pline("Bad option: %s.  Type `O help<cr>' for help.", opts);
+X		return;
+X	}
+X#ifdef DGK
+X	printf("Bad syntax in OPTIONS in %s.", configfile);
+X#else
+X	puts("Bad syntax in HACKOPTIONS.");
+X	puts("Use for example:");
+X	puts(
+X"HACKOPTIONS=\"!restonspace,notombstone,endgame:own/5 topscorers/4 around me\""
+X	);
+X#endif
+X	getret();
+X}
+X
+Xdoset()
+X{
+X	char buf[BUFSZ];
+X#ifdef SORTING
+X	extern char inv_order[];
+X#endif
+X
+X	pline("What options do you want to set? ");
+X	getlin(buf);
+X	if(!buf[0] || buf[0] == '\033') {
+X#ifdef DGK
+X	    (void) strcpy(buf,"OPTIONS=");
+X#else
+X	    (void) strcpy(buf,"HACKOPTIONS=");
+X	    (void) strcat(buf, flags.female ? "female," : "male,");
+X	    if(flags.standout) (void) strcat(buf,"standout,");
+X	    if(flags.nonull) (void) strcat(buf,"nonull,");
+X	    if(flags.nonews) (void) strcat(buf,"nonews,");
+X	    if(flags.notombstone) (void) strcat(buf,"notombstone,");
+X	    if(flags.no_rest_on_space)	(void) strcat(buf,"!rest_on_space,");
+X#endif
+X#ifdef SORTING
+X	    if (flags.sortpack) (void) strcat(buf,"sortpack,");
+X	    if (set_order){
+X		(void) strcat(buf, "packorder: ");
+X		(void) strcat(buf, inv_order);
+X		(void) strcat(buf, ",");
+X	    }
+X#endif
+X#ifdef SAFE_ATTACK
+X	    if (flags.confirm) (void) strcat(buf,"confirm,");
+X#endif
+X#ifdef DGKMOD
+X	    if (flags.pickup) (void) strcat(buf,"pickup,");
+X	    if (flags.silent) (void) strcat(buf,"silent,");
+X#endif
+X#ifdef DGK
+X	    if (flags.rawio) (void) strcat(buf,"rawio,");
+X	    if (flags.IBMBIOS) (void) strcat(buf,"IBMBIOS,");
+X	    if (flags.DECRainbow) (void) strcat(buf,"DECRainbow,");
+X#endif
+X	    if(flags.time) (void) strcat(buf,"time,");
+X	    if(flags.end_top != 5 || flags.end_around != 4 || flags.end_own){
+X		(void) sprintf(eos(buf), "endgame: %u topscores/%u around me",
+X			flags.end_top, flags.end_around);
+X		if(flags.end_own) (void) strcat(buf, "/own scores");
+X	    } else {
+X		register char *eop = eos(buf);
+X		if(*--eop == ',') *eop = 0;
+X	    }
+X	    pline(buf);
+X	} else
+X	    parseoptions(buf, FALSE);
+X
+X	return(0);
+X}
+X
+X#ifdef DGKMOD
+Xdotogglepickup() {
+X	flags.pickup = !flags.pickup;
+X	pline("Pickup: %s.", flags.pickup ? "ON" : "OFF");
+X	return (0);
+X}
+X#endif
+X
+Xnmcpy(dest, source, maxlen)
+X	char	*dest, *source;
+X	int	maxlen;
+X{
+X	char	*cs, *cd;
+X	int	count;
+X
+X	cd = dest;
+X	cs = source;
+X	for(count = 1; count < maxlen; count++) {
+X		if(*cs == ',') break;
+X		*cd++ = *cs++;
+X	}
+X	*cd = 0;
+X}
+X
+X#ifdef SORTING
+Xchar	*packorder =
+X# ifdef SPELLS
+X			"\")[%?+/=!(*0";
+X# else
+X			"\")[%?/=!(*0";
+X# endif
+X#endif
+X#define Page_line(x)	if(page_line(x)) goto quit
+X
+Xoption_help() {
+X	char	buf[BUFSZ];
+X
+X	set_pager(0);
+X	(void) sprintf(buf, "        Net%s Options Help:",
+X#ifndef QUEST
+X			"Hack");
+X#else
+X			"Quest");
+X#endif
+X	if(page_line("") || page_line(buf) || page_line(""))	 goto quit;
+X
+X#ifdef DGK
+X	(void) sprintf(buf, "To set options use OPTIONS=<options> in %s", configfile);
+X	Page_line(buf);
+X#else
+X	Page_line("To set options use `HACKOPTIONS=\"<options>\"' in your environment");
+X#endif
+X
+X	Page_line("or give the command \"O\" followed by the line <options> while playing.");
+X	Page_line("Here <options> is a list of options separated by commas.");
+X	Page_line("");
+X
+X#ifdef DGK
+X	Page_line("Boolean options are confirm, pickup, rawio, silent, sortpack, time, IBMBIOS,");
+X	Page_line("and DECRainbow.  These can be negated by prefixing them with '!' or \"no\".");
+X#else
+X	Page_line("Boolean options are rest_on_space, news, time, null tombstone, and (fe)male,");
+X	Page_line("These can be negated by prefixing them with '!' or \"no\".");
+X#endif
+X	Page_line("");
+X
+X	Page_line("The compound options are `name', (eg. name:Merlin-W,),");
+X#ifdef	DOGNAME
+X	Page_line("`dogname', the name of your (first) dog (eg. dogname:Fang,),");
+X#endif
+X
+X#ifdef SORTING
+X	Page_line("`packorder'; the order that items should appear in your pack");
+X	(void)sprintf(buf, "(the default is:  packorder:%s ), ", packorder);
+X	Page_line(buf);
+X#endif
+X
+X#ifdef GRAPHICS
+X	Page_line("`endgame', and `graphics'.");
+X#else
+X	Page_line("and `endgame'.");
+X#endif
+X	Page_line("");
+X
+X	Page_line("The `endgame' option is followed by a description of which parts of");
+X	Page_line("the scorelist you wish to see.  You might for example say:");
+X	Page_line("");
+X	Page_line("\"endgame:own scores/5 top scores/4 around my score\".");
+X
+X	set_pager(1);
+X	return;
+Xquit:
+X	set_pager(2);
+X	return;
+X}
+END_OF_options.c
+if test 10400 -ne `wc -c <options.c`; then
+    echo shar: \"options.c\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+if test -f save.c -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"save.c\"
+else
+echo shar: Extracting \"save.c\" \(9273 characters\)
+sed "s/^X//" >save.c <<'END_OF_save.c'
+X/*	SCCS Id: @(#)save.c	2.3	88/01/24
+X/* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+X
+X#include <signal.h>
+X#include <stdio.h>
+X#include "hack.h"
+X
+Xextern char genocided[60];		/* defined in decl.c */
+Xextern char fut_geno[60];		/* idem */
+Xextern struct permonst	pm_wizard;	/* since the wizard evolves */
+X
+Xextern char SAVEF[], nul[];
+Xextern char pl_character[PL_CSIZ];
+Xextern long lseek();
+Xextern struct obj *restobjchn();
+Xextern struct monst *restmonchn();
+X
+Xdosave(){
+X	clear_screen();
+X	fflush(stdout);
+X	if(dosave0(0)) {
+X		settty("Be seeing you ...\n");
+X		exit(0);
+X	}
+X#ifdef LINT
+X	return(0);
+X#endif
+X}
+X
+X#ifndef NOSAVEONHANGUP
+Xhangup(){
+X	(void) dosave0(1);
+X	exit(1);
+X}
+X#endif
+X
+X/* returns 1 if save successful */
+Xdosave0(hu) int hu; {
+X	register fd, ofd;
+X	int tmp;		/* not register ! */
+X#ifdef DGK
+X	long fds, needed;
+X	extern long bytes_counted;
+X	int mode;
+X#endif
+X#ifdef UNIX
+X	(void) signal(SIGHUP, SIG_IGN);
+X#endif
+X#ifndef __TURBOC__
+X	(void) signal(SIGINT, SIG_IGN);
+X#endif
+X#ifdef DGK
+X	if (!saveDiskPrompt(0))
+X		return 0;
+X	fd = open(SAVEF, O_WRONLY | O_BINARY | O_CREAT, FMASK);
+X#else
+X	fd = creat(SAVEF, FMASK);
+X#endif
+X	if(fd < 0) {
+X		if(!hu) pline("Cannot open save file. (Continue or Quit)");
+X		(void) unlink(SAVEF);		/* ab@unido */
+X		return(0);
+X	}
+X	if(flags.moonphase == FULL_MOON)	/* ut-sally!fletcher */
+X		change_luck(-1);		/* and unido!ab */
+X#ifdef DGKMOD
+X	home();
+X	cl_end();
+X#endif
+X#ifdef DGK
+X	msmsg("Saving: ");
+X	mode = COUNT;
+Xagain:
+X	savelev(fd, dlevel, mode);
+X	/* count_only will be set properly by savelev */
+X#else
+X	savelev(fd,dlevel);
+X#endif
+X	saveobjchn(fd, invent);
+X	saveobjchn(fd, fcobj);
+X	savemonchn(fd, fallen_down);
+X	tmp = getuid();
+X	bwrite(fd, (char *) &tmp, sizeof tmp);
+X	bwrite(fd, (char *) &flags, sizeof(struct flag));
+X	bwrite(fd, (char *) &dlevel, sizeof dlevel);
+X	bwrite(fd, (char *) &maxdlevel, sizeof maxdlevel);
+X	bwrite(fd, (char *) &moves, sizeof moves);
+X	bwrite(fd, (char *) &u, sizeof(struct you));
+X#ifdef SPELLS
+X	bwrite(fd, (char *) spl_book, sizeof(struct spell) * (MAXSPELL + 1));
+X#endif
+X	if(u.ustuck)
+X		bwrite(fd, (char *) &(u.ustuck->m_id), sizeof u.ustuck->m_id);
+X	bwrite(fd, (char *) pl_character, sizeof pl_character);
+X	bwrite(fd, (char *) genocided, sizeof genocided);
+X	bwrite(fd, (char *) fut_geno, sizeof fut_geno);
+X#ifdef HARD
+X	bwrite(fd, (char *) &pm_wizard, sizeof(struct permonst));
+X#endif
+X	savenames(fd);
+X#ifdef DGK
+X	if (mode == COUNT) {
+X		/* make sure there is enough disk space */
+X		needed = bytes_counted;
+X		for (tmp = 1; tmp <= maxdlevel; tmp++)
+X			if (tmp != dlevel && fileinfo[tmp].where)
+X				needed += fileinfo[tmp].size + (sizeof tmp);
+X		fds = freediskspace(SAVEF);
+X		if (needed > fds) {
+X			pline("There is insufficient space on SAVE disk.");
+X			pline("Require %ld bytes but only have %ld.", needed,
+X				fds);
+X			flushout();
+X			(void) close(fd);
+X			(void) unlink(SAVEF);
+X			return 0;
+X		}
+X		mode = WRITE;
+X		goto again;
+X	}
+X#endif
+X	for(tmp = 1; tmp <= maxdlevel; tmp++) {
+X		extern int hackpid;
+X#ifdef DGK
+X		if (tmp == dlevel || !fileinfo[tmp].where) continue;
+X		if (fileinfo[tmp].where != ACTIVE)
+X			swapin_file(tmp);
+X#else
+X		extern boolean level_exists[];
+X
+X		if(tmp == dlevel || !level_exists[tmp]) continue;
+X#endif
+X		glo(tmp);
+X#ifdef DGK
+X		msmsg(".");
+X#endif
+X		if((ofd = open(lock, 0)) < 0) {
+X		    if(!hu) pline("Error while saving: cannot read %s.", lock);
+X		    (void) close(fd);
+X		    (void) unlink(SAVEF);
+X		    if(!hu) done("tricked");
+X		    return(0);
+X		}
+X		getlev(ofd, hackpid, tmp);
+X		(void) close(ofd);
+X		bwrite(fd, (char *) &tmp, sizeof tmp);	/* level number */
+X#ifdef DGK
+X		savelev(fd,tmp,WRITE);			/* actual level */
+X#else
+X		savelev(fd,tmp);			/* actual level */
+X#endif
+X		(void) unlink(lock);
+X	}
+X	(void) close(fd);
+X	glo(dlevel);
+X	(void) unlink(lock);	/* get rid of current level --jgm */
+X	glo(0);
+X	(void) unlink(lock);
+X	return(1);
+X}
+X
+Xdorecover(fd)
+Xregister fd;
+X{
+X	register nfd;
+X	int tmp;		/* not a register ! */
+X	unsigned mid;		/* idem */
+X	struct obj *otmp;
+X	extern boolean restoring;
+X#ifdef DGK
+X	struct flag oldflags;
+X
+X	oldflags = flags;	/* Save flags set in the config file */
+X#endif
+X	restoring = TRUE;
+X	getlev(fd, 0, 0);
+X	invent = restobjchn(fd);
+X	for(otmp = invent; otmp; otmp = otmp->nobj)
+X		if(otmp->owornmask)
+X			setworn(otmp, otmp->owornmask);
+X	fcobj = restobjchn(fd);
+X	fallen_down = restmonchn(fd);
+X	mread(fd, (char *) &tmp, sizeof tmp);
+X#ifdef WIZARD
+X	if(!wizard)
+X#endif
+X	    if(tmp != getuid()) {		/* strange ... */
+X		(void) close(fd);
+X		(void) unlink(SAVEF);
+X		puts("Saved game was not yours.");
+X		restoring = FALSE;
+X		return(0);
+X	    }
+X	mread(fd, (char *) &flags, sizeof(struct flag));
+X#ifdef DGK
+X	/* Some config file OPTIONS take precedence over those in save file.
+X	 */
+X	flags.rawio = oldflags.rawio;
+X	flags.DECRainbow = oldflags.DECRainbow;
+X	flags.IBMBIOS = oldflags.IBMBIOS;
+X#endif
+X	mread(fd, (char *) &dlevel, sizeof dlevel);
+X	mread(fd, (char *) &maxdlevel, sizeof maxdlevel);
+X	mread(fd, (char *) &moves, sizeof moves);
+X	mread(fd, (char *) &u, sizeof(struct you));
+X#ifdef SPELLS
+X	mread(fd, (char *) spl_book, sizeof(struct spell) * (MAXSPELL + 1));
+X#endif
+X	if(u.ustuck)
+X		mread(fd, (char *) &mid, sizeof mid);
+X	mread(fd, (char *) pl_character, sizeof pl_character);
+X	mread(fd, (char *) genocided, sizeof genocided);
+X	mread(fd, (char *) fut_geno, sizeof fut_geno);
+X#ifdef HARD
+X	{
+X	/* Save name pointer from being munged -- tom@uw-warp */
+X	char *name = pm_wizard.mname;
+X	mread(fd, (char *) &pm_wizard, sizeof(struct permonst));
+X	pm_wizard.mname = name;
+X	}
+X#endif
+X	restnames(fd);
+X#ifdef DGK
+X	msmsg("\n");
+X	cl_end();
+X	msmsg("You got as far as level %d%s.\n", maxdlevel,
+X		flags.debug ? " in WIZARD mode" : "");
+X	cl_end();
+X	msmsg("Restoring: ");
+X#endif
+X	while(1) {
+X		if(read(fd, (char *) &tmp, sizeof tmp) != sizeof tmp)
+X			break;
+X		getlev(fd, 0, tmp);
+X		glo(tmp);
+X#ifdef DGK
+X		msmsg(".");
+X		nfd = open(lock, O_WRONLY | O_BINARY | O_CREAT | O_TRUNC, FMASK);
+X#else
+X		nfd = creat(lock, FMASK);
+X#endif
+X		if (nfd < 0)	panic("Cannot open temp file %s!\n", lock);
+X#ifdef DGK
+X		if (!savelev(nfd, tmp, COUNT | WRITE)) {
+X
+X			/* The savelev can't proceed because the size required
+X			 * is greater than the available disk space.
+X			 */
+X			msmsg("\nNot enough space on `%s' to restore your game.\n",
+X				levels);
+X
+X			/* Remove levels and bones that may have been created.
+X			 */
+X			(void) close(nfd);
+X			eraseall(levels, alllevels);
+X			eraseall(levels, allbones);
+X
+X			/* Perhaps the person would like to play without a
+X			 * RAMdisk.
+X			 */
+X			if (ramdisk) {
+X				/* PlaywoRAMdisk may not return, but if it does
+X				 * it is certain that ramdisk will be 0.
+X				 */
+X				playwoRAMdisk();
+X				(void) lseek(fd, 0L, 0); /* Rewind save file */
+X				return dorecover(fd);	 /* and try again */
+X			} else {
+X				msmsg("Be seeing you ...\n");
+X				exit(0);
+X			}
+X		}
+X#else
+X		savelev(nfd,tmp);
+X#endif
+X		(void) close(nfd);
+X	}
+X	(void) lseek(fd, 0L, 0);
+X	getlev(fd, 0, 0);
+X	(void) close(fd);
+X	(void) unlink(SAVEF);
+X	if(Punished) {
+X		for(otmp = fobj; otmp; otmp = otmp->nobj)
+X			if(otmp->olet == CHAIN_SYM) goto chainfnd;
+X		panic("Cannot find the iron chain?");
+X	chainfnd:
+X		uchain = otmp;
+X		if(!uball){
+X			for(otmp = fobj; otmp; otmp = otmp->nobj)
+X				if(otmp->olet == BALL_SYM && otmp->spe)
+X					goto ballfnd;
+X			panic("Cannot find the iron ball?");
+X		ballfnd:
+X			uball = otmp;
+X		}
+X	}
+X	if(u.ustuck) {
+X		register struct monst *mtmp;
+X
+X		for(mtmp = fmon; mtmp; mtmp = mtmp->nmon)
+X			if(mtmp->m_id == mid) goto monfnd;
+X		panic("Cannot find the monster ustuck.");
+X	monfnd:
+X		u.ustuck = mtmp;
+X	}
+X#ifndef QUEST
+X	setsee();  /* only to recompute seelx etc. - these weren't saved */
+X#endif
+X#ifdef DGK
+X	gameDiskPrompt();
+X#endif
+X	docrt();
+X	restoring = FALSE;
+X	return(1);
+X}
+X
+Xstruct obj *
+Xrestobjchn(fd)
+Xregister fd;
+X{
+X	register struct obj *otmp, *otmp2;
+X	register struct obj *first = 0;
+X	int xl;
+X#ifdef LINT
+X	/* suppress "used before set" warning from lint */
+X	otmp2 = 0;
+X#endif
+X	while(1) {
+X		mread(fd, (char *) &xl, sizeof(xl));
+X		if(xl == -1) break;
+X		otmp = newobj(xl);
+X		if(!first) first = otmp;
+X		else otmp2->nobj = otmp;
+X		mread(fd, (char *) otmp, (unsigned) xl + sizeof(struct obj));
+X		if(!otmp->o_id) otmp->o_id = flags.ident++;
+X		otmp2 = otmp;
+X	}
+X	if(first && otmp2->nobj){
+X		impossible("Restobjchn: error reading objchn.");
+X		otmp2->nobj = 0;
+X	}
+X	return(first);
+X}
+X
+Xstruct monst *
+Xrestmonchn(fd)
+Xregister fd;
+X{
+X	register struct monst *mtmp, *mtmp2;
+X	register struct monst *first = 0;
+X	int xl;
+X
+X	struct permonst *monbegin;
+X	long differ;
+X
+X	mread(fd, (char *)&monbegin, sizeof(monbegin));
+X#ifndef MSDOS
+X	differ = (char *)(&mons[0]) - (char *)(monbegin);
+X#else
+X	differ = (long)(&mons[0]) - (long)(monbegin);
+X#endif
+X
+X#ifdef LINT
+X	/* suppress "used before set" warning from lint */
+X	mtmp2 = 0;
+X#endif
+X	while(1) {
+X		mread(fd, (char *) &xl, sizeof(xl));
+X		if(xl == -1) break;
+X		mtmp = newmonst(xl);
+X		if(!first) first = mtmp;
+X		else mtmp2->nmon = mtmp;
+X		mread(fd, (char *) mtmp, (unsigned) xl + sizeof(struct monst));
+X		if(!mtmp->m_id)
+X			mtmp->m_id = flags.ident++;
+X#ifndef MSDOS
+X		mtmp->data = (struct permonst *)
+X			((char *) mtmp->data + differ);
+X#else
+X		mtmp->data = (struct permonst *)
+X			((long) mtmp->data + differ);
+X#endif
+X		if(mtmp->minvent)
+X			mtmp->minvent = restobjchn(fd);
+X		mtmp2 = mtmp;
+X	}
+X	if(first && mtmp2->nmon){
+X		impossible("Restmonchn: error reading monchn.");
+X		mtmp2->nmon = 0;
+X	}
+X	return(first);
+X}
+END_OF_save.c
+if test 9273 -ne `wc -c <save.c`; then
+    echo shar: \"save.c\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+if test -f termcap.c -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"termcap.c\"
+else
+echo shar: Extracting \"termcap.c\" \(8638 characters\)
+sed "s/^X//" >termcap.c <<'END_OF_termcap.c'
+X/*	SCCS Id: @(#)termcap.c	2.3	87/12/12
+X/* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+X
+X#include <stdio.h>
+X#include <ctype.h>	/* for isdigit() */
+X#include "hack.h"	/* for ROWNO, COLNO, *HI, *HE */
+X#ifdef GENIX
+X#define	void	int	/* jhn - mod to prevent compiler from bombing */
+X#endif
+X
+Xextern char *tgetstr(), *tgoto(), *getenv();
+Xextern long *alloc();
+X
+X#ifndef SYSV
+X# ifndef LINT
+Xextern			/* it is defined in libtermlib (libtermcap) */
+X# endif
+X	short ospeed;	/* terminal baudrate; used by tputs */
+X#else
+Xshort	ospeed = 0;	/* gets around "not defined" error message */
+X#endif
+X
+Xstatic char tbuf[512];
+Xstatic char *HO, *CL, *CE, *UP, *CM, *ND, *XD, *BC, *SO, *SE, *TI, *TE;
+Xstatic char *VS, *VE, *US, *UE;
+Xstatic int SG;
+Xstatic char PC = '\0';
+Xchar *CD;		/* tested in pri.c: docorner() */
+Xint CO, LI;		/* used in pri.c and whatis.c */
+X
+X#if defined(MSDOS) && !defined(TERMLIB)
+Xstatic char tgotobuf[20];
+X#define tgoto(fmt, x, y)	(sprintf(tgotobuf, fmt, y+1, x+1), tgotobuf)
+X#endif /* MSDOS /**/
+X
+Xstartup()
+X{
+X	register char *term;
+X	register char *tptr;
+X	char *tbufptr, *pc;
+X	register int i;
+X
+X	tptr = (char *) alloc(1024);
+X
+X	tbufptr = tbuf;
+X	if(!(term = getenv("TERM")))
+X		error("Can't get TERM.");
+X	if(!strncmp(term, "5620", 4))
+X		flags.nonull = 1;	/* this should be a termcap flag */
+X	if(tgetent(tptr, term) < 1)
+X		error("Unknown terminal type: %s.", term);
+X	if(pc = tgetstr("pc", &tbufptr))
+X		PC = *pc;
+X	if(!(BC = tgetstr("bc", &tbufptr))) {	
+X		if(!tgetflag("bs"))
+X			error("Terminal must backspace.");
+X		BC = tbufptr;
+X		tbufptr += 2;
+X		*BC = '\b';
+X	}
+X	HO = tgetstr("ho", &tbufptr);
+X	CO = tgetnum("co");
+X	LI = tgetnum("li");
+X	if(CO < COLNO || LI < ROWNO+2)
+X		setclipped();
+X	if(!(CL = tgetstr("cl", &tbufptr)))
+X		error("Hack needs CL.");
+X	ND = tgetstr("nd", &tbufptr);
+X	if(tgetflag("os"))
+X		error("Hack can't have OS.");
+X	CE = tgetstr("ce", &tbufptr);
+X	UP = tgetstr("up", &tbufptr);
+X	/* It seems that xd is no longer supported, and we should use
+X	   a linefeed instead; unfortunately this requires resetting
+X	   CRMOD, and many output routines will have to be modified
+X	   slightly. Let's leave that till the next release. */
+X	XD = tgetstr("xd", &tbufptr);
+X/* not: 		XD = tgetstr("do", &tbufptr); */
+X	if(!(CM = tgetstr("cm", &tbufptr))) {
+X		if(!UP && !HO)
+X			error("Hack needs CM or UP or HO.");
+X		printf("Playing hack on terminals without cm is suspect...\n");
+X		getret();
+X	}
+X	SO = tgetstr("so", &tbufptr);
+X	SE = tgetstr("se", &tbufptr);
+X	US = tgetstr("us", &tbufptr);
+X	UE = tgetstr("ue", &tbufptr);
+X	SG = tgetnum("sg");	/* -1: not fnd; else # of spaces left by so */
+X	if(!SO || !SE || (SG > 0)) SO = SE = US = UE = "";
+X	TI = tgetstr("ti", &tbufptr);
+X	TE = tgetstr("te", &tbufptr);
+X	VS = VE = "";
+X#if defined(SORTING) || defined(MSDOSCOLOR)
+X	/* Get rid of padding numbers for HI and HE.  Hope they
+X	 * aren't really needed!!!  HI and HE are ouputted to the
+X	 * pager as a string - so how can you send it NULLS???
+X	 *  -jsb
+X	 */
+X	    HI = (char *) alloc((unsigned)(strlen(SO)+1));
+X	    HE = (char *) alloc((unsigned)(strlen(SE)+1));
+X	    i = 0;
+X	    while(isdigit(SO[i])) i++;
+X	    strcpy(HI, &SO[i]);
+X	    i = 0;
+X	    while(isdigit(SE[i])) i++;
+X	    strcpy(HE, &SE[i]);
+X#endif
+X	CD = tgetstr("cd", &tbufptr);
+X	set_whole_screen();		/* uses LI and CD */
+X	if(tbufptr-tbuf > sizeof(tbuf)) error("TERMCAP entry too big...\n");
+X	free(tptr);
+X#ifdef MSDOSCOLOR
+X	init_hilite();
+X#endif
+X}
+X
+Xstart_screen()
+X{
+X	xputs(TI);
+X	xputs(VS);
+X#ifdef DGK
+X	/* Select normal ASCII and line drawing character sets.
+X	 */
+X	if (flags.DECRainbow)
+X		xputs("\033(B\033)0");
+X#endif
+X}
+X
+Xend_screen()
+X{
+X	clear_screen();
+X	xputs(VE);
+X	xputs(TE);
+X}
+X
+X/* Cursor movements */
+Xextern xchar curx, cury;
+X
+Xcurs(x, y)
+Xregister int x, y;	/* not xchar: perhaps xchar is unsigned and
+X			   curx-x would be unsigned as well */
+X{
+X
+X	if (y == cury && x == curx)
+X		return;
+X	if(!ND && (curx != x || x <= 3)) {	/* Extremely primitive */
+X		cmov(x, y);			/* bunker!wtm */
+X		return;
+X	}
+X	if(abs(cury-y) <= 3 && abs(curx-x) <= 3)
+X		nocmov(x, y);
+X	else if((x <= 3 && abs(cury-y)<= 3) || (!CM && x<abs(curx-x))) {
+X		(void) putchar('\r');
+X		curx = 1;
+X		nocmov(x, y);
+X	} else if(!CM) {
+X		nocmov(x, y);
+X	} else
+X		cmov(x, y);
+X}
+X
+Xnocmov(x, y)
+X{
+X	if (cury > y) {
+X		if(UP) {
+X			while (cury > y) {	/* Go up. */
+X				xputs(UP);
+X				cury--;
+X			}
+X		} else if(CM) {
+X			cmov(x, y);
+X		} else if(HO) {
+X			home();
+X			curs(x, y);
+X		} /* else impossible("..."); */
+X	} else if (cury < y) {
+X		if(XD) {
+X			while(cury < y) {
+X				xputs(XD);
+X				cury++;
+X			}
+X		} else if(CM) {
+X			cmov(x, y);
+X		} else {
+X			while(cury < y) {
+X				xputc('\n');
+X				curx = 1;
+X				cury++;
+X			}
+X		}
+X	}
+X	if (curx < x) {		/* Go to the right. */
+X		if(!ND) cmov(x, y); else	/* bah */
+X			/* should instead print what is there already */
+X		while (curx < x) {
+X			xputs(ND);
+X			curx++;
+X		}
+X	} else if (curx > x) {
+X		while (curx > x) {	/* Go to the left. */
+X			xputs(BC);
+X			curx--;
+X		}
+X	}
+X}
+X
+Xcmov(x, y)
+Xregister x, y;
+X{
+X	xputs(tgoto(CM, x-1, y-1));
+X	cury = y;
+X	curx = x;
+X}
+X
+Xxputc(c) char c; {
+X	(void) fputc(c, stdout);
+X}
+X
+Xxputs(s) char *s; {
+X#if defined(MSDOS) && !defined(TERMLIB)
+X	fputs(s, stdout);
+X#else
+X	tputs(s, 1, xputc);
+X#endif
+X}
+X
+Xcl_end() {
+X	if(CE)
+X		xputs(CE);
+X	else {	/* no-CE fix - free after Harold Rynes */
+X		/* this looks terrible, especially on a slow terminal
+X		   but is better than nothing */
+X		register cx = curx, cy = cury;
+X
+X		while(curx < COLNO) {
+X			xputc(' ');
+X			curx++;
+X		}
+X		curs(cx, cy);
+X	}
+X}
+X
+Xclear_screen() {
+X	xputs(CL);
+X	home();
+X}
+X
+Xhome()
+X{
+X	if(HO)
+X		xputs(HO);
+X	else if(CM)
+X		xputs(tgoto(CM, 0, 0));
+X	else
+X		curs(1, 1);	/* using UP ... */
+X	curx = cury = 1;
+X}
+X
+Xstandoutbeg()
+X{
+X	if(SO) xputs(SO);
+X}
+X
+Xstandoutend()
+X{
+X	if(SE) xputs(SE);
+X}
+X
+Xbacksp()
+X{
+X	xputs(BC);
+X	curx--;
+X}
+X
+Xbell()
+X{
+X#ifdef DGKMOD
+X	if (flags.silent) return;
+X#endif /* DGKMOD /**/
+X	(void) putchar('\007');		/* curx does not change */
+X	(void) fflush(stdout);
+X}
+X
+Xstatic short tmspc10[] = {		/* from termcap */
+X	0, 2000, 1333, 909, 743, 666, 500, 333, 166, 83, 55, 41, 20, 10, 5
+X};
+X
+Xdelay_output() {
+X	/* delay 50 ms - could also use a 'nap'-system call */
+X	/* BUG: if the padding character is visible, as it is on the 5620
+X	   then this looks terrible. */
+X#ifdef MSDOS
+X	/* simulate the delay with "cursor here" */
+X	register i;
+X	for (i = 0; i < 3; i++) {
+X		cmov(curx, cury);
+X		(void) fflush(stdout);
+X	}
+X#else /* MSDOS /**/
+X	if(!flags.nonull)
+X#ifdef TERMINFO
+X		tputs("$<50>", 1, xputs);
+X#else
+X		tputs("50", 1, xputs);
+X#endif
+X		/* cbosgd!cbcephus!pds for SYS V R2 */
+X		/* is this terminfo, or what? */
+X		/* tputs("$<50>", 1, xputc); */
+X
+X	else if(ospeed > 0 || ospeed < SIZE(tmspc10)) if(CM) {
+X		/* delay by sending cm(here) an appropriate number of times */
+X		register int cmlen = strlen(tgoto(CM, curx-1, cury-1));
+X		register int i = 500 + tmspc10[ospeed]/2;
+X
+X		while(i > 0) {
+X			cmov(curx, cury);
+X			i -= cmlen*tmspc10[ospeed];
+X		}
+X	}
+X#endif /* MSDOS /**/
+X}
+X
+Xcl_eos()			/* free after Robert Viduya */
+X{				/* must only be called with curx = 1 */
+X
+X	if(CD)
+X		xputs(CD);
+X	else {
+X		register int cx = curx, cy = cury;
+X		while(cury <= LI-2) {
+X			cl_end();
+X			xputc('\n');
+X			curx = 1;
+X			cury++;
+X		}
+X		cl_end();
+X		curs(cx, cy);
+X	}
+X}
+X
+X#ifdef MSDOSCOLOR
+X/* Sets up highlighting, using ANSI escape sequences, for monsters and 
+X * objects (highlight code found in pri.c). 
+X * The termcap entry for HI (from SO) is scanned to find the background 
+X * color. If everything is o.k., monsters are displayed in the color 
+X * used to define HILITE_MONSTER and objects are displayed in the color 
+X * used to define HILITE_OBJECT. */
+X
+X#define ESC		0x1b
+X#define NONE		0
+X#define HIGH_INTENSITY	1
+X#define BLACK		0
+X#define RED		1
+X#define GREEN		2
+X#define YELLOW		3
+X#define BLUE		4
+X#define MAGENTA		5
+X#define CYAN		6
+X#define WHITE		7
+X
+X#define HILITE_ATTRIB	NONE
+X#define HILITE_MONSTER	RED
+X#define HILITE_OBJECT	YELLOW
+X
+Xinit_hilite()
+X{
+X	register int backg, len, mfore, ofore;
+X
+X	backg = BLACK;
+X	mfore = ofore = WHITE;
+X	/* find the background color, HI[len] == 'm' */
+X	len = strlen(HI) - 1;
+X	if (len > 3) 
+X	if (isdigit(HI[len-1]) && 
+X	    isdigit(HI[len-2]) && HI[len-2] != 3) {
+X			backg = HI[len-1] - '0';
+X			mfore = HILITE_MONSTER;
+X			ofore = HILITE_OBJECT;
+X	}
+X	if (mfore == backg || ofore == backg) {
+X		if (len < 7) mfore = ofore = WHITE;
+X		else {
+X			if (HI[2] == '3') mfore = ofore = HI[3] - '0';
+X			else if (HI[4] == '3') mfore = ofore = HI[5] - '0';
+X			else mfore = ofore = WHITE; /* give up! */
+X		}
+X	}
+X
+X	HI_MON = (char *) alloc(sizeof("E[0;33;44;54m"));
+X	sprintf(HI_MON, "%c[%d;3%d;4%dm", ESC, HILITE_ATTRIB, 
+X	        mfore, backg);
+X	HI_OBJ = (char *) alloc(sizeof("E[0;33;44;54m"));
+X	sprintf(HI_OBJ, "%c[%d;3%d;4%dm", ESC, HILITE_ATTRIB, 
+X	        ofore, backg);
+X}
+X
+X#endif
+END_OF_termcap.c
+if test 8638 -ne `wc -c <termcap.c`; then
+    echo shar: \"termcap.c\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+if test -f unixtty.c -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"unixtty.c\"
+else
+echo shar: Extracting \"unixtty.c\" \(8734 characters\)
+sed "s/^X//" >unixtty.c <<'END_OF_unixtty.c'
+X/*	SCCS Id: @(#)unixtty.c	2.3	88/03/31
+X/* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+X/* tty.c - (Unix) version */
+X
+X/* With thanks to the people who sent code for SYSV - hpscdi!jon,
+X * arnold@ucsf-cgl, wcs@bo95b, cbcephus!pds and others.
+X */
+X
+X#include	<stdio.h>
+X#include	"extern.h"
+X#include	"hack.h"
+X#include	"func_tab.h"
+X
+Xextern void savech();
+X
+X#define	ON	1
+X#define OFF	0
+X
+X/*
+X * The distinctions here are not BSD - rest but rather USG - rest, as
+X * BSD still has the old sgttyb structure, but SYSV has termio. Thus:
+X */
+X#ifdef BSD
+X#define	V7
+X#else
+X#define USG
+X#endif
+X
+X/*
+X * Some systems may have getchar() return EOF for various reasons, and
+X * we should not quit before seeing at least NR_OF_EOFS consecutive EOFs.
+X */
+X#ifndef BSD
+X#define	NR_OF_EOFS	20
+X#endif
+X
+X
+X#ifdef USG
+X
+X#include	<termio.h>
+X#define termstruct	termio
+X#define kill_sym	c_cc[VKILL]
+X#define erase_sym	c_cc[VERASE]
+X#define EXTABS		TAB3
+X#define tabflgs		c_oflag
+X#define echoflgs	c_lflag
+X#define cbrkflgs	c_lflag
+X#define CBRKMASK	ICANON
+X#define CBRKON		! /* reverse condition */
+X#define OSPEED(x)	((x).c_cflag & CBAUD)
+X#define GTTY(x)		(ioctl(0, TCGETA, x))
+X/* STTY now modified to run under Sys V R3.	- may have to be #ifdef'ed */
+X#define STTY(x)		(ioctl(0, TCSETAW, x))	/* TCSETAF? TCSETAW? */
+X
+X#else	/* V7 */
+X
+X#include	<sgtty.h>
+X#define termstruct	sgttyb
+X#define	kill_sym	sg_kill
+X#define	erase_sym	sg_erase
+X#define EXTABS		XTABS
+X#define tabflgs		sg_flags
+X#define echoflgs	sg_flags
+X#define cbrkflgs	sg_flags
+X#define CBRKMASK	CBREAK
+X#define CBRKON		/* empty */
+X#define OSPEED(x)	(x).sg_ospeed
+X#define GTTY(x)		(gtty(0, x))
+X#define STTY(x)		(stty(0, x))
+X
+X#endif
+X
+Xextern short ospeed;
+Xstatic char erase_char, kill_char;
+Xstatic boolean settty_needed = FALSE;
+Xstruct termstruct inittyb, curttyb;
+X
+X/*
+X * Get initial state of terminal, set ospeed (for termcap routines)
+X * and switch off tab expansion if necessary.
+X * Called by startup() in termcap.c and after returning from ! or ^Z
+X */
+Xgettty(){
+X	if(GTTY(&inittyb) < 0)
+X		perror("Hack (gettty)");
+X	curttyb = inittyb;
+X	ospeed = OSPEED(inittyb);
+X	erase_char = inittyb.erase_sym;
+X	kill_char = inittyb.kill_sym;
+X	getioctls();
+X
+X	/* do not expand tabs - they might be needed inside a cm sequence */
+X	if(curttyb.tabflgs & EXTABS) {
+X		curttyb.tabflgs &= ~EXTABS;
+X		setctty();
+X	}
+X	settty_needed = TRUE;
+X}
+X
+X/* reset terminal to original state */
+Xsettty(s) char *s; {
+X	clear_screen();
+X	end_screen();
+X	if(s) printf(s);
+X	(void) fflush(stdout);
+X	if(STTY(&inittyb) < 0)
+X		perror("Hack (settty)");
+X	flags.echo = (inittyb.echoflgs & ECHO) ? ON : OFF;
+X	flags.cbreak = (CBRKON(inittyb.cbrkflgs & CBRKMASK)) ? ON : OFF;
+X	setioctls();
+X}
+X
+Xsetctty(){
+X	if(STTY(&curttyb) < 0)
+X		perror("Hack (setctty)");
+X}
+X
+X
+Xsetftty(){
+Xregister int ef = 0;			/* desired value of flags & ECHO */
+Xregister int cf = CBRKON(CBRKMASK);	/* desired value of flags & CBREAK */
+Xregister int change = 0;
+X	flags.cbreak = ON;
+X	flags.echo = OFF;
+X	/* Should use (ECHO|CRMOD) here instead of ECHO */
+X	if((curttyb.echoflgs & ECHO) != ef){
+X		curttyb.echoflgs &= ~ECHO;
+X/*		curttyb.echoflgs |= ef;					*/
+X		change++;
+X	}
+X	if((curttyb.cbrkflgs & CBRKMASK) != cf){
+X		curttyb.cbrkflgs &= ~CBRKMASK;
+X		curttyb.cbrkflgs |= cf;
+X#ifdef USG
+X		/* be satisfied with one character; no timeout */
+X		curttyb.c_cc[VMIN] = 1;		/* was VEOF */
+X		curttyb.c_cc[VTIME] = 0;	/* was VEOL */
+X#endif
+X		change++;
+X	}
+X	if(change){
+X		setctty();
+X	}
+X	start_screen();
+X}
+X
+X
+X/* fatal error */
+X/*VARARGS1*/
+Xerror(s,x,y) char *s; {
+X	if(settty_needed)
+X		settty((char *) 0);
+X	printf(s,x,y);
+X	putchar('\n');
+X	exit(1);
+X}
+X
+X/*
+X * Read a line closed with '\n' into the array char bufp[BUFSZ].
+X * (The '\n' is not stored. The string is closed with a '\0'.)
+X * Reading can be interrupted by an escape ('\033') - now the
+X * resulting string is "\033".
+X */
+Xgetlin(bufp)
+Xregister char *bufp;
+X{
+X	register char *obufp = bufp;
+X	register int c;
+X
+X	flags.toplin = 2;		/* nonempty, no --More-- required */
+X	for(;;) {
+X		(void) fflush(stdout);
+X		if((c = getchar()) == EOF) {
+X			*bufp = 0;
+X			return;
+X		}
+X		if(c == '\033') {
+X			*obufp = c;
+X			obufp[1] = 0;
+X			return;
+X		}
+X		if(c == erase_char || c == '\b') {
+X			if(bufp != obufp) {
+X				bufp--;
+X				putstr("\b \b"); /* putsym converts \b */
+X			} else	bell();
+X		} else if(c == '\n') {
+X			*bufp = 0;
+X			return;
+X		} else if(' ' <= c && c < '\177') {
+X				/* avoid isprint() - some people don't have it
+X				   ' ' is not always a printing char */
+X			*bufp = c;
+X			bufp[1] = 0;
+X			putstr(bufp);
+X			if(bufp-obufp < BUFSZ-1 && bufp-obufp < COLNO)
+X				bufp++;
+X		} else if(c == kill_char || c == '\177') { /* Robert Viduya */
+X				/* this test last - @ might be the kill_char */
+X			while(bufp != obufp) {
+X				bufp--;
+X				putstr("\b \b");
+X			}
+X		} else
+X			bell();
+X	}
+X}
+X
+Xgetret() {
+X	cgetret("");
+X}
+X
+Xcgetret(s)
+Xregister char *s;
+X{
+X	putsym('\n');
+X	if(flags.standout)
+X		standoutbeg();
+X	putstr("Hit ");
+X	putstr(flags.cbreak ? "space" : "return");
+X	putstr(" to continue: ");
+X	if(flags.standout)
+X		standoutend();
+X	xwaitforspace(s);
+X}
+X
+Xchar morc;	/* tell the outside world what char he used */
+X
+Xxwaitforspace(s)
+Xregister char *s;	/* chars allowed besides space or return */
+X{
+Xregister int c;
+X
+X	morc = 0;
+X
+X	while((c = readchar()) != '\n') {
+X	    if(flags.cbreak) {
+X		if(c == ' ') break;
+X		if(s && index(s,c)) {
+X			morc = c;
+X			break;
+X		}
+X		bell();
+X	    }
+X	}
+X}
+X
+Xstatic int last_multi;
+X
+Xchar *
+Xparse()
+X{
+X	static char inline[COLNO];
+X	register foo;
+X
+X	multi = 0;
+X	flags.move = 1;
+X	if(!Invisible) curs_on_u(); else home();
+X	while((foo = readchar()) >= '0' && foo <= '9') {
+X		multi = 10*multi+foo-'0';
+X#ifdef DGKMOD
+X		if (multi < 0 || multi > LARGEST_INT)
+X			multi = LARGEST_INT;
+X		if (multi > 9) {
+X			remember_topl();
+X			home();
+X			cl_end();
+X			printf("Count: %d", multi);
+X		}
+X#endif
+X		last_multi = multi;
+X	}
+X# ifdef REDO
+X	if (foo == DOAGAIN || in_doagain)
+X		multi = last_multi;
+X	else {
+X		savech(0);	/* reset input queue */
+X		savech(foo);
+X	}
+X# endif
+X	if(multi) {
+X		multi--;
+X		save_cm = inline;
+X	}
+X	inline[0] = foo;
+X	inline[1] = 0;
+X	if(foo == 'g' || foo == 'G'){
+X		inline[1] = getchar();
+X#ifdef QUEST
+X		if(inline[1] == foo) inline[2] = getchar(); else
+X#endif
+X		inline[2] = 0;
+X	}
+X	if(foo == 'm' || foo == 'M'){
+X		inline[1] = getchar();
+X		inline[2] = 0;
+X	}
+X	clrlin();
+X	return(inline);
+X}
+X
+Xchar
+Xreadchar() {
+X	register int sym;
+X
+X	(void) fflush(stdout);
+X	if((sym = getchar()) == EOF)
+X#ifdef NR_OF_EOFS
+X	{ /*
+X	   * Some SYSV systems seem to return EOFs for various reasons
+X	   * (?like when one hits break or for interrupted systemcalls?),
+X	   * and we must see several before we quit.
+X	   */
+X		register int cnt = NR_OF_EOFS;
+X		while (cnt--) {
+X		    clearerr(stdin);	/* omit if clearerr is undefined */
+X		    if((sym = getchar()) != EOF) goto noteof;
+X		}
+X		end_of_input();
+X	     noteof:	;
+X	}
+X#else
+X		end_of_input();
+X#endif /* NR_OF_EOFS /**/
+X	if(flags.toplin == 1)
+X		flags.toplin = 2;
+X	return((char) sym);
+X}
+X
+Xend_of_input()
+X{
+X	settty("End of input?\n");
+X	clearlocks();
+X	exit(0);
+X}
+X
+X#ifdef COM_COMPL
+X/* Read in an extended command - doing command line completion for
+X * when enough character have been entered to make a unique command.
+X * This is just a modified getlin().   -jsb
+X */
+Xget_ext_cmd(bufp)
+Xregister char *bufp;
+X{
+X	register char *obufp = bufp;
+X	register int c;
+X	int com_index, index;
+X
+X	flags.toplin = 2;		/* nonempty, no --More-- required */
+X
+X	for(;;) {
+X		(void) fflush(stdout);
+X		if((c = readchar()) == EOF) {
+X			*bufp = 0;
+X			return;
+X		}
+X		if(c == '\033') {
+X			*obufp = c;
+X			obufp[1] = 0;
+X			return;
+X		}
+X		if(c == erase_char || c == '\b') {
+X			if(bufp != obufp) {
+X				bufp--;
+X				putstr("\b \b"); /* putsym converts \b */
+X			} else	bell();
+X		} else if(c == '\n') {
+X			*bufp = 0;
+X			return;
+X		} else if(' ' <= c && c < '\177') {
+X				/* avoid isprint() - some people don't have it
+X				   ' ' is not always a printing char */
+X			*bufp = c;
+X			bufp[1] = 0;
+X			index = 0;
+X			com_index = -1;
+X
+X			while(extcmdlist[index].ef_txt != (char *) 0){
+X				if(!strncmp(obufp, extcmdlist[index].ef_txt,
+X				strlen(obufp)))
+X					if(com_index == -1) /* No matches yet*/
+X					    com_index = index;
+X					else /* More than 1 match */
+X					    com_index = -2;
+X				index++;
+X			}
+X			if(com_index >= 0){
+X				strcpy(obufp,
+X				extcmdlist[com_index].ef_txt);
+X				/* finish print our string */
+X				putstr(bufp);
+X				bufp = obufp; /* reset it */
+X				if(strlen(obufp) < BUFSIZ-1 &&
+X				 strlen(obufp) < COLNO)
+X					/* set bufp at the end of our
+X					 * string
+X					 */
+X					bufp += strlen(obufp);
+X			} else {
+X				putstr(bufp);
+X				if(bufp-obufp < BUFSZ-1 && bufp-obufp < COLNO)
+X					bufp++;
+X			}
+X		} else if(c == kill_char || c == '\177') { /* Robert Viduya */
+X				/* this test last - @ might be the kill_char */
+X			while(bufp != obufp) {
+X				bufp--;
+X				putstr("\b \b");
+X			}
+X		} else
+X			bell();
+X	}
+X
+X}
+X#endif COM_COMPL
+END_OF_unixtty.c
+if test 8734 -ne `wc -c <unixtty.c`; then
+    echo shar: \"unixtty.c\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+echo shar: End of archive 10 \(of 13\).
+cp /dev/null ark10isdone
+MISSING=""
+for I in 1 2 3 4 5 6 7 8 9 10 11 12 13 ; do
+    if test ! -f ark${I}isdone ; then
+	MISSING="${MISSING} ${I}"
+    fi
+done
+if test "${MISSING}" = "" ; then
+    echo You have unpacked all 13 archives.
+    rm -f ark[1-9]isdone ark[1-9][0-9]isdone
+else
+    echo You still need to unpack the following archives:
+    echo "        " ${MISSING}
+fi
+##  End of shell archive.
+exit 0

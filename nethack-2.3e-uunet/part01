@@ -1,0 +1,2531 @@
+#! /bin/sh
+# This is a shell archive.  Remove anything before this line, then unpack
+# it by saving it into a file and typing "sh file".  To overwrite existing
+# files, type "sh file -c".  You can also feed this as standard input via
+# unshar, or by typing "sh <file", e.g..  If this archive is complete, you
+# will see the following message at the end:
+#		"End of archive 1 (of 13)."
+# Contents:  README MANIFEST Newstuff Spoilers.mm date.h food.tbl
+# Wrapped by billr@tekred on Mon Jun 20 11:38:06 1988
+PATH=/bin:/usr/bin:/usr/ucb ; export PATH
+if test -f README -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"README\"
+else
+echo shar: Extracting \"README\" \(7320 characters\)
+sed "s/^X//" >README <<'END_OF_README'
+X			      NetHack V2.2 README
+X
+X	This file contains information on the 2.2 release of NetHack.  For
+Xinformation on previous releases, see the README.OLD file.  For a detailed
+Xhistory of the game, see the README.ORIG file, which contains three separate
+Xreadme files, dating back to the original release of the game (then named
+Xhack) by Jay Fenlason.
+X
+X	This release of the game contains a large number of bug fixes, as
+Xwell as several new features.  There has been a large amount of play-testing
+Xdone on this release, as it is to be a complete release (approximately 1Mb)
+Xof source and uuencoded auxilary files.  For a detailed list of bug fixes,
+Xand additions look at the file "Fixes.2.2".  I cannot guarantee that every
+Xmodification done has been included, but I have done my best to chronicle the
+Xchanges and fixes made there.  Here are the high points:
+X
+X  1)	New flags in "config.h" (some of these were included in 1.4f):
+X
+X	COM_COMPL	Command line completion by John S. Bien
+X	GRAPHICS	Funky screen character support (Eric S. Raymond)
+X	HACKOPTIONS	Support DGK-style HACKOPTIONS processing (ESR)
+X	RPH		Various hacks by Richard P. Hughey
+X	KJSMODS		Various changes made by Kevin Sweet
+X	BVH		Additions by Bruce Holloway
+X
+X	In addition, in an MSDOS enviornment, when GRAPHICS is defined:
+X
+X	MSDOSCOLOR	Colour highlighting of monsters, etc.
+X
+X	Of the above, I haven't tested HACKOPTIONS and MSDOSCOLOR.  If you
+X	find bugs in these, send me the reports.
+X
+X  2)	New objects:
+X
+X	blindfold - allows you to avoid the gaze of a Floating Eye and to
+X		    use your telepathy on command if you have it.
+X
+X	mirror - scares monsters if you use it on them (and other uses).
+X
+X	ring of polymorph - (usually cursed) forces random polymorphs.
+X
+X	ring of polymorph control - prevents system shock and allows choice of
+X				    creature to polymorph into.
+X
+X  3)	New Files:
+X
+X	- A new set of documentation, the "Guidebook to the Mazes of Menace"
+X	has been supplied by Eric S. Raymond.  The guidebook is written for
+X	nroff using the "mn" macro set supplied with Bnews 2.11 or greater.
+X	Since not everyone has these macros, I have run the guidebook through
+X	nroff, and supplied it in flat ascii format as well.  [Moderator's
+X	note: because of past problems, I ran the formatted version
+X	through "col -b" before passing it on to remove ^H's, etc.  -br]
+X
+X	- A copy of "HACK.CNF" which has been renamed "NetHack.cnf" was
+X	supplied by Steve Creps. The file decl.c has been updated to reflect
+X	this change.
+X
+X	- A new "Makefile" for the AT&T Unix machines has been added.
+X
+X	- I was hoping to get documentation on "NANSI.SYS" as well, but got
+X	no responses to the mail I sent the author, direct and via Bill
+X	Randle at tekred.  As per usual, I will gladly publish any relevant
+X	documentation I get.
+X
+X  4)	Major game changes:
+X
+X	- Shop generation has been significantly changed.  A new structure
+X	has been introduced which allows shops (except the "general" type)
+X	to have up to three different types of object inside.  There is also
+X	a new "distribution pattern" parameter which tells the generation
+X	code how to lay out the shop (this is preliminary to the addition of
+X	two new types of shop, the temple and barracks - more on this later).
+X
+X	- Shopkeepers will now tell you how much they expect for each object
+X	you pick up.  This gives you the ability to haggle with the merchant
+X	in question by dropping and picking up objects until you are more or
+X	less satisfied with the price.  I have re-written "getprice()" in
+X	shk.c in an attempt to make sure that you cannot actually sell any
+X	particular object for more than the shopkeeper will charge for it.
+X
+X	- Another change to shopkeepers has them potentially getting angry if
+X	you stay beside them after not paying your bill.  Each they time they
+X	ask you to pay up, there is a chance they will decide they don't like
+X	people who don't pay...
+X
+X	- A new monster, the hydra, has been added (as you have probably seen
+X	on the net).  I haven't had much chance to test out this feature of
+X	the game.  Mirrors have also been added, and seem to work quite well.
+X
+X	- Changes have been made to the object ocurrence chances in objects.h,
+X	so that the relatively rare tools, etc. have at least a 1% chance of
+X	showing up.
+X
+X	- Throwing and zapping code has been modified so that there is a
+X	chance that said can be done through a doorway.  Bolts can still
+X	bounce however...
+X
+X	- The infamous and dreaded makemon() bug has been eliminated.  In
+X	addition to this, "r"ats and "K"obolds have been added back into the
+X	game.  "K"ops no longer leave treasure (just what they were carrying,
+X	plus maybe a club or whistle).
+X
+X	- Two new "super"swords have been added.  They are the katana named
+X	"Snickersnee" which is +5 on damage (due to sharpness), and the long
+X	sword "Excalibur" which is +rnd(10) to hit, +5 on damage, and has a
+X	couple of other features I won't go into right now.  The only way
+X	for a character to get "Excalibur" is as a gift from someone.  You
+X	cannot write the word "Excalibur" on things for some reason...
+X
+X	- There have been two additions to disallow infinite wand charges.
+X	First of all, wands with less than zero charges will automatically
+X	turn to dust (thanks to Kevin Sweet).  Next, a wand of cancellation
+X	will set the number of charges in the wand to -1, which will make it
+X	forever useless, (thanks to Ron Wessels).
+X
+X  5)	Minor game changes:
+X
+X	- The fountain code has been tightened slightly so you can no longer
+X	dip objects into a fountain or drink from one while you are floating
+X	in mid-air due to levitation.
+X
+X	- Teleporting to hell via a teleportation trap will no longer occur
+X	if the character does not have fire resistance.  I found this just
+X	too arbitrary a way to die (and so did several other people who com-
+X	plained about it).
+X
+X	- A new trap, the "polymorph" trap has been added by Richard Hughey.
+X	It's inclusion is dependant on having "KAA" defined.
+X
+X	- In wizard mode, the wizard player has infinite wishes, and the
+X	ability to instantly identify everything (s)he is carrying. The wizard
+X	player is also no longer limited by the standard multiple / bonus res-
+X	trictions on objects wished for.
+X
+X	- Random number generation has been changed around to make it (I hope)
+X	more unpredictable.
+X
+X	- A large number of typos have been fixed, and all of the British
+X	spellings converted to American.  I would like to see a shell script
+X	to allow conversion back (or something like that) in the future.
+X
+X	- I have done a "make depend" for the makefiles to reflect a slight
+X	restructuring in the order of inclusion of header files.
+X
+X  6)	Future additions:
+X
+X	- Steve Creps is working on "barracks" and "soldier" code which is
+X	now ready for addition.  I have added the "soldier" side into the
+X	game, but haven't really tested it.  Steve will be adding the
+X	"barracks" section in and sending me the resulting patches.  There
+X	will be a minor (read patch) release as soon as he can get the code
+X	integrated into this release and sent up here to me.
+X
+X	- There are also several other new room projects in the works which
+X	should be able to be included in that minor release, along with any
+X	bug reports that are made in the interim.
+X
+X						Mike Stephenson
+X
+XMail:	Genamation Inc.		Phone:	(416) 475-9434
+X	351 Steelcase Rd. W
+X	Markham, Ontario.	UUCP:	uunet!{mnetor, utzoo}!genat!mike
+X	Canada   L3R 3W1
+END_OF_README
+if test 7320 -ne `wc -c <README`; then
+    echo shar: \"README\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+if test -f MANIFEST -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"MANIFEST\"
+else
+echo shar: Extracting \"MANIFEST\" \(3864 characters\)
+sed "s/^X//" >MANIFEST <<'END_OF_MANIFEST'
+X   File Name		Archive #	Description
+X-----------------------------------------------------------
+X Fixes.2.2                13	
+X Guidebook                 1	
+X Guidebook.mn              3	
+X MANIFEST                  1	This shipping list
+X Make.ini                 20	
+X Makefile.att              9	
+X Makefile.pc              18	
+X Makefile.tcc             18	
+X Makefile.unix            17	
+X Makefile.xenix           17	
+X Maketcc.ini              20	
+X NetHack.cnf               6	
+X README                    1	
+X README.OLD               16	
+X README.ORIG              14	
+X alloc.c                  19	
+X apply.c                   8	
+X bones.c                  19	
+X cmd.c                    13	
+X config.h                 16	
+X data.base                14	
+X date.h                   13	
+X decl.c                    1	
+X do.c                     15	
+X do_name.c                15	
+X do_wear.c                14	
+X dog.c                    18	
+X dogmove.c                16	
+X dothrow.c                17	
+X eat.c                     9	
+X edog.h                    8	
+X end.c                    15	
+X engrave.c                11	
+X eshk.h                   20	
+X extern.h                 20	
+X fight.c                   8	
+X flag.h                   19	
+X fountain.c               16	
+X func_tab.h               20	
+X gen.h                    11	
+X gold.h                    3	
+X hack.c                    6	
+X hack.h                   20	
+X help                     18	
+X hh                       20	
+X invent.c                  4	
+X ioctl.c                  20	
+X lev.c                    10	
+X make.exe.uu               2	
+X makedefs.c                2	
+X makemon.c                15	
+X mfndpos.h                20	
+X mhitu.c                  10	
+X mklev.c                   7	
+X mkmaze.c                 18	
+X mkobj.c                  18	
+X mkroom.h                 20	
+X mkshop.c                 17	
+X mon.c                     7	
+X monmove.c                11	
+X monst.c                  19	
+X monst.h                  18	
+X msdos.c                   9	
+X msdos.h                  20	
+X nansi.sys.uu             19	
+X nethack.6                18	
+X nethack.cnf              20	
+X nethack.sh               20	
+X netquest.sh              20	
+X o_init.c                 17	
+X obj.h                    20	
+X objclass.h               14	
+X objects.h                 9	
+X objnam.c                 11	
+X onames.h                 15	
+X options.c                10	
+X pager.c                  14	
+X pcmain.c                 12	
+X pctty.c                  18	
+X pcunix.c                 19	
+X permonst.h                5	
+X polyself.c               17	
+X potion.c                 10	
+X pray.c                   17	
+X pri.c                    12	
+X prisym.c                 16	
+X read.c                    8	
+X rip.c                    20	
+X rm.h                     19	
+X rnd.c                    20	
+X rumors.base               6	
+X rumors.c                 19	
+X rumors.kaa               19	
+X rumors.mrx               20	
+X save.c                   13	
+X search.c                 19	
+X shk.c                     4	
+X shknam.c                 14	
+X sit.c                    19	
+X spell.c                  13	
+X spell.h                  20	
+X steal.c                  18	
+X termcap.c                16	
+X termcap.cnf              20	
+X termcap.uu                5	
+X timeout.c                19	
+X topl.c                   19	
+X topten.c                  7	
+X track.c                  20	
+X trap.c                    3	
+X trap.h                    4	
+X u_init.c                 11	
+X unixmain.c               12	
+X unixtty.c                15	
+X unixunix.c               13	
+X vault.c                  17	
+X version.c                12	
+X wield.c                  19	
+X wizard.c                 12	
+X worm.c                   18	
+X worn.c                   20	
+X write.c                  16	
+X wseg.h                   20	
+X you.h                    19	
+X zap.c                     5	
+END_OF_MANIFEST
+if test 3864 -ne `wc -c <MANIFEST`; then
+    echo shar: \"MANIFEST\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+if test ! -d Newstuff ; then
+    echo shar: Creating directory \"Newstuff\"
+    mkdir Newstuff
+fi
+if test -f Spoilers.mm -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"Spoilers.mm\"
+else
+echo shar: Extracting \"Spoilers.mm\" \(89033 characters\)
+sed "s/^X//" >Spoilers.mm <<'END_OF_Spoilers.mm'
+X
+X.ND "December 10, 1987"
+X.TL
+X(Net)Hack ``Spoilers'' Reference Manual
+X.AF "{amd, ihnp4, microsoft, ucscc}!sco!stevem"
+X.AU "Edited by Stephen Marino*"
+X.AS x .5i
+X.\" This is a kludge to get the date on the cover sheet.
+X(Net)Hack is a Rogue-like dungeon game that runs on a variety
+Xof computer systems in as many implementations.  Although much
+Xof the information in this document is generic to Hack, it is
+Xslanted toward the newest release, NetHack.  This reference is
+Xneither a man page nor a basic instruction manual. Beginners
+Xand those who wish to learn strictly from experience should
+Xrefer to the \fIGuide to the Mazes of Menace\fR, a revised
+Xedition of Ken Arnold's \fIGuide to the Dungeons of Doom\fR
+Xby Eric S. Raymond.  The (Net)Hack ``Spoilers'' Reference Manual
+Xis an exhaustive compilation of facts,
+Xstrategies, and what are known in the vernacular as SPOILERS.
+XThe reader is warned that this guide leaves little to the
+Ximagination.  Although probably a bit overwhelming for the
+Xcomplete novice, this manual should prove useful
+Xto those who want to know almost everything about the game. 
+X.SP 2
+X\*(DT
+X.\" These are footnotes on the cover sheet.
+X.FS *
+XMany people are responsible for the text of this document, but it
+Xis principally the work of Dave Harmon, Greg Samson, Melissa Silvestre,
+XRobert Thau, Tony Lazar, ``Daniel G. Winkowski'', Carlton Hommel and
+X``Colonel'' George L. Sicherman, who all created a set of hint files
+Xfor Hack 1.0.1.  Also, my thanks to Douglas Rosengard, whose tutorial
+Xtaught me a couple of things even I didn't know.
+XMy apologies to anyone I've missed.
+X.FE
+X.AE
+X.MT 4
+X.CS
+X.nr % 0
+X.bp
+X.ds +3 +2 +0 +0
+X.PH ''SPOILERS''
+X.PF 'DRAFT'%'12/10/87'
+X.ce 3
+X\s+2\fB(Net)Hack ``Spoilers'' Reference Manual\fR
+X.sp
+X\fIEdited by Stephen Marino\fR\s-2
+X.sp
+X\fB{amd, ihnp4, microsoft, ucscc}!sco!stevem\fR
+X.sp
+X.H 1 "INTRODUCTION"
+XIf you are relatively new to Hack, keep the handy reference sheet
+Xin Appendix A close by.  Beware of features that may not apply to
+Xyour version; NetHack features are flagged where possible.
+X.P
+XYour character begins on level one of a 30+ level dungeon.
+XAccompanying you is your faithful dog, which should be named (with the
+X``C'' command).  The idea is to kill monsters, gather gold,
+Xand (eventually) retrieve the Amulet of Yendor.  The primary objective, however,
+Xis to survive, which isn't that easy.  To help (or hinder) your progress are
+Xmagic items, traps and other contrivances developed by scores of programmers,
+Xall calculated to drive the player mad with frustration.
+X'
+X.H 2 "How to Use this Guide"
+X'
+XThis paper is organized into the following sections:
+X.BL
+X.LI
+XBasic Instructions
+X.LI
+XStrategy
+X.LI
+XRooms and Other Bad Places
+X.LI
+XTo Eat, or Not to Eat
+X.LI
+XMonsters
+X.LI
+XWeapons and Armor
+X.LI
+XScrolls, Potions, Rings and Wands
+X.LI
+XExtended Command Set
+X.LI
+XSpecial Items
+X.LI
+XTricks and Other Non-intuitive Actions
+X.LE
+X.P
+XThe basic structure is that of a reference manual, with basic and
+Xstrategy tutorials to the front.  The Table of Contents should prove
+Xuseful for quick indexing by subject.
+X.H 1 "BASIC INSTRUCTIONS"
+X'
+X.H 2 "Getting Started"
+X'
+XThere are some basic commands that you
+Xshould be familiar with;
+Xrefer to the command chart in Appendix A
+Xor the ``?'' command.  Learn all the move keys \- diagonal movement can
+Xbe critical.
+XThis section discusses the most basic considerations of playing the
+Xgame.  The first decision to be made is the choice of character to
+Xdo your dirty work.
+X'
+X.H 2 "Character Classes"
+X'
+XThe table below lists the various character classes, their equipment
+Xand beginning stats.
+X.TS
+Xtab (#),center,expand,box;
+Xc c c c c c
+Xl | l | n n n | l.
+XClass or Name#Special Items#St#Ac#Hp#Other	
+X_
+XArchaeologist\(de#pickaxe & icebox#14#7#12
+XCave(wo)man\(de#+1 club#18#8#16
+XElf# #16#9#16#sword
+XFighter\(de# #17#7#14#two-handed sword
+XHealer#stethoscope#15#10#16
+XKnight\(de#suit of armor#10#3#12#long sword
+XNinja# #10#7#15#katana, shurikens
+XPriest(ess)#+1 mace, blessed#15#4#13#2 spellbooks
+XSamurai# #16#4#16#katana
+XTourist\(de#camera (w/flash)#11#10#10#+2 darts, lots of food
+XValkyrie#+1 long sword#17#6#16#+3 shield
+XWizard\(de# #16#9#15#lots of magic items
+X.TE
+X.BL
+X.LI "\(de"
+XDenotes standard Hack character classes.  All others exclusive to
+XNethack.  ``Speleologist'' has been renamed ``Archaeologist'' in Nethack.
+XBeginning stats shown are also for NetHack.
+X.LE
+X.P
+XEach character has advantages, but some are more unusual than others.
+XThe Tourist is a weak human being, but is equipped with a
+Xa camera and inexhaustible flash unit that blinds monsters.  The 
+XHealer (with a stethoscope to diagnose monsters) and the Tourist
+Xare both weak and difficult to keep alive. (The idea
+Xis to get by until weapons, armor and magic can be found, so that
+Xthe benefits of the peculiar items can be enjoyed.)
+XThe Archaeologist/Speleologist starts with a pickaxe
+Xto dig and box to keep food.
+XThe remaining characters are self-explanatory.
+X'
+X.H 2 "Words to the Wise"
+X'
+XConsider the key points that are listed in this section; they may save
+Xyou time and frustration.
+X.H 3 "Choose an appropriate character."
+XTo start out, choose a character that can survive a few beatings while
+Xyou learn your way around; the archaeologist/speleologist, healer,
+Xtourist and wizard are virtually unarmed and defenseless.  
+X.P
+X.H 3 "Your best friend is your dog."
+XBe patient with your dog; it can save your life.
+XYou will notice that he gets in your way and sometimes eats what you
+Xwould like to get hold of.  He eats what he needs to, but he leaves
+Xfood rations alone unless you throw one to him.  If the message is
+Xdisplayed: ``You feel worried
+Xabout the dog,'' it means that he is starving.  Throw him a tripe ration,
+Xkill something, or (if you can spare it) toss a food ration.
+XThe message ``You have a sad feeling for a moment, then it passes,''
+Xmeans that your dog has died.
+XMany people prefer to leave their dog behind on the first level.
+XConsidering that your canine is a match for almost any creature in the
+Xdungeon, you are well-advised to keep it around.  A leash
+Xallows you to keep the animal with you at all times, but also tends
+Xto make him get in your way more often.
+X.P
+X.H 3 "Don't let the monster get the upper hand."
+XWhen moving around or running from monsters, the idea is to give them
+Xas few chances as possible to hit you.  If you end a move right
+Xnext to a monster, it will have first crack at you.  Some monsters, like
+Xleprechauns and bats, can leap an extra space and still hit you.
+XWhen moving in a room with monsters in it, plan your moves ahead.  Remember
+Xthat you can enter a door only at right angles to the wall, but you can
+Xattack to or from a door diagonally.  This applies to monsters too.
+X.H 3 "Beware Swarms of Orcs."
+XIt is a good idea to use the ``c'' (call) command to name your
+Xweapon ``Orcrist.''  This will give you a hitting bonus against the
+Xswarms of orcs you will encounter.  Orcs are very common, and if you
+Xrun into one, the others aren't far off.
+X.H 3 "Where possible, eat what you kill."
+XYou must eat food soon after the display indicates you are hungry.
+XDead monsters are a necessary supplement to your diet.  Some characters
+Xstart off with little or no food.  Not only do corpses ward off
+Xstarvation, but some monsters will give you
+Xspecial powers.  However, you must be very careful to only eat monsters
+Xkilled within the last few turns and eat only those that are safe for
+Xconsumption.  (Refer to the section on Food for more details.)
+X.P
+X.H 3 "In Hack, relief is spelled E-l-b-e-r-e-t-h."
+XOne of the most vital tactics in Hack is the use of the E)ngrave command
+Xin conjunction with the magic word ``Elbereth.''  When written on the
+Xfloor of the dungeon, this word represents a sort of truce with monsters.
+XWhen surrounded
+Xor close to death, you can ``go under Elbereth,'' as the expression goes,
+Xand monsters will not attack again until you strike at them first.
+X(There are several exceptions;
+Xsee the section on Elbereth under ``Tricks and Other Non-intuitive
+XActions'' for detailed instructions.)
+X.H 2 "Learning the Ways of Magic"
+XAt low levels, you only have to worry about 3 things: your hit points, your
+Xfood supply, and dealing with cursed magic that can temporarily cripple you.
+XTwo particular items that require great consideration are a wand of
+Xwishing and a scroll of genocide.  These items should not be wasted;
+Xgive some thought to possible uses before you find one.  There is more
+Xthan enough information in this document to aid your decision.
+X.P
+X.H 3 "Test potions and scrolls carefully."
+XWhile playing, it is best to read unknown scrolls and try potions
+Xbefore you clear an entire level; scrolls and potions of detection
+Xwill yield ``strange feelings'' if there is nothing to detect.
+X(You might drop some gold, a magic item, a food item,
+Xand ensure that a monster is around before testing to guarantee results.)
+XIt is also possible to fling potions at monsters and observe their effects
+X(see ``Potions'').
+X.P
+XIt is not a good idea to test magic when your hit points are really low;
+Xscrolls of fire, create monster, and potions of sickness can kill you.
+XWith most magic items, after testing you will be 
+Xable to identify them the next time you pick one up, or at least have an idea 
+Xwhat they are.  If you are prompted to name an object you've just used
+X(usually scrolls) this is the name it will be given if you find it again.
+XThis document should enable you to recognize these items quickly.
+X.P
+XIn the case of scrolls, there are three whose action is sufficiently
+Xnasty that it is important to take precautions until they have been
+Xdiscovered: Damage Weapon, Destroy Armor and Amnesia.  The respective
+Xdangers are that your weapon will be ruined, your armor destroyed and
+Xyour spells forgotten.  One way to prevent this wanton destruction of
+Xyour property is to (prior to reading scrolls) wield an alternate weapon,
+Xwear an alternate armor or something over your primary armor, and don't
+Xtranscribe spells until you've read the Scroll of Amnesia (``Who was that
+XMaude person anyway?'').
+X.P
+X.H 3 "Zap wands immediately."
+XIf they are non-directional you will usually 
+Xfind out what it is immediately.  A non-directional wand that doesn't seem to 
+Xdo anything is a wand of secret door detection.  You may want to conduct such 
+Xtests in a room where you suspect a secret door, but haven't searched it out 
+Xyet.  If it asks for a 
+Xdirection, hit <space> to cancel, and next time you have a cooperative monster,
+Xengrave Elbereth and zap it at the monster in such a way that if it's a
+X``bolt'' wand it won't bounce back at you.  (Stand at a diagonal from the
+Xmonster.)
+XDon't accidentally hit your dog!  
+X.P
+X.H 3 "Never experiment with rings."
+XUse identify scrolls on rings.  Be particularly careful with rings (and
+Xweapons and armor for that matter) from a ghost hoard, which are
+X\fIstickeycursed\fR, which means that they are not necessarily cursed
+Xin the usual sense (with negative enchantment) but they cannot be removed
+Xwithout a remove curse.  If, for example, you put on a stickeycursed
+Xring of levitation, you won't be able to pick up anything, including
+Xa scroll of remove curse.
+X.H 1 "STRATEGY"
+X.H 2 "Upper Levels"
+X.H 3 "Let the dog fight for you when you are badly hurt or outclassed."
+XHe is bigger and stronger than you.  Don't steal all his kills;
+Xhe can starve to death. He will eat more than he needs, but the more he eats,
+Xthe faster he grows into a big dog.  There is no monster except a cockatrice
+Xthat a big dog cannot take on with a reasonable chance of survival.  
+X.P
+XHis body is one guaranteed non-hostile food source, provided you don't 
+Xwait so long you die before you can kill him.  (Due to the ``You avoid
+Xhitting your dog feature,'' the only way to kill your dog is with
+Xa wand or projectile weapon, or hitting him while blind.)  Starvation excepted, 
+Xhowever, (and not then if you have an alternative) DO NOT kill your dog 
+Xout-of-hand! He may get in the way, but he is a powerful ally.  Also, the
+Xminute you eat a dog, every monster on the level will head for you with blood
+Xin its eye(s).  There are a few monsters he will not normally attack, such as 
+Xshopkeepers, and others that he won't attack until he sees you fighting 
+Xthem.  On the other hand, he will immediately attack bats ond orcs.
+XA ring of conflict will make him fight anything.
+XDon't test wands out on him; your canine is not invulnerable.  
+X.P
+XIf you meet a wild dog, the best bet is to throw food at him \- anything 
+Xyou could eat.  Tripe 
+Xis wonderful, but don't bother throwing rotted corpses.
+XIf you find a ``wild'' dog above 8th level or so, or a named monster 
+Xanywhere, you are on a ghost level.  Watch out for the dog's former owner.
+XPlease name your dog, even if it's Ralph. That way, other people will have the 
+Xsame advantage if you die and become a ghost.
+X.P
+XDon't try to maintain more than two tame dogs \- if you get more than 
+Xthat, abandon them (save some tripe in case you need to go back to the level)
+Xor, if you are powerful enough to face enraged hordes, kill and eat the extras 
+Xnext time you're hungry.  Scrolls of 
+Xtaming produce tame monsters that should be treated as polymorphed 
+Xdogs.  Tame monsters all eat a lot, except the cockatrice, and you can't eat 
+Xanything he kills.
+X(By the way, if you get a tame cockatrice, DO NOT GO AROUND BAREHANDED!
+XIf you are not wearing gloves, wield anything, even an egg! Otherwise, 
+Xyou run a terrible risk of bumping into it with your bare hands and
+Xbecoming petrified.)
+X.P
+X.H 3 "Don't get careless."
+XA major cause of upper-level fatalities, or
+Xfatalities at any level, is not keeping an eye on your hit points.  If you are
+Xlow on hit points, freeze with your hands off the keyboard and figure out what
+Xto do.  Can you get away from the monster?  Do you have a secret weapon?
+XThe first thing to do is often to write Elbereth.  (Magic Markers can be used
+Xto create an indestructable Elbereth that works the same as a scare monster
+Xscroll; see Magic Marker under ``Tools.'')  Even a puny monster can
+Xkill you if you don't watch your hit points.  Monsters to keep an eye on at
+Xlow levels are hobgoblins and acid blobs.  If you have 8 or fewer HP,
+Xa hobgoblin can kill with one blow.
+XGetting killed by acid blobs is always embarrassing,
+Xbecause the only way they can hurt you is if you hit them.  Don't chase acid 
+Xblobs if you're low on HP.
+X.P
+X.H 3 "You may want to eat a leprechaun and a floating eye."
+XThe first is a matter of preference, since the ability to teleport
+Xrandomly can be a blessing and a curse.
+XThe latter, your dog will be happy to kill for you,
+Xbut you will, as usual when he
+Xkills monsters, have to move fast to prevent him from happily eating it for
+Xyou.  You should be able to kill a leprechaun by 3rd level or so.
+Xin NetHack, wizards gain teleport control at experience level 5, so it
+Xis a good idea to eat one.  (Other character classes gain the same
+Xability at experience level 10.)
+XYou can use a wand to kill a leprechaun,
+Xbut if planning an extended visit in the dungeon, just wear him
+Xdown hand-to hand, perhaps softening him up with a couple of throwing weapons.
+XTo keep him from stealing all your gold, drop it in a corridor, and once you
+Xdisturb him, defend the door to that corridor. (Remember, he's much
+Xfaster than you are).  If he gets your gold anyway, he and the
+Xgold are still somewhere on the level.  Again, the dog may be some help
+Xin the fight, but you will have to grab the corpse before he does.
+XAnother strategy is to start with dog well away from both you and leprechaun.
+XThrow something at leprechaun from 3 squares or so away, and go under Elbereth.
+XHe will come up to you, and your dog may fight 
+Xhim and kill him at your feet.  This works best with you standing in a door 
+Xand your gold behind you in a corridor, and your dog wandering someplace on 
+Xthe far side of the room.
+X.P
+X.H 3 "Try to conserve your missiles and magic."
+XYou can just take it slow,
+Xand deal with monsters as leisurely as your food supply (including their
+Xcontributions) permits.  If you conserve firepower early, then you can use it 
+Xagainst tougher monsters when you really need it.  On the 
+Xother hand, you might find that your weapons and skill have improved to the 
+Xpoint where you can deal with tougher monsters.
+XRemember, if you use a potion of extra-healing to gain
+X4 HP now, you may not have it when you're down to 10 out of 40 HP.
+XA partial exception is wands of wishing.  
+XYou need one good weapon, one rustproof armor (or an elven cloak to protect
+Xyour armor),
+Xmiscellaneous such as 3 tins (usually spinach), or a powerful magic item.
+XThis applies to wizards, of course \- other types should wish for whatever they 
+Xare short of.  Don't wish for scrolls of genocide just yet, either.  If you
+Xare genuinely doing all right, you might save a wish for future needs. 
+X.P
+XIn NetHack, the presence of spellbooks makes your choices somewhat different.
+X(Refer to the section on Spellbooks in the ``Extended Command Set'' section.
+X.P
+X.H 3 "Do anything to survive."
+XIf you are starving and no edible monsters
+Xin sight, then kill your dog!  If you are fainting, down to 2 HP, and cornered
+Xby a hobgoblin, then zap anything you can, try all your rings, quaff all your 
+Xpotions, read all your scrolls.  You might be teleported, or discover a ring
+Xof regeneration or a potion of extra healing, or a wand of fire.  If you
+Xare killed by the rebound of your magic missile, at least you tried.
+X'
+X.H 2 "Lower Levels"
+X'
+X.H 3 "Be prepared for crowded rooms."
+XBelow level 8, Throne Rooms, Treasure Zoos and Beehives become regular
+Xhazards.  If you are reasonably equipped, you can back into the corridor
+Xand fight the monsters one at a time.  If you aren't, it's best to teleport,
+Xdrop a scroll of scare monster, or find some way of retreating to a staircase.
+XBolt wands and spells can be counted on to kill more than one monster at
+Xa time.
+XDon't count on Elbereth to save you when you are badly outnumbered.
+XIf you've found a ring of conflict, you are well-equipped to
+Xhandle the situation, as the monsters will fight amongst themselves.
+XDon't wear it constantly; it is only
+Xuseful when there are two or more monsters near you and the ring consumes
+Xa great deal of energy. 
+XIn NetHack, a spell of Charm Monster can be used to turn several monsters
+Xto your side; they will behave like dogs and kill your enemies.
+X.H 3 "Rob stores; the risk is worth it."
+XYou should be robbing stores according to the procedures described in
+Xthe section on ``Shops.''  Stealing may seem unethical, but 50 types of
+Xmonsters bent on killing you gives you a sense of perspective.
+X.H 3 "Don't throw away bad potions."
+XThrow them at monsters.  A potion of sickness can do considerable damage.
+XYou can also dip your weapon in them.  Save potions of confusion.  (See 
+X``Potions.'')
+X.H 3 "Genocide with consideration."
+XIf you have scrolls (or spell) of genocide, it is best to eliminate
+Xxans or, if you're short on missiles, cockatrices.  Don't genocide dragons;
+Xyou'll need to eat one if you don't find a ring of fire resistance.
+X.H 3 "There are eight truly awful monsters in the dungeon; know them."
+XIn order of fearsomeness: Humans (shopkeepers), Dragons, Demons, Ettins, Eels,
+XCockatrices, Xans, and in NetHack, Nymphs. 
+X.VL 12
+X.LI Humans
+XWhen angered, nothing lowers your hit points quite like a shopkeeper.
+X.LI Dragons
+XTheir flames are fearsome and have been known to travel through walls
+Xand past boulders.  Even with a ring of fire resistance, beware of
+Xboiling potions that have negative effects.  Kill them quickly or run
+Xaway fast.
+X.LI Demons
+XDemons get multiple hits and tend to replicate.  A wand or spell of
+Xturn undead works well.  Blessed weapons also fare well.  Use a wand
+Xof cancellation to prevent replication.  Demons usually appear when
+Xyou are fooling with fountains.
+X.LI Ettins
+XThey hit hard and fast, doing about the same damage as a shopkeeper.
+X.LI Eels
+XInvisible, eels hide in muddy pools (}).  When you walk into a room
+Xwith pools, a message is displayed ``It looks rather muddy in here.''
+XIf you aren't careful, one will quickly pull you in to drown.  If you
+Xhave the ability to teleport at will, you will do so automatically.
+X.LI
+XCockatrices
+XTheir touch turns you to stone instantly, their hissing may do the
+Xsame, only more slowly.  Dead lizards are useful against them.  The
+Xproblem with cockatrices is that, once dead, are still a hazard.
+XDon't forget where you left the corpse and don't inadvertantly pick
+Xit up.
+X.LI Xans
+XTheir pricks eventually render you unable to move, collapsed.  Time
+Xheals you slowly, but royal jelly (found in hives) restores movement
+Xinstantly.  Levitation can be used to avoid xans; they are short
+Xcreatures. 
+X.LI Nymphs
+XThey are much nastier in NetHack than in other games.  Although usually
+Xasleep, they can wander and hit so fast that, if you have no handy
+Xkiller magic, they can rob you blind.  They teleport instantaneously
+Xunless you use a wand of cancellation.  (Think of what could happen to
+Xyou if, in two passes, a nymph has stolen your weapon and your armor.)
+X.LE
+X.H 3 "To win the game, you must go to hell and back."
+XYour principal goal, the Amulet of Yendor is found in the center of Hell,
+Xguarded by the Wizard of Yendor and his dog, surrounded by a moat.
+XOnce below level 26, you will notice there are no stairs going down.
+XTo get to hell, you must read a teleport scroll while confused; you will be
+Xasked "What level?"  Enter ``40'' and to hell you will go.
+XYou will burn to a crisp without fire resistance.
+XYou must levitate over the moat or blast the waters with fire and dig
+Xthrough the wall to reach the Wizard.
+X(If you genocide dogs, the Hell Hound will also be destroyed.)
+X.H 1 "ROOMS AND OTHER BAD PLACES"
+XRooms can be empty, filled with traps, treacherous pools with eels,
+Xor even a beehive.  The types of rooms listed in this section are
+Xmuch easier to deal with if you have a ring of conflict to force the
+Xdenizens to fight amongst themselves.
+X'
+X.H 2 "Assorted Shops"
+X'
+XShops add much of the spice to hack.  Shops
+Xare rooms filled with goodies guarded by a shopkeeper. Shops
+Xmay specialize in a particular object (armor, weapons, scrolls, wands, rings) or
+Xthey may be general (antiques).  There are three things you can do in a shop: 
+Xbuy things, sell things, or steal.   
+X.P
+XBuying things is simple.  You pick up items and p)ay your shopping bill.  
+X(Note: prices for magic items are high, but you often may want to buy food or
+Xa weapon if you aren't equipped to steal.)
+X.P
+XSelling things is almost as simple.  You drop (not throw) the items, and if 
+Xthe shopkeeper is interested, he will buy it from you.  WARNING: if not 
+Xinterested, he may take the item without paying (i.e. the keeper of a
+Xbook shop isn't interrested in your mace or potion).
+X.P
+XStealing is harder.  You must kill or sleep the shopkeeper or get out past 
+Xhim.  A nasty but lucrative tactic is to enter a shop, sell everything you can 
+Xto him, including extra rings, cursed items, and/or dead monsters, then take 
+X(not buy) back everything you want to keep, anything of his you can carry, and 
+Xsteal it all, including the gold he paid you.  You will 
+Xhave to rely on your brains, not your brawn.  Note that the shopkeeper usually 
+Xhas some treasure of his own that may not appear until he is dead.
+X.P
+X.H 3 "Strategies for dealing with shopkeepers" 
+X.BL
+X.LI
+XTeleport out: keystone kops will immediately pursue you; the shopkeeper
+Xwill follow somewhat after, asking "Did you forget to pay?"  Beware the
+Xpies thown by the keystone kops;
+Xthe shopkeeper will get angry if he gets hit and take it out on you.
+X.LI
+XDig your way out.  
+X.LI
+XTeleport the shopkeeper away with a wand of teleportation; just
+Xdon't meet him on the way out.
+X.LI
+XAvoid the shopkeeper: lure the shopkeeper away from the door, then 
+Xzap him with a wand of sleep.  Tiptoe around him and make good your
+Xescape.
+X.LI
+XKill the shopkeeper: you better have a wand!  Killing humans is very bad
+Xluck.  On the run, these retired barbarians will
+Xwipe up the floor with you if they catch you.  They are faster than you and
+X\fBthey ignore Elbereth\fR. If you quaff a potion of invisibility, they will stand
+Xin front of the door no matter what you shoot or throw.  The shopkeeper
+Xknows who's attacking him, and if you get too close, he'll get you.
+X.LI
+XTrain your dog: this isn't as hard as it sounds. It can be fun if you're not a
+Xtaker of risks.  Get your dog inside the shop and sit in the doorway until
+Xthe dog puts an object directly in front of you.  You can step forward and
+Xtake the item without being charged for it.
+XWhen he moves away, toss him a tripe ration.  Having been rewarded,
+Xyour dog will will bring other objects to you in the same manner. 
+X(Note: the shopkeeper may stand
+Xon this critical spot if the dog has displaced him; just be patient.)
+X.LI
+XIf by some chance you have a shop with a bunch of orcs in the back,
+XElbereth one step behind the door, and kill the orcs as they exit the room.
+X(You may have to take a step into the room or throw something to wake up the
+Xorcs).  The orcs will carry many items outside the shop for you, and you will
+Xnot be charged for them. The shopkeeper may not even declare his shop 
+Xpillaged.
+X.LE
+X.P
+XShopkeepers have long memories.  They will refuse to let you out
+Xof a shop if you have stolen any items from it, even if you are not trying
+Xto steal anything on this visit.   Shopkeepers are also crafty enough to
+Xstay out of your line of fire, unless you are within 2 spaces of the door. 
+XMake sure you have a means of escape before trying anything, since you will
+Xhave to pay for or steal anything you use up or get stickeycursed by!  If you 
+Xknow which scroll is teleportation, then you can use one of his, but if trying
+Xhis scrolls out to find a teleport scroll (don't even try it except in a book
+Xstore) you run a risk of being stranded.  Trying wands out in a walking-cane 
+Xshop will avoid that problem (since wands are not used up in one shot) but
+Xif any wand is fired at, or any ray hits (look out for rebounds) the
+Xshopkeeper, he will get mad!  If you really wipe out a shop, the storekeeper
+Xwill declare it pillaged, and instead of buying, he will accept contributions.
+X.P
+X.H 2 "The Magical Memory Vault"
+XThis little 2x2 room holds the current
+Xbalance of the Magical Memory Bank.  It has no doors connecting it to any
+Xroom or corridor on the level.  You may locate it in three ways. 1)
+Xread a scroll of gold detection.  The four piles of gold are unmistakable.
+X2) read a scroll of magic mapping.  Any 2x2 rooms on the level not
+Xconnected to any other rooms will be a Magic Memory vault.  3) stumble
+Xupon one.
+X.P
+XThere are three ways of getting to a Magical Memory vault.
+X1) teleport in.  This is the fastest way in, but will you be able to get out
+Xagain? 2) use a wand of digging. 3) Find the phrase ``ad ae?ar um''
+X(Latin: \fIad aerarium\fR,``to the money.'') and search it until
+Xyou find a passage that contains a ``single-use'' teleport trap and use it.
+X.P
+XIf you stay in a vault too long, a guard will come by and ask you
+Xto identify yourself, and if he doesn't know you,
+Xto drop all your gold.  If you have no way to teleport out or defeat
+Xthe guard, you lose both your money and the money you've stolen.
+XThe key is to identify yourself as ``Croesus'' (as in ``Rich as Croesus.'').
+XThe guard will then leave you to your looting.
+X.P
+XIn some older versions of Hack (1.0.3) it is also possible to
+Xdeal with the guard this way:
+X.AL
+X.LI
+XDrop your gold, and move one step toward the guard (once he
+Xgives you room).  He will move a step down the corridor.
+X.LI
+XTake a step back to pick up the gold; the guard will stay put.
+X.LI
+XStep toward the guard again, till you are next to him (Don't
+Xhit him!).  Drop gold again.  He will advance again.  
+X.LI
+XRepeat until guard reaches end of corridor, where he will disappear.
+X.LE
+X'
+X.H 2 "David's Treasure Zoo"
+X'
+XThe zoo corresponds to a monster room (sometimes know as ``party rooms'')
+Xin Rogue.  There are some differences: A zoo is packed with monsters,
+Xexcept for the row facing the door.  There are no magic items, (except for 
+Xwhat materializes when you kill a monster) but a pile of gold is under
+Xevery monster.  Monsters in a zoo are best dealt with with a ring of 
+Xconflict, but zapping a missile wand (fire, cold, magic missile, death,
+Xetc.) will kill many monsters.  Otherwise, you better run as fast as 
+Xyou can away from the zoo and come back when you are better prepared.
+XBest thing is to use Elbereth and a strong wand.  If a
+Xleprechaun is in the zoo,
+Xwhen you use a wand or a ring of conflict, he will go around picking up the
+Xgold left by dead monsters.  When he has all the gold, he will teleport, which
+Xis wise of him, because he is carrying a lot of gold.
+XOrcs will also pick up gold but, or course, can't teleport.
+X'
+X.H 2 "Hives"
+X'
+XLairs filled with killer bees.  Asleep at first, they will swarm if
+Xyou remain long.  Hives have several lumps of royal jelly, a substance
+Xthat simultaneously fills your stomach, heals and increases strength.
+XIt also heals the effect of xan pricks.
+X'
+X.H 2 "The Morgue"
+X'
+XThese are filled with ghosts with strange names.  When
+Xyou disturb their rest, they file out and attack.  Note that these
+Xghosts are not of former players.
+X'
+X.H 2 "Throne Rooms"
+X'
+XLike Treasure Zoos, Throne Rooms are packed with monsters.  In order to
+Xget a crack at the throne, you must clear some of them.  A ring of
+Xconflict is useful.  When you approach the throne, use the # sit command
+Xif you dare.
+XAlthough the message ``you feel somehow out of place...'' is always displayed
+Xwhen sitting down, there is a one in three chance that something will happen.
+XAs with fountains, after a random number of operations, the throne disappears:
+X``The throne vanishes in a puff of logic.''
+X.P
+X.S 9 10
+X.TS H
+Xtab (#), center, box;
+Xc c
+Xl l.
+XMessage#Effect
+X_
+X.TH
+X``you feel suddenly weaker.''#Lose 1-2 strength, plus hp damage
+X``you feel suddenly stronger.''#Gain strength
+X``A massive charge of electricity shoots through your body!''#Electrocution, great damage
+X``you feel much, much better!''#Cure all
+X``you notice you have no gold!''#That's correct
+X``you feel your luck is changing.''#Adds to luck or grants a wish
+X``an image forms in your mind.''#Magic mapping
+X``your vision sharpens.''#See invisible
+X``you feel threatened.''#Aggravate monster
+X``you feel a wrenching sensation.''#Teleportation
+X``you are granted a gift of insight!''#Identify pack
+X``your mind turns into a pretzel!''#Confusion
+X_
+X``you hear a voice echo:''#[Three possible:]
+X``Your audience has been summoned, Sire!''#A nasty monster appears
+X``By your Imperious order Sire...''#Genocide
+X``A curse upon you for sitting upon this most holy throne!''#Blindness or curse pack items
+X.TE
+X.S
+X'
+X.H 2 "Mazes"
+X'
+XMazes are found on the lowest levels of the
+Xdungeon.  The exact level may vary depending on your version of hack.  
+XThe maze takes up the entire level, and is inhabited by a variety of
+Xstrong monsters.  One peculiarity of the maze is that there are no 
+Xstaircases down.  All staircases in mazes lead up, even if you had just
+Xascended the staircase from a lower level.  The only way to get to the second
+Xor greater maze levels is to fall several levels through a trapdoor.  Even 
+Xthen, you will have to repeat the fall if you want to return. You may wish to 
+Xsave a scroll of mapping for the maze, especially if you possess a ring of 
+Xteleport control. Also useful are potions of object detection (see Amulet),
+Xmonster detection, and blindness (if you have telepathy).
+XEvery maze is inhabited by a minotaur (m) who carries a wand of digging.
+XIt is rumored that a wand of wishing can be found on a particular level.
+X'
+X.H 2 "Traps"
+X'
+XThere are various types of traps, designed to injure, incapacitate,
+Xor relocate you.
+X.VL 22
+X.LI "dart trap"
+XSmall damage, rarely poisoned.
+X.LI "arrow trap"
+XGreater damage, rarely poisoned.
+X.LI "pit trap"
+XSmall damage, temporary imprisonment. Greater damage if spikes are
+Xpresent.
+X.LI "bear trap"
+XLittle damage, temporary imprisonment.
+X.LI "sleeping gas trap"
+XSleeping gas is dangerous during battle; you can die while asleep.
+XLasts several turns.
+X.LI "teleport trap"
+XSend you to random spot on same level.
+X.LI "level teleport trap"
+XSends you to a random lower level. Message reads: ``You
+Xare momentarily blinded by a flash of light.'' It is quite possible to
+Xteleport to level 30, where, if you do not have fire resistance or a
+Xring of fire resistance on your finger (in your pack does you no good!)
+Xthe message is displayed: ``You arrive at the center of the earth \-
+XUnfortunately that is where hell is located \- You burn to a crisp.''
+X.LI trapdoor
+XDrops you to the next level.
+X.LI "squeaky board"
+XMakes a sharp sound that alerts monsters to your presence.
+X.LI "anti-magic field"
+XDrains some of your magic energy.
+X.LI "water trap"
+XSquirts water that can rust your weapons and armor.
+X.LI "magic trap"
+XHas several effects, some which are familiar, but not all of which are
+Xreal.  The following is a list of messages associated with magic 
+Xtraps and their meanings.  The most common effect is a blinding flash
+Xof light followed by the creation of one or more monsters around you.
+X.LE
+X.TS
+Xexpand, tab(#), center, box;
+Xc c
+Xl l.
+XMessage#Effect
+X_
+X``You are momentarily blinded by a flash of light.''#Blindness; create monster
+X``You yearn for your distant homeland.''#No effect
+X``Your pack shakes violently!''#No effect
+X``A shiver runs up and down your spine.''#No effect
+X``You hear a distant howling.''#No effect
+X``You hear a deafening roar!''#Create monster
+X``You feel someone is helping you.''#Lift curse
+X``You feel charismatic.''#Tames monsters around you
+X``You feel in touch with the Universal Oneness.''#Lift curse (hallucinating)
+X``You feel like you need some help.''#Lift curse (hallucinating)
+X``A tower of flame bursts from the floor.''#Reduces hit point maximum
+X.TE
+X.P
+XYou can still fight and use Elbereth from bear and pit traps.
+XAll traps can be discovered by searching, or by passing near with a
+Xring of searching.  A wand of secret door detection may also find them.
+X'
+X.H 2 "Fountains"
+X'
+XYou can drink (quaff) from fountains or dip things in them.  The water
+Xmay bestow certain benefits, but such instances are rare.  Most of the
+Xtime you will find ``The cool draught refreshes you.''  Sometimes a gem
+Xwill appear.  There is a small
+Xchance of causing the fountain to overflow.  When this happens, stay clear
+Xof the pools, which are displayed as ``}'' (rather than as fountains,
+X``{'').  If you step into one, you will certainly drown, unless you
+Xhave teleport ability. (The game automatically attempts teleportation
+Xwhen drowning.)  It is also possible to unleash Demons; this
+Xis likely to be very unlucky.  (See ``Monsters.'')
+XDipping a long sword can be useful (see ``Excalibur'') but there may be
+Xsome initial damage and enchantment may not be achieved before the fountain
+Xdries up.  The best procedure seems to be going under Elbereth before
+Xdipping.  You may see several messages, as summarized here:
+X.P
+X.so fount.tbl
+X.H 1 "FOOD"
+X'
+X.H 2 "Hunger, Weakness and Death"
+X'
+XIn Rogue, it is best not to eat until the message ``You feel weak'' is
+Xdisplayed.  Not so with Hack (and especially NetHack).  Your strength
+Xdrops by one point when the ``weak'' message is displayed, and there
+Xmay be lasting effects.  Eat when you are hungry.  If you
+Xeat two food rations in a row, or an enormous amount of other stuff, you will
+Xbecome Satiated ('You're having a hard time getting all that food down').
+X\fBDo not eat while satiated\fR.  You may choke and die.
+X'
+X.H 2 "Monsters"
+X'
+XEating fresh-killed monster corpses is good for saving your 
+Xrations.  However, some are poisonous, and all rot after a short time.  
+XEating some monster corpses will give special abilities or effects (see 
+Xthe table at the end of this section),
+Xbut may simultaneously do poison damage.  Eating rotted (tainted) 
+Xcorpses is lethal within 20 turns at most, unless you have a handy healing or 
+Xextra-healing potion. If you do, drink it fast. Poison resistance will not
+Xprotect against rotted corpses.
+X'
+X.H 2 "Food Items"
+X'
+XAside from monsters, food seems to keep forever.  Most 
+Xnamed items have little food value.  Food rations however, are a super
+Xfood which will take you from fainting to healthy in one shot.  Some pancakes
+Xalso seem to do this.  Fortune cookies contain hints from a rumor file.
+XIgnore ``clues'' to next level; they are random.  Hints about monsters, methods,
+Xetc. are usually good.  Tripe is dog food.  If you eat it, it will usually
+Xbehave as a food ration, but you may throw up, and be left only slightly
+Xbetter (or worse) than you started.  Small food items can at least delay
+Xstarvation. Carrots will cure blindness, and a clove of garlic can be
+Xwielded against a vampire.  A few food
+Xitems (random) are rotten. There is not much you can do about this or the 
+Xminor effects that it may have, but be warned that rotten things have 
+Xonly 1/4 the food value.
+X'
+X.H 2 "Tins"
+X'
+XTins take a while to open, and
+Xyou will automatically stop opening the tin if a monster approaches
+X(even if you are under Elbereth).
+XTins may contain apple juice (useless) peaches (food), 
+Xrotten meat (causes you to vomit) unknown substance (disgustingly nutritious)
+Xand the important stuff, spinach.  This miracle weed increases your strength  
+Xby a random but potentially large amount.  Two or three of them will 
+Xalmost certainly turn you into a hulk. Note that monsters will interrupt
+Xyour opening it.  If you don't have a can opener, axes, crysknives, and
+Xdaggers help speed up the process of opening tins.  To help you, though, they 
+Xhave to be wielded, and if you wield a stickeycursed dagger, tough luck.
+X'
+X.H 2 "Food Attribute Index"
+X'
+XLevels: satiated, not hungry, hungry, weak, fainting.
+X.sp
+XBelly limit: 1499 units
+X.sp
+XInitial food in belly: 900 units.
+X.sp
+XProbability of rotten food (unless fortune cookie or dead monster): 1/7
+X.sp
+XConsequences of rotten food:
+X.TS
+Xtab(#),center;
+Xc c
+Xl l.
+XChance#Result
+X_
+X1 in 4#confusion (2d4)
+X3 in 16#blindness (2d10) (if not blind already)
+X3 in 16#loss of consciousness (1-10)
+X3 in 8#no harm
+X.TE
+XValue of rotten food: 1/4 normal value.
+X.sp
+XEating restores 1 strength point unless it leaves you weak or satiated.
+X.P
+X.so food.tbl
+X.P
+XIt is possible to use polymorph to change food items.  When you kill Kops
+Xor giants you get cream pies.  They are relatively light and you can
+Xcarry many.  When you are hungry simply zap a number (2-3) pies into
+Xfood rations.  This allows you to carry a lot of food. (It is a good
+Xidea to always have at least one food ration because you may not be
+Xable to cast.)  You can also polymorph dead bodies with this spell. 
+X.H 1 "MONSTERS"
+X'
+X.H 2 "Monster Data Index"
+X'
+X.so monster.tbl
+X.P
+X.H 2 "Descriptions"
+X.LB 4 0 0 2 a
+X.LI
+XAcid Blob:  Not edible.  Does not attack unless confused, but when you hit 
+Xit it may splash you with acid or corrode your weapon or armor.  (Elven
+Xcloaks and leather armor are not affected.) Worth 9 XP; good for 
+Xbuilding your levels at first.  However, an acid splash can do as much 
+Xas 8 points of damage.  They are slow and easy to avoid.  If one is 
+Xblocking your path in a corridor or door, you can lead it into a room 
+Xand dodge around it.
+X.LI
+XGiant Beetle: Edible.  Nothing else special.
+X.LI
+XCockatrice: Very dangerous!  Any hit will turn you to stone.  Even if it
+Xmisses, it has a one in five chance to do so by hissing.  Touching a 
+Xdead cockatrice is also lethal, unless you are wearing gloves.  If you 
+Xthrew things at it, do not try to retrieve them until detect food 
+Xtells you there is no corpse underneath.  Don't even think of 
+Xeating it.  Gloves allow you to handle dead cockatrices, but not 
+Xnecessarily safely (see gloves).  A monster 
+Xturned to stone by a living cockatrice eventually become a
+Xpile of rocks.  Monsters you hit with a dead one 
+Xseem to be normal corpses.
+XThe wand of cancellation does not stop the petrification.
+XTypically, the process begins with a message about
+Xyour limbs stiffening.  Eating a dead lizard has been known to
+Xprevent petrification.
+X.LI
+XDog: your dog, or that of a previous adventurer.  If you throw tripe or
+Xanything else edible (not rotted corpses) at a wild dog, it becomes tame.
+XIf you leave a tame dog alone on a level, it instantly goes wild.  To
+Xtake a tame dog to another level, use stairs when it is adjacent to you.
+XA tame dog will not attack you unless it is confused.
+XIt can starve to death, and for a while near the end will be confused
+Xby hunger.  If you get ``Sad feelings'' it means 
+Xthat your dog has died or been killed.  If you feel ``worried'' it means 
+Xthat it's dangerously hungry.  Dogs are surprisingly powerful.  Note: 
+Xif the dog falls down a trap door, it will still be tame \- it only 
+Xgoes wild when deserted.  Little dogs grow to be big dogs as the game 
+Xwears on.  There is nothing except a cockatrice that a big dog cannot
+Xat least argue with, and have a reasonable chance of killing.  It seems
+Xto kill only for food, with a few exceptions such as acid blobs and
+Xsometimes kobolds.  If you are fighting something and it has a high 
+Xloyalty quotient, it may get the idea.  
+XNOTE: Dogs will not step on a cursed object.  Thus you can drop a
+Xcursed object (rings do well in a passageway or door and the dog will not
+Xfollow. Later, come back and get him, no worse for the wear. 
+X(CAVEAT: This may apply only to stickeycursed items.)
+X.LI
+XEttin: in D&D, hard to surprise.  In hack, hard to kill (meaner than a troll).
+X.LI
+XFog Cloud: edible, weak, but difficult to kill. 24XP. A real bargain.
+X.LI
+XGelatinous cube: Occasionally paralyzes. 23XP.
+X.LI
+XHomunculus: bite can put you to sleep. (Rare for wizards) Not edible.
+X.LI
+XImp:  Poor attack, but hard to hit.  You might starve to death trying 
+Xto kill one.  Edible.
+X.LI
+XJaguar: has multiple attacks, but does not inflict much damage. 
+X.LI
+XKiller Bee:  Like orcs, this denizen of the dungeon appears in swarms.
+XIf you get hit, you may find that the bee's sting is poisoned.  If 
+Xyou haven't already eaten a killer bee or a scorpion, doing so
+Xwill give you permanent resistance to poison.  They also are created
+Xin swarms by create monster.  Unlike orcs, these are individually
+Xmedium-tough monsters, and there is no Orcrist for them.  Poison resistance,
+Xhowever, takes the sting out of them.
+X.LI
+XLeocrotta: The leocrotta is a master of hit and run tactics.  He tends to 
+Xtake three hits and then step back.  The leocrotta is a real headache 
+Xwhen you are fighting other monsters.
+X.LI
+XMinotaur: The minotaur is the king of the mazes that exist on the lowest
+Xlevels of the dungeon (~27+).  One of these bull-headed creatures
+Xcan be found in each maze level. Kill him and you will find a wand of 
+Xdigging.
+X.LI
+XNurse: tends to a wear a ring, but not always.
+XIf you remove your armor and go barehanded,
+Xshe heals you and raises your maximum hit points.
+XNOTE: Elbereth works to stop her either way.  You can either be truly
+Xdefenseless, heal yourself, or fight her.  Try to avoid her until you
+Xhave cleared the level.  It is bad luck to kill a nurse.
+X.LI
+XOwlbear: If the owlbear gets a good hit on you, he will embrace you in a
+Xbear hug!  You are then unlikely to be able to escape from its 
+Xclutches short of killing it or teleporting away.
+X.LI
+XPiercer: can drop from ceiling by surprise.
+XIf it falls and hits you, it might do up to 30+HP damage.
+XOnce on the ground, however, is not much of a problem.
+XOne of the prime reasons to wear a helmet in hack. Edible. 10XP.
+XA hanging (hidden) piercer can be found by searching.
+X.LI
+XQuivering Blob: Edible.  Weak and slow.
+X.LI
+XGiant Rat or Rockmole\(dg: Both are edible.  Rockmoles bore into walls
+Xand corridors, making new passages.
+X.LI
+XGiant Scorpion or Spider\(dg: poisonous sting. Edible
+Xfor poison resistance.
+XLike snakes, scorpions and spiders hide
+Xunder objects.  You can turn this to your advantage by throwing
+Xmissiles at them from across the room.  They will hide under the first
+Xone, then sit still for you to hit with many more.  Beware of spider
+Xwebs.
+X.LI
+XTengu: The tengu tends to engage in guerilla tactics (like the leocrotta).
+XTengus teleport short distances while in melee, and may even be able
+Xto follow you if you teleport away.
+X.LI
+XUnicorn: DON'T fight! this is a good guy.  Throw gems at it.  If the gems
+Xare valuable, the unicorn will give you something valuble.  Throw a gem
+Xdirectly at it and it "graciously accepts your gift."  This raises
+Xyour luck 5 points, which is useful. It won't tell you
+Xthis, however.  If you throw worthless glass at it, it will be insulted
+Xand refuse the gift.  Like the albatross, it is unlucky to kill one.
+X.LI
+XViolet Fungi: slow, edible.  Sticks to you.
+X.LI
+XLong Worm or Wumpus: Has a long body (~) behind a head (w).
+XOnly the head can hit,
+Xthough you can hit (and destroy) the worm at any segment. Hitting
+Xthe last segment is by far the best approach.
+XYou can get a worm tooth out of the corpse. Enchanting that will
+Xproduce a crysknife, a powerful weapon. 
+XLong worms tend to hit in long bursts; you may get one that
+Xjust sits there while you hit it a few times and then hit you 10 or
+Xmore times.  The worm scores hits in quantity rather than quality.
+XAvoid attacking the midsection.
+XThis can divide the long worm in half, creating two short worms.
+XIt is possible to halve a worm, then split each of 
+Xthe halves.
+XFind a good running loop (two doors on the same side of a room
+Xthat connect through tunnel) and sneak around to whack at its tail. 
+XYou do not have to kill every single segment to kill the whole worm.  
+XIt is worth 115XP.
+X.P
+XSome versions of Hack have the wumpus, a strong creature without
+Xthe complications of the long worm.
+X.LI
+XXan: pricks your leg. More than one prick ruins your load-carrying
+Xcapacity. Potion of speed or lump or royal jelly will cure.
+XA real hazard.  Found under
+X20th level. Good candidate for genocide.  A ring of levitation allows
+Xyou to rise above them; they are very short.
+X.LI
+XYellow light: if it hits, it will blind you and disappear.  Blindness is
+Xtemporary (much shorter than from a potion of blindness).
+X(See Floating Eye, and potion of blindness.)
+X.LI
+XZruty: nothing special.  Hits a lot. 
+X.LE
+X.LB 3 0 0 2 A
+X.LI
+XGiant Ant: poisonous sting can lower your strength.  Moves several times
+Xin one turn.
+X.LI
+XGiant Bat: jumps around.  Not powerful, but so fast that it can hit you and
+Xget out of hand-to-hand range. Eating corpse causes confusion like
+Xpotion. (No warning message.) Good as dog treat, though.
+X.LI
+XCentaur: Fast and powerful.  Edible, but corpse is heavy.
+X.LI
+XDragon: A mega-monster.  Nasty attack or breathes fire. The second best reason
+Xto own a ring of fire resistance at low levels.  You may also do
+Xit the hard way; eating a dragon's corpse 
+Xwill give you permanent fire resistance. Unfortunately, a dragon's
+Xcorpse is an unliftable object. Dragons can flame you even through walls
+Xand past boulders,
+Xthough probably won't hit you. This is particularly common in mazes (level 27+).
+XA dragon at the back of a zoo can be useful \- they flame at you, and
+Xtake out any intervening monsters.  Dragons can flame you through 
+XElbereth.  Note that even with fire resistance, the dragon's flames
+Xcan cause your scrolls to burn and your potions to explode on you.
+X.LI
+XFloating Eye: Gaze can paralyze you, leaving you game for monsters.  It 
+Xcannot do this unless you attack it hand-to-hand.  Eating corpse makes 
+Xyou sick but bestows telepathy; whenever you are blind, you
+Xknow what and where every monster on the level is.  This turns yellow 
+Xlights and potions of blindness into potential godsends when you have
+Xmost of the level mapped out.  To get corpse without getting frozen, 
+Xstand next to it while your dog kills it, then grab corpse before he 
+Xeats it. (Note for Tourists: use your camera to blind it. A blinded 
+Xfloating eye cannot defend itself.)  If your dog is deceased, throw
+Xthings at it.  Unaffected by wand of cancellation. Wand of invisibility
+Xprevents them from paralyzing just as blindness does.
+X.LI
+XFreezing Sphere: eating corpse gives protection from cold as ring, but
+Xpermanent (may do poison damage).  Usually gives you a blast.
+XYou may kill a freezing sphere with projectiles/ray wands or missile
+Xweapons. Exploding freezing spheres leave no bodies. It is 
+Xeasy to kill at a distance (two crossbow bolts). Ring of cold
+Xresistance will protect you from explosions, as will having eaten a
+Xsphere corpse.
+X.LI
+XGnome: edible.
+X.LI
+XHobgoblin: edible \- good food source.  Attack can do up to 8 points 
+Xof damage. 
+X.LI
+XInvisible Stalker: this monster is invisible; the letter is what you
+Xsee with ring or potion of see invisible. (Or telepathy)
+XEating corpse confuses you and/or allows you to see invisible
+Xthereafter (not to mention turn you invisible for a while!)
+X.LI
+XJackal: usually edible, but seems to rot fast, or perhaps sometimes start
+Xa bit rotten, though not enough to kill you, just confuse you. 
+X.LI
+XKeystone Kop: The guys that come to get you when you rob a store.  Do not
+Xeat them!  They are poisonous.  Keep their pies, though.  Killing a
+XKop is bad luck.  Pies blind you temporarily, which isn't bad if you
+Xhave telepathy.  There is a # wipe command.  Their numbers seem to increase
+Xwith the amount stolen.
+X.LI
+XLeprechaun: if it hits while you are carying gold, will do no damage but 
+Xwill teleport away with a lot of gold.  If it hits while you have
+Xno gold, does damage.  Can also pick up piles of gold, even from under 
+Xyour feet. Eating corpse may do poison damage, but bestows teleportation
+Xas with the ring, but permanently. Usually have a pile of gold on them, 
+Xincluding any they took from you. Good for building up experience in
+Xthe lowest levels (40+ XP).
+X.LI
+XMimic: Poses as object in shop or elsewhere.  Step outside shop, the items
+Xthat vanish are mimics.  Once they hit you, they can prevent you from
+Xmoving off the square until they are dead (or you teleport away).
+XEdible. (When eaten, you mimic a treasure chest for 30 turns)
+XIn shops, mimics are usually seen as inverted armor, i.e.
+Xarmor is ``['' and mimics ``].''
+XMimics often mimic doorways (+) or chests of gold ($).  They can be 
+Xdiscovered by searching, including the ring.  Wand of cancellation will
+Xalso show them up.
+X.LI
+XNymph: Seduces you and swipes many possessions, including at least one armor
+Xthat she talked you into taking off.  Or, may just grab an item.  
+XEither way, she teleports away.  Eating corpse is just like eating a
+Xleprechaun corpse.  Kill her, and you get your possessions back.  Ignores
+XElbereth. (But see ring of adornment.)  You may ignore her charms if 
+Xyou zap her with a wand of cancellation. (NetHack nymphs are very fast and
+Xcan pick you clean after a few encounters \- stay away from them.)
+X.LI
+XOrc: Always appear in swarms.  If you see one, there are others.
+XEdible in NetHack.  May have personal treasure.  Scroll 
+Xand wand of monster creation (but not polymorph) may create 8-9 of 
+Xthem. Call your weapon Orcrist and whack away.  Can carry items around
+Xthat they find on the floor, i.e. in shops.
+X.LI
+XPurple Worm: Not that hard to deal with, by the time you get to that
+Xlevel. They swallow and digest like the trapper, but
+Xyou faster, and towards the end you cannot hit.  This is
+Xtheir main attack, and it is dangerous.
+X.LI
+XQuasit or Quantum Mechanic\(dg: Fast (3 spaces and/or attacks per move),
+Xbut little damage per blow.  Quantum mechanics will teleport you with
+Xthe message ``You are uncertain of your position.''
+X.LI
+XRust Monster:  Rusts armor when it hits.  Items that will rust: all armor
+X(except leather) and helmets.  Elven
+Xcloaks, shields, and gloves are unaffected.  An elven cloak will
+Xprotect the armor underneath it from rusting.  Note that once you 
+Xstart taking off your armor, he cannot harm it, unlike rogue. Takes no 
+Xhit points. Try wand of cancellation.  An item may only be rusted to
+X-3.
+X.LI
+XSnake: can hide under items on floor.  Can appear in numbers from fountains.
+X.LI
+XTroll: in D&D and rogue, regenerates its wounds. Hack Trolls do not seem
+Xto be as nasty as rogue Trolls. Several hits per move.
+X.LI
+XUmber Hulk: chance of confusing you (as potion) if you catch sight of it. 
+XSave a potion of blindness (and a potion of healing) for the umber
+Xhulk if you detect him beforehand.  Unlike rogue, umber hulks seem
+Xto have more than one chance of confusing you.
+X.LI
+XVampire: Hits from the vampire reduce your maximum hit points,
+Xwhich is almost as unpleasant as wraiths.
+XYou can drive a vampire away with one hit while wielding a clove of 
+Xgarlic.
+X.LI
+XWraith: in D&D, drains one level/hit. Drops you an experience level if it
+Xgets in a good hit. In extreme cases, may take several levels if it
+Xhits well several times. When you kill it, you will go back up one
+Xlevel if you've lost any (but won't get the extra experience points).
+XWraiths usually don't drain levels if you have good armor;
+XEat corpse to gain experience level \- one of the fastest and easiest 
+Xways to increase your level.
+X.LI
+XXorn: In Hack, a xorn is a tough monster, about the same as 
+Xattacking a ettin.
+X.LI
+XYeti: gives cold resistance when eaten.
+X.LI
+XZombie: edible.
+X.LI @)
+XHuman (you, shopkeeper or guard): Shopkeepers guards will kill you if you
+Xmake them mad. They are tough
+Xand ignore Elbereth. If you teleport out with unpaid
+Xitems, they will pursue you.
+XSee shops under other for ways of dealing
+Xwith them.  Don't try to genocide shopkeepers.  Genociding shopkeepers 
+Xgenocides all humans (@). You are a human and thus will vanish too.
+XKilling humans, including shopkeepers or guards, 
+Xreduces your luck, an internal variable. It also kills telepathy.
+X(but you can then regain it in the usual manner).
+XEating a shopkeeper produces the message: ``You cannibal! You'll be
+Xsorry for this!''
+XYou may encounter a shop on a ghost level that has been robbed by the
+Xghost. In that case, the shopkeeper is likely to take your money for 
+Xthe items stolen by the ghost and even kill you if he's still angry.
+X.LI ,)
+XTrapper: The trapper possesses a unique attack
+X\- it simply swallows and digests you.  After being swallowed by a
+Xtrapper, you will get the message ``The trapper digests you'' about
+Xevery third turn. You can still hit him from within, and stand a
+Xgood chance of killing him. If you don't, after about six (6)
+Xsuch messages you will get the message "The trapper digests you
+Xtotally!".  If such is the case, better luck with your next character.
+XIf you have been swallowed by a trapper, you may polymorph it into 
+Xsome other creature whose digestive tract may be less hostile.  
+XWands of digging will blast through his
+Xstomach, leaving him very weak. Two bolts of cold didn't seem to
+Xfaze him too much. Teleport out if you can. When teleporting out of a 
+Xtrapper, a ring of teleport control will let you choose where you want 
+Xto go as usual, but not let you see the level while choosing.
+XA wand of teleport monster will take you with the trapper. 
+X.P
+XDigesting seems to be cumulative, so if you escape one trapper
+Xafter 5 digesting messages, be very wary of being swallowed by
+Xanother trapper. He may digest you totally in one turn.
+X.LI &)
+XDemon: a monster with strength second only to the purple worm,
+Xwith a high armor class and good magic 
+Xresistance. (Note: demons are not resistant
+Xto fire.)  Demons replicate; one demon will 
+Xgive rise to a second, and a third, etc.  The way to deal with this is 
+Xto back the bunch (or perhaps even just the original) into a dead-end
+Xand start hacking away. Replicas cannot appear unless there is room next
+Xto the replicator. This could also be useful when you have some spare
+Xfirepower and need some experience points.
+XA wand of cancellation will stop or prevent replication.
+XThe wand of undead turning makes them turn tail and run.
+X.LI ~)
+XLurker Above: another swallowing creature.
+X.LI :)
+XChameleon:  Whereas the mimic will mimic objects, the chameleon will
+Xmimic other monsters.  When hard pressed, the chameleon will
+Xrevert to its original form. Also unlike the mimic, the chameleon
+Xchanges form constantly. So if you see a monster, and then look
+Xagain and see a different one, it's probably a chameleon.
+XChameleons have all the powers of the monsters 
+Xthey emulate. If you see a genocided monster, it is a chameleon.
+X.LI "`` '')"
+X(a space) Ghost: incredibly hard to hit.  Does little damage.  Always has
+X``ghost hoard'' that can be obtained by killing the ghost
+Xor by sneaking around it.  Remember all items in these hoards are
+Xstickeycursed.
+XSneaking around a ghost is easier than destroying it, because they
+Xmove slowly and do little damage per hit. Find a good running loop.
+XDon't get caught in a dead end \- you'll either get killed or starve
+Xto death.  If you're getting clobbered by a ghost, do not retreat
+Xtoward an up staircase!  If a ghost kills you, you may become a ghost
+Xon the same level.  If many people are ``ghosted''
+Xthere, future dungeon-delvers face the grim prospect of several ghosts and
+Xtheir dogs!  This can get them killed before they can escape, which
+Xaggravates the problem. (It may be advisable to ask root or the games
+Xmanager to remove a \fIbones.n\fR level that has reached absurd proportions.)
+XIn addition, If you are about to die on a ghost level, drop
+Xeverything; When you become a ghost, your hoard will not be stickeycursed
+XGhosts are surprisingly easy to kill if you have a lot of experience
+X(level 11+). Worth 175XP.
+X.LI ;)
+XGiant Eel\(dg: Rumor has it that eels hide under mud and that a unicorn
+Xcan clear the water so that you can see them.  They wrap themselves around
+Xyou and pull you into the mud to drown.
+X.LI 1)
+XWizard of Yendor: Guardian of the Amulet, a powerful wizard who may
+Xnot stay dead (NetHack).
+X.LI 2)
+XMail Daemon: You won't get a crack at this one; this creature delivers
+Xscrolls of mail to you and quickly departs.
+X.LI 9)
+XGiant: Powerful creature found on lower levels.  Eating one increases
+Xyour strength.
+X.LE
+X.H 1 "WEAPONS AND ARMOR"
+X.H 2 "Weapons"
+X.P
+X.so weapon.tbl
+X'
+X.H 2 "Armor Items"
+X'
+X.TS
+Xbox, center, tab (#);
+Xc c c c c
+Xl n n n n.
+XName#Chance#Weight#Ac#Protection
+X_
+Xhelmet#3#1#9#0
+Xplate mail#5#5#3#2
+Xsplint mail#7#5#4#1
+Xbanded mail#9#5#4#0
+Xchain mail#10#5#5#1
+Xscale mail#10#5#6#0
+Xring mail#12#5#7#0
+X.TE
+X.sp
+X The armors below do not rust.
+X.TS
+Xbox, center, tab (#);
+Xc c c c c
+Xl n n n n.
+XName#Chance#Weight#Ac#Protection
+X_
+Xstudded leather#12#3#7#1
+Xelfin chain mail#1#1#5#3
+Xbronzeplate mail#6#5#4#0
+Xcrystalplate mail#1#5#3#2
+Xleather armor#15#3#8#0
+Xelven cloak#5#0#9#3
+Xshield#3#0#9#0
+Xpair of gloves#1#1#9#0
+X.TE
+X.P
+XProtection refers to magical effects.
+X.P
+X.H 3 "Elven Cloaks"
+XMagic cloaks that increase your
+Xarmor class by one and protect you from
+Xenchantments.  Elven cloaks do protect your armor from being
+Xdissolved by rust monsters or acid blobs. They can be enchanted.
+X.H 3 "Helmets"
+XProne to digestion by rust monsters,
+Xbut they protect you from piercers and from rocks dropping on you
+Xin mazes (if you get that far).
+X.H 3 "Gloves"
+XThese normally improve your armor class by one, but
+Xtheir greatest advantage is in preventing you from getting stoned by cockatrice
+Xcadavers.  If you have a wand of wishing, ask for ``a pair of +3 gloves.''
+XGloves allow you to pick up and even wield
+Xcockatrice cadavers, turning monsters
+Xto stone right and left until the corpse rots away.
+XThis tactic is not recommended because is very hazardous. If you 
+Xsubsequently fall down the stairs (as is usual when heavily loaded) you will 
+Xtouch the cadaver and die. Note also that this is inconsiderate of other
+Xplayers, as any player taking your hoard will encounter
+Xthe cockatrice cadaver before they reach the gloves you were using.  If you
+Xhave a second pair of gloves, please put them at the bottom of your inventory,
+Xand the cockatrice at the top, except of course for the gloves you are 
+Xwearing. (drop items above it, then pick them up again).
+XAny grave-robber should reach your spare pair and be overloaded before 
+Xhe hits the cadaver, allowing him to put on the gloves.  Note that the cadaver 
+Xwill eventually rot away, so don't throw away your weapon.
+X.H 3 "Armor"
+XVarious types of armor have different basic armor classes, and
+Xany given suit may have a plus or minus in addition.  Minused armor (including
+Xthe other items under this heading) is almost always stickeycursed.  Note that
+Xmost armor takes some time to put on or take off, and that once you start 
+Xeither process, you will follow through no matter what is attacking you.
+X.H 1 "SCROLLS, POTIONS, RINGS AND WANDS"
+X'
+X.H 2 " Scrolls"
+X'
+XUnless stated otherwise, all scrolls identify themselves.  
+XException: detect scrolls will give a ``strange feeling'' if there are none of 
+Xtheir objects on the level, and enchant/damage/destroy weapons/armor will do
+Xthe same if you are not wearing any of the item affected.
+X.P
+XAll scrolls give strange effects when confused or hallucinating.
+X.P
+X.TS
+Xtab (#),center,box;
+Xc c c c
+Xl n | l n.
+XName#Chance#Name#Chance
+X_
+Xenchant armor#6#genocide#2#
+Xdestroy armor#5#light#10
+Xconfuse monster#5#teleportation#5
+Xscare monster#4#gold detection#4
+Xblank paper#3#food detection#1
+Xremove curse#6#identify#18
+Xenchant weapon#6#magic mapping#5
+Xdamage weapon#5#amnesia#3
+Xcreate monster#5#fire#5
+Xtaming#1#punishment#1
+X.TE
+X.P
+X.AL
+X.LI
+Xgenocide: everyone's favorite scroll.
+XAlso prevents 
+Xthe creation by scroll or wand of more monsters of the type.
+XNote that genociding cockatrices does not remove their cadavers (so you
+Xstill have to watch those ghost treasure hoards).
+XAlso, you can't genocide monsters represented by punctuation
+Xmarks (chameleons :, trappers , , demons &, lurkers above ~).
+XDoes not prevent you from polymorphing a monster into the genocided
+Xtype or chameleons from assuming that form.
+X.LI
+Xdestroy armor: Destroys outermost layer of armor.  If you are wearing
+Xonly armor, it is destroyed.  If you are wearing armor and a helmet,
+Xthe helmet is destroyed.  Elven cloak over armor destroys cloak first.
+X.LI
+Xenchant armor: As destroy armor, but +1 added to enchantment.
+XAlso removes stickeycurse.  Don't overdo it; armor tends to
+Xevaporate if enchanted beyond +3. 
+X.LI
+Xenchant weapon: weapon in hand or random if barehanded. Otherwise as 
+Xenchant armor, applied to weapons.
+X.P
+XBoth enchants make item glow green.
+XThere are two kinds of these \- one makes your weapon glow green
+Xfor a ``moment,'' the other for a ``while.''  The first is +1, the
+Xsecond is +2. This also applies to enchant armor, and damage weapon.
+XIf barehanded (or naked skin for armor) your skin itches or hands
+Xtwitch. Also applies to damage weapon and destroy
+Xarmor.  Enchanting a worm tooth turns it into a crysknife, a very 
+Xpowerful weapon.  Overenchanted weapons (> +3) also evaporate.
+X.LI
+Xdamage weapon:  -1 added to weapon. No effect on or of stickeycurse.
+XMakes item glow black. (see enchant weapon)
+XRead on a crysknife, this turns it back into a wormtooth, and
+Xreports that your weapon seems duller.
+X.LI
+Xfood/gold/object/monster detection: briefly see all on level.
+X.LI
+Xmagic mapping: all rooms, corridors, secret doors and stairs on level 
+Xrevealed. Amnesia is the nemesis.
+X.LI
+Xamnesia: accumulated map of level lost, except for where you're standing.
+XIn NetHack, the message ``Who was that Maud person anyway'' is displayed.
+XThis is an inside joke, as previous versions say: ``Thinking of Maud
+Xyou forget everything else.''
+X.LI
+Xteleportation: random spot on level.  See ring of teleport control.
+XUseful in shops.
+X.LI
+Xfire: reduces your maximum hit points permanently.
+X.LI
+Xtaming: difficult to identify.  If a monster is in sight, it becomes tame,
+Xlike your dog, but there is no message. The monster is then equivalent 
+Xto a polymorphed dog.  Thereafter, scroll is named in inventory.
+XReading it when surrounded by multiple monsters seems to affect only
+Xthe ones nearest you, i.e., a maximum of 8 monsters could be affected.
+XWarning: If you abandon a tame monster (on a level) it will go wild, 
+Xand will not be pacified by tripe.  Tamed ghosts are possible, but because
+Xthey do not eat anything, they cannot be rewarded and hence
+Xeventually return to their accustomed hostile state.
+X.LI
+Xidentify: identify one item.  A few (perhaps 1 in 10) of these will ID 
+Xall items of a type that you own.  Use it on rings first, potions 
+Xsecond.  Note that if you choose to ID a)ll items, then you had better 
+Xhave one of the special types, or you will only get the first item in 
+Xyour inventory identified.
+X.LI
+Xremove curse: gets rid of all stickeycurses on worn items.
+X``You feel like someone is helping you.''  This scroll is very
+Ximportant!  Anyone wielding a -3 dart, wearing a cursed ring of 
+Xlevitation, or dragging about a heavy iron ball can attest to
+Xthis fact.
+X.LI
+Xcreate monster: one monster in adjacent square, appropriate to level.
+XNote if it creates orcs or killer bees, it will make a whole tribe of 
+Xthem.
+X.LI
+Xmonster confusion: your hands begin to glow blue.  The next monster you
+Xhit with a hand-to-hand attack will be confused, and your hands will
+Xstop glowing.  A confused monster (assuming it survives the blow that 
+Xconfused it) will move in random directions, attacking anything in its 
+Xway.  This includes you (so don't confuse your dog!) or other 
+Xmonsters.
+X.LI
+Xpunishment: this cursed scroll outfits you with a ball and chain, 
+Xindicated on the screen by @_0.  The ball, if left to drag, may slow 
+Xyou down.  However, it can also be picked up, and if then wielded as a 
+Xweapon, is devastatingly effective.  It is also very heavy, however,
+Xand scrolls of enchant weapon have no effect on it.
+XThe remove curse scroll will cause ball and chain to come loose; you 
+Xcan drop them then, but I'd suggest sticking with them if you're 
+Xstrong enough.  Also good for getting around fast. Try picking up the 
+Xball, and throwing it in the direction you want to go.
+XIt is possible that this scroll may reduce your luck
+Xto 0 for the duration.
+X.LI
+Xscare monster: Similar to rogue in use. If you pick up a scroll that
+X``turned to dust,'' it \fIwas\fR a scare monster scroll that had already
+Xbeen dropped.  If you read a scare monster scroll, the message is displayed:
+X``You hear maniacal laughter in the distance.'' This is the gods laughing
+Xat your stupidity, for you are supposed to drop the scroll on the floor.
+XMonsters will not attack you when you stand on one, nor will they cross it
+Xif dropped in a corridor. Unlike Elbereth, you can fight from a scare
+Xmonster scroll. You can move on and off the scroll if you avoid picking
+Xit up; if you pick it up it will turn to dust.
+X.LI
+Xblank: this scroll "appears to be blank."  This scroll may be utilized
+Xwith a magic marker: write the name of a scroll you are already familiar
+Xwith (i.e. one that you've read at least once).
+X.LE
+X.P
+X'
+X.H 2 "Potions"
+X'
+X.S 8 10
+X.W 7i
+X.TS
+Xcenter,box;
+Xc c c
+Xlw(.9i) | lw(2.3i) | lw(3i).
+XPotion	Standard Message	Special Case(s)
+X_
+Xrestore strength	Wow! This makes you feel great!	T{
+X... looks sound and hale again! (Thrown to monster)
+XT}
+Xgain energy	Magical energies course through your body.	T{
+XYou feel feverish. (Confused)
+XT}
+Xwhiskey	Ooph!  This tastes like liquid fire!	T{
+XYou feel somewhat dizzy. (Vapor)
+XT}
+Xinvisibility	Gee!  All of a sudden, your can't see yourself.	T{
+XFor an instant you couldn't see you right hand. (Vapor)
+X.br
+XYou feel rather airy. (Blinded)
+XT}
+Xfruit juice	This tastes like fruit juice.
+Xhealing	You begin to feel better.	T{
+X... looks sound and hale again! (Thrown to monster)
+XT}
+Xparalysis	Your feet are frozen to the floor!	T{
+XSomething seems to be holding you. (Vapor)
+X.br
+XYou are motionlessly suspended. (Levitated)
+XT}
+Xmonster detection	You sense the presence of monsters.	T{
+XYou feel threatened. (No monsters)
+XT}
+Xobject detection	You sense the presence of objects.	T{
+XYou sense the presence of objects close nearby.
+X.br
+XYou feel a pull downward. (No objects)
+XT}
+Xsickness	Yech! This stuff tastes like poison.	T{
+X... looks rather ill. (Thrown to monster)
+XT}
+Xconfusion	Huh, What?  Where am I?	T{
+XWhat a trippy feeling. (Hallucinating)
+X.br
+XYou feel somewhat dizzy. (Vapor)
+XT}
+Xgain strength	Wow do you feel strong!	T{
+X... looks sound and hale again! (Thrown to monster)
+XT}
+Xspeed	You are suddenly moving much faster.	T{
+XYour knees seem more flexible now. (Vapor)
+X.br
+XYour legs get new energy. (Fast)
+XT}
+Xblindness	A cloud of darkness falls upon you.	T{
+XIt suddenly gets dark. (Vapor)
+X.br
+XBummer! Everything is dark! Help! (Hallucinating)
+XT}
+Xgain level	You feel more experienced.
+Xextra healing	You feel much better.	T{
+X... looks sound and hale again! (Thrown to monster)
+XT}
+Xlevitation	You're floating in the air! (Hallucinating)
+Xhallucination	Oh wow! Everything looks so cosmic!	T{
+XYou have a vision for a moment. (Vapor)
+XT}
+Xholy water	You feel full of awe.	T{
+XThis burns like acid. (When you are a Z,V,W or &)
+X.br
+X... shrieks in pain! (Thrown to a Z,V,W,' ' or &)
+XT}
+X.TE
+X.S
+X.W
+X'
+X.H 2 "Rings"
+X'
+X.TS
+Xtab (#),center,box;
+Xc c c c
+Xl n | l n.
+XName#Chance#Name#Chance
+X_
+Xadornment#?#protection#?
+Xaggravate monster#?#protection from shape changers#?
+Xcold resistance#?#regeneration#?
+Xconflict#?#searching#?
+Xfire resistance#?#see invisible#?
+Xgain strength#?#stealth#?
+Xhunger#?#teleport control#?
+Xincrease damage#?#teleportation#?
+Xlevitation#?#warning#?
+Xpoison resistance#?##
+X.TE
+X.P
+X.VL 10
+X.LI
+XNOTE:
+Xall rings increase your food consumptions to varying degrees.
+X.LE
+X.P
+X.AL
+X.LI
+Xcold resistance: You are invulnerable to cold, including backblasts from
+Xthe wand and freezing spheres.
+X.LI
+Xfire resistance: You are invulnerable to fire, including backblasts from
+Xthe wand and dragon breath.
+X.LI
+Xteleport control: gives you control of teleport destination, no matter what 
+Xdoes the teleporting.  Try to teleport into a wall or monster and you get a
+Xrandom teleport.  Gives no control of when you go, just where.
+X.LI
+Xregeneration: Regain extra one hit point per round (but increases food
+Xconsumption dramatically).
+X.LI
+Xconflict: causes monsters to attack each other instead of you, if they are 
+Xnext to each other.
+X.LI
+Xhunger: Increases hunger.
+X.LI
+Xstealth: Monsters don't wake up when you enter a room.
+X.LI
+Xsearching: finds secret doors/traps more easily, and occasionally without 
+Xsearching.  Does not necessarily work on first try.
+XAlso finds mimics and piercers.
+X.LI
+Xincrease damage: Increases the damage you do to monsters when hitting them.
+X.LI
+Xprotection: Increases your armor class and probably your (internal) saving
+Xthrows.  Can be +1, +2, etc or cursed -1,-2, etc.	
+X.LI
+Xteleportation: teleports you randomly about every once in a while.  No way 
+Xto control when, but a ring of teleport control determines where.
+XWithout this ring, destination
+Xis random on level. Is usually stickeycursed and uses a great deal of food
+Xenergy.
+X.LI
+Xadornment: useless in rogue, but in Hack it protects against nymphs
+X(they're dazzled by it and can't attack).
+X.LI
+Xresistance to poison: You are invulnerable to poison (including poison 
+Xcorpses but not rotted ones, and all poison stings, bites, and potions).
+Xdoes not protect you from rotted (tainted) meat or potions of sickness.
+X.LI
+Xgain strength: Just what it says.  Increments as with ring of protection.
+X.LI
+Xprotection from shape changers: Forces chameleons to take on their
+Xtrue form (:).
+X.LI
+Xwarning: glows in various colors, which may be indications of approaching
+Xmonsters, traps, etc.  Code unknown.
+X.LI
+Xlevitation: equivalent to a potion of levitation when worn.  Has minor
+Xadvantages if you wish to avoid traps, but a cursed ring of levitation
+Xcould spell the end of your character!  You are unaffected by traps,
+Xbut you cannot pick anything up or go downstairs.
+X.LI
+Xsee invisible: same as potion.
+X.P
+XYou can wear only one of these items on each hand at any time, so
+Xa stickeycursed ring is a pain when say, you want protection from fire, but 
+Xyou're too heavily loaded to take off your increase strength ring, and your 
+Xring of searching is stuck on.
+X.LE
+X'
+X.H 2 "Wands"
+X'
+X.TS
+Xtab (#),center,box;
+Xc c c c
+Xl n | l n.
+XName#Chance#Name#Chance
+X_
+Xlight#10#cancellation#5
+Xsecret door detection#5#teleportation#5
+Xcreate monster#5#make invisible#7
+Xwishing#1#probing#2
+Xstriking#7#digging#5
+Xnothing#2#magic missile#10
+Xslow monster#5#fire#5
+Xspeed monster#5#sleep#5
+Xundead turning#5#cold#5
+Xpolymorph#5#death#1
+X.TE
+X.P
+XWhen a wand is out of charges and you zap it, ``Nothing Happens.''
+X.P
+X.AL
+X.LI
+XWishing: you usually get 3 wishes, and wishing for wands of wishing
+Xproduces wands with 0 charges left.  When it asks you what you want,
+Xanswer with the exact syntax it would appear in your inventory as, if
+Xyou had identified it with the scroll of ID.  The wand does not ID
+Xit for you, so be sure and keep track of what you've received and
+Xname the items as necessary.
+XIf you wish for an illegal item or a non-existent item,
+Xyou get a random one.  You can wish for any plussed item up to +3,
+Xabove that you take your chances.  You can wish for one wand or 3 of
+Xany other non-plussed item with each wish. Sample wishes:
+X.BL
+X.LI
+X+3 plate mail/pair of gloves/helmet/elven cloak/crysknife 
+X.LI
+X3 potions of gain level
+X.LI
+Xring of regeneration/teleport control(#)
+X.LI
+X3 tins (No way to specify spinach, but the odds are good) 
+X.LE
+X.P
+XWishing for ``a wand of wishing (3)'' will not work.
+X``Illegal'' wishes that seem to work often are +7 plate, 3 +3 crysknives
+X(but sometimes gives 3 -3 crysknives)  Your luck may influence the 
+Xchance of getting many items.  In NetHack, it's a good idea to wish for
+Xrare spellbooks.
+X.LI
+XDrain Life: usually kills target creature, taking
+Xhalf of everything else's hit points, including yours.  This is a ray.
+X.LI
+XSleep: of variable duration, and doesn't seem to work on bats.  Some 
+Xmonsters get saving throws (i.e., a chance not to be affected). This 
+Xis a ray.
+X.LI
+XFire, Cold, Lightning, Magic Missile: all fire rays/bolts/zaps which do
+Xdamage to anything they hit. (See note below.)  Cold seems to do the 
+Xmost damage, missiles do the least, fire seems to have the longest range.
+X.LI
+XStriking: wand hits the first monster in the direction you point it, even 
+Xfrom a considerable (but not infinite) distance. Not a ray.
+X.LI
+XPolymorph: turns one monster or thing into a random other.
+XOf course, most people would rather turn a dragon 
+Xinto a bat than vice versa.  Use on your dog intil you get a monster 
+Xwell above norm for your level, or a mega-monster.  May not change all 
+Xcharacteristics of the monster (i.e., speed may be unchanged).
+XWarning: if you polymorph your dog, then leave his level (fall in
+Xa trapdoor, etc) he will not be tamed merely by throwing food at
+Xhim (need taming scroll). The dungeon apparently forgets he ever
+Xwas your dog.  While it may be fun to polymorph your dog, you are
+Xbetter advised to use it against any mega-monsters that you may
+Xfind at the higher level (e.g. Dragons, demons, trappers).  Your
+Xdog is a fairly strong monster in his own right. 
+XThis wand is almost as useful as digging when you're being digested
+Xby a trapper or a purple worm; have you ever been inside a nymph?
+X.LI
+XMake invisible: makes monster invisible, permanently.
+XDon't use on dog, you'll just keep tripping over him. Easy to
+Xconfuse with teleport away. No use whatsoever, except to maybe keep you 
+Xfrom taking the wand of teleport away for granted.
+X.LI
+XTeleport monster: monster teleported to random spot on level.
+XCheck to be sure you don't have a wand of invisibility. Note 
+Xthat the monster will usually head straight back home at top speed,
+Xand if he finds you still there, or on the way out, he will be pissed.
+X.LI
+XHaste monster: monster moves twice as fast. Use on dog, but watch you
+Xdon't trip on him.
+X.LI
+XSlow monster: monster moves at half speed. Some monsters get multiple 
+Xattacks every other round (i.e. xorn: 3 claws and bite, or shopkeeper:
+X2 fists).
+X.LI
+XDigging: This produces new corridor sections, and doors where the ray 
+Xintersects a room wall.  Also useful for blasting your way out of a trapper.
+X.LI
+XUndead turning: somewhat like fear, but no effect on most monsters.  
+XUndead are: zombies, ghosts, wraiths, vampires, demons and 
+Xperhaps other monsters. Destroys weaker undead, causes bigger ones 
+Xto flee, including demons.
+X.LI
+XCreate monster: Creates a monster next to you, just like the scroll.  
+XThis wand may be useful to keep around if you are ever desperately short on
+Xfood.  If you are, create a monster, kill it, and feast on the remains!
+X.LI
+XCancellation: Should knock out any magical abilities of the monster. 
+XMonsters affected: 
+X.TS
+Xcenter;
+Xc c
+Xl l.
+XMonster	Effect
+X_
+XNymphs	cancels her magical allure.
+XWraiths	cancels life draining.
+XDemons 	cancels powers of replication.
+XLeprechauns	cancels teleport ability
+X.TE
+XMonsters which are not affected:
+XRust Monsters, Dragons, Invisible Stalkers, Chameleons, Cockatrices,
+XFloating Eyes.
+X.LI
+XSecret door detection: discovers all secret doors in room or in sight in
+Xa corridor.  If there are none, a charge is used and the wand seems
+Xto do nothing.  This wand also detects shape-changers in the
+Xroom (e.g. mimics, piercers). Usually comes in 10+ charges.
+X.LI
+XLight: lights up dark rooms. Usually comes in 10+ charges.
+X.LI
+XProbing: Gives stats on a creature in the direction you indicate. Tells
+Xhit points, maximum, how much gold.
+X.LE
+X.H 3 "Don't shoot your own foot off."
+XNote that ray/straight-line wands are best fired when you are 
+Xdiagonally aligned with your target so that ricochets can't hit you.
+Xricochets can be used to hit targets that won't get in straight line of fire 
+X(leprechauns, shopkeepers, etc.), or to get two hits on a
+Xtarget.  Shots into corners 
+Xbounce straight back at you.  Doors can reflect a diagonal shot back at you, 
+Xand the wand of fire reflects diagonally back at you occasionally just for the 
+Xheck of it.  Wands seem to have differing, and possibly partly random, maximum
+Xranges.
+X.H 3 "Test them first."
+XWhen you get a wand, try zapping it.  If it is non-directional, (like
+Xwishing) you will usually find out what it is immediately.  If not, hit
+X<ESC> when it asks you what direction, and save it until you reach a monster.
+XThis lets you ID many wands before you find a monster to test 
+Xthem out on, and improves the odds that a partly-tested, directional wand
+Xwill turn out to be offensive, rather than secret door detection or light.
+X.H 1 "EXTENDED COMMAND SET"
+XThese commands are accessed by first entering a pound sign (#)
+Xfollowed by the command or a question mark.  Not found in all
+Xversions of Hack.
+X.VL 10
+X.LI #dip
+XUse for every potion that you want to quaff the #dip command, 
+Xdip arrows, bolts or darts in the potion and if it was a potion of :
+XSickness or Paralysis: your dipped weapon gets stronger.
+XHoly water: your weapon gets blessed and is better in use 
+Xagainst the undead.  Note that positive potions have a 
+Xpositive effect on monsters.  The dip command can also be used
+Xwith fountains.  (see ``Fountains'' and ``Excalibur.'') 
+X.LI #pray
+XYou can pray after intervals of approximately 500 turns.
+XPraying restores strength, fills the stomach and heals.
+XYou can use the option time to see how much time has passed.
+XNothing bad will happen, but be sure that your time has come.
+X.LI #sit
+XUse this command while you are on an throne (\).
+XYou might get a wish (Chance 1 in 86) but also you can lose 
+Xyour gold or your possessions get cursed or identified.
+X.LI #wipe
+XClean your face when dirty.
+X.LI #breathe 
+XFirst polymorph yourself in a Dragon.
+X.LI #remove
+XFirst polymorph into a Nymph
+X.LI #cast
+XCast spell. See next section.
+X'
+X.H 2 "Spells and Spellbooks"
+X'
+XSpells are found in spellbooks and learned via the ``X'' command.
+XSave extra spellbooks; if you read a scroll of amnesia you may
+Xforget all your spells.  Most spellbooks are booby-trapped with
+Xpoison or other effects (``You feel threatened'' accompanied by paralysis)
+Xand yield no spell.
+X.P
+X.TS H
+Xtab (#),center,box;
+Xc c c c c c
+Xl n n | l n n.
+XName#Chance#Level#Name#Chance#Level
+X_
+X.TH
+Xmagic missile#4#2#detect unseen#4#3
+Xfireball#2#4#extra healing#3#3
+Xsleep#6#1#charm monster#3#3
+Xcone of cold#1#5#levitation#3#4
+Xfinger of death#1#7#restore strength#2#4
+Xhealing#6#1#invisibility#3#4
+Xdetect monsters#5#1#detect treasure#3#4
+Xforce bolt#4#1#dig#2#5
+Xlight#5#1#remove curse#2#5
+Xconfuse monster#5#2#magic mapping#2#5
+Xcure blindness#3#2#identify#1#5
+Xslow monster#4#2#turn undead#1#6
+Xcreate monster#4#2#polymorph#1#6
+Xdetect food#5#2#create familiar#1#6
+Xhaste self#3#3#teleport away#2#6
+Xcause fear#4#3#cancellation#1#7
+Xcure sickness#3#3#genocide#1#7
+X.TE
+X.P
+XThere most powerful spellbooks are, in order of importance: Polymorph,
+XGenocide, Identify, Charm Monster, Magic Mapping, Digging and Finger of
+XDeath.
+X.P
+XThe polymorph spell works on objects as well as monsters, although
+Xthe object type remains consistent.  You can lay down a pile of objects
+Xand cast the spell until you collect those desired.  There is no
+Xlimit to the number of objects you can polymorph at one time.
+XA high level characters can even polymorph themselves.  To accomplish
+Xthis, enter a period (.) when prompted for the direction.  There are
+Xcertain disadvantages to self-polymorphing.  If you polymorph into a
+Xnon-humanoid creature, you will not be able to use your weapon or
+Xarmor.  Although you inherit all the creatures characteristics, this
+Xmay also include low hit points. 
+X.P
+XNote that healing and extra healing do not increase your hitpoints
+Xpast the maximum (in NetHack 1.4 or later).
+X.H 1 "ITEMS (Tools, Gems, etc.)"
+X.H 2 "Tools"
+XTools are ``applied'' with the ``a'' command.
+X'
+X.H 3 "Whistles"
+XWhen you blow an ordinary whistle (syntax is ``a whistle'')
+Xyou produce a high whistling sound and your dog,
+Ximmediately heads in your direction.  Particularly useful if you are
+Xteleporting randomly.  Magic whistles (syntax is ``magic 
+Xwhistle'') produce a strange whistling sound, and teleport your dog to you. 
+XBe careful, whistling may also wake up other denizens of the level.
+X.P
+X.H 3 "Icebox"
+XThis is the Archaeologist/Speleologist's ``large box.''  Corpses
+Xpromptly placed in it will not spoil.  It is, however, incredibly heavy and
+Xyou must be carrying both the box and the corpse to use it.  You may want to 
+Xleave it on the first level and go back for it when you've had some spinach.
+X.P
+X.H 3 "Camera"
+XTourists start out with this one. Flash in the direction of a
+Xmonster to temporarily dazzle the monster.
+X.P
+X.H 3 "Pickaxe"
+XArchaeologist's handy tool.  Can be used to dig down or
+Xaround.  Will even get in a shop if you're persistent, though the shopkeeper
+Xwill ask you to leave it outside.
+X.P
+X.H 3 "Leash"
+XSupposedly quite handy, though code isn't clean yet (dropping the leash
+Xstill leaves fido tethered to you).
+X.H 3 "Can Opener"
+XThe best thing to open tins with.
+X'
+X.H 2 "Amulet" 
+X'
+XThe Amulet of Yendor, the lengendary item from the days of Rogue, is
+Xfound on level 40, guarded by the Wizard of Yendor and his faithful
+XHell Hound. (See the section on lower level ``Strategy'' for a
+Xdiscussion of obtaining the Amulet.)
+XYou can also wish the Amulet, but you will get a cheap
+Ximitation amulet instead.
+X'
+X.H 2 "Gems"
+X'
+X.TS
+Xtab(#),center, box;
+Xc c c
+Xl n n.
+XName#Chance#Value
+X_
+Xdilithium crystal#1#4500
+Xdiamond#1#4000
+Xruby#1#3500
+Xsapphire#1#3000
+Xemerald#1#2500
+Xturquoise#1#2000
+Xaquamarine#1#1500
+Xtourmaline#1#1000
+Xtopaz#1#900
+Xopal#1#800
+Xgarnet#1#700
+Xamethyst#1#650
+Xagate#2#600
+Xonyx#2#550
+Xjasper#2#500
+Xjade#2#450
+X.TE
+X.H 1 "TRICKS AND OTHER NON-INTUITIVE ACTIONS"
+X.H 2 "Elbereth"
+XIf you E)ngrave Elbereth with your bare hands (-), it acts
+Xas a sign of peace.  Most monsters are then unable to attack you as
+Xlong as you do not move off the square or fight a monster next to you.
+XExceptions are dragons, which breathe fire, angry shopkeepers, and
+X(in NetHack only) any creature normally armed with a projectile weapon:
+X.TS
+Xcenter;
+Xc c
+Xl l.
+XMonster	weapon
+X_
+Xcentaurs	crossbow bolts
+Xorcs	darts
+Xkops	cream pies
+X.TE
+X(In Nethack, you cannot throw
+Xthings from an Elbereth, but you can still use wands. There is also a
+Xchance of inadvertently smudging the word, thus breaking the spell.)
+XOther than movement or hand-to-hand fighting, you 
+Xcan do anything on an Elbereth, such as quaffing potions, reading scrolls, etc.
+X.P
+XNote that if you step off the square, or violate it by fighting, the letters 
+Xare disturbed and the inscription is no good anymore.  However, you can write
+Xit again on the next turn, even on the same square.  If you teleport off the
+Xsquare, you are no longer protected, but if you find it again, it will be 
+Xundisturbed and potent.  A NetHack Magic Marker can draw an indelible
+XElbereth that you can fight from.
+X.H 2 "Orcrist"
+XIf your weapon in hand is named Orcrist, it gets a hefty bonus
+Xon damage (rumored to be +10) against orcs.
+X.H 2 "Excalibur"
+XDipping a long sword you have called Excalibur is rumored to eventually
+Xyield a +5 long sword (after some initial damage).  There are possible
+Xcomplications (see ``Fountains'').
+X.H 2 "Hit Points and Nurses"
+XIronically, nurses do a great deal of damage in battle.  However, if you
+Xunwield your weapon and strip yourself of all armor, a nurse will heal
+Xyou.  She will even go so far as to continue past your maximum hit
+Xpoints.  It is possible to follow a nurse around and gain scores of
+Xhit points.
+X.H 2 "Your Score"
+XBeyond mere survival, an important aspect of the game is your score.
+XYou get points for gold, gems (if you leave the dungeon with 
+Xthem), and the Amulet.  (The first amulet is worth 5000, each successive 
+X(genuine) amulet doubles your score.) You also seem to get points for the 
+Xfollowing things:  levels descended to (so dungeon-diving may help), 
+Xand magic items identified or possibly just tried out (or possibly 
+Xjust accumulated). And also, experience points, seemingly 4-for-1.
+XLeaving the dungeon with a pet (especially an experienced one) is
+Xalso worth points.  Mapping out rooms, and possibly discovering
+Xsecret doors may add to your score.
+X.H 2 "Luck"
+XThis is an internal variable that can make life in the dungeon
+Xmuch easier or much harder.  Little is known about it, but it probable affects
+Xyour chances of finding secret doors, waking up monsters, saving vs. magic,
+Xand possibly hitting and being hit by monsters.  Giving gems to a unicorn is
+Xincreases your luck by one point, while killing/eating humans, unicorns, dogs
+Xkops and nurses decreases your luck by \fIfive\fR points.  Throwing a worthless
+Xpiece of glass to a unicorn costs you one point, as does playing during
+Xthe unlucky phase of the moon.  Note that when the moon is full, you see
+Xthe message ``You are lucky, full moon tonight!'' and your luck is
+X\fIincreased\fR by one point.
+XIt is also rumored that there is also a small chance to 
+Xdecrease it slightly by killing defenseless (blinded) monsters.
+XThe absolute range of luck is -10 to +10, and you begin with a value
+Xfrom 1 to 4, inclusive (ignoring the phase of the moon).
+X.bp
+X.ce 1
+X\fBAPPENDIX A: HACK REFERENCE SHEET\fR
+X.S 8 10
+X.TS
+Xtab (#),center,expand,box;
+Xc s s s s s
+Xc c c c c c
+Xc l | c l | c l.
+XCOMMAND SUMMARY
+X_
+X\fIx\fR#Command#\fIx\fR#Command#\fIx\fR#Command
+X_
+Xa#apply, use#j#move down#s#search
+Xb#move down-left#k#move up#t#throw in direction
+Xc#call item#l#move right#u#move up-right
+Xd#drop item#m#skip over#v#program version
+Xe#eat food#n#move down-right#w#wield weapon
+X<#up stairs#o#display options#x#list spells
+X>#down stairs#p#pay off shopkeeper#:#look
+Xh#move left#q#quaff potion#z#zap wand
+Xi#inventory#r#read scroll#?#this list
+X_
+XA#take off some armor#J#run down#S#save game
+XB#run down-left#K#run up#T#take off armor
+XC#name something#L#run right#U#run up-right
+XD#drop objects#,#pick up all#V#game history
+XE#engrave#N#run down-right#W#wear armor
+X^R#redraw screen#O#set options#X#transcribe
+X^P#last message#P#put on ring#Y#run up-left
+XH#run left#Q#quit game#\e#list discovered items
+XI#select inventory#R#take off ring#/#identify
+X.TE
+X.P
+X.TS
+Xtab (#),center,expand,box;
+Xc c c c c c c c c
+Xc l l | c l l | c l l.
+XN#Name#Attack#N#Name#Attack#N#Name#Attack
+X_
+XA#giant ant#saps strength#V#vampire#lowers max. HP#r#rockmole
+XB#bat##W#wraith#takes levels#s#scorpion#poison stings
+XC#centaur##X#xorn#+hits#s#giant spider
+XD#dragon#flames#Y#yeti##t#tengu#teleports
+XE#floating eye#transfixes#Z#zombie##u#unicorn#friendly
+XF#freezing sphere#cold blasts#a#acid blob#corrodes#v#violet fungi#holds
+XG#gnome##b#giant beetle##w#long worm#divides
+XH#hobgoblin##c#cockatrice#petrifies#w#wumpus
+XI#invisible stalker##d#dog##x#xan#pricks
+XJ#jackal##e#ettin#tough#y#yellow light#blinds
+XK#keystone kop#throws pies#f#fog cloud##z#zruty
+XK#kobold##g#gel. cube#freezes# #ghost#tough
+XL#leprechaun#steals gold#h#homunculus#sleep#@#shopkeeper#tough
+XM#mimic#chest(])#i#imp##`#lurker above#swallows
+XN#nymph#steals items#j#jaguar##,#trapper#swallows
+XO#orc#uses darts#k#killer bee#poison stings#:#chameleon#changes
+XP#purple worm#swallows#l#leocrotta##;#giant eel
+XQ#quasit#FAST#m#minotaur##&#demon#replicates
+XQ#quantum mech.#teleports you#n#nurse#heals#1#Wizard#magic
+XR#rust monster#rusts armor#o#owlbear#hugs#2#mail daemon#delivers mail
+XS#snake#poison bites#p#piercer#drops#9#giant#throws boulders
+XT#troll#regenerates#q#quiv. blob#
+XU#umber hulk#confuses#r#giant rat#
+X.TE
+X.P
+X.TS
+Xtab (%),center,expand,box;
+Xc s s s s s
+Xc c c c c c
+Xl l || l n | l n.
+XEXTENDED COMMAND SET/EXPERIENCE LEVELS
+X_
+XCommand%Effect%Level%Points%Level%Points
+X_
+X#breathe:%to breathe fire%1 =%initial%8 =%640
+X#cast:%to cast spells%2 =%10%9 =%1280
+X#dip:%to dip an item%3 =%20%10 =%2560
+X#pray:%to pray%4 =%40%11 =%5120
+X#remove:%to steal an item%5 =%80%12 =%10240
+X#sit:%to sit on a throne%6 =%160%13 =%20480
+X#wipe:%to wipe eyes%7 =%320%14 =%40960
+X.TE
+X.S
+X.TC
+END_OF_Spoilers.mm
+if test 89033 -ne `wc -c <Spoilers.mm`; then
+    echo shar: \"Spoilers.mm\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+if test -f date.h -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"date.h\"
+else
+echo shar: Extracting \"date.h\" \(88 characters\)
+sed "s/^X//" >date.h <<'END_OF_date.h'
+X/*	SCCS Id: @(#)date.h	1.4	87/08/08 */
+X
+Xchar datestring[] = "Mon Nov 30 01:25:12 1987";
+END_OF_date.h
+if test 88 -ne `wc -c <date.h`; then
+    echo shar: \"date.h\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+if test -f food.tbl -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"food.tbl\"
+else
+echo shar: Extracting \"food.tbl\" \(2496 characters\)
+sed "s/^X//" >food.tbl <<'END_OF_food.tbl'
+X.TS
+Xtab (#),center,expand,box;
+Xl c c c c
+Xl | n n n | l.
+XName#Chance#Weight#Energy#Remarks
+X_
+Xfood ration #46#4#800
+Xtripe ration#16#2#200#50% chance of vomiting.
+Xpancake#3#1#200
+Xdead lizard#3#1#40#Eat to avoid turning to stone.
+Xfortune cookie#7#1#40
+Xcarrot#2#1#50
+Xslice of pizza#5#1#250
+Xcream pie#3#1#100
+Xtins:#7#1#0
+X- spinach#50#7#600#Adds strength
+X- peaches#8#8#40
+X- salmon#8#7#60#Slippery hands for 1-15 turns
+X- apple juice#8#7#20
+X- substance#8#7#500#Tastes awful, adds experience.
+X- rotten meat#8#7#-50#Causes vomiting.
+X- empty can#8#7#0
+Xorange#1#1#80
+Xapple#1#1#50
+Xpear#1#1#50
+Xmelon#1#1#100
+Xbanana#1#1#80
+Xcandy bar#1#1#100
+Xegg#1#1#80
+Xclove of garlic#1#1#40#Wield against vampires.
+Xlump of royal jelly #0#1#200#Cures xans, strength +
+X.TE
+X.TS H
+Xtab (#),center,expand,box;
+Xl c c c 
+Xl | n n | l.
+XName#Weight#Energy#Remarks
+X_
+X.TH
+Xdead human#40#400#Permanent aggravate monster.
+Xdead giant ant#3#30#Poisonous.
+Xdead giant bat#3#30#Confusion.
+Xdead centaur#50#500
+Xdead dragon#150#1500#Fire resistance.
+Xdead floating eye#1#10#Telepathy, damage
+Xdead freezing sphere#1#10#Cold resistance.
+Xdead gnome#10#100
+Xdead hobgoblin#20#200
+Xdead stalker#40#400#See invisible.
+Xdead jackal#10#100
+Xdead kobold#10#100#Poisonous.
+Xdead leprechaun#40#400#Teleport ability, damage. 
+Xdead mimic#40#400#Mimic a treasure chest.
+Xdead nymph#40#400#Teleport ability, damage. 
+Xdead orc#20#200#Damage.
+Xdead purple worm#70#700#Damage.
+Xdead quantum mechanic#20#200#Teleport ability, damage.
+Xdead rust monster#50#500#Damage.
+Xdead snake#10#100#Poisonous.
+Xdead troll#40#400
+Xdead umber hulk#50#500#Damage.
+Xdead vampire#40#400Poisonous.
+Xdead wraith#1#10#Gain level.
+Xdead xorn#70#700
+Xdead yeti#70#700#Cold resistance.
+Xdead zombie#3#30
+Xdead acid blob#3#30#Poisonous.
+Xdead giant beetle#1#10#Poisonous.
+Xdead cockatrice#3#30#Instant death.
+Xdead dog#20#200#Aggravate monsters.
+Xdead ettin#3#30
+Xdead fog cloud#1#10
+Xdead gelatinous cube#10#100
+Xdead homunculus#20#200#Poisonous.
+Xdead imp#1#10
+Xdead jaguar#30#300#Gain level?
+Xdead killer bee#1#10#Poison resistance.
+Xdead leocrotta#50#500
+Xdead minotaur#70#700# 
+Xdead nurse#40#400#Heal, aggravate monsters.
+Xdead owlbear#70#700
+Xdead piercer#20#200
+Xdead quivering blob#10#100
+Xdead giant rat#3#30
+Xdead giant scorpion#10#100#Poisonous.
+Xdead tengu#30#300#Teleport ability.
+Xdead unicorn#30#300#Damage.
+Xdead violet fungus#10#100#Hallucinogenic.
+Xdead long worm#50#500
+Xdead xan#30#300#Damage.
+Xdead yellow light#1#10#Confusion, vision++
+Xdead zruty#60#600#Damage.
+Xdead giant#70#700#Strength++.
+Xdead daemon#80#800
+X.TE
+END_OF_food.tbl
+if test 2496 -ne `wc -c <food.tbl`; then
+    echo shar: \"food.tbl\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+echo shar: End of archive 1 \(of 13\).
+cp /dev/null ark1isdone
+MISSING=""
+for I in 1 2 3 4 5 6 7 8 9 10 11 12 13 ; do
+    if test ! -f ark${I}isdone ; then
+	MISSING="${MISSING} ${I}"
+    fi
+done
+if test "${MISSING}" = "" ; then
+    echo You have unpacked all 13 archives.
+    rm -f ark[1-9]isdone ark[1-9][0-9]isdone
+else
+    echo You still need to unpack the following archives:
+    echo "        " ${MISSING}
+fi
+##  End of shell archive.
+exit 0

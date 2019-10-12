@@ -1,0 +1,3871 @@
+#! /bin/sh
+# This is a shell archive.  Remove anything before this line, then unpack
+# it by saving it into a file and typing "sh file".  To overwrite existing
+# files, type "sh file -c".  You can also feed this as standard input via
+# unshar, or by typing "sh <file", e.g..  If this archive is complete, you
+# will see the following message at the end:
+#		"End of archive 4 (of 13)."
+# Contents:  Guidebook.mn eat.c shk.c zap.c
+# Wrapped by billr@tekred on Mon Jun 20 11:38:30 1988
+PATH=/bin:/usr/bin:/usr/ucb ; export PATH
+if test -f Guidebook.mn -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"Guidebook.mn\"
+else
+echo shar: Extracting \"Guidebook.mn\" \(31587 characters\)
+sed "s/^X//" >Guidebook.mn <<'END_OF_Guidebook.mn'
+X.ds h0 "A Guide to the Mazes of Menace
+X.ds h1
+X.ds h2 %
+X.ds vr "Nethack Version 2.0
+X.ds f0 "\*(vr
+X.ds f1
+X.ds f2 "September 25, 1987
+X.mt
+XA Guide to the Mazes of Menace
+X.au
+XEric S. Raymond
+X.ai
+XThyrsus Enterprises
+XMalvern, PA 19355
+X.hn 1
+XIntroduction
+X.pg
+XYou have just finished your years as a student at the
+Xlocal adventurer's guild.   After much practice and sweat you
+Xhave finally completed your training and are ready to embark
+Xupon a  perilous adventure.  As a test of your skills, the
+Xlocal guildmasters have sent you into the Dungeons of Doom.
+XYour task is to return with the Amulet of Yendor.  Your
+Xreward for the completion of this task will be a  full
+Xmembership in the local guild.  In addition, you are allowed
+Xto keep all the loot you bring back from the dungeons.
+X.pg
+XYou have abilities and strengths for dealing with the
+Xhazards of adventure that will vary depending on your background
+Xand training. Here is a summary of the character classes:
+X.pg
+X\fICavemen\fR and \fICavewomen\fR start with exceptional strength and
+Xneolithic weapons.
+X.pg
+X\fITourists\fR start out with lots of gold (suitable for shopping with)
+Xand an expensive camera. Most monsters don't like being photographed.
+X.pg
+X\fIWizards\fR start out with a fair selection of magical goodies and
+Xa particular affinity for things thaumaturgical.
+X.pg
+X\fIArcheologists\fR understand dungeons pretty well. This makes them
+Xable to move quickly and sneak up on dungeon nasties. They start equipped
+Xwith proper tools for a scientific expedition.
+X.pg
+X\fIElves\fR are agile and quick and have keen senses; very little of
+Xwhat goes on around an Elf will escape him or her. The quality of Elven
+Xcraftsmanship often gives them an advantage in weapons and armor.
+X.pg
+X\fIValkyries\fR are hardy warrior women. Their upbringing in the harsh
+XNorthlands makes them strong and inures them to extremes of cold, and instills
+Xstealth and cunning in them.
+X.pg
+X\fIHealers\fR are wise in the apothecary and medical arts. They know the
+Xherbs and simples that can restore vitality and ease pain and neutralize
+Xpoisons, and they can divine a being's state of health or sickness.
+X.pg
+X\fIKnights\fR are distinguished from the common run of fighter by their
+Xdevotion to the ideal of chivalry and the surpassing excellence of their
+Xarmor.
+X.pg
+X\fIBarbarians\fR are warriors out of the hinterland, hardened to battle.
+XThey begin their quests with naught but uncommon strength, a trusty hauberk,
+Xand a great two-handed sword.
+X.pg
+X\fISamurai\fR are the elite warriors of feudal Nippon. They are lightly
+Xarmored and quick, and wear the \fIdai-sho\fR, two swords of the deadliest
+Xsharpness.
+X.pg
+X\fINinja\fR are the spy-assassins of Japan. They are quick and stealthy,
+Xthough not as strong as fighters. Their characteristic weapon is the deadly
+X\fIshuriken\fR or throwing-star.
+X.pg
+X\fIPriests\fR and \fIPriestesses\fR are clerics militant, armed and
+Xarmored to advance the cause of righteousness but also equipped with some
+Xskills in arts thaumaturgic. Their ability to commune with deities via prayer
+Xoccasionally extricates them from peril -- but can also put them in it.
+X.pg
+XYou set out on your way to the dungeons and after
+Xseveral days of uneventful travel, you see the ancient ruins
+Xthat mark the entrance to the Mazes of Menace.  It is late
+Xat night,  so you make camp at the entrance and spend the
+Xnight sleeping under the open skies.   In the morning you
+Xgather your weapons and devices, eat what is almost
+Xyour last food, and enter the dungeons.
+X.hn 1
+XWhat is going on here?
+X.pg
+XYou have just begun a game of nethack.  Your goal is to
+Xgrab as much treasure as you can, find the Amulet of Yendor,
+Xand get out of the Mazes of Menace alive.  On the screen, a
+Xmap of where you have been and what you have seen on the
+Xcurrent dungeon level is kept.  As you explore more of the
+Xlevel, it appears on the screen in front of you.
+X.pg
+XNethack differs from most computer fantasy games (other
+Xthan its ancestors hack and rogue and its cousin larn) in that
+Xit is screen oriented.  Commands are all one or two keystrokes
+X(as opposed to sentences in some losing parser's notion
+Xof English) and the results of your commands are displayed
+Xgraphically on the screen rather than being explained in
+Xwords (a minimum screen size of 24 lines by  80  columns is
+Xrequired; if the screen is larger, only a 24x80 section
+Xwill be used for the map).
+X.pg
+XAnother major difference between nethack and other computer
+Xfantasy games is that once you have solved all the
+Xpuzzles in a standard fantasy game, it has lost most of its
+Xexcitement and it ceases to be fun.  Nethack, on the other
+Xhand, generates a new dungeon every time you play it and
+Xeven the authors still find it an entertaining and exciting game.
+X.hn 1
+XWhat do all those things on the screen mean?
+X.pg
+XIn order to understand what is going on in nethack you
+Xhave to first get some grasp of what nethack is doing with the
+Xscreen.  The nethack screen is intended to replace the  "You
+Xcan see ..." descriptions of text fantasy games.  Figure
+X1 is a sample of what a nethack screen might look like.
+X.hn 2
+XThe bottom line
+X.pg
+XAt the bottom line of the screen are a  few pieces of
+Xcryptic information describing your current status.  Here is
+Xan explanation of what these things mean:
+X.lp Level
+XThis number indicates how deep you have gone in the
+Xdungeon.   It starts at one and goes up as you go
+Xdeeper into the dungeon.
+X.lp Gold
+XThe number of gold pieces you have managed to find
+Xand keep with you so far.
+X.lp Hp
+XYour current and maximum health points.   Health
+Xpoints indicate how much damage you can take before
+Xyou die.  The more you get hit in a fight, the lower
+Xthey get.   You can regain health points by resting.
+XThe number in parentheses is the maximum number your
+Xhealth points can reach.
+X.sd
+X____________________________________________________________
+X
+X    ------------
+X    |..........+
+X    |..@....]..|
+X    |....B.....|
+X    |..........|
+X    -----+------
+X
+X
+X
+XLev 1  Gp 0  Hp 12(12) Ep 3(3)  Ac 8  Str 16(16)  Exp: 1/0
+X____________________________________________________________
+X.ed
+X.ce 1
+XFigure 1
+X
+X.lp Ep
+XEnergy points. This tells you the level of mystic energy
+Xyou have available for spell casting. When you type `x' to
+Xlist your spells, each will have a spell point cost beside
+Xit in parentheses. You will not see this if your site's version
+Xof the game has been configured to omit spells.
+X.lp Ac
+XYour current armor protection.  This number indicates
+Xhow effective your armor is in stopping blows from
+Xunfriendly creatures.  The lower this number is, the
+Xmore effective the armor.
+X.lp Str
+XYour current strength and maximum ever strength.
+XThis can be any integer less than or equal to 18, or
+Xgreater than or equal to three (occasionally you
+Xmay get super-strengths of the form 18/xx). The higher the
+Xnumber,  the stronger you are. The number in the
+Xparentheses is the maximum strength you have attained
+Xso far this game.
+X.lp Exp
+XThese two numbers give your current experience level
+Xand experience points.   As you do things, you gain
+Xexperience points.   At certain experience point
+Xtotals,  you gain an experience level.   The more
+Xexperienced you are, the better you are able to fight
+Xand to withstand magical attacks.
+X.hn 2
+XThe top line
+X.pg
+XThe top line of the screen is reserved for printing
+Xmessages that describe things that are impossible to
+Xrepresent visually.  If you see a  "--More--"  on the top
+Xline,  this means that nethack wants to print another message
+Xon the screen, but it wants to make certain that you have
+Xread the one that is there first.  To read the next message,
+Xjust type a space.
+X.hn 2
+XThe rest of the screen
+X.pg
+XThe rest of the screen is the map of the level as you
+Xhave explored it so far.   Each symbol on the screen
+Xrepresents something.  Here is a list of what the various
+Xsymbols mean:
+X.lp "- and |
+XThese form the walls of a room (or maze).
+X.lp .
+Xthis is the floor of a room.
+X.lp #
+Xthis is a corridor.
+X.lp >
+Xthis is the staircase to the next level.
+X.lp <
+Xthe staircase to the previous level.
+X.lp `
+XA large boulder.
+X.lp @
+XYou (usually) or another human.
+X.lp ^
+XA trap.
+X.lp )
+XA weapon of some sort.
+X.lp (
+XSome other useful object (key, rope, dynamite, camera...)
+X.lp [
+XA suit of armor.
+X.lp %
+XA piece of food (not necessarily healthy...).
+X.lp /
+XA wand.
+X.lp =
+XA ring.
+X.lp ?
+XA scroll.
+X.lp !
+XA magic potion.
+X.lp +
+XA spellbook containing a spell you can learn; (but usually a doorway).
+X.lp }
+XA pool of water
+X.lp {
+XA fountain (your dungeon may not have these).
+X.lp "\\\\
+XAn opulent throne (You may not have this either).
+X.lp $
+XA pile or pot of gold.
+X.lp a-zA-Z
+XThe uppercase letters represent the various inhabitants
+Xof the Mazes of Menace.  Watch out, they can be nasty
+Xand vicious.  Sometimes, however, they can be helpful.
+X.hn 1
+XCommands
+X.pg
+XCommands are given to nethack by typing one or two characters.
+XMost commands can be preceded by a count to repeat
+Xthem (e.g. typing "10s" will do ten searches).  Commands for
+Xwhich counts make no sense have the count ignored.  To cancel
+Xa count or a prefix, type <ESCAPE>.  The list of commands is rather long,
+Xbut it can be read at any time during
+Xthe game with the "?" command.  Here it is for reference,
+Xwith a short explanation of each command.
+X.lp ?
+Xhelp: print a help list.
+X.lp Q
+XQuit the game.
+X.lp S
+XSave the game.
+X.lp !
+XEscape to a shell.
+X.lp ^Z
+XSuspend the game (UNIX versions with job control only).
+X.lp <
+Xup: go up the staircase (if you are standing on it).
+X.lp >
+Xdown: go down (just like up).
+X.lp [kjhlyubn]
+Xgo one step in the direction indicated.
+X.sd
+X    k: north (i.e., to the top of the screen),
+X    j: south, h: west, l: east, y: ne, u: nw, b: se, n: sw.
+X.ed
+X.lp KJHLYUBN
+XGo in that direction until you hit a wall or run into something.
+X.lp m[kjhlyubn]
+Xprefix: move without picking up any objects.
+X.lp M[kjhlyubn]
+Xprefix: move far, no pickup.
+X.lp g[kjhlyubn]
+Xprefix: move until something interesting is found.
+X.lp G[kjhlyubn]
+Xas previous, but forking of corridors is not considered interesting.
+X.lp i
+Xprint your inventory.
+X.lp I
+Xprint selected parts of your inventory, like in
+X.sd
+X    I* - all gems in inventory;
+X    IU - all unpaid items;
+X    IX - all used up items that are on your shopping bill;
+X    I$ - count your money.
+X.ed
+X.lp s
+Xsearch for secret doors and traps around you.
+X.lp ^
+Xask for the type of a trap you found earlier.
+X.lp )
+Xask for current wielded weapon.
+X.lp [
+Xask for current armor.
+X.lp =
+Xask for current rings.
+X.lp $
+Xcount how many gold pieces you are carrying.
+X.lp .
+Xrest, do nothing.
+X.lp ,
+Xpick up some things.
+X.lp :
+Xlook at what is here.
+X.lp ^T
+Xteleport.
+X.lp ^R
+Xredraw the screen.
+X.lp ^P
+Xrepeat last message (subsequent ^P's repeat earlier messages).
+X.lp /
+X(followed by any symbol) tell what this symbol
+Xrepresents.If you see fancy graphics on your screen
+Xit may ask you to specify a location rather than
+Xtaking a symbol argument.
+X.lp "\\\\
+Xtell what has been discovered.
+X.lp e
+Xeat food.
+X.lp w
+Xwield weapon. w- means: wield nothing, use bare hands.
+X.lp q
+Xdrink (quaff) a potion.
+X.lp r
+Xread a scroll.
+X.lp T
+XTakeoff armor.
+X.Lp R
+XRemove Ring.
+X.lp W
+XWear armor.
+X.lp P
+XPut on a ring.
+X.lp X
+Xtranscribe (learn) a spell.
+X.lp x
+Xprint a list of know spells.
+X.lp z
+Xzap a wand.
+X.lp Z
+Xzap a spell; same as the `# cast' extended command
+X.lp t
+Xthrow an object or shoot an arrow.
+X.lp p
+Xpay your shopping bill.
+X.lp d
+Xdrop something. d7a: drop seven items of object a.
+X.lp D
+XDrop several things.
+XIn answer to the question "What kinds of things do you
+Xwant to drop? [!%= au]" you should give zero or more
+Xobject symbols possibly followed by 'a' and/or 'u'.
+X'a' means: drop all such objects, without asking for confirmation.
+X'u' means: drop only unpaid objects (when in a shop).
+X.lp a
+Xapply - Generic command for using a key to lock
+Xor unlock a door, using a camera, using a rope, etc.
+X.lp c
+Xcall: name a certain object or class of objects.
+X.lp C
+XCall: Name an individual monster.
+X.lp E
+XEngrave: Write a message in the dust on the floor.
+XE- means: use fingers for writing.
+X.lp O
+XSet options. You will be asked to enter an option line.
+XIf this is empty, the current options are reported.
+XOtherwise it should be a list of options separated
+Xby commas. Possible boolean options are: oneline, time,
+Xnews, tombstone, rest_on_space, fixinvlet, beginner,
+Xmale, female. They can be negated by prefixing them with
+X'!' or "no". A string option is name; it supplies the
+Xanswer to the question"Who are you?"; it may have a
+Xsuffix. A compound option is endgame; it is followed by a
+Xdescription of what parts of the list of topscorers
+Xshould be printed when the game is finished. There is
+Xalso a graphics option that sets the characters used for
+Xscreen displays. Usually one will not want to use the 'O'
+Xcommand, but instead put a HACKOPTIONS="...." line in
+Xone's environment.
+X.lp v
+Xprint version number.
+X.lp V
+Xdisplay the game history (about one page).
+X.pg
+XYou can put a number before most commands to repeat them that many times,
+Xas in "20s" or "40.".
+X.hn 1
+XRooms
+X.pg
+XRooms in the dungeons are either lit or dark.   If you
+Xwalk into a lit room, the entire room will be drawn on the
+Xscreen as soon as you enter.  If you walk into a dark room,
+Xit will only be displayed as you explore it.  Upon leaving a
+Xroom, all monsters inside the room are erased from the
+Xscreen.   In the darkness you can only see one space in all
+Xdirections around you.  A corridor is always dark.
+X.hn 1
+XFighting
+X.pg
+XIf you see a monster and you wish to fight it,  just
+Xattempt to run into it.  Many times a monster you find will
+Xmind its own business unless you attack it.  It is often the
+Xcase that discretion is the better part of valor.
+X.hn 1
+XObjects you can find
+X.pg
+XWhen you find something in the dungeon, it is common to
+Xwant to pick the object up.  This is accomplished in nethack
+Xby walking over the object (unless you use the  "m"  prefix,
+Xsee above).   If you are carrying too many things, the program
+Xwill tell you and it won't pick up the object,  otherwise
+Xit will add it to your pack and tell you what you just picked up.
+X.pg
+XMany of the commands that operate on objects must
+Xprompt you to find out which object you want to use.  If you
+Xchange your mind and don't want to do that command after
+Xall, just type an <ESCAPE> and the command will be aborted.
+X.pg
+XSome objects, like armor and weapons, are easily differentiated.
+XOthers,  like scrolls and potions, are given
+Xlabels which vary according to type.  During a game, any two
+Xof the same kind of object with the same label are the same
+Xtype.  However, the labels will vary from game to game.
+X.pg
+XWhen you use one of these labeled objects,  if its
+Xeffect is obvious, nethack will remember what it is for you.
+XIf its effect isn't extremely obvious you will be asked
+Xwhat you want to scribble on it so you will recognize it
+Xlater, or you can use the "call" command (see above).
+X.hn 2
+XWeapons
+X.pg
+XSome weapons, like arrows, come in bunches,  but most
+Xcome one at a  time.   In order to use a weapon, you must
+Xwield it.  To fire an arrow out of a  bow,  you must first
+Xwield the bow, then throw the arrow.  You can only wield one
+Xweapon at a time, but you can't change weapons if the one
+Xyou are currently wielding is cursed.  The commands to use
+Xweapons are "w" (wield) and "t" (throw).
+X.hn 2
+XArmor
+X.pg
+XThere are various sorts of armor lying around in the
+Xdungeon.   Some of it is enchanted, some is cursed, and some
+Xis just normal.  Different armor types have different armor
+Xprotection.   The higher the armor protection, the more protection
+Xthe armor affords against the blows of monsters.
+XHere is a partial list of the various armor types and the level of
+Xarmor protection each will give.
+X.sd
+X	plate mail               3
+X	splint mail              4
+X	banded mail		 4
+X	chain mail		 5
+X	scale mail		 6
+X	ring mail		 7
+X	studded leather armor    7
+X	leather armor	         8
+X	elven cloak		 9
+X.ed
+X.pg
+XIf a piece of armor is enchanted, its armor protection will
+Xbe higher than normal.  If a suit of armor is cursed, its
+Xarmor protection will be lower, and you will not be able to
+Xremove it.  However, not all armor with a protection that is
+Xlower than normal is cursed and some enchanted armor is also
+X"cursed" preventing removal.
+X.pg
+XThe commands to use weapons are  "W"  (wear)  and  "T"
+X(take off).
+X.hn 2
+XScrolls
+X.pg
+XScrolls come with titles in an unknown tongue.
+XAfter you read a scroll, it disappears from your pack.  The
+Xcommand to use a scroll is "r" (read).
+X.hn 2
+XPotions
+X.pg
+XPotions are labeled by the color of the liquid inside
+Xthe flask.  They disappear after being quaffed.  The command
+Xto use a scroll is "q" (quaff).
+X.hn 2
+XStaves and Wands
+X.pg
+XStaves and wands do the same kinds of things.   Staves
+Xare identified by a type of wood; wands by a type of metal
+Xor bone.  They are generally things you want to do to something
+Xover a long distance, so you must point them at what
+Xyou wish to affect to use them.   Some staves are not
+Xaffected by the direction they are pointed, though.   Staves
+Xcome with multiple magic charges, the number being random,
+Xand when they are used up, the staff is just a piece of wood
+Xor metal.
+X.pg
+XThe command to use a wand or staff is "z" (zap)
+X.hn 2
+XRings
+X.pg
+XRings are very useful items, since they are relatively
+Xpermanent magic,  unlike the usually fleeting effects of
+Xpotions, scrolls, and staves.  Of course, both good and bad rings are
+Xmore powerful.   Most rings also cause you to use up
+Xfood more rapidly, the rate varying with the type of ring.
+XRings are differentiated by their stone settings.  Some rings are
+Xcursed, preventing removal.  This can happen to helpful and
+Xharmful rings alike.
+X.pg
+XThe commands to use rings are "P" (put on) and "R" (remove).
+X.hn 2
+XSpellbooks
+X.pg
+XSpellbooks are tomes of mighty magic. When read with the `transcribe' command
+XX, they plant the knowledge of a spell in your head and disappear \- unless
+Xthe attempt backfires. Reading a spellbook can be harmful to your health if
+Xit is cursed or the mystic runes are at too high a level for your thaumaturgic
+Xskills!
+X.pg
+XCasting spells can also backfire.  If you attempt to cast a spell well above
+Xyour level, or cast it at a time when your luck is particularly bad, you can
+Xend up wasting both the energy and the time required in casting.
+X.pg
+XThe `x' command lists your current spells, each preceded by the spell points
+Xthey require. to cast a spell, type `Z' and answer the questions.
+X.hn 2
+XFood
+X.pg
+XFood is necessary to keep you going.   If you go too
+Xlong without eating you will faint, and eventually die of
+Xstarvation.  The command to use food is "e" (eat).
+X.hn 2
+XOptions
+X.pg
+XDue to variations in personal tastes and conceptions of
+Xthe way nethack should do things, there are a set of options
+Xyou can set that cause nethack to behave in various different
+Xways.
+X.hn 2
+XSetting the options
+X.pg
+XThere are two ways to set the options.   The first is
+Xwith the  "O"  command of nethack;  the second is with the
+X"HACKOPTIONS" environment variable.
+X.hn 2
+XUsing the `O' command
+X.pg
+XWhen you type "O" in nethack, it queries you for an option string which
+Xis parsed as though it were a HACKOPTIONS value.
+X.hn 2
+XUsing the HACKOPTIONS variable
+X.pg
+XThe HACKOPTIONS variable is a string containing a  comma-separated list of
+Xinitial values for the various options. Boolean variables can be turned on by
+Xlisting their name or turned off by putting a `!' or "no" in front of the name.
+XYou can set string variables by following the variable name with a colon
+X(this character was chosen over = to avoid conflict with the ring symbol)
+Xand the value of the string. The value is terminated by the next comma or
+Xthe end of string.
+X.pg
+XThus to set up an environment variable so that `female' is on, `pickup' is
+Xoff, and the name is set to "Blue Meanie", you would enter
+Xthe command
+X.sd
+X% setenv HACKOPTIONS "female,!pickup,name:Blue Meanie"
+X.ed
+Xin csh, or
+X.sd
+X$ HACKOPTIONS="female,!pickup,name:Blue Meanie"
+X$ export HACKOPTIONS
+X.ed
+Xin sh or ksh.
+X.hn 2
+XCustomization options
+X.pg
+XHere is a list of the options and an explanation of
+Xwhat each one is for.   The default value for each is
+Xenclosed in square brackets.  For character string options,
+Xinput over fifty characters will be ignored.
+X.pg
+XNote: some of the options listed may be inactive if the game has been
+Xsubsetted.
+X.lp standout
+X(default on) use standout where appropriate in display lists.
+X.lp null\ \ \ \ 
+X(default off) don't send padding nulls to the tty.
+X.lp tombstone
+X(default on) display tombstone graphic on death.
+X.lp news\ \ \ \ 
+X(default on) read hack news if present.
+X.lp conf\ \ \ \ 
+X(default on) have user confirm attacks on dogs and shopkeepers.
+X.lp silent
+X(default on) suppress terminal beeps.
+X.lp pick\ \ \ \ 
+X(default on) pick up things you move onto by default.
+X.lp IBMB\ \ \ \ 
+X(default off, PC-HACK only) for machines with an IBM-PC compatible BIOS ROM.
+X.lp DECR\ \ \ \ 
+X(default off, PC-HACK only) for machines with DEC Rainbow compatible BIOS ROMs.
+X.lp rawi\ \ \ \ 
+X(default off) force raw (not cbreak mode) input.
+X.lp sort\ \ \ \ 
+X(default on) sort the pack contents by type when displaying inventory.
+X.lp packorder
+X(default `)[%?+/=!(*0  )') specify order to list object types in. The value of
+Xthis option should be a string containing the symbols for the various object
+Xtypes.
+X.lp dogname
+Xgive your (first) dog a name (eg. dogname:Fang).
+X.lp time\ \ \ \ 
+X(default off) show game time in turns on bottom line.
+X.lp restonspace
+X(default off) make spacebar a synonym for `.'.
+X.lp fixinv
+X(default on) an object's inventory letter sticks to it until it's dropped.
+XIf this is off, everything after a dropped object shifts letters.
+X.lp male\ \ \ \ 
+X(default on, most hackers are male) sets the player-character's sex.
+X.lp female
+X(default off) sets the player-character's sex (equal-opportunity feature :-)).
+X.lp name\ \ \ \ 
+X(defaults to player's username) Set the player-character's name.
+X.lp graphics
+X(default ` |-++++.:<>^{}\\"') set the graphics symbols for screen displays.
+XThe graphics option (if used) should be last, followed by a string of up to ",
+X17 chars to be used instead of the default map-drawing chars. Replacing for
+Xany of these chars causes it to be replaced in the dungeon level displays,
+Xexcept that the five instances of + are used for top left, top right, bottom
+Xleft, bottom right and door squares respectively. The last four characters
+Xare required only if the corresponding options are configured in.
+X.lp endgame
+XEndgame is followed by a description of what parts of the scorelist
+Xyou want to see. You might for example say:
+X.sd
+X`endgame:own scores/5 top scores/4 around my score'.
+X.ed
+XIn the PC-HACK version, options may be set in a configuration file on disk
+Xas well as from the hack options.
+X.hn 2
+XScoring
+X.pg
+XNethack usually maintains a list of the top scoring people
+Xor scores on your machine.  Depending on how it is set
+Xup, it can post either the top scores or the top players.
+XIn the latter case,  each account on the machine can post
+Xonly one non-winning score on this list.   If you score
+Xhigher than someone else on this list, or better your previous
+Xscore on the list, you will be inserted in the proper
+Xplace under your current name.  How many scores are kept can
+Xalso be set up by whoever installs it on your machine.
+X.pg
+XIf you quit the game, you get out with all of your gold
+Xintact.   If,  however,  you get killed in the Dungeons of
+XDoom, your body is forwarded to your next-of-kin, along with
+X90%  of your gold; ten percent of your gold is kept by the
+XDungeons' wizard as a fee.  This should make you consider
+Xwhether you want to take one last hit at that monster and
+Xpossibly live, or quit and thus stop with whatever you have.
+XIf you quit, you do get all your gold, but if you swing and
+Xlive, you might find more.
+X.pg
+XIf you just want to see what the current top players/
+Xgames list is, you can type
+X.sd
+X% nethack -s
+X.ed
+X
+X.hn
+XCredits
+X.pg
+XThe original hack game was modeled on the Berkeley UNIX `rogue' game.
+XLarge portions of this paper were shamelessly cribbed from \fUA Guide to the
+XDungeons of Doom\fR, by Michael C. Toy and Kenneth C. R. C. Arnold.
+X.pg
+XNetHack is the product of literally dozens of people's work. A list of
+X\fIsome\fR of those who made major additions to the game appears below:
+X.lp "Jay Fenlason
+Xwrote the original release of "Hack", with help	from Kenny Woodland, Mike
+XThome and Jon Payne.
+X.lp "Andries Brouwer
+Xdid a major re-write on the program and	publshed (at least) two versions to
+Xthe Usenet.
+X.lp "Don G. Kneller
+Xported the 1.0.3 version of Hack to the PC, creating PC-Hack.
+X.pg
+XThe following folks didn't actually re-write the game, or port it to
+Xa new machine, but have made significant contributions to the playability of
+Xthe game:
+X.lp "ins_akaa@jhunix.UUCP (Ken Arromdee)
+XNew character classes. New weapons code. Armor weights implemented. New tools
+Xcode. Polymorph Self code. Bug fixes.
+X.lp "srt@ucla-cs (Scott R. Turner)
+XRockmole & Keystone Kops code. Squeaky Board & Magic traps. Fountain code.
+XMore bug fixes.
+X.lp "gil@cornell.UUCP (Gil Neiger)
+XMagic Marker code. Fountain code enhancements. Enhancements to dozens of
+Xroutines. More bug fixes (esp. in hack.zap.c).
+X.lp "ericb@hplsla.UUCP (Eric Backus)
+XThe #dip mods to fountain code. Yet more bug fixes.
+X.lp "mike@genat.UUCP (Mike Stephenson)
+XNew character classes and traps. Throne Rooms. Spellbooks and spellcasting.
+XPraying. Endgame enhancements. Nethack release and coordination.
+X.lp "eric@snark (Eric S. Raymond)
+XThe GRAPHICS option. Changes to make character classes more individual and
+Xmythohistorically authentic. Better random-number generation. The blindfold
+Xtool. The 'Z' spellcasting command synonym. General cleanup of much grotty
+Xcode, removal of magic numbers. More bug fixes. This Guide you're reading.
+X.pg
+XYou too can enhance this game and join the hallowed ranks of the
+Xnet.benefactors. Happy hacking!
+X.hu
+XAppendix A: Weapon Types in Hack
+X.pg
+XThis material is adapted from a digest of email replies to Carole Chang
+X(carole@uhcc.uhccux.ha). Major sources were:
+X.sd
+X	Paul Anderson		pha@net1.ucsd.edu
+X	Vernon Lee		scorpion@rice.edu
+X	Bryan Ewbank		ihlph!bdewbank
+X.ed
+XSome terminological corrections (notably the correct set of distinctions for
+Xthe great mace/morningstar/flail controversy) were made by your editor
+X(eric@snark), and a good bit of historical context added.
+X
+X.hn 2
+XPolearms
+X.pg
+XThe following weapons are all "pole arms", meaning that they are
+Xwooden shafts (5-9' long) capped with a particular weapon-head. We
+Xlist these first as they are most likely to mystify a novice hacker.
+X.lp glaive
+Xa short polearm with a straight blade at the end of the shaft. Rare in Europe;
+Xmore popular in non-Western cultures under other names, as in the Zulu war
+Xassegai and Japanese ashigaru's pike.
+X.lp halberd
+Xa long (typically 6' or more) polearm ending with a single axe-head, backed by a
+Xspike and tipped by a spear-head. An extremely popular weapon in Europe from
+Xthe Dark Ages to as late as 1650. You can see them in pictures of royal or elite
+XSpanish, English, and French troops or the Vatican's Swiss Guards.
+X.lp bill-guisarme
+Xa polearm, ends in a spear-head with a spike on one side and a hook on the
+Xother.
+X.lp fauchard
+Xa polearm topped by a curved sickle-blade.
+X.lp bec-de-corbin
+X(literally "crow's-beak") a polearm ending in a stout spear-point, with a
+Xsmall axe-head on one side and a beak-shaped spike on the other. This weapon
+Xwas designed to act like a can-opener for infantry fighting plate-armored
+Xknights.
+X.lp guisarme
+Xa polearm, ends with a sharpened pruning hook.
+X.lp spetum
+Xa polearm, ends with a spear-blade that has a smaller blade jutting
+Xat an angle from either side; the idea was to catch an opponent's
+Xweapon between two blades and disarm him with a twist of the shaft.
+XCompare the japanese \fIsai\fR.
+X.lp partisan
+Xa polearm, has a spear-head with a small axe-head to either side. Peasant
+Xlevies often carried these; hence our modern usage of `partisans' to
+Xdescribe guerilla or irregular troops.
+X.lp lucern hammer
+Xa polearm, ends in a forward-pointing and one or more curved, downward-pointing
+X(i.e.perpendicular) spikes. Named after the Swiss city and canton of Lucerne.
+X.lp voulge
+Xa polearm, with a straight single-edged blade depending from one side of the
+Xshaft's end.  
+X.lp ranseur
+Xa polearm, ends with a broad spear-head with a flat base, and a broader
+X"hilt" (often a straight piece with sharpened ends) behind it. As with the
+Xspetum, the idea was to catch weapons between the blade and "hilt".
+X
+X
+X.hn 2
+XBlade weapons
+X.pg
+XBlades were, in most pre-gunpowder martial cultures, the preferred weapon for
+Xone-on-one combat. Nethack includes several kinds:
+X.lp dagger
+Xbroadly speaking, could describe any blade less than about two feet long. But
+X`dagger' tends to suggest a hilted, double-edged weapon.
+X.lp short swords
+Xare 2-3' long and used for stabbing. The Roman legionary's \fIgladius\fR and
+Xthe American frontiersman's Bowie knife were both short swords.
+X.lp broad swords
+Xare 3-4' long; they have sharpened edged for chopping and cleaving.
+X.lp long swords
+Xare also 3-4' long; they are narrower with sharpened tips for stabbing and
+Xslashing.
+X.lp two-handed swords
+Xare 5-6' long, with long handles because they require both hands to use.
+X.lp bastard sword
+Xa cleaving weapon 4-5' long, which can be wielded with one or (more 
+Xeffectively) two hands.
+X.lp scimitar
+Xa type of curved, single-edged blade popular since ancient times in the
+XNear East, designed for slashing and drawing strokes. Recent European weapons
+Xmodeled on it include the sabre and cutlass.
+X.lp katana
+Xthe long, slender, sabre-like swords of the Japanese samurai, often considered
+Xthe finest blade weapons ever made. Japanese forging techniques produced
+Xwhat was in effect a micro-layered composite of high and low carbon steels,
+Xgiving the blade its unique razor-sharpness and flexibility.
+X
+X.hn 2
+XMissile weapons
+X.pg
+XThese are all weapons meant to transfer kinetic energy to a target via a rigid
+Xthrown projectile.
+X.lp bow
+Xin nethack, probably represents the 'self bow', a smaller single-piece or
+Xcomposite bow firing short feather-quilled arrows (rather than the classic
+XRobin Hood longbow with its yard-long shafts).
+X.lp crossbow
+Xa mechanically-cranked bow firing stubby conical-profile bolts, sometimes
+Xfinned. Had a lower rate of fire than the self- or long-bow but fearsome
+Xpenetrating power.
+X.lp javelin
+Xa lightweight, flexible throwing spear.
+X.lp dart
+Xnot the three-inch, needle-pointed pub dart associated with ale and tweed
+Xcaps; rather, its progenitor, a shorter javelin-like projectile that was
+Xmostly soft-iron head. Barrages of these were thrown as first volleys in
+Xinfantry skirmishes to foul the opponents' shields.
+X.lp shuriken
+Xa flat, spiked wheel designed to be thrown with a wrist-flick so the blades
+Xspin like a buzz-saw in flight. Also called a `throwing star' or (in India)
+Xthe `chakram'.
+X
+X.hn 2
+XMiscellaneous strange weapons
+X.lp bardiche
+X(literally, "bearded axe") a short shaft (5') with an enormous long axe-head,
+Xconnected at at least two places. Basically a huge axe (or a short voulge).
+X.lp morning-star
+Xusually a spiked ball attached by a chain to a truncheon-like handle. The
+Xterm is sometimes used to describe maces with spiked heads.
+X.lp flail
+Xseveral chains, possibly spiked and possibly with small balls on the ends,
+Xstapled to a truncheon. 
+X.lp crysknife
+Xa fantasy weapon adapted from Frank Herbert's "Dune" books. On Herbert's
+XArrakis, the fierce Fremen made their personal weapons from the scimitar
+Xteeth of the \fIshai hulud\fR, the great sandworms of the Dune deserts.
+X.lp aklys
+Xa long thong with a weight at the end. Holding the
+Xother end of the thong, you throw the weight; the thong entangles
+Xthe target, and the weight whaps it.
+END_OF_Guidebook.mn
+if test 31587 -ne `wc -c <Guidebook.mn`; then
+    echo shar: \"Guidebook.mn\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+if test -f eat.c -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"eat.c\"
+else
+echo shar: Extracting \"eat.c\" \(13831 characters\)
+sed "s/^X//" >eat.c <<'END_OF_eat.c'
+X/*	SCCS Id: @(#)eat.c	2.3	87/12/16
+X/* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+X
+X#include	"hack.h"
+X#ifdef KAA
+Xchar POISONOUS[] = "ADKSVabhks&";
+X#else
+Xchar POISONOUS[] = "ADKSVabhks";
+X#endif
+Xextern char *nomovemsg;
+Xextern int (*afternmv)();
+Xextern int (*occupation)();
+Xextern char *occtxt;
+Xextern struct obj *splitobj(), *addinv();
+X
+X/* hunger texts used on bottom line (each 8 chars long) */
+X#define	SATIATED	0
+X#define NOT_HUNGRY	1
+X#define	HUNGRY		2
+X#define	WEAK		3
+X#define	FAINTING	4
+X#define FAINTED		5
+X#define STARVED		6
+X
+Xchar *hu_stat[] = {
+X	"Satiated",
+X	"        ",
+X	"Hungry  ",
+X	"Weak    ",
+X	"Fainting",
+X	"Fainted ",
+X	"Starved "
+X};
+X
+Xinit_uhunger(){
+X	u.uhunger = 900;
+X	u.uhs = NOT_HUNGRY;
+X}
+X
+Xstruct { char *txt; int nut; } tintxts[] = {
+X	"It contains salmon - not bad!",	60,
+X	"It contains first quality peaches - what a surprise!",	40,
+X	"It contains apple juice - perhaps not what you hoped for.", 20,
+X	"It contains some nondescript substance, tasting awfully.", 500,
+X	"It contains rotten meat. You vomit.", -50,
+X	"It turns out to be empty.",	0
+X};
+X#define	TTSZ	SIZE(tintxts)
+X
+Xstatic struct {
+X	struct obj *tin;
+X	int usedtime, reqtime;
+X} tin;
+X
+Xopentin(){
+X	register int r;
+X
+X	if(!carried(tin.tin))		/* perhaps it was stolen? */
+X		return(0);		/* %% probably we should use tinoid */
+X	if(tin.usedtime++ >= 50) {
+X		pline("You give up your attempt to open the tin.");
+X		return(0);
+X	}
+X	if(tin.usedtime < tin.reqtime)
+X		return(1);		/* still busy */
+X
+X	pline("You succeed in opening the tin.");
+X	useup(tin.tin);
+X	r = rn2(2*TTSZ);
+X	if(r < TTSZ) {
+X	    pline(tintxts[r].txt);
+X	    lesshungry(tintxts[r].nut);
+X	    /* check for vomiting added by GAN 01/16/87 */
+X	    if(tintxts[r].nut < 0 && Sick) {
+X		Sick = 0;
+X		pline("What a relief!");
+X	    }
+X	    if(r == 0) {			/* Salmon */
+X		Glib = rnd(15);
+X		pline("Eating salmon made your fingers very slippery.");
+X	    }
+X	} else {
+X	    pline("It contains spinach - this makes you feel like %s!",
+X		Hallucination ? "Swee'pea" : "Popeye");
+X
+X	    lesshungry(600);
+X	    gainstr(0);
+X	}
+X	return(0);
+X}
+X
+XMeatdone(){
+X	u.usym = '@';
+X	prme();
+X}
+X
+Xdoeat(){
+X	register struct obj *otmp;
+X	register struct objclass *ftmp;
+X	register tmp;
+X
+X	/* Is there some food (probably a heavy corpse) here on the ground? */
+X	if(!Levitation)
+X	for(otmp = fobj; otmp; otmp = otmp->nobj) {
+X		if(otmp->ox == u.ux && otmp->oy == u.uy &&
+X		   otmp->olet == FOOD_SYM) {
+X			pline("There %s %s here; eat %s? [ny] ",
+X				(otmp->quan == 1) ? "is" : "are",
+X				doname(otmp),
+X				(otmp->quan == 1) ? "it" : "one");
+X			if(readchar() == 'y') {
+X				if(otmp->quan != 1)
+X					(void) splitobj(otmp, 1);
+X				freeobj(otmp);
+X				otmp = addinv(otmp);
+X				addtobill(otmp);
+X				if(Invisible) newsym(u.ux, u.uy);
+X				goto gotit;
+X			}
+X		}
+X	}
+X	otmp = getobj("%", "eat");
+X	if(!otmp) return(0);
+Xgotit:
+X	if(otmp->otyp == TIN) {
+X		if(uwep) {
+X			switch(uwep->otyp) {
+X			case CAN_OPENER:
+X				tmp = 1;
+X				break;
+X			case DAGGER:
+X			case CRYSKNIFE:
+X				tmp = 3;
+X				break;
+X			case PICK_AXE:
+X			case AXE:
+X				tmp = 6;
+X				break;
+X			default:
+X				goto no_opener;
+X			}
+X			pline("Using your %s you try to open the tin.",
+X				aobjnam(uwep, (char *) 0));
+X		} else {
+X		no_opener:
+X			pline("It is not so easy to open this tin.");
+X			if(Glib) {
+X				pline("The tin slips out of your hands.");
+X				if(otmp->quan > 1) {
+X					register struct obj *obj;
+X					extern struct obj *splitobj();
+X
+X					obj = splitobj(otmp, 1);
+X					if(otmp == uwep) setuwep(obj);
+X				}
+X				dropx(otmp);
+X				return(1);
+X			}
+X			tmp = 10 + rn2(1 + 500/((int)(u.ulevel + u.ustr)));
+X		}
+X		tin.reqtime = tmp;
+X		tin.usedtime = 0;
+X		tin.tin = otmp;
+X#ifdef DGK
+X		set_occupation(opentin, "opening the tin", 0);
+X#else
+X		occupation = opentin;
+X		occtxt = "opening the tin";
+X#endif
+X		return(1);
+X	}
+X	ftmp = &objects[otmp->otyp];
+X	multi = -ftmp->oc_delay;
+X	if(otmp->otyp >= CORPSE && eatcorpse(otmp)) goto eatx;
+X#ifdef DGKMOD
+X	if(!rn2(7) && otmp->otyp != FORTUNE_COOKIE && otmp->otyp != DEAD_LIZARD) {
+X#else
+X	if(!rn2(7) && otmp->otyp != FORTUNE_COOKIE) {
+X#endif
+X#ifdef KAA
+X		if (otmp->otyp == DEAD_VIOLET_FUNGUS)
+X			pline("Seems rather stale though...");
+X		else
+X#endif
+X		pline("Blecch!  Rotten food!");
+X		if(!rn2(4)) {
+X			if (Hallucination) pline("You feel rather trippy.");
+X			else
+X				pline("You feel rather light headed.");
+X			HConfusion += d(2,4);
+X		} else if(!rn2(4) && !Blind) {
+X			pline("Everything suddenly goes dark.");
+X			Blinded = d(2,10);
+X			seeoff(0);
+X		} else if(!rn2(3)) {
+X			if(Blind)
+X			  pline("The world spins and you slap against the floor.");
+X			else
+X			  pline("The world spins and goes dark.");
+X			nomul(-rnd(10));
+X			nomovemsg = "You are conscious again.";
+X		}
+X		lesshungry(ftmp->nutrition / 4);
+X	} else {
+X		if(u.uhunger >= 1500) choke(ftmp);
+X
+X		switch(otmp->otyp){
+X		case FOOD_RATION:
+X			if(u.uhunger <= 200)
+X			    if (Hallucination)
+X				pline("Oh wow, like superior man!");
+X			    else
+X				pline("That food really hit the spot!");
+X			else if(u.uhunger <= 700)
+X				pline("That satiated your stomach!");
+X#ifdef DGKMOD
+X	/* Have lesshungry() report when you're nearly full so all eating
+X	 * warns when you're about to choke.
+X	 */
+X			lesshungry(ftmp->nutrition);
+X#else
+X			else {
+X	pline("You're having a hard time getting all that food down.");
+X				multi -= 2;
+X			}
+X			lesshungry(ftmp->nutrition);
+X			if(multi < 0) nomovemsg = "You finished your meal.";
+X#endif /* DGKMOD /**/
+X			break;
+X		case TRIPE_RATION:
+X			if (u.usym != '@')
+X			    pline("That tripe ration was surprisingly good!");
+X			else {
+X			    pline("Yak - dog food!");
+X			    more_experienced(1,0);
+X			    flags.botl = 1;
+X			}
+X			if(rn2(2) && u.usym == '@'){
+X				pline("You vomit.");
+X				morehungry(20);
+X				if(Sick) {
+X					Sick = 0;	/* David Neves */
+X					pline("What a relief!");
+X				}
+X			} else	lesshungry(ftmp->nutrition);
+X			break;
+X		default:
+X			if(u.usym == '@' && otmp->otyp >= CORPSE) {
+X#ifdef KAA
+X			    if(otmp->otyp != DEAD_VIOLET_FUNGUS)
+X#endif
+X			    pline("That %s tasted terrible!",ftmp->oc_name);
+X			} else
+X			pline("That %s was delicious!",ftmp->oc_name);
+X			lesshungry(ftmp->nutrition);
+X#ifdef DGKMOD
+X			/* Relief from cockatrices -dgk */
+X			if (otmp->otyp == DEAD_LIZARD) {
+X				if (Stoned) {
+X					Stoned = 0;
+X					pline("You feel more limber!");
+X				}
+X				if (HConfusion > 2)
+X					HConfusion = 2;
+X			}
+X#else
+X			if(otmp->otyp == DEAD_LIZARD && (HConfusion > 2))
+X				HConfusion = 2;
+X#endif /* DGKMOD /**/
+X			else
+X#ifdef QUEST
+X			if(otmp->otyp == CARROT && !Blind) {
+X				u.uhorizon++;
+X				setsee();
+X				pline("Your vision improves.");
+X			} else
+X#endif
+X#ifdef KAA
+X			if(otmp->otyp == CARROT && Blind) Blinded = 1;
+X			else
+X#endif
+X			if(otmp->otyp == FORTUNE_COOKIE) {
+X			  if(Blind) {
+X			    pline("This cookie has a scrap of paper inside!");
+X			    pline("What a pity, that you cannot read it!");
+X			  } else
+X			    outrumor();
+X			} else
+X			if(otmp->otyp == LUMP_OF_ROYAL_JELLY) {
+X				/* This stuff seems to be VERY healthy! */
+X				gainstr(1);
+X				u.uhp += rnd(20);
+X				if(u.uhp > u.uhpmax) {
+X					if(!rn2(17)) u.uhpmax++;
+X					u.uhp = u.uhpmax;
+X				}
+X				heal_legs();
+X			}
+X			break;
+X		}
+X	}
+Xeatx:
+X	if(multi<0 && !nomovemsg){
+X		static char msgbuf[BUFSZ];
+X		(void) sprintf(msgbuf, "You finished eating the %s.",
+X				ftmp->oc_name);
+X		nomovemsg = msgbuf;
+X	}
+X	useup(otmp);
+X	return(1);
+X}
+X
+X/* called in main.c */
+Xgethungry(){
+X	--u.uhunger;
+X	if(moves % 2) {
+X		if(HRegeneration) u.uhunger--;
+X		if(Hunger) u.uhunger--;
+X		/* a3:  if(Hunger & LEFT_RING) u.uhunger--;
+X			if(Hunger & RIGHT_RING) u.uhunger--;
+X		   etc. */
+X	}
+X	if(moves % 20 == 0) {			/* jimt@asgb */
+X		if(uleft) u.uhunger--;
+X		if(uright) u.uhunger--;
+X	}
+X	newuhs(TRUE);
+X}
+X
+X/* called after vomiting and after performing feats of magic */
+Xmorehungry(num) register num; {
+X	u.uhunger -= num;
+X	newuhs(TRUE);
+X}
+X
+X/* called after eating something (and after drinking fruit juice) */
+Xlesshungry(num) register num; {
+X	u.uhunger += num;
+X	if(u.uhunger >= 2000) choke((struct objclass *) 0);
+X#ifdef DGKMOD
+X	else {
+X	    /* Have lesshungry() report when you're nearly full so all eating
+X	     * warns when you're about to choke.
+X	     */
+X	    if (u.uhunger >= 1500) {
+X		pline("You're having a hard time getting all of it down.");
+X		multi -= 2;
+X		nomovemsg = "You're finally finished.";
+X	    }
+X	}
+X#endif /* DGKMOD /**/
+X	newuhs(FALSE);
+X}
+X
+Xunfaint(){
+X	u.uhs = FAINTING;
+X	flags.botl = 1;
+X}
+X
+Xnewuhs(incr) boolean incr; {
+X	register int newhs, h = u.uhunger;
+X
+X	newhs = (h > 1000) ? SATIATED :
+X		(h > 150) ? NOT_HUNGRY :
+X		(h > 50) ? HUNGRY :
+X		(h > 0) ? WEAK : FAINTING;
+X
+X	if(newhs == FAINTING) {
+X		if(u.uhs == FAINTED) newhs = FAINTED;
+X		if(u.uhs <= WEAK || rn2(20-u.uhunger/10) >= 19) {
+X			if(u.uhs != FAINTED && multi >= 0 /* %% */) {
+X				pline("You faint from lack of food.");
+X				nomul(-10+(u.uhunger/10));
+X				nomovemsg = "You regain consciousness.";
+X				afternmv = unfaint;
+X				newhs = FAINTED;
+X			}
+X		} else
+X		if(u.uhunger < -(int)(200 + 25*u.ulevel)) {
+X			u.uhs = STARVED;
+X			flags.botl = 1;
+X			bot();
+X			pline("You die from starvation.");
+X			done("starved");
+X		}
+X	}
+X
+X	if(newhs != u.uhs) {
+X		if(newhs >= WEAK && u.uhs < WEAK)
+X			losestr(1);	/* this may kill you -- see below */
+X		else
+X		if(newhs < WEAK && u.uhs >= WEAK && u.ustr < u.ustrmax)
+X			losestr(-1);
+X		switch(newhs){
+X		case HUNGRY:
+X			if (Hallucination) {
+X			    pline((!incr) ?
+X				"You now have a lesser case of the munchies." :
+X				"You are getting the munchies.");
+X			} else
+X			    pline((!incr) ? "You only feel hungry now." :
+X				  (u.uhunger < 145) ? "You feel hungry." :
+X				   "You are beginning to feel hungry.");
+X			break;
+X		case WEAK:
+X			if (Hallucination)
+X			    pline((!incr) ?
+X				  "You still have the munchies." :
+X				  "The munchies are starting to interfere with your motor capabilities.");
+X			else
+X			    pline((!incr) ? "You feel weak now." :
+X				  (u.uhunger < 45) ? "You feel weak." :
+X				   "You are beginning to feel weak.");
+X			break;
+X		}
+X		u.uhs = newhs;
+X		flags.botl = 1;
+X		if(u.uhp < 1) {
+X			pline("You die from hunger and exhaustion.");
+X			killer = "exhaustion";
+X			done("starved");
+X		}
+X	}
+X}
+X
+X#define	CORPSE_I_TO_C(otyp)	(char) ((otyp >= DEAD_ACID_BLOB)\
+X		     ?  'a' + (otyp - DEAD_ACID_BLOB)\
+X		     :	'@' + (otyp - DEAD_HUMAN))
+Xpoisonous(otmp)
+Xregister struct obj *otmp;
+X{
+X#ifdef KAA
+X	if(otmp->otyp == DEAD_DEMON) return(1);
+X#endif
+X	return(index(POISONOUS, CORPSE_I_TO_C(otmp->otyp)) != 0);
+X}
+X
+X/* returns 1 if some text was printed */
+Xeatcorpse(otmp) register struct obj *otmp; {
+X#ifdef KAA
+Xregister char let;
+X#else
+Xregister char let = CORPSE_I_TO_C(otmp->otyp);
+X#endif
+Xregister tp = 0;
+X#ifdef KAA
+X	if(otmp->otyp == DEAD_DEMON) let='&';
+X	else if (otmp->otyp == DEAD_GIANT) let='9';
+X	else let = CORPSE_I_TO_C(otmp->otyp);
+X#endif
+X#ifdef SAC
+X	if(otmp->otyp == DEAD_SOLDIER) let='3';
+X#endif /* SAC */
+X	if(let != 'a' && moves > otmp->age + 50 + rn2(100)) {
+X		tp++;
+X		pline("Ulch -- that meat was tainted!");
+X		pline("You get very sick.");
+X		Sick = 10 + rn2(10);
+X		u.usick_cause = objects[otmp->otyp].oc_name;
+X	} else if(index(POISONOUS, let) && rn2(5)){
+X		tp++;
+X		pline("Ecch -- that must have been poisonous!");
+X		if(!Poison_resistance){
+X			losestr(rnd(4));
+X			losehp(rnd(15), "poisonous corpse");
+X		} else
+X			pline("You don't seem affected by the poison.");
+X	} else if(index("ELNOPQRUuxz", let) && rn2(5)){
+X		tp++;
+X		pline("You feel sick.");
+X		losehp(rnd(8), "cadaver");
+X	}
+X	switch(let) {
+X	case 'L':
+X	case 'N':
+X	case 't':
+X#ifdef KAA
+X	case 'Q':
+X#endif
+X		HTeleportation |= INTRINSIC;
+X		break;
+X	case 'W':
+X		pluslvl();
+X		break;
+X	case 'n':
+X		u.uhp = u.uhpmax;
+X		flags.botl = 1;
+X		/* fall into next case */
+X#ifdef SAC
+X	case '3':
+X#endif
+X	case '@':
+X		pline("You cannibal! You will be sorry for this!");
+X		/* not tp++; */
+X		/* fall into next case */
+X	case 'd':
+X		Aggravate_monster |= INTRINSIC;
+X		break;
+X	case 'I':
+X		if(!Invis) {
+X			HInvis = 50+rn2(100);
+X			if(!See_invisible)
+X				newsym(u.ux, u.uy);
+X		} else {
+X			HInvis |= INTRINSIC;
+X			HSee_invisible |= INTRINSIC;
+X		}
+X		/* fall into next case */
+X	case 'y':
+X#ifdef QUEST
+X		u.uhorizon++;
+X#endif
+X		/* fall into next case */
+X	case 'B':
+X		HConfusion += 50;
+X		break;
+X	case 'D':
+X		HFire_resistance |= INTRINSIC;
+X		break;
+X	case 'E':
+X		HTelepat |= INTRINSIC;
+X		break;
+X	case 'F':
+X	case 'Y':
+X		HCold_resistance |= INTRINSIC;
+X		break;
+X#ifdef KAA
+X	case '9':
+X		gainstr(1);
+X		break;
+X#endif
+X#ifdef KJSMODS
+X	case 'S':	/* if a snake can kill you with poison, at least
+X			 * have the possibility of getting resistance */
+X		if ( rn2(5) ) break;
+X		/* fall into next case */
+X#endif
+X	case 'k':
+X	case 's':
+X		HPoison_resistance |= INTRINSIC;
+X		break;
+X	case 'c':
+X		if (u.usym != 'c') {
+X
+X			pline("You turn to stone.");
+X			killer = "dead cockatrice";
+X			done("died");
+X		}
+X		break;
+X	case 'a':
+X	  if(Stoned) {
+X	      pline("What a pity - you just destroyed a future piece of art!");
+X	      tp++;
+X	      Stoned = 0;
+X	  }
+X	  break;
+X#ifdef KAA
+X	case 'v':
+X		pline ("Oh wow!  Great stuff!");
+X		Hallucination += 200;
+X		setsee();
+X		break;
+X#endif
+X	case 'M':
+X		if(u.usym == '@') {
+X		    pline("You cannot resist the temptation to mimic a treasure chest.");
+X		    tp++;
+X		    nomul(-30);
+X		    afternmv = Meatdone;
+X		    nomovemsg = "You now again prefer mimicking a human.";
+X		    u.usym = GOLD_SYM;
+X		    prme();
+X		}
+X		break;
+X	}
+X	return(tp);
+X}
+X
+X/* Created by GAN 01/28/87
+X * Amended by AKP 09/22/87: if not hard, don't choke, just vomit.
+X *
+X * Note that if you have enough food, you can always stop being Sick!
+X * choke() returns if you don't choke, kills you if you do.
+X */
+Xchoke(food)
+Xregister struct objclass *food;
+X{
+X	/* only happens if you were satiated */
+X	if(u.uhs != SATIATED) return;
+X#ifdef HARD
+X	if(food)	killer = food->oc_name;
+X	else		killer = "exuberant appetite";
+X	pline("You choke over your food.");
+X	pline("You die...");
+X	done("choked");
+X#else
+X	pline("You stuff yourself and then vomit voluminously.");
+X	morehungry(1000);	/* you just got *very* sick! */
+X	if(Sick) {
+X		Sick = 0;	/* A good idea from David Neves */
+X		pline("What a relief!");
+X	}
+X#endif
+X}
+END_OF_eat.c
+if test 13831 -ne `wc -c <eat.c`; then
+    echo shar: \"eat.c\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+if test -f shk.c -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"shk.c\"
+else
+echo shar: Extracting \"shk.c\" \(27580 characters\)
+sed "s/^X//" >shk.c <<'END_OF_shk.c'
+X/*	SCCS Id: @(#)shk.c	2.3	88/01/24
+X/* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+X
+X#include "hack.h"
+X#ifdef QUEST
+Xint shlevel = 0;
+Xstruct monst *mkmon_at(), *shopkeeper = 0;
+Xstruct	obj	*billobjs = 0;
+Xobfree(obj,merge) register struct obj *obj, *merge; {
+X	free((char *) obj);
+X}
+Xinshop(){ return(0); }
+Xaddtobill(){}
+Xsubfrombill(){}
+Xsplitbill(){}
+Xdopay(){ return(0); }
+Xpaybill(){}
+Xdoinvbill(){ return(0); }
+Xshkdead(){}
+Xshkcatch(){ return(0); }
+Xshk_move(){ return(0); }
+Xreplshk(mtmp,mtmp2) struct monst *mtmp, *mtmp2; {}
+Xchar *shkname(){ return(""); }
+X
+X#else
+X#include	"mfndpos.h"
+X#include	"mkroom.h"
+X#include	"eshk.h"
+X
+X#define	ESHK(mon)	((struct eshk *)(&(mon->mextra[0])))
+X#define	NOTANGRY(mon)	mon->mpeaceful
+X#define	ANGRY(mon)	!NOTANGRY(mon)
+X
+Xextern char plname[], *xname();
+Xextern struct monst *makemon();
+Xextern struct obj *o_on(), *bp_to_obj(),
+X		  *carrying();
+X
+X/* Descriptor of current shopkeeper. Note that the bill need not be
+X   per-shopkeeper, since it is valid only when in a shop. */
+Xstatic struct monst *shopkeeper = 0;
+Xstatic struct bill_x *bill;
+Xstatic int shlevel = 0;	/* level of this shopkeeper */
+X       struct obj *billobjs;	/* objects on bill with bp->useup */
+X				/* only accessed here and by save & restore */
+Xstatic long int total;		/* filled by addupbill() */
+Xstatic long int followmsg;	/* last time of follow message */
+Xstatic setpaid(), findshk(), dopayobj(), getprice(), realhunger();
+X
+X/*
+X	invariants: obj->unpaid iff onbill(obj) [unless bp->useup]
+X		obj->quan <= bp->bquan
+X */
+X
+Xchar *
+Xshkname(mtmp)				/* called in do_name.c */
+Xregister struct monst *mtmp;
+X{
+X	return(ESHK(mtmp)->shknam);
+X}
+X
+Xshkdead(mtmp)				/* called in mon.c */
+Xregister struct monst *mtmp;
+X{
+X	register struct eshk *eshk = ESHK(mtmp);
+X
+X	if(eshk->shoplevel == dlevel)
+X		rooms[eshk->shoproom].rtype = OROOM;
+X	if(mtmp == shopkeeper) {
+X		setpaid();
+X		shopkeeper = 0;
+X		bill = (struct bill_x *) -1000;	/* dump core when referenced */
+X	}
+X}
+X
+Xreplshk(mtmp,mtmp2)
+Xregister struct monst *mtmp, *mtmp2;
+X{
+X	if(mtmp == shopkeeper) {
+X		shopkeeper = mtmp2;
+X		bill = &(ESHK(shopkeeper)->bill[0]);
+X	}
+X}
+X
+Xstatic
+Xsetpaid(){	/* caller has checked that shopkeeper exists */
+X		/* either we paid or left the shop or he just died */
+Xregister struct obj *obj;
+Xregister struct monst *mtmp;
+X	for(obj = invent; obj; obj = obj->nobj)
+X		obj->unpaid = 0;
+X	for(obj = fobj; obj; obj = obj->nobj)
+X		obj->unpaid = 0;
+X	for(obj = fcobj; obj; obj = obj->nobj)
+X		obj->unpaid = 0;
+X	for(mtmp = fmon; mtmp; mtmp = mtmp->nmon)
+X		for(obj = mtmp->minvent; obj; obj = obj->nobj)
+X			obj->unpaid = 0;
+X	for(mtmp = fallen_down; mtmp; mtmp = mtmp->nmon)
+X		for(obj = mtmp->minvent; obj; obj = obj->nobj)
+X			obj->unpaid = 0;
+X	while(obj = billobjs){
+X		billobjs = obj->nobj;
+X		free((char *) obj);
+X	}
+X	ESHK(shopkeeper)->billct = 0;
+X}
+X
+Xstatic
+Xaddupbill(){	/* delivers result in total */
+X		/* caller has checked that shopkeeper exists */
+Xregister ct = ESHK(shopkeeper)->billct;
+Xregister struct bill_x *bp = bill;
+X	total = 0;
+X	while(ct--){
+X		total += bp->price * bp->bquan;
+X		bp++;
+X	}
+X}
+X
+Xinshop(){
+Xregister roomno = inroom(u.ux,u.uy);
+X
+X	/* Did we just leave a shop? */
+X	if(u.uinshop &&
+X	    (u.uinshop != roomno + 1 || shlevel != dlevel || !shopkeeper)) {
+X
+X	/* This is part of the bugfix for shopkeepers not having their
+X	 * bill paid.  As reported by ab@unido -dgk
+X	 * I made this standard due to the KOPS code below. -mrs 
+X	 */
+X		if(shopkeeper) {
+X		    if(ESHK(shopkeeper)->billct) {
+X			if(inroom(shopkeeper->mx, shopkeeper->my) 
+X			    == u.uinshop - 1)	/* ab@unido */
+X			    pline("Somehow you escaped the shop without paying!");
+X			addupbill();
+X			pline("You stole for a total worth of %ld zorkmids.",
+X				total);
+X			ESHK(shopkeeper)->robbed += total;
+X			setpaid();
+X			if((rooms[ESHK(shopkeeper)->shoproom].rtype == SHOPBASE)
+X			    == (rn2(3) == 0))
+X			    ESHK(shopkeeper)->following = 1;
+X#ifdef KOPS
+X			{   /* Keystone Kops srt@ucla */
+X			    coord mm;
+X			    register int cnt = dlevel + rnd(3);
+X			    /* Create a swarm near the staircase */
+X			    pline("An alarm sounds throughout the dungeon!");
+X			    pline("The Keystone Kops are after you!");
+X			    mm.x = xdnstair;
+X			    mm.y = ydnstair;
+X			    while(cnt--) {
+X				    (void) enexto(&mm, mm.x, mm.y);
+X				    (void) mkmon_at('K', mm.x, mm.y);
+X			    }
+X			    /* Create a swarm near the shopkeeper */
+X			    cnt = dlevel + rnd(3);
+X			    mm.x = shopkeeper->mx;
+X			    mm.y = shopkeeper->my;
+X			    while(cnt--) {
+X				    (void) enexto(&mm, mm.x, mm.y);
+X				    (void) mkmon_at('K', mm.x, mm.y);
+X			    }
+X			}
+X#endif
+X		    }
+X		    shopkeeper = 0;
+X		    shlevel = 0;
+X		}
+X		u.uinshop = 0;
+X	}
+X
+X	/* Did we just enter a zoo of some kind? */
+X	if(roomno >= 0) {
+X		register int rt = rooms[roomno].rtype;
+X		register struct monst *mtmp;
+X		if(rt == ZOO) {
+X			pline("Welcome to David's treasure zoo!");
+X		} else
+X		if(rt == SWAMP) {
+X			pline("It looks rather muddy down here.");
+X		} else
+X		if(rt == COURT) {
+X			pline("You are in an opulent throne room!");
+X		} else
+X		if(rt == MORGUE) {
+X			if(midnight())
+X				pline("Go away! Go away!");
+X			else
+X				pline("You get an uncanny feeling ...");
+X		} else
+X			rt = 0;
+X		if(rt != 0) {
+X			rooms[roomno].rtype = OROOM;
+X			for(mtmp = fmon; mtmp; mtmp = mtmp->nmon)
+X				if(rt != ZOO || !rn2(3))
+X					mtmp->msleep = 0;
+X		}
+X	}
+X
+X	/* Did we just enter a shop? */
+X	if(roomno >= 0 && rooms[roomno].rtype >= SHOPBASE) {
+X	    register int rt = rooms[roomno].rtype;
+X
+X	    if(shlevel != dlevel || !shopkeeper
+X				 || ESHK(shopkeeper)->shoproom != roomno)
+X		findshk(roomno);
+X	    if(!shopkeeper) {
+X		rooms[roomno].rtype = OROOM;
+X		u.uinshop = 0;
+X	    } else if(!u.uinshop){
+X		if(!ESHK(shopkeeper)->visitct ||
+X		    strncmp(ESHK(shopkeeper)->customer, plname, PL_NSIZ)){
+X
+X		    /* He seems to be new here */
+X		    ESHK(shopkeeper)->visitct = 0;
+X		    ESHK(shopkeeper)->following = 0;
+X		    (void) strncpy(ESHK(shopkeeper)->customer,plname,PL_NSIZ);
+X		    NOTANGRY(shopkeeper) = 1;
+X		}
+X		if(!ESHK(shopkeeper)->following) {
+X		    boolean box, pick;
+X
+X		    pline("Hello %s%s! Welcome%s to %s's %s!",
+X			(Badged) ? "Officer " : "", plname,
+X			ESHK(shopkeeper)->visitct++ ? " again" : "",
+X			shkname(shopkeeper),
+X			shtypes[rt - SHOPBASE].name);
+X/*			shtypes[rooms[ESHK(shopkeeper)->shoproom].rtype - SHOPBASE].name);
+X*/
+X		    box = carrying(ICE_BOX) != (struct obj *)0;
+X		    pick = carrying(PICK_AXE) != (struct obj *)0;
+X		    if(box || pick) {
+X			if(dochug(shopkeeper)) {
+X				u.uinshop = 0;	/* he died moving */
+X				return(0);
+X			}
+X			pline("Will you please leave your %s outside?",
+X			    (box && pick) ? "box and pick-axe" :
+X			    box ? "box" : "pick-axe");
+X		    }
+X		}
+X		u.uinshop = roomno + 1;
+X	    }
+X	}
+X	return(u.uinshop);
+X}
+X
+Xstatic
+Xfindshk(roomno)
+Xregister roomno;
+X{
+Xregister struct monst *mtmp;
+X	for(mtmp = fmon; mtmp; mtmp = mtmp->nmon)
+X	    if(mtmp->isshk && ESHK(mtmp)->shoproom == roomno
+X			   && ESHK(mtmp)->shoplevel == dlevel) {
+X		shopkeeper = mtmp;
+X		bill = &(ESHK(shopkeeper)->bill[0]);
+X		shlevel = dlevel;
+X		if(ANGRY(shopkeeper) &&
+X		   strncmp(ESHK(shopkeeper)->customer,plname,PL_NSIZ))
+X			NOTANGRY(shopkeeper) = 1;
+X		/* billobjs = 0; -- this is wrong if we save in a shop */
+X		/* (and it is harmless to have too many things in billobjs) */
+X		return;
+X	}
+X	shopkeeper = 0;
+X	shlevel = 0;
+X	bill = (struct bill_x *) -1000;	/* dump core when referenced */
+X}
+X
+Xstatic struct bill_x *
+Xonbill(obj) register struct obj *obj; {
+Xregister struct bill_x *bp;
+X	if(!shopkeeper) return(0);
+X	for(bp = bill; bp < &bill[ESHK(shopkeeper)->billct]; bp++)
+X		if(bp->bo_id == obj->o_id) {
+X			if(!obj->unpaid) pline("onbill: paid obj on bill?");
+X			return(bp);
+X		}
+X	if(obj->unpaid) pline("onbill: unpaid obj not on bill?");
+X	return(0);
+X}
+X
+X/* called with two args on merge */
+Xobfree(obj,merge) register struct obj *obj, *merge; {
+Xregister struct bill_x *bp = onbill(obj);
+Xregister struct bill_x *bpm;
+X	if(bp) {
+X		if(!merge){
+X			bp->useup = 1;
+X			obj->unpaid = 0;	/* only for doinvbill */
+X			obj->nobj = billobjs;
+X			billobjs = obj;
+X			return;
+X		}
+X		bpm = onbill(merge);
+X		if(!bpm){
+X			/* this used to be a rename */
+X			impossible("obfree: not on bill??");
+X			return;
+X		} else {
+X			/* this was a merger */
+X			bpm->bquan += bp->bquan;
+X			ESHK(shopkeeper)->billct--;
+X			*bp = bill[ESHK(shopkeeper)->billct];
+X		}
+X	}
+X	free((char *) obj);
+X}
+X
+Xstatic
+Xpay(tmp,shkp)
+Xlong tmp;
+Xregister struct monst *shkp;
+X{
+X	long robbed = ESHK(shkp)->robbed;
+X
+X	u.ugold -= tmp;
+X	shkp->mgold += tmp;
+X	flags.botl = 1;
+X	if(robbed) {
+X		robbed -= tmp;
+X		if(robbed < 0) robbed = 0;
+X		ESHK(shkp)->robbed = robbed;
+X	}
+X}
+X
+Xdopay(){
+Xlong ltmp;
+Xregister struct bill_x *bp;
+Xregister struct monst *shkp;
+Xint pass, tmp;
+X
+X	multi = 0;
+X	(void) inshop();
+X	for(shkp = fmon; shkp; shkp = shkp->nmon)
+X		if(shkp->isshk && dist(shkp->mx,shkp->my) < 3)
+X			break;
+X	if(!shkp && u.uinshop &&
+X	   inroom(shopkeeper->mx,shopkeeper->my) == ESHK(shopkeeper)->shoproom)
+X		shkp = shopkeeper;
+X
+X	if(!shkp) {
+X		pline("There is nobody here to receive your payment.");
+X		return(0);
+X	}
+X	ltmp = ESHK(shkp)->robbed;
+X	if(shkp != shopkeeper && NOTANGRY(shkp)) {
+X		if(!ltmp) {
+X			pline("You do not owe %s anything.", monnam(shkp));
+X		} else
+X		if(!u.ugold) {
+X			pline("You have no money.");
+X		} else {
+X		    long ugold = u.ugold;
+X
+X		    if(u.ugold > ltmp) {
+X			pline("You give %s the %ld gold pieces %s asked for.",
+X			monnam(shkp), ltmp, index("@CGHKLOQTVWZ&ehimt", shkp->data->mlet)
+X			? "he" : (index("nN", shkp->data->mlet) ? "she" : "it"));
+X			pay(ltmp, shkp);
+X		    } else {
+X			pline("You give %s all your gold.", monnam(shkp));
+X			pay(u.ugold, shkp);
+X		    }
+X		    if(ugold < ltmp/2) {
+X			pline("Unfortunately, %s doesn't look satisfied.",
+X			index("@CGHKLOQTVWZ&ehimt", shkp->data->mlet)
+X			? "he" : (index("nN", shkp->data->mlet) ? "she" : "it"));
+X		    } else {
+X			ESHK(shkp)->robbed = 0;
+X			ESHK(shkp)->following = 0;
+X			if(ESHK(shkp)->shoplevel != dlevel) {
+X			/* For convenience's sake, let him disappear */
+X			    shkp->minvent = 0;		/* %% */
+X			    shkp->mgold = 0;
+X			    mondead(shkp);
+X			}
+X		    }
+X		}
+X		return(1);
+X	}
+X		
+X	if(!ESHK(shkp)->billct){
+X		pline("You do not owe %s anything.", monnam(shkp));
+X		if(!u.ugold){
+X			pline("Moreover, you have no money.");
+X			return(1);
+X		}
+X		if(ESHK(shkp)->robbed){
+X			pline("But since %s shop has been robbed recently,",
+X			index("@CGHKLOQTVWZ&ehimt", shkp->data->mlet)
+X			? "his" : (index("nN", shkp->data->mlet) ? "her" : "its"));
+X		    pline("you %srepay %s's expenses.",
+X		      (u.ugold < ESHK(shkp)->robbed) ? "partially " : "",
+X		      monnam(shkp));
+X		    pay(min(u.ugold, ESHK(shkp)->robbed), shkp);
+X		    ESHK(shkp)->robbed = 0;
+X		    return(1);
+X		}
+X		if(ANGRY(shkp)){
+X			pline("But in order to appease %s,",
+X				amonnam(shkp, "angry"));
+X			if(u.ugold >= 1000){
+X				ltmp = 1000;
+X				pline(" you give %s 1000 gold pieces.",
+X				index("@CGHKLOQTVWZ&ehimt", shkp->data->mlet)
+X				? "him" : (index("nN", shkp->data->mlet) ? "her" : "it"));
+X			} else {
+X				ltmp = u.ugold;
+X				pline(" you give %s all your money.",
+X				index("@CGHKLOQTVWZ&ehimt", shkp->data->mlet)
+X				? "him" : (index("nN", shkp->data->mlet) ? "her" : "it"));
+X			}
+X			pay(ltmp, shkp);
+X			if(strncmp(ESHK(shkp)->customer, plname, PL_NSIZ)
+X			   || rn2(3)){
+X				pline("%s calms down.", Monnam(shkp));
+X				NOTANGRY(shkp) = 1;
+X			} else	pline("%s is as angry as ever.",
+X					Monnam(shkp));
+X		}
+X		return(1);
+X	}
+X	if(shkp != shopkeeper) {
+X		impossible("dopay: not to shopkeeper?");
+X		if(shopkeeper) setpaid();
+X		return(0);
+X	}
+X	for(pass = 0; pass <= 1; pass++) {
+X		tmp = 0;
+X		while(tmp < ESHK(shopkeeper)->billct) {
+X			bp = &bill[tmp];
+X			if(!pass && !bp->useup) {
+X				tmp++;
+X				continue;
+X			}
+X			if(!dopayobj(bp)) return(1);
+X#ifdef MSDOS
+X			*bp = bill[--ESHK(shopkeeper)->billct];
+X#else
+X			bill[tmp] = bill[--ESHK(shopkeeper)->billct];
+X#endif /* MSDOS /**/
+X		}
+X	}
+X	pline("Thank you for shopping in %s's %s!",
+X		shkname(shopkeeper),
+X		shtypes[rooms[ESHK(shopkeeper)->shoproom].rtype - SHOPBASE].name);
+X	NOTANGRY(shopkeeper) = 1;
+X	return(1);
+X}
+X
+X/* return 1 if paid successfully */
+X/*        0 if not enough money */
+X/*       -1 if object could not be found (but was paid) */
+Xstatic
+Xdopayobj(bp) register struct bill_x *bp; {
+Xregister struct obj *obj;
+Xlong ltmp;
+X
+X	/* find the object on one of the lists */
+X	obj = bp_to_obj(bp);
+X
+X	if(!obj) {
+X		impossible("Shopkeeper administration out of order.");
+X		setpaid();	/* be nice to the player */
+X		return(0);
+X	}
+X
+X	if(!obj->unpaid && !bp->useup){
+X		impossible("Paid object on bill??");
+X		return(1);
+X	}
+X	obj->unpaid = 0;
+X	ltmp = bp->price * bp->bquan;
+X	if(ANGRY(shopkeeper)) ltmp += ltmp/3;
+X	if(u.ugold < ltmp){
+X		pline("You don't have gold enough to pay %s.",
+X			doname(obj));
+X		obj->unpaid = 1;
+X		return(0);
+X	}
+X	pay(ltmp, shopkeeper);
+X	pline("You bought %s for %ld gold piece%s.",
+X		doname(obj), ltmp, plur(ltmp));
+X	if(bp->useup) {
+X		register struct obj *otmp = billobjs;
+X		if(obj == billobjs)
+X			billobjs = obj->nobj;
+X		else {
+X			while(otmp && otmp->nobj != obj) otmp = otmp->nobj;
+X			if(otmp) otmp->nobj = obj->nobj;
+X			else pline("Error in shopkeeper administration.");
+X		}
+X		free((char *) obj);
+X	}
+X	return(1);
+X}
+X
+X/* routine called after dying (or quitting) with nonempty bill */
+Xpaybill(){
+X	if(shlevel == dlevel && shopkeeper && ESHK(shopkeeper)->billct){
+X		addupbill();
+X		if(total > u.ugold){
+X			shopkeeper->mgold += u.ugold;
+X			u.ugold = 0;
+X		pline("%s comes and takes all your possessions.",
+X			Monnam(shopkeeper));
+X		} else {
+X			u.ugold -= total;
+X			shopkeeper->mgold += total;
+X	pline("%s comes and takes the %ld zorkmids you owed him.",
+X		Monnam(shopkeeper), total);
+X		}
+X		setpaid();	/* in case we create bones */
+X	}
+X}
+X
+X/* find obj on one of the lists */
+Xstruct obj *
+Xbp_to_obj(bp)
+Xregister struct bill_x *bp;
+X{
+X	register struct obj *obj;
+X	register struct monst *mtmp;
+X	register unsigned id = bp->bo_id;
+X
+X	if(bp->useup)
+X		obj = o_on(id, billobjs);
+X	else if(!(obj = o_on(id, invent)) &&
+X		!(obj = o_on(id, fobj)) &&
+X		!(obj = o_on(id, fcobj))) {
+X		    for(mtmp = fmon; mtmp; mtmp = mtmp->nmon)
+X			if(obj = o_on(id, mtmp->minvent))
+X			    break;
+X		    for(mtmp = fallen_down; mtmp; mtmp = mtmp->nmon)
+X			if(obj = o_on(id, mtmp->minvent))
+X			    break;
+X		}
+X	return(obj);
+X}
+X
+X/* called in hack.c when we pickup an object */
+Xaddtobill(obj) register struct obj *obj; {
+Xregister struct bill_x *bp;
+Xchar	buf[40];
+Xextern char *typename();
+X	if(!inshop() ||
+X	(u.ux == ESHK(shopkeeper)->shk.x && u.uy == ESHK(shopkeeper)->shk.y) ||
+X	(u.ux == ESHK(shopkeeper)->shd.x && u.uy == ESHK(shopkeeper)->shd.y) ||
+X		onbill(obj) /* perhaps we threw it away earlier */
+X	  ) return;
+X	if(ESHK(shopkeeper)->billct == BILLSZ){
+X		pline("You got that for free!");
+X		return;
+X	}
+X#ifdef DGKMOD
+X	/* To recognize objects the showkeeper is not interested in. -dgk
+X	 */
+X	if (obj->no_charge) {
+X		obj->no_charge = 0;
+X		return;
+X	}
+X#endif
+X	bp = &bill[ESHK(shopkeeper)->billct];
+X	bp->bo_id = obj->o_id;
+X	bp->bquan = obj->quan;
+X	bp->useup = 0;
+X	bp->price = getprice(obj);
+X	strcpy(buf, "For you, ");
+X	if (ANGRY(shopkeeper)) strcat(buf, "scum ");
+X	else {
+X	    switch(rnd(4)
+X#ifdef HARD
+X		   + u.udemigod
+X#endif
+X				) {
+X		case 1:	strcat(buf, "good");
+X			break;
+X		case 2:	strcat(buf, "honored");
+X			break;
+X		case 3:	strcat(buf, "most gracious");
+X			break;
+X		case 4:	strcat(buf, "esteemed");
+X			break;
+X		case 5:	strcat(buf, "holy");
+X			break;
+X	    }
+X	    if(u.usym != '@') strcat(buf, " creature");
+X	    else	      strcat(buf, (flags.female) ? " lady" : " sir");
+X	}
+X	pline("%s; only %d %s %s.", buf, bp->price,
+X			(bp->bquan > 1) ? "per" : "for this",
+X			typename((int)obj->otyp));
+X
+X	ESHK(shopkeeper)->billct++;
+X	obj->unpaid = 1;
+X}
+X
+Xsplitbill(obj,otmp) register struct obj *obj, *otmp; {
+X	/* otmp has been split off from obj */
+Xregister struct bill_x *bp;
+Xregister int tmp;
+X	bp = onbill(obj);
+X	if(!bp) {
+X		impossible("splitbill: not on bill?");
+X		return;
+X	}
+X	if(bp->bquan < otmp->quan) {
+X		impossible("Negative quantity on bill??");
+X	}
+X	if(bp->bquan == otmp->quan) {
+X		impossible("Zero quantity on bill??");
+X	}
+X	bp->bquan -= otmp->quan;
+X
+X	/* addtobill(otmp); */
+X	if(ESHK(shopkeeper)->billct == BILLSZ) otmp->unpaid = 0;
+X	else {
+X		tmp = bp->price;
+X		bp = &bill[ESHK(shopkeeper)->billct];
+X		bp->bo_id = otmp->o_id;
+X		bp->bquan = otmp->quan;
+X		bp->useup = 0;
+X		bp->price = tmp;
+X		ESHK(shopkeeper)->billct++;
+X	}
+X}
+X
+Xsubfrombill(obj) register struct obj *obj; {
+Xlong ltmp;
+Xregister int tmp;
+Xregister struct obj *otmp;
+Xregister struct bill_x *bp;
+X	if(!inshop() || (u.ux == ESHK(shopkeeper)->shk.x && u.uy == ESHK(shopkeeper)->shk.y) ||
+X		(u.ux == ESHK(shopkeeper)->shd.x && u.uy == ESHK(shopkeeper)->shd.y))
+X		return;
+X	if((bp = onbill(obj)) != 0){
+X		obj->unpaid = 0;
+X		if(bp->bquan > obj->quan){
+X			otmp = newobj(0);
+X			*otmp = *obj;
+X			bp->bo_id = otmp->o_id = flags.ident++;
+X			otmp->quan = (bp->bquan -= obj->quan);
+X			otmp->owt = 0;	/* superfluous */
+X			otmp->onamelth = 0;
+X			bp->useup = 1;
+X			otmp->nobj = billobjs;
+X			billobjs = otmp;
+X			return;
+X		}
+X		ESHK(shopkeeper)->billct--;
+X		*bp = bill[ESHK(shopkeeper)->billct];
+X		return;
+X	}
+X	if(obj->unpaid){
+X		pline("%s didn't notice.", Monnam(shopkeeper));
+X		obj->unpaid = 0;
+X		return;		/* %% */
+X	}
+X	/* he dropped something of his own - probably wants to sell it */
+X	if(shopkeeper->msleep || shopkeeper->mfroz ||
+X		inroom(shopkeeper->mx,shopkeeper->my) != ESHK(shopkeeper)->shoproom)
+X		return;
+X	if(ESHK(shopkeeper)->billct == BILLSZ
+X	   || !saleable(rooms[ESHK(shopkeeper)->shoproom].rtype-SHOPBASE, obj)
+X/*
+X	  ((tmp = shtypes[rooms[ESHK(shopkeeper)->shoproom].rtype-SHOPBASE].symb) && tmp != obj->olet)
+X*/
+X	   || index("_0", obj->olet)) {
+X		pline("%s seems not interested.", Monnam(shopkeeper));
+X#ifdef DGKMOD
+X		obj->no_charge = 1;
+X#endif
+X		return;
+X	}
+X	ltmp = getprice(obj) * obj->quan;
+X	if(ANGRY(shopkeeper)) {
+X		ltmp /= 3;
+X		NOTANGRY(shopkeeper) = 1;
+X	} else	ltmp /= 2;
+X	if(ESHK(shopkeeper)->robbed){
+X		if((ESHK(shopkeeper)->robbed -= ltmp) < 0)
+X			ESHK(shopkeeper)->robbed = 0;
+Xpline("Thank you for your contribution to restock this recently plundered shop.");
+X		return;
+X	}
+X	if(ltmp > shopkeeper->mgold)
+X		ltmp = shopkeeper->mgold;
+X	pay(-ltmp, shopkeeper);
+X	if(!ltmp) {
+X		pline("%s gladly accepts %s but cannot pay you at present.",
+X			Monnam(shopkeeper), doname(obj));
+X#ifdef DGKMOD
+X			obj->no_charge = 1;
+X#endif
+X	} else
+X	pline("You sold %s and got %ld gold piece%s.", doname(obj), ltmp,
+X		plur(ltmp));
+X}
+X
+Xdoinvbill(mode)
+Xint mode;		/* 0: deliver count 1: paged */
+X{
+X	register struct bill_x *bp;
+X	register struct obj *obj;
+X	long totused, thisused;
+X	char buf[BUFSZ];
+X
+X	if(mode == 0) {
+X	    register int cnt = 0;
+X
+X	    if(shopkeeper)
+X		for(bp = bill; bp - bill < ESHK(shopkeeper)->billct; bp++)
+X		    if(bp->useup ||
+X		      ((obj = bp_to_obj(bp)) && obj->quan < bp->bquan))
+X			cnt++;
+X	    return(cnt);
+X	}
+X
+X	if(!shopkeeper) {
+X		impossible("doinvbill: no shopkeeper?");
+X		return(0);
+X	}
+X
+X	set_pager(0);
+X	if(page_line("Unpaid articles already used up:") || page_line(""))
+X	    goto quit;
+X
+X	totused = 0;
+X	for(bp = bill; bp - bill < ESHK(shopkeeper)->billct; bp++) {
+X	    obj = bp_to_obj(bp);
+X	    if(!obj) {
+X		impossible("Bad shopkeeper administration.");
+X		goto quit;
+X	    }
+X	    if(bp->useup || bp->bquan > obj->quan) {
+X		register int cnt, oquan, uquan;
+X
+X		oquan = obj->quan;
+X		uquan = (bp->useup ? bp->bquan : bp->bquan - oquan);
+X		thisused = bp->price * uquan;
+X		totused += thisused;
+X		obj->quan = uquan;		/* cheat doname */
+X		(void) sprintf(buf, "x -  %s", doname(obj));
+X		obj->quan = oquan;		/* restore value */
+X		for(cnt = 0; buf[cnt]; cnt++);
+X		while(cnt < 50)
+X			buf[cnt++] = ' ';
+X		(void) sprintf(&buf[cnt], " %5ld zorkmids", thisused);
+X		if(page_line(buf))
+X			goto quit;
+X	    }
+X	}
+X	(void) sprintf(buf, "Total:%50ld zorkmids", totused);
+X	if(page_line("") || page_line(buf))
+X		goto quit;
+X	set_pager(1);
+X	return(0);
+Xquit:
+X	set_pager(2);
+X	return(0);
+X}
+X
+Xstatic
+Xgetprice(obj) register struct obj *obj; {
+Xregister int tmp, ac;
+X	switch(obj->olet){
+X	case AMULET_SYM:
+X		tmp = rn1(1500, 3500);
+X		break;
+X	case TOOL_SYM:
+X	    switch(obj->otyp) {
+X		case EXPENSIVE_CAMERA:	tmp = rn1(400, 200);
+X					break;
+X#ifdef MARKER
+X		case MAGIC_MARKER:	tmp = rn1(100,50);
+X					break;
+X#endif
+X#ifdef WALKIES
+X		case LEASH:		tmp = rn1(40,20);
+X					break;
+X#endif
+X#ifdef RPH
+X		case BLINDFOLD:		tmp = rn1(40,20);
+X					break;
+X		case MIRROR:		tmp = rn1(80,40);
+X					break;
+X#endif
+X		case STETHOSCOPE:	tmp = rn1(100,80);
+X					break;
+X		case CAN_OPENER:	tmp = rn1(50,30);
+X					break;
+X		default:		tmp = rn1(20,10);
+X					break;
+X	    }
+X	    break;
+X	case RING_SYM:
+X		tmp = rn1(200,100);
+X		break;
+X	case WAND_SYM:
+X		tmp = rn1(300,150);
+X		break;
+X	case SCROLL_SYM:
+X#ifdef MAIL
+X		if(obj->otyp == SCR_MAIL)
+X			tmp = rn1(5,5);
+X		else
+X#endif
+X			tmp = rn1(200,100);
+X		break;
+X	case POTION_SYM:
+X		tmp = rn1(200,100);
+X		break;
+X#ifdef SPELLS
+X	case SPBOOK_SYM:
+X		tmp = rn1(500,500);
+X		break;
+X#endif
+X	case FOOD_SYM:
+X
+X		tmp = (2000+objects[obj->otyp].nutrition)/realhunger();
+X		tmp = rn1((tmp < 10) ? 10 : tmp,
+X		          objects[obj->otyp].nutrition/20 + 5);
+X		break;
+X	case GEM_SYM:
+X		tmp = rn1(120,60);
+X		break;
+X	case ARMOR_SYM:
+X		ac = ARM_BONUS(obj);
+X		if(ac <= -10)		/* probably impossible */
+X			ac = -9;
+X		tmp = ac*ac+10*rn1(10+ac,10);
+X		break;
+X	case WEAPON_SYM:
+X		if(obj->otyp < BOOMERANG)
+X			tmp = rn1(4,2);
+X		else if(obj->otyp == BOOMERANG ||
+X			obj->otyp == DAGGER ||
+X			obj->otyp == CLUB ||
+X			obj->otyp == SLING)
+X			tmp = rn1(50,50);
+X		else if(obj->otyp == KATANA)
+X			tmp = rn1(700,800);
+X		else if(obj->otyp == LONG_SWORD ||
+X			obj->otyp == TWO_HANDED_SWORD ||
+X			obj->otyp == BROAD_SWORD)
+X			tmp = rn1(500,500);
+X		else	tmp = rn1(150,100);
+X		break;
+X	case CHAIN_SYM:
+X		pline("Strange ..., carrying a chain?");
+X	case BALL_SYM:
+X		tmp = 10;
+X		break;
+X	default:
+X		tmp = 10000;
+X	}
+X	return(tmp);
+X}
+X
+Xstatic
+Xrealhunger(){	/* not completely foolproof */
+Xregister tmp = u.uhunger;
+Xregister struct obj *otmp = invent;
+X	while(otmp){
+X		if(otmp->olet == FOOD_SYM && !otmp->unpaid)
+X			tmp += objects[otmp->otyp].nutrition;
+X		otmp = otmp->nobj;
+X	}
+X	return((tmp <= 0) ? 1 : tmp);
+X}
+X
+Xshkcatch(obj)
+Xregister struct obj *obj;
+X{
+X	register struct monst *shkp = shopkeeper;
+X
+X	if(u.uinshop && shkp && !shkp->mfroz && !shkp->msleep &&
+X	    u.dx && u.dy &&
+X	    inroom(u.ux+u.dx, u.uy+u.dy) + 1 == u.uinshop &&
+X	    shkp->mx == ESHK(shkp)->shk.x && shkp->my == ESHK(shkp)->shk.y &&
+X	    u.ux == ESHK(shkp)->shd.x && u.uy == ESHK(shkp)->shd.y) {
+X		pline("%s nimbly catches the %s.", Monnam(shkp), xname(obj));
+X		obj->nobj = shkp->minvent;
+X		shkp->minvent = obj;
+X		return(1);
+X	}
+X	return(0);
+X}
+X
+X/*
+X * shk_move: return 1: he moved  0: he didnt  -1: let m_move do it
+X */
+Xshk_move(shkp)
+Xregister struct monst *shkp;
+X{
+X	register struct monst *mtmp;
+X	register struct permonst *mdat = shkp->data;
+X	register xchar gx,gy,omx,omy,nx,ny,nix,niy;
+X	register schar appr,i;
+X	register int udist;
+X	int z;
+X	schar shkroom,chi,chcnt,cnt;
+X	boolean uondoor, satdoor, avoid, badinv;
+X	coord poss[9];
+X	long info[9];
+X	struct obj *ib = 0;
+X
+X	omx = shkp->mx;
+X	omy = shkp->my;
+X
+X	if((udist = dist(omx,omy)) < 3) {
+X		if(ANGRY(shkp)) {
+X			(void) hitu(shkp, d(mdat->damn, mdat->damd)+1);
+X			return(0);
+X		}
+X		if(ESHK(shkp)->following) {
+X			if(strncmp(ESHK(shkp)->customer, plname, PL_NSIZ)){
+X			pline("Hello %s%s! I was looking for %s.",
+X				(Badged) ? "Officer " : "", 
+X				plname, ESHK(shkp)->customer);
+X				ESHK(shkp)->following = 0;
+X				return(0);
+X			}
+X			if(!ESHK(shkp)->robbed) {	/* impossible? */
+X				ESHK(shkp)->following = 0;
+X				return(0);
+X			}
+X			if(moves > followmsg+4) {
+X				pline("Hello %s%s! Didn't you forget to pay?",
+X					(Badged) ? "Officer " : "", plname);
+X				followmsg = moves;
+X				if (Badged)
+X				    pline ("You should be upholding the law!");
+X#ifdef HARD
+X				if (!rn2((Badged) ? 3 : 5)) {
+X	    pline ("%s doesn't like customers who don't pay.", Monnam(shkp));
+X				    NOTANGRY(shkp) = 0;
+X				}
+X#endif				    
+X			}
+X			if(udist < 2)
+X				return(0);
+X		}
+X	}
+X
+X	shkroom = inroom(omx,omy);
+X	appr = 1;
+X	gx = ESHK(shkp)->shk.x;
+X	gy = ESHK(shkp)->shk.y;
+X	satdoor = (gx == omx && gy == omy);
+X	if(ESHK(shkp)->following || ((z = holetime()) >= 0 && z*z <= udist)){
+X		gx = u.ux;
+X		gy = u.uy;
+X		if(shkroom < 0 || shkroom != inroom(u.ux,u.uy))
+X		    if(udist > 4)
+X			return(-1);	/* leave it to m_move */
+X	} else if(ANGRY(shkp)) {
+X		long saveBlind = Blinded;
+X		long saveBlindf = Blindfolded;
+X		Blinded = Blindfolded = 0;
+X		if(shkp->mcansee && !Invis && cansee(omx,omy)) {
+X			gx = u.ux;
+X			gy = u.uy;
+X		}
+X		Blinded = saveBlind;
+X		Blindfolded = saveBlindf;
+X		avoid = FALSE;
+X	} else {
+X#define	GDIST(x,y)	((x-gx)*(x-gx)+(y-gy)*(y-gy))
+X		if(Invis)
+X		  avoid = FALSE;
+X		else {
+X		  uondoor = (u.ux == ESHK(shkp)->shd.x &&
+X				u.uy == ESHK(shkp)->shd.y);
+X		  if(uondoor) {
+X		    if(ESHK(shkp)->billct)
+X			pline("Hello %s%s! Will you please pay before leaving?",
+X				(Badged) ? "Officer " : "", plname);
+X		    badinv = (carrying(PICK_AXE) || carrying(ICE_BOX));
+X		    if(satdoor && badinv)
+X			return(0);
+X		    avoid = !badinv;
+X		  } else {
+X		    avoid = (u.uinshop && dist(gx,gy) > 8);
+X		    badinv = FALSE;
+X		  }
+X
+X		  if(((!ESHK(shkp)->robbed && !ESHK(shkp)->billct) || avoid)
+X			&& GDIST(omx,omy) < 3){
+X			if(!badinv && !online(omx,omy))
+X				return(0);
+X			if(satdoor)
+X				appr = gx = gy = 0;
+X		  }
+X		}
+X	}
+X	if(omx == gx && omy == gy)
+X		return(0);
+X	if(shkp->mconf) {
+X		avoid = FALSE;
+X		appr = 0;
+X	}
+X	nix = omx;
+X	niy = omy;
+X	cnt = mfndpos(shkp,poss,info,ALLOW_SSM);
+X	if(avoid && uondoor) {		/* perhaps we cannot avoid him */
+X		for(i=0; i<cnt; i++)
+X			if(!(info[i] & NOTONL)) goto notonl_ok;
+X		avoid = FALSE;
+X	notonl_ok:
+X		;
+X	}
+X	chi = -1;
+X	chcnt = 0;
+X	for(i=0; i<cnt; i++){
+X		nx = poss[i].x;
+X		ny = poss[i].y;
+X		if(levl[nx][ny].typ == ROOM
+X		|| shkroom != ESHK(shkp)->shoproom
+X		|| ESHK(shkp)->following) {
+X#ifdef STUPID
+X		    /* cater for stupid compilers */
+X		    register int zz;
+X#endif
+X		    if(uondoor && (ib = sobj_at(ICE_BOX, nx, ny))) {
+X			nix = nx; niy = ny; chi = i; break;
+X		    }
+X		    if(avoid && (info[i] & NOTONL))
+X			continue;
+X		    if((!appr && !rn2(++chcnt)) ||
+X#ifdef STUPID
+X			(appr && (zz = GDIST(nix,niy)) && zz > GDIST(nx,ny))
+X#else
+X			(appr && GDIST(nx,ny) < GDIST(nix,niy))
+X#endif
+X			) {
+X			    nix = nx;
+X			    niy = ny;
+X			    chi = i;
+X		    }
+X		}
+X	}
+X	if(nix != omx || niy != omy){
+X		if(info[chi] & ALLOW_M){
+X			mtmp = m_at(nix,niy);
+X			if(hitmm(shkp,mtmp) == 1 && rn2(3) &&
+X			   hitmm(mtmp,shkp) == 2) return(2);
+X			return(0);
+X		} else if(info[chi] & ALLOW_U){
+X			(void) hitu(shkp, d(mdat->damn, mdat->damd)+1);
+X			return(0);
+X		}
+X		shkp->mx = nix;
+X		shkp->my = niy;
+X		pmon(shkp);
+X		if(ib) {
+X			freeobj(ib);
+X			mpickobj(shkp, ib);
+X		}
+X		return(1);
+X	}
+X	return(0);
+X}
+X#endif /* QUEST /**/
+X
+Xonline(x,y)		/*	New version to speed things up.
+X			 *	Compiler dependant, may not always work.
+X			 */
+X	register xchar x, y;
+X{
+X	return((x-=u.ux) == 0 || (y-=u.uy) == 0 || x == y || (x+=y) == 0);
+X}
+X
+X/*			Original version, just in case...
+X *online(x,y) {
+X *	return(x==u.ux || y==u.uy || (x-u.ux)*(x-u.ux) == (y-u.uy)*(y-u.uy));
+X *}
+X */
+X
+X/* Does this monster follow me downstairs? */
+Xfollower(mtmp)
+Xregister struct monst *mtmp;
+X{
+X	return( mtmp->mtame || index("1TVWZi&, ", mtmp->data->mlet) ||
+X		(mtmp->isshk && ESHK(mtmp)->following) );
+X}
+X
+X/* He is digging in the shop. */
+Xshopdig(fall)
+Xregister int fall;
+X{
+X    if(!fall) {
+X	if(u.utraptype == TT_PIT)
+X	    pline("\"Be careful, sir, or you might fall through the floor.\"");
+X	else
+X	    pline("\"Please, do not damage the floor here.\"");
+X    } else if(dist(shopkeeper->mx, shopkeeper->my) < 3) {
+X	register struct obj *obj, *obj2;
+X
+X	pline("%s grabs your backpack!", shkname(shopkeeper));
+X	for(obj = invent; obj; obj = obj2) {
+X		obj2 = obj->nobj;
+X		if(obj->owornmask) continue;
+X		freeinv(obj);
+X		obj->nobj = shopkeeper->minvent;
+X		shopkeeper->minvent = obj;
+X		if(obj->unpaid)
+X			subfrombill(obj);
+X	}
+X    }
+X}
+END_OF_shk.c
+if test 27580 -ne `wc -c <shk.c`; then
+    echo shar: \"shk.c\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+if test -f zap.c -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"zap.c\"
+else
+echo shar: Extracting \"zap.c\" \(27980 characters\)
+sed "s/^X//" >zap.c <<'END_OF_zap.c'
+X/*	SCCS Id: @(#)zap.c	2.3	88/02/11
+X/* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+X
+X#include "hack.h"
+X
+Xextern struct obj *mkobj_at(), *mksobj_at();
+Xextern struct monst *makemon(), *mkmon_at(), youmonst;
+Xstruct monst *bhit();
+Xchar *exclam();
+X#ifdef KAA
+Xextern char *xname();
+X#endif
+X
+Xchar *fl[]= {
+X	"magic missile",	/* Wands must be 0-9 */
+X	"bolt of fire",
+X	"sleep ray",
+X	"bolt of cold",
+X	"death ray",
+X	"bolt of lightening",
+X	"",
+X	"",
+X	"",
+X	"",
+X
+X	"magic missile",	/* Spell equivalents must be 10-19 */
+X	"fireball",
+X	"sleep ray",
+X	"cone of cold",
+X	"finger of death",
+X	"bolt of lightening",
+X	"",
+X	"",
+X	"",
+X	"",
+X
+X	"blast of missiles",	/* Dragon breath equivalents 20-29*/
+X	"blast of fire",
+X	"blast of sleep gas",
+X	"blast of frost",
+X	"blast of disintegration",
+X	"blast of lightening",
+X	"blast of poison gas",
+X	"blast of acid",
+X	"",
+X	""
+X};
+X
+X/* Routines for IMMEDIATE wands and spells. */
+X/* bhitm: monster mtmp was hit by the effect of wand or spell otmp */
+Xbhitm(mtmp, otmp)
+Xregister struct monst *mtmp;
+Xregister struct obj *otmp;
+X{
+X	wakeup(mtmp);
+X	switch(otmp->otyp) {
+X	case WAN_STRIKING:
+X#ifdef SPELLS
+X	case SPE_FORCE_BOLT:
+X#endif
+X		if(u.uswallow || rnd(20) < 10+mtmp->data->ac) {
+X			register int tmp = d(2,12);
+X			hit((otmp->otyp == WAN_STRIKING) ? "wand" : "spell", mtmp, exclam(tmp));
+X			resist(mtmp, otmp->olet, tmp, TELL);
+X		} else miss((otmp->otyp == WAN_STRIKING) ? "wand" : "spell", mtmp);
+X		break;
+X	case WAN_SLOW_MONSTER:
+X#ifdef SPELLS
+X	case SPE_SLOW_MONSTER:
+X#endif
+X		if(! resist(mtmp, otmp->olet, 0, NOTELL))
+X			mtmp->mspeed = MSLOW;
+X		break;
+X	case WAN_SPEED_MONSTER:
+X		if (!resist(mtmp, otmp->olet, 0, NOTELL))
+X			mtmp->mspeed = MFAST;
+X		break;
+X	case WAN_UNDEAD_TURNING:
+X#ifdef SPELLS
+X	case SPE_TURN_UNDEAD:
+X#endif
+X		if(index(UNDEAD,mtmp->data->mlet)) {
+X
+X			if(!resist(mtmp, otmp->olet, rnd(8), NOTELL))
+X				mtmp->mflee = 1;
+X		}
+X		break;
+X	case WAN_POLYMORPH:
+X#ifdef SPELLS
+X	case SPE_POLYMORPH:
+X#endif
+X		if(!resist(mtmp, otmp->olet, 0, NOTELL))
+X		    if( newcham(mtmp,&mons[rn2(CMNUM)]) )
+X			if (!Hallucination)
+X			    objects[otmp->otyp].oc_name_known = 1;
+X		break;
+X	case WAN_CANCELLATION:
+X#ifdef SPELLS
+X	case SPE_CANCELLATION:
+X#endif
+X		if(!resist(mtmp, otmp->olet, 0, NOTELL))
+X			mtmp->mcan = 1;
+X		break;
+X	case WAN_TELEPORTATION:
+X#ifdef SPELLS
+X	case SPE_TELEPORT_AWAY:
+X#endif
+X		rloc(mtmp);
+X		break;
+X	case WAN_MAKE_INVISIBLE:
+X		mtmp->minvis = 1;
+X		break;
+X	case WAN_NOTHING:
+X		break;
+X	case WAN_PROBING:
+X#ifdef PROBING
+X		mstatusline(mtmp);
+X#else
+X		pline("Nothing Happens.");
+X#endif
+X		break;
+X	default:
+X		impossible("What an interesting effect (%u)", otmp->otyp);
+X	}
+X}
+X
+Xbhito(obj, otmp)	/* object obj was hit by the effect of wand otmp */
+Xregister struct obj *obj, *otmp;	/* returns TRUE if sth was done */
+X{
+X	register int res = TRUE;
+X#ifdef DGKMOD
+X	struct obj *otmp2;
+X#endif
+X
+X	if(obj == uball || obj == uchain)
+X		res = FALSE;
+X	else
+X	switch(otmp->otyp) {
+X	case WAN_POLYMORPH:
+X#ifdef SPELLS
+X	case SPE_POLYMORPH:
+X#endif
+X		/* preserve symbol and quantity, but turn rocks into gems */
+X#ifdef DGKMOD
+X		otmp2 = mkobj_at((obj->otyp == ROCK
+X			|| obj->otyp == ENORMOUS_ROCK) ? GEM_SYM : obj->olet,
+X			obj->ox, obj->oy);
+X		otmp2->quan = obj->quan;
+X		/* keep special fields (including charges on wands) */
+X		/* The DGK modification doesn't allow polymorphing a weapon
+X		   with enchantments into another one, and doesn't allow 
+X		   polymorphed rings to have plusses.  KAA*/
+X		if (index("/)[", otmp2->olet)) otmp2->spe = obj->spe;
+X	        /* Amulets gets cheap   stewr 870807 */
+X		if (obj->otyp == AMULET_OF_YENDOR) otmp2->spe = obj->spe;
+X		/* Wands of wishing max 3 stewr 870808 */
+X		if ((otmp2->otyp == WAN_WISHING) 
+X		    && (obj->spe > 3)) otmp2->spe = 3;
+X		otmp2->cursed = otmp->cursed;
+X		/* update the weight */
+X		otmp2->owt = weight(otmp2);
+X#else
+X		mkobj_at((obj->otyp == ROCK || obj->otyp == ENORMOUS_ROCK)
+X			? GEM_SYM : obj->olet,
+X			obj->ox, obj->oy) -> quan = obj->quan;
+X#endif
+X		delobj(obj);
+X		break;
+X	case WAN_STRIKING:
+X#ifdef SPELLS
+X	case SPE_FORCE_BOLT:
+X#endif
+X		if(obj->otyp == ENORMOUS_ROCK)
+X			fracture_rock(obj);
+X		else
+X			res = FALSE;
+X		break;
+X	case WAN_CANCELLATION:
+X#ifdef SPELLS
+X	case SPE_CANCELLATION:
+X#endif
+X		if(obj->spe && obj->olet != AMULET_SYM) {
+X			obj->known = 0;
+X			obj->spe = (obj->olet == WAND_SYM) ? -1 : 0;
+X		}
+X		break;
+X	case WAN_TELEPORTATION:
+X#ifdef SPELLS
+X	case SPE_TELEPORT_AWAY:
+X#endif
+X		rloco(obj);
+X		break;
+X	case WAN_MAKE_INVISIBLE:
+X		obj->oinvis = 1;
+X		break;
+X	case WAN_UNDEAD_TURNING:
+X#ifdef SPELLS
+X	case SPE_TURN_UNDEAD:
+X#endif
+X		res = revive(obj);
+X		break;
+X	case WAN_SLOW_MONSTER:		/* no effect on objects */
+X#ifdef SPELLS
+X	case SPE_SLOW_MONSTER:
+X#endif
+X	case WAN_SPEED_MONSTER:
+X	case WAN_NOTHING:
+X	case WAN_PROBING:
+X		res = FALSE;
+X		break;
+X	default:
+X		impossible("What an interesting effect (%u)", otmp->otyp);
+X	}
+X	return(res);
+X}
+X
+X/*
+X * zappable - returns 1 if zap is available, 0 otherwise.
+X *	      it removes a charge from the wand if zappable.
+X * added by GAN 11/03/86
+X */
+Xint
+Xzappable(wand)
+Xregister struct obj *wand;
+X{
+X	if(wand->spe < 0 || (wand->spe ==0 && rn2(121)))
+X		return(0);
+X	else  {
+X		if(wand->spe == 0)
+X			pline("You wrest one more spell from the worn-out wand.");
+X		wand->spe--;
+X		return(1);
+X	}
+X}
+X
+X/*
+X * zapnodir - zaps an NODIR wand.
+X * added by GAN 11/03/86
+X */
+Xzapnodir(wand)
+Xregister struct obj *wand;
+X{
+X	switch(wand->otyp){
+X		case WAN_LIGHT:
+X			litroom(TRUE);
+X			break;
+X		case WAN_SECRET_DOOR_DETECTION:
+X			if(!findit()) return;
+X			break;
+X		case WAN_CREATE_MONSTER:
+X			{ register int cnt = 1;
+X			if(!rn2(23)) cnt += rn2(7) + 1;
+X			while(cnt--)
+X			    (void) makemon((struct permonst *) 0, u.ux, u.uy);
+X			}
+X			break;
+X		case WAN_WISHING:
+X			  
+X			if(u.uluck + rn2(5) < 0) {
+X				pline("Unfortunately, nothing happens.");
+X				break;
+X			}
+X			makewish();
+X			break;
+X	}
+X	if(!objects[wand->otyp].oc_name_known) {
+X			objects[wand->otyp].oc_name_known = 1;
+X			more_experienced(0,10);
+X	}
+X}
+X
+Xdozap()
+X{
+X	register struct obj *obj;
+X	int	damage;
+X
+X	obj = getobj("/", "zap");
+X	if(!obj) return(0);
+X	
+X	/* zappable addition done by GAN 11/03/86 */
+X	if(!zappable(obj))  {
+X		pline("Nothing Happens.");
+X		return(1);
+X	}
+X	if(!(objects[obj->otyp].bits & NODIR) && !getdir(1)) {
+X		pline("The %s glows and fades.",xname(obj));
+X		return(1);	/* make him pay for knowing !NODIR */
+X	}
+X#ifdef KAA
+X     if(!u.dx && !u.dy && !u.dz && !(objects[obj->otyp].bits & NODIR)) {
+X
+X		if((damage = zapyourself(obj)))
+X			losehp(damage,"self-inflicted injury");
+X		return(1);
+X     }
+X#endif
+X	weffects(obj);
+X#ifdef HARD
+X	if (obj->spe < 0) {
+X	    pline ("The %s glows violently, then turns to dust.", xname(obj));
+X	    useup(obj);
+X	}
+X#endif
+X	return(1);
+X}
+X
+X#ifdef KAA
+X#define	makeknown(x)	objects[x].oc_name_known = 1
+X
+Xzapyourself(obj)
+X	register struct obj	*obj;
+X{
+Xstruct obj	*otmp;
+Xint	damage = 0;
+X
+X	switch(obj->otyp) {
+X		case WAN_STRIKING:
+X#ifdef SPELLS
+X		case SPE_FORCE_BOLT:
+X#endif
+X		    pline("You magically bash yourself!");
+X		    damage=d(8,6);
+X		    break;
+X		case WAN_LIGHTNING:
+X		    makeknown(WAN_LIGHTNING);
+X		    pline("Idiot!  You've shocked yourself!"); 
+X		    if (!Shock_resistance) damage=d(12,6);
+X		    if (!Blind) {
+X			    pline("You are blinded by the flash!");
+X			    Blinded += rnd(100);
+X			    seeoff(0);
+X		    }
+X		    break;
+X		case WAN_FIRE:
+X		    makeknown(WAN_FIRE);
+X#ifdef SPELLS
+X		case SPE_FIREBALL:
+X#endif
+X		    pline("You've set light to yourself!");
+X		    if (!Fire_resistance) damage=d(12,6);
+X		    burn_scrolls();
+X		    boil_potions();
+X		    break;
+X		case WAN_COLD:
+X		    makeknown(WAN_COLD);
+X#ifdef SPELLS
+X		case SPE_CONE_OF_COLD:
+X#endif
+X		    pline("You imitate a popsicle!");
+X		    if (!Cold_resistance) damage=d(12,6);
+X		    freeze_potions();
+X		    break;
+X		case WAN_MAGIC_MISSILE:
+X		    makeknown(WAN_MAGIC_MISSILE);
+X#ifdef SPELLS
+X		case SPE_MAGIC_MISSILE:
+X#endif
+X		    damage = d(4,6);
+X		    pline("Idiot!  You've shot yourself!"); 
+X		    break;
+X		case WAN_POLYMORPH:
+X		    makeknown(WAN_POLYMORPH);
+X#ifdef SPELLS
+X		case SPE_POLYMORPH:
+X#endif
+X		    polyself();
+X		    break;
+X		case WAN_CANCELLATION:
+X#ifdef SPELLS
+X		case SPE_CANCELLATION:
+X#endif
+X		    for(otmp = invent; otmp; otmp = otmp->nobj)
+X		       if(otmp != uball && otmp->otyp != AMULET_OF_YENDOR)
+X			    otmp->spe = (obj->olet == WAND_SYM) ? -1 : 0;
+X		    if(u.mtimedone) rehumanize();
+X		    flags.botl = 1;  /* because of potential AC change */
+X		    find_ac();
+X		    break;
+X	       case WAN_MAKE_INVISIBLE:
+X		    HInvis |= INTRINSIC;
+X		    /* Tough luck if you cannot see invisible! */
+X		    if (!See_invisible) newsym(u.ux, u.uy);
+X		    break;
+X	       case WAN_SPEED_MONSTER:
+X		    Fast |= INTRINSIC;
+X		    break;
+X	       case WAN_SLEEP:
+X		    makeknown(WAN_SLEEP);
+X#ifdef SPELLS
+X		case SPE_SLEEP:
+X#endif
+X		    pline("The sleep ray hits you!");
+X		    nomul(-rn2(50));
+X		    break;
+X		case WAN_SLOW_MONSTER:
+X#ifdef SPELLS
+X		case SPE_SLOW_MONSTER:
+X#endif
+X		    Fast = 0;
+X		    break;
+X		case WAN_TELEPORTATION:
+X#ifdef SPELLS
+X		case SPE_TELEPORT_AWAY:
+X#endif
+X		    tele();
+X		    break;
+X		case WAN_DEATH:
+X#ifdef SPELLS
+X		case SPE_FINGER_OF_DEATH:
+X#endif
+X		    killer = "death ray";
+X		    pline("You irradiate yourself with pure energy!");
+X		    pline("You die.");
+X		    done("died");
+X		    break;
+X#ifdef SPELLS
+X		case SPE_LIGHT:
+X		    if(!Blind) {
+X			pline("You've blinded yourself!");
+X			Blinded += rnd(100);
+X			seeoff(0);
+X		    }
+X		    break;
+X		case SPE_DIG:
+X		case SPE_TURN_UNDEAD:
+X		case SPE_DETECT_UNSEEN:
+X#endif
+X	       case WAN_PROBING:
+X#ifdef PROBING
+X		    ustatusline();
+X#else
+X		    pline("Nothing happens.");
+X#endif
+X		    break;
+X		case WAN_DIGGING:
+X		case WAN_UNDEAD_TURNING:
+X		case WAN_NOTHING:
+X		    break;
+X		default: impossible("object %d used?",obj->otyp);
+X	}
+X	return(damage);
+X}
+X#endif /* KAA /**/
+X
+X/* called for various wand and spell effects - M. Stephenson */
+Xweffects(obj)
+X	register struct	obj	*obj;
+X{
+X	xchar zx,zy;
+X
+X	if(objects[obj->otyp].bits & IMMEDIATE) {
+X		if(u.uswallow)
+X			bhitm(u.ustuck, obj);
+X		else if(u.dz) {
+X			if(u.dz > 0 && o_at(u.ux,u.uy)) {
+X				register struct obj *otmp;
+X				
+X				/* changed by GAN to hit all objects there */
+X				for(otmp = fobj; otmp ; otmp = otmp->nobj)
+X					if(otmp->ox == u.ux &&
+X					   otmp->oy == u.uy)
+X						(void) bhito(otmp, obj);
+X			}
+X		} else
+X			(void) bhit(u.dx,u.dy,rn1(8,6),0,bhitm,bhito,obj);
+X	} else {
+X	    switch(obj->otyp){
+X		case WAN_LIGHT:
+X#ifdef SPELLS
+X		case SPE_LIGHT:
+X#endif
+X			litroom(TRUE);
+X			break;
+X		case WAN_SECRET_DOOR_DETECTION:
+X#ifdef SPELLS
+X		case SPE_DETECT_UNSEEN:
+X#endif
+X			if(!findit()) return;
+X			break;
+X		case WAN_CREATE_MONSTER:
+X			{ register int cnt = 1;
+X			if(!rn2(23)) cnt += rn2(7) + 1;
+X			while(cnt--)
+X			    (void) makemon((struct permonst *) 0, u.ux, u.uy);
+X			}
+X			break;
+X		case WAN_WISHING:
+X			if(u.uluck + rn2(5) < 0) {
+X			    pline("Unfortunately, nothing happens.");
+X			    break;
+X			}
+X			makewish();
+X			break;
+X		case WAN_DIGGING:
+X#ifdef SPELLS
+X		case SPE_DIG:
+X#endif
+X			/* Original effect (approximately):
+X			 * from CORR: dig until we pierce a wall
+X			 * from ROOM: piece wall and dig until we reach
+X			 * an ACCESSIBLE place.
+X			 * Currently: dig for digdepth positions;
+X			 * also down on request of Lennart Augustsson.
+X			 */
+X			{ register struct rm *room;
+X			  register int digdepth;
+X			if(u.uswallow) {
+X				register struct monst *mtmp = u.ustuck;
+X
+X				pline("You pierce %s's stomach wall!",
+X					monnam(mtmp));
+X				mtmp->mhp = 1;	/* almost dead */
+X				unstuck(mtmp);
+X				mnexto(mtmp);
+X				break;
+X			}
+X			if(u.dz) {
+X			    if(u.dz < 0) {
+X				pline("You loosen a rock from the ceiling.");
+X				pline("It falls on your head!");
+X				losehp(1, "falling rock");
+X				mksobj_at((int)ROCK, u.ux, u.uy);
+X				fobj->quan = 1;
+X				stackobj(fobj);
+X				if(Invisible) newsym(u.ux, u.uy);
+X			    } else {
+X				dighole();
+X			    }
+X			    break;
+X			}
+X			zx = u.ux+u.dx;
+X			zy = u.uy+u.dy;
+X			digdepth = 8 + rn2(18);
+X			Tmp_at(-1, '*');	/* open call */
+X			while(--digdepth >= 0) {
+X				if(!isok(zx,zy)) break;
+X				room = &levl[zx][zy];
+X				Tmp_at(zx,zy);
+X				if(!xdnstair){
+X					if(zx < 3 || zx > COLNO-3 ||
+X					    zy < 3 || zy > ROWNO-3)
+X						break;
+X					if(room->typ == HWALL ||
+X					    room->typ == VWALL){
+X						room->typ = ROOM;
+X						break;
+X					}
+X				} else
+X				if(room->typ == HWALL || room->typ == VWALL ||
+X				   room->typ == SDOOR || room->typ == LDOOR){
+X					room->typ = DOOR;
+X					digdepth -= 2;
+X				} else
+X				if(room->typ == SCORR || !room->typ) {
+X					room->typ = CORR;
+X					digdepth--;
+X				}
+X				mnewsym(zx,zy);
+X				zx += u.dx;
+X				zy += u.dy;
+X			}
+X			mnewsym(zx,zy);	/* not always necessary */
+X			Tmp_at(-1,-1);	/* closing call */
+X			break;
+X			}
+X		default:
+X#ifdef SPELLS
+X			if((int) obj->otyp >= SPE_MAGIC_MISSILE) {
+X
+X				buzz((int) obj->otyp - SPE_MAGIC_MISSILE + 10,
+X					u.ux, u.uy, u.dx, u.dy);
+X			} else
+X#endif
+X
+X				buzz((int) obj->otyp - WAN_MAGIC_MISSILE,
+X					u.ux, u.uy, u.dx, u.dy);
+X			break;
+X		}
+X		if(!objects[obj->otyp].oc_name_known) {
+X			objects[obj->otyp].oc_name_known = 1;
+X			more_experienced(0,10);
+X		}
+X	}
+X	return;
+X}
+X
+Xchar *
+Xexclam(force)
+Xregister int force;
+X{
+X	/* force == 0 occurs e.g. with sleep ray */
+X	/* note that large force is usual with wands so that !! would
+X		require information about hand/weapon/wand */
+X	return( (force < 0) ? "?" : (force <= 4) ? "." : "!" );
+X}
+X
+Xhit(str,mtmp,force)
+Xregister char *str;
+Xregister struct monst *mtmp;
+Xregister char *force;		/* usually either "." or "!" */
+X{
+X	if(!cansee(mtmp->mx,mtmp->my)) pline("The %s hits it.", str);
+X	else pline("The %s hits %s%s", str, monnam(mtmp), force);
+X}
+X
+Xmiss(str,mtmp)
+Xregister char *str;
+Xregister struct monst *mtmp;
+X{
+X	if(!cansee(mtmp->mx,mtmp->my)) pline("The %s misses it.",str);
+X	else pline("The %s misses %s.",str,monnam(mtmp));
+X}
+X
+X/* bhit: called when a weapon is thrown (sym = obj->olet) or when an
+X   IMMEDIATE wand is zapped (sym = 0); the weapon falls down at end of
+X   range or when a monster is hit; the monster is returned, and bhitpos
+X   is set to the final position of the weapon thrown; the ray of a wand
+X   may affect several objects and monsters on its path - for each of
+X   these an argument function is called. */
+X/* check !u.uswallow before calling bhit() */
+X
+Xstruct monst *
+Xbhit(ddx,ddy,range,sym,fhitm,fhito,obj)
+Xregister int ddx,ddy,range;		/* direction and range */
+Xchar sym;				/* symbol displayed on path */
+Xint (*fhitm)(), (*fhito)();		/* fns called when mon/obj hit */
+Xstruct obj *obj;			/* 2nd arg to fhitm/fhito */
+X{
+X	register struct monst *mtmp;
+X	register struct obj *otmp;
+X	register int typ;
+X
+X	bhitpos.x = u.ux;
+X	bhitpos.y = u.uy;
+X
+X	if(sym) tmp_at(-1, sym);	/* open call */
+X	while(range-- > 0) {
+X		bhitpos.x += ddx;
+X		bhitpos.y += ddy;
+X		typ = levl[bhitpos.x][bhitpos.y].typ;
+X		if(mtmp = m_at(bhitpos.x,bhitpos.y)){
+X			if(sym) {
+X				tmp_at(-1, -1);	/* close call */
+X				return(mtmp);
+X			}
+X			(*fhitm)(mtmp, obj);
+X			range -= 3;
+X		}
+X		/* modified by GAN to hit all objects */
+X		if(fhito && o_at(bhitpos.x,bhitpos.y)){
+X			int hitanything = 0;
+X			for(otmp = fobj; otmp; otmp = otmp->nobj)
+X				if(otmp->ox == bhitpos.x &&
+X				   otmp->oy == bhitpos.y)
+X					hitanything += (*fhito)(otmp, obj);
+X			if(hitanything)	range--;
+X		}
+X		if(!ZAP_POS(typ)) {
+X			bhitpos.x -= ddx;
+X			bhitpos.y -= ddy;
+X			break;
+X		}
+X		if(sym) tmp_at(bhitpos.x, bhitpos.y);
+X#ifdef SINKS
+X		if(sym && IS_SINK(typ))
+X			break;	/* physical objects fall onto sink */
+X#endif
+X	}
+X
+X	/* leave last symbol unless in a pool */
+X	if(sym)
+X	   tmp_at(-1, (levl[bhitpos.x][bhitpos.y].typ == POOL) ? -1 : 0);
+X	return(0);
+X}
+X
+Xstruct monst *
+Xboomhit(dx,dy) {
+X	register int i, ct;
+X	register struct monst *mtmp;
+X	char sym = ')';
+X	extern schar xdir[], ydir[];
+X
+X	bhitpos.x = u.ux;
+X	bhitpos.y = u.uy;
+X
+X	for(i=0; i<8; i++) if(xdir[i] == dx && ydir[i] == dy) break;
+X	tmp_at(-1, sym);	/* open call */
+X	for(ct=0; ct<10; ct++) {
+X		if(i == 8) i = 0;
+X		sym = ')' + '(' - sym;
+X		tmp_at(-2, sym);	/* change let call */
+X		dx = xdir[i];
+X		dy = ydir[i];
+X		bhitpos.x += dx;
+X		bhitpos.y += dy;
+X		if(mtmp = m_at(bhitpos.x, bhitpos.y)){
+X			tmp_at(-1,-1);
+X			return(mtmp);
+X		}
+X		if(!ZAP_POS(levl[bhitpos.x][bhitpos.y].typ)) {
+X			bhitpos.x -= dx;
+X			bhitpos.y -= dy;
+X			break;
+X		}
+X		if(bhitpos.x == u.ux && bhitpos.y == u.uy) { /* ct == 9 */
+X			if(rn2(20) >= 10+u.ulevel){	/* we hit ourselves */
+X				(void) thitu(10, rnd(10), "boomerang");
+X				break;
+X			} else {	/* we catch it */
+X				tmp_at(-1,-1);
+X				pline("Skillfully, you catch the boomerang.");
+X				return(&youmonst);
+X			}
+X		}
+X		tmp_at(bhitpos.x, bhitpos.y);
+X		if(ct % 5 != 0) i++;
+X#ifdef SINKS
+X		if(IS_SINK(levl[bhitpos.x][bhitpos.y].typ))
+X			break;	/* boomerang falls on sink */
+X#endif
+X	}
+X	tmp_at(-1, -1);	/* do not leave last symbol */
+X	return(0);
+X}
+X
+Xuchar
+Xdirlet(dx,dy) register dx,dy; {
+X	return
+X		(dx == dy) ? '\\' : (dx && dy) ? '/' : dx ? HWALL_SYM : VWALL_SYM;
+X}
+X
+X/* type == 0 to 9     : you shooting a wand      */
+X/* type == 10 to 19   : you casting a spell      */
+X/* type == 20         : you breathing fire       */
+X/* type == -1 to -9   : bolts sent out by wizard */
+X/* type == -10 to -19 : dragon breathing at you  */
+X/* called with dx = dy = 0 with vertical bolts */
+Xbuzz(type,sx,sy,dx,dy)
+Xregister int type;
+Xregister xchar sx,sy;
+Xregister int dx,dy;
+X{
+X	int abstype = (type == 20) ? 1  : abs(type) % 10;
+X	int txttype = (type == 20) ? 21 : (type>-10) ? abs(type) : abs(type)+10;
+X	register char *fltxt = fl[txttype];
+X	struct rm *lev;
+X	xchar range;
+X	struct monst *mon;
+X
+X	if(u.uswallow) {
+X		register int tmp;
+X
+X		if(type < 0) return;
+X		tmp = zhit(u.ustuck, type);
+X		if(!u.ustuck)	u.uswallow = 0;
+X		else	pline("The %s rips into %s%s",
+X				fltxt, monnam(u.ustuck), exclam(tmp));
+X		return;
+X	}
+X	if(type < 0) pru();
+X	range = rn1(7,7);
+X	Tmp_at(-1, dirlet(dx,dy));	/* open call */
+X	while(range-- > 0) {
+X		sx += dx;
+X		sy += dy;
+X		if((lev = &levl[sx][sy])->typ) Tmp_at(sx,sy);
+X		else {
+X			int bounce = 0;
+X			if(cansee(sx-dx,sy-dy))
+X				pline("The %s bounces!", fltxt);
+X			if(ZAP_POS(levl[sx][sy-dy].typ))
+X				bounce = 1;
+X			if(ZAP_POS(levl[sx-dx][sy].typ)) {
+X				if(!bounce || rn2(2)) bounce = 2;
+X			}
+X			switch(bounce){
+X			case 0:
+X				dx = -dx;
+X				dy = -dy;
+X				continue;
+X			case 1:
+X				dy = -dy;
+X				sx -= dx;
+X				break;
+X			case 2:
+X				dx = -dx;
+X				sy -= dy;
+X				break;
+X			}
+X			Tmp_at(-2,dirlet(dx,dy));
+X			continue;
+X		}
+X		if(lev->typ == POOL && abstype == 1 /* fire */) {
+X			range -= 3;
+X			lev->typ = ROOM;
+X			if(cansee(sx,sy)) {
+X				mnewsym(sx,sy);
+X				pline("The water evaporates.");
+X			} else
+X				pline("You hear a hissing sound.");
+X		}
+X		if(lev->typ == POOL && abstype == 3 /* cold */) {
+X			range -= 3;
+X			lev->typ = ROOM;
+X			if(cansee(sx,sy)) {
+X				mnewsym(sx,sy);
+X				pline("The water freezes.");
+X			} else
+X				pline("You hear a cracking sound.");
+X		}
+X		if(o_at(sx,sy) && abstype == 1)
+X			if(burn_floor_scrolls(sx,sy) && cansee(sx,sy))  {
+X				mnewsym(sx,sy);
+X				pline("You see a puff of smoke.");
+X			}
+X		if((mon = m_at(sx,sy)) &&
+X		   /* dragons don't hit themselves ??? */
+X		   (type > -10 || mon->data->mlet != 'D')) { 
+X			wakeup(mon);
+X			if(rnd(20) < 18 + mon->data->ac) {
+X				register int tmp = zhit(mon,abstype);
+X				if(mon->mhp < 1) {
+X					if(type < 0) {
+X					    if(cansee(mon->mx,mon->my))
+X					      pline("%s is killed by the %s!",
+X						Monnam(mon), fltxt);
+X					    mondied(mon);
+X					} else
+X					    killed(mon);
+X				} else
+X					hit(fltxt, mon, exclam(tmp));
+X				range -= 2;
+X			} else
+X				miss(fltxt,mon);
+X		} else if(sx == u.ux && sy == u.uy) {
+X			nomul(0);
+X			if(rnd(20) < 18+u.uac) {
+X				register int dam = 0;
+X				range -= 2;
+X				pline("The %s hits you!",fltxt);
+X				switch(abstype) {
+X				case 0:		/* magic missile */
+X					dam = d(2,6);
+X  					break;
+X				case 1:		/* fire */
+X					if(Fire_resistance)
+X						pline("You don't feel hot!");
+X					else dam = d(6,6);
+X					if(!rn2(3)) {
+X						boil_potions();
+X						burn_scrolls();
+X					}
+X					break;
+X				case 2:		/* sleep */
+X					nomul(-rnd(25)); /* sleep ray */
+X					break;
+X				case 3:		/* cold */
+X					if(Cold_resistance)
+X						pline("You don't feel cold!");
+X					else dam = d(6,6);
+X					if(!rn2(3))
+X						freeze_potions();
+X					break;
+X				case 4:		/* death */
+X					u.uhp = -1;
+X					break;
+X				case 5:		/* lightning */
+X					if(Shock_resistance)
+X						pline("You aren't affected!");
+X					else dam = d(6,6);
+X					break;
+X				case 6:		/* poison */
+X					poisoned("blast", "poisoned blast");
+X					break;
+X				case 7:		/* acid */
+X					pline("The acid burns!");
+X					dam = d(6,6);
+X					if(!rn2(6)) corrode_weapon();
+X					if(!rn2(6)) corrode_armor();
+X					break;
+X				}
+X				losehp(dam,fltxt);
+X			} else pline("The %s whizzes by you!",fltxt);
+X			if (abstype == 5 && !Blind) { /* LIGHTNING */
+X		    		pline("You are blinded by the flash!");
+X				Blinded += rnd(50);
+X				seeoff(0);
+X			}
+X			stop_occupation();
+X		}
+X		if(!ZAP_POS(lev->typ)) {
+X			int bounce = 0, rmn;
+X			if(cansee(sx,sy)) pline("The %s bounces!",fltxt);
+X			range--;
+X			if(!dx || !dy || !rn2(20)){
+X				dx = -dx;
+X				dy = -dy;
+X			} else {
+X			  if(ZAP_POS(rmn = levl[sx][sy-dy].typ) &&
+X			    (IS_ROOM(rmn) || ZAP_POS(levl[sx+dx][sy-dy].typ)))
+X				bounce = 1;
+X			  if(ZAP_POS(rmn = levl[sx-dx][sy].typ) &&
+X			    (IS_ROOM(rmn) || ZAP_POS(levl[sx-dx][sy+dy].typ)))
+X				if(!bounce || rn2(2))
+X					bounce = 2;
+X
+X			  switch(bounce){
+X			  case 0:
+X				dy = -dy;
+X				dx = -dx;
+X				break;
+X			  case 1:
+X				dy = -dy;
+X				break;
+X			  case 2:
+X				dx = -dx;
+X				break;
+X			  }
+X			  Tmp_at(-2, dirlet(dx,dy));
+X			}
+X		}
+X	}
+X	Tmp_at(-1,-1);
+X}
+X
+Xzhit(mon,type)			/* returns damage to mon */
+Xregister struct monst *mon;
+Xregister type;
+X{
+X	register int tmp = 0;
+X
+X	switch(type) {
+X	case 0:			/* magic missile (wand) */
+X	case 10:		/* (spell) */
+X	case -10:		/* (breath) */
+X		tmp = d(2,6);
+X		break;
+X	case 1:			/* fire wand */
+X	case 11:		/* fire spell */
+X	case -11:		/* fire breath */
+X	case 20:		/* you breathing fire */
+X		if(index("Dg", mon->data->mlet)) break;
+X		tmp = d(6,6);
+X		if(index("YF", mon->data->mlet)) tmp += 7;
+X		break;
+X	case 2:			/* sleep wand */
+X	case 12:		/* sleep spell */
+X	case -12:		/* sleep breath */
+X		tmp = 0;
+X		if(!resist(mon, (type == 2) ? '/' : '+', 0, NOTELL))
+X			mon->mfroz = 1;
+X		break;
+X	case 3:			/* cold wand */
+X	case 13:		/* cold spell */
+X	case -13:		/* cold breath */
+X		if(index("YFgf", mon->data->mlet)) break;
+X		tmp = d(6,6);
+X		if(mon->data->mlet == 'D') tmp += 7;
+X		break;
+X	case 4:			/* death wand */
+X	case 14:		/* death spell */
+X	case -14:		/* death breath */
+X		if(index(UNDEAD, mon->data->mlet)) break;
+X		tmp = mon->mhp+1;
+X		break;
+X	case 5:			/* lightning wand */
+X	case 15:		/* lightning spell */
+X	case -15:		/* lightning breath */
+X		if(index("g;", mon->data->mlet)) break;
+X		tmp = d(6,6);
+X		mon->mblinded += rnd(50);
+X		break;
+X	case 6:			/* poison wand */
+X	case 16:		/* poison spell */
+X	case -16:		/* poison breath */
+X		if(index("abcghikqsuvxyADFQSVWXZ&", mon->data->mlet)) break;
+X		tmp = d(6,6);
+X		break;
+X	case 7:			/* acid wand */
+X	case 17:		/* acid spell */
+X	case -17:		/* acid breath */
+X		if(index("a", mon->data->mlet)) break;
+X		tmp = d(6,6);
+X		break;
+X	}
+X	if (type >= 0 && type != 20)
+X		if (resist(mon, (type < 10) ? '/' : '+', 0, NOTELL)) tmp /= 2;
+X	mon->mhp -= tmp;
+X	return(tmp);
+X}
+X
+X#define	CORPSE_I_TO_C(otyp)	(char) ((otyp >= DEAD_ACID_BLOB)\
+X		     ?  'a' + (otyp - DEAD_ACID_BLOB)\
+X		     :	'@' + (otyp - DEAD_HUMAN))
+Xrevive(obj)
+Xregister struct obj *obj;
+X{
+X	register struct monst *mtmp;
+X	register int let;
+X
+X	if(obj->olet == FOOD_SYM && obj->otyp > CORPSE) {
+X#ifdef KAA
+X		switch (obj->otyp) {
+X			case DEAD_HUMAN: { let = 'Z'; break; }
+X			case DEAD_GIANT: { let = '9'; break; }
+X			case DEAD_DEMON: { let = '&'; break; }
+X			default: let = CORPSE_I_TO_C(obj->otyp);
+X		}
+X		delobj(obj);
+X/* Originally there was a bug which caused the object not to be erased
+X   from the screen.  This happened because first the monster got created,
+X   then the corpse removed.  Although delobj() called unpobj(), the object
+X   didn't get erased from the screen because the monster was sitting on top
+X   of it.  Solution: place the delobj() call before the mkmon() call. */
+X		mtmp = mkmon_at(let, obj->ox, obj->oy);
+X		if (mtmp && obj->otyp == DEAD_HUMAN) {
+X			mtmp->mhp = mtmp->mhpmax = 100;
+X			mtmp->mspeed = MFAST;
+X		}
+X#endif
+X		/* do not (yet) revive shopkeepers */
+X		/* Note: this might conceivably produce two monsters
+X			at the same position - strange, but harmless */
+X#ifndef KAA
+X		delobj(obj);
+X		mtmp = mkmon_at(CORPSE_I_TO_C(obj->otyp),obj->ox,obj->oy);
+X#endif
+X	}
+X	return(!!mtmp);		/* TRUE if some monster created */
+X}
+X
+Xrloco(obj)
+Xregister struct obj *obj;
+X{
+X	register tx,ty,otx,oty;
+X
+X	otx = obj->ox;
+X	oty = obj->oy;
+X	do {
+X		tx = rn1(COLNO-3,2);
+X		ty = rn2(ROWNO);
+X	} while(!goodpos(tx,ty));
+X	obj->ox = tx;
+X	obj->oy = ty;
+X	if(cansee(otx,oty))
+X		newsym(otx,oty);
+X}
+X
+Xfracture_rock(obj)	/* fractured by pick-axe or wand of striking */
+Xregister struct obj *obj;			   /* no texts here! */
+X{
+X	/* unpobj(obj); */
+X	obj->otyp = ROCK;
+X	obj->quan = 7 + rn2(60);
+X	obj->owt = weight(obj);
+X	obj->olet = WEAPON_SYM;
+X	if(cansee(obj->ox,obj->oy))
+X		prl(obj->ox,obj->oy);
+X}
+X
+Xboil_potions()
+X{
+X	register struct obj *obj, *obj2;
+X	register int scrquan, i;
+X	
+X	for(obj = invent; obj; obj = obj2) {
+X		obj2 = obj->nobj;
+X		if(obj->olet == POTION_SYM) {
+X			scrquan = obj->quan;
+X			for(i = 1; i <= scrquan; i++) 
+X				if(!rn2(3)) {
+X					pline("%s %s boils and explodes!",
+X					(obj->quan != 1) ? "One of your" : "Your",
+X					xname(obj));
+X					potionbreathe(obj);
+X					useup(obj);
+X					losehp(rn2(4),"boiling potion");
+X				}
+X		}
+X	}
+X}
+X
+Xfreeze_potions() {
+X	register struct obj *obj, *obj2;
+X	register int scrquan, i;
+X
+X	for(obj = invent; obj; obj = obj2) {
+X		obj2 = obj->nobj;
+X		if(obj->olet == POTION_SYM) {
+X			scrquan = obj->quan;
+X			for(i = 1; i <= scrquan; i++) 
+X				if(!rn2(3)) {
+X					pline("%s %s freezes and shatters!",
+X		(obj->quan != 1) ? "One of your" : "Your", xname(obj));
+X					useup(obj);
+X					losehp(rn2(4),"shattered potion");
+X				}
+X		}
+X	}
+X}
+X
+Xburn_scrolls()
+X{
+X	register struct obj *obj, *obj2;
+X	register int cnt = 0;
+X	register int scrquan, i;
+X
+X	for(obj = invent; obj; obj = obj2) {
+X		obj2 = obj->nobj;
+X		if(obj->olet == SCROLL_SYM) {
+X			scrquan = obj->quan;
+X			for(i = 1; i <= scrquan ; i++)
+X				if(!rn2(3))  {
+X					cnt++;
+X					useup(obj);
+X				}
+X		}
+X	}
+X
+X	/* "Killed by a burning scrolls" doesn't make too much sense.  KAA*/
+X	if (cnt) {
+X		pline("%s of your scrolls catch%s fire!",
+X		cnt==1 ? "One" : "Some", cnt==1 ? "es" : "");
+X		if(Fire_resistance)
+X			pline("You aren't hurt!");
+X		else
+X			losehp(cnt,"burning scroll");
+X	}
+X}
+X
+Xresist(mtmp, olet, damage, tell)
+Xregister struct monst	*mtmp;
+Xregister char	olet;
+Xregister int	damage, tell;
+X{
+Xregister int	resisted = 0;
+X#ifdef HARD
+Xregister int	level;
+X
+X	switch(olet)  {
+X
+X	    case '/':	level = 8;
+X			break;
+X
+X	    case '?':	level = 6;
+X			break;
+X
+X	    case '!':	level = 5;
+X			break;
+X
+X	    default:	level = u.ulevel;
+X			break;
+X	}
+X
+X	resisted = (rn2(100) - mtmp->data->mlevel + level) < mtmp->data->mr;
+X	if(resisted) {
+X
+X		if(tell) pline("The %s resists!", mtmp->data->mname);
+X		mtmp->mhp -= damage/2;
+X	} else
+X#endif
+X		mtmp->mhp -= damage;
+X
+X	if(mtmp->mhp < 1) killed(mtmp);
+X	return(resisted);
+X}
+X
+X/*
+X * burn scrolls on floor at position x,y
+X * return the number of scrolls burned
+X */
+Xint
+Xburn_floor_scrolls(x,y)
+X{
+X	register struct obj *obj, *obj2;
+X	register int scrquan, i;
+X	register int cnt = 0;
+X
+X	for(obj = fobj; obj; obj = obj2) {
+X		obj2 = obj->nobj;
+X		/* Bug fix - KAA */
+X		if(obj->ox == x && obj->oy == y && obj->olet == SCROLL_SYM) {
+X			scrquan = obj->quan;
+X			for(i = 1; i <= scrquan ; i++)
+X				if(!rn2(3))  {
+X					cnt++;
+X					useupf(obj);
+X				}
+X		}
+X	}
+X	return(cnt);
+X}
+X
+Xmakewish()	/* Separated as there are now 3 places you can wish at. */
+X{
+X	char buf[BUFSZ];
+X	register struct obj *otmp;
+X	extern struct obj *readobjnam(), *addinv();
+X	int wishquan, mergquan;
+X
+X	pline("You may wish for an object. What do you want? ");
+X	getlin(buf);
+X	if(buf[0] == '\033') buf[0] = 0;
+X	otmp = readobjnam(buf);
+X#ifdef KAA
+X/* Wishing for gold has been implemented in readobjnam() and returns 0
+X   if successful. */
+X	if (otmp) { 
+X#endif
+X		wishquan = otmp->quan;
+X		otmp = addinv(otmp);
+X		/* indented lines added below so quantity shows
+X		 *  right.     GAN - 11/13/86
+X		 */
+X		  mergquan = otmp->quan;
+X		  otmp->quan = wishquan; /* to fool prinv() */
+X		prinv(otmp);
+X		  otmp->quan = mergquan;
+X#ifdef KAA
+X	}
+X#endif
+X}
+END_OF_zap.c
+if test 27980 -ne `wc -c <zap.c`; then
+    echo shar: \"zap.c\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+echo shar: End of archive 4 \(of 13\).
+cp /dev/null ark4isdone
+MISSING=""
+for I in 1 2 3 4 5 6 7 8 9 10 11 12 13 ; do
+    if test ! -f ark${I}isdone ; then
+	MISSING="${MISSING} ${I}"
+    fi
+done
+if test "${MISSING}" = "" ; then
+    echo You have unpacked all 13 archives.
+    rm -f ark[1-9]isdone ark[1-9][0-9]isdone
+else
+    echo You still need to unpack the following archives:
+    echo "        " ${MISSING}
+fi
+##  End of shell archive.
+exit 0

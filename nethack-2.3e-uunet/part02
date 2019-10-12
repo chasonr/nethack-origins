@@ -1,0 +1,3759 @@
+#! /bin/sh
+# This is a shell archive.  Remove anything before this line, then unpack
+# it by saving it into a file and typing "sh file".  To overwrite existing
+# files, type "sh file -c".  You can also feed this as standard input via
+# unshar, or by typing "sh <file", e.g..  If this archive is complete, you
+# will see the following message at the end:
+#		"End of archive 2 (of 13)."
+# Contents:  Guidebook Newstuff/newstuff cmd.c
+# Wrapped by billr@tekred on Mon Jun 20 11:38:12 1988
+PATH=/bin:/usr/bin:/usr/ucb ; export PATH
+if test -f Guidebook -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"Guidebook\"
+else
+echo shar: Extracting \"Guidebook\" \(42898 characters\)
+sed "s/^X//" >Guidebook <<'END_OF_Guidebook'
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X                           A Guide to the Mazes of Menace
+X
+X
+X                                   Eric S. Raymond
+X                                 Thyrsus Enterprises
+X                                  Malvern, PA 19355
+X
+X
+X
+X          1.  Introduction
+X
+X               You have just finished your years as a student at the  local
+X          adventurer's  guild.   After much practice and sweat you have fi-
+X          nally completed your training and are  ready  to  embark  upon  a
+X          perilous  adventure.   As a test of your skills, the local guild-
+X          masters have sent you into the Dungeons of Doom.  Your task is to
+X          return with the Amulet of Yendor.  Your reward for the completion
+X          of this task will be a  full membership in the local  guild.   In
+X          addition,  you  are  allowed  to keep all the loot you bring back
+X          from the dungeons.
+X
+X               You have abilities and strengths for dealing  with  the  ha-
+X          zards  of  adventure  that will vary depending on your background
+X          and training. Here is a summary of the character classes:
+X
+X               Cavemen and Cavewomen start with  exceptional  strength  and
+X          neolithic weapons.
+X
+X               Tourists start out with lots of gold (suitable for  shopping
+X          with)  and  an  expensive  camera. Most monsters don't like being
+X          photographed.
+X
+X               Wizards start out with a fair selection of  magical  goodies
+X          and a particular affinity for things thaumaturgical.
+X
+X               Archeologists understand dungeons pretty  well.  This  makes
+X          them  able  to move quickly and sneak up on dungeon nasties. They
+X          start equipped with proper tools for a scientific expedition.
+X
+X               Elves are agile and quick and have keen senses; very  little
+X          of what goes on around an Elf will escape him or her. The quality
+X          of Elven craftsmanship often gives them an advantage  in  weapons
+X          and armor.
+X
+X               Valkyries are hardy warrior women. Their upbringing  in  the
+X          harsh Northlands makes them strong and inures them to extremes of
+X          cold, and instills stealth and cunning in them.
+X
+X               Healers are wise in the apothecary and  medical  arts.  They
+X          know  the  herbs  and  simples that can restore vitality and ease
+X
+X
+X          A Guide to the Mazes of Menace                                  1
+X
+X
+X
+X
+X
+X
+X          A Guide to the Mazes of Menace                                  2
+X
+X
+X          pain and neutralize poisons, and they can divine a being's  state
+X          of health or sickness.
+X
+X               Knights are distinguished from the common run of fighter  by
+X          their devotion to the ideal of chivalry and the surpassing excel-
+X          lence of their armor.
+X
+X               Barbarians are warriors out of the hinterland,  hardened  to
+X          battle.   They  begin  their  quests  with  naught  but  uncommon
+X          strength, a trusty hauberk, and a great two-handed sword.
+X
+X               Samurai are the elite warriors of feudal  Nippon.  They  are
+X          lightly  armored  and  quick, and wear the dai-sho, two swords of
+X          the deadliest sharpness.
+X
+X               Ninja are the spy-assassins of Japan.  They  are  quick  and
+X          stealthy,  though not as strong as fighters. Their characteristic
+X          weapon is the deadly shuriken or throwing-star.
+X
+X               Priests and Priestesses are clerics militant, armed and  ar-
+X          mored  to  advance  the  cause of righteousness but also equipped
+X          with some skills in arts thaumaturgic. Their ability  to  commune
+X          with  deities  via prayer occasionally extricates them from peril
+X          -- but can also put them in it.
+X
+X               You set out on your way to the dungeons  and  after  several
+X          days  of  uneventful  travel, you see the ancient ruins that mark
+X          the entrance to the Mazes of Menace.  It is late  at  night,   so
+X          you  make camp at the entrance and spend the night sleeping under
+X          the open skies.   In the morning you gather your weapons and dev-
+X          ices, eat what is almost your last food, and enter the dungeons.
+X
+X          2.  What is going on here?
+X
+X               You have just begun a game of nethack.  Your goal is to grab
+X          as  much  treasure as you can, find the Amulet of Yendor, and get
+X          out of the Mazes of Menace alive.  On the screen, a map of  where
+X          you have been and what you have seen on the current dungeon level
+X          is kept.  As you explore more of the level,  it  appears  on  the
+X          screen in front of you.
+X
+X               Nethack differs from most computer fantasy games (other than
+X          its  ancestors  hack and rogue and its cousin larn) in that it is
+X          screen oriented.  Commands are all one or two keystrokes (as  op-
+X          posed to sentences in some losing parser's notion of English) and
+X          the results of your commands are  displayed  graphically  on  the
+X          screen  rather  than  being  explained in words (a minimum screen
+X          size of 24 lines by  80  columns is required; if  the  screen  is
+X          larger, only a 24x80 section will be used for the map).
+X
+X               Another major difference between nethack and other  computer
+X          fantasy  games  is that once you have solved all the puzzles in a
+X          standard fantasy game, it has lost most of its excitement and  it
+X          ceases  to  be  fun.  Nethack, on the other hand, generates a new
+X
+X
+X          Nethack Version 2.0                            September 25, 1987
+X
+X
+X
+X
+X
+X
+X          A Guide to the Mazes of Menace                                  3
+X
+X
+X          dungeon every time you play it and even the authors still find it
+X          an entertaining and exciting game.
+X
+X          3.  What do all those things on the screen mean?
+X
+X               In order to understand what is going on in nethack you  have
+X          to first get some grasp of what nethack is doing with the screen.
+X          The nethack screen is intended to replace the  "You can see  ..."
+X          descriptions of text fantasy games.  Figure 1 is a sample of what
+X          a nethack screen might look like.
+X
+X          3.1.  The bottom line
+X
+X               At the bottom line of the screen are a  few pieces of  cryp-
+X          tic  information  describing your current status.  Here is an ex-
+X          planation of what these things mean:
+X
+X          Level
+X               This number indicates how deep you have gone in the dungeon.
+X               It  starts  at  one  and  goes  up as you go deeper into the
+X               dungeon.
+X
+X          Gold The number of gold pieces you have managed to find and  keep
+X               with you so far.
+X
+X          Hp   Your current and maximum health points.   Health points  in-
+X               dicate  how  much  damage  you can take before you die.  The
+X               more you get hit in a fight, the lower they get.    You  can
+X               regain  health points by resting.  The number in parentheses
+X               is the maximum number your health points can reach.
+X
+X               ____________________________________________________________
+X
+X                   ------------
+X                   |..........+
+X                   |..@....]..|
+X                   |....B.....|
+X                   |..........|
+X                   -----+------
+X
+X
+X
+X               Lev 1  Gp 0  Hp 12(12) Ep 3(3)  Ac 8  Str 16(16)  Exp: 1/0
+X               ____________________________________________________________
+X
+X                                         Figure 1
+X
+X
+X          Ep   Energy points. This tells you the level of mystic energy you
+X               have  available for spell casting. When you type `x' to list
+X               your spells, each will have a spell point cost beside it  in
+X               parentheses. You will not see this if your site's version of
+X               the game has been configured to omit spells.
+X
+X
+X
+X          Nethack Version 2.0                            September 25, 1987
+X
+X
+X
+X
+X
+X
+X          A Guide to the Mazes of Menace                                  4
+X
+X
+X          Ac   Your current armor protection.  This  number  indicates  how
+X               effective  your  armor  is in stopping blows from unfriendly
+X               creatures.  The lower this number is, the more effective the
+X               armor.
+X
+X          Str  Your current strength and maximum ever strength.   This  can
+X               be  any integer less than or equal to 18, or greater than or
+X               equal to three (occasionally you may get super-strengths  of
+X               the  form  18/xx).  The higher the number,  the stronger you
+X               are. The number in the parentheses is the  maximum  strength
+X               you have attained so far this game.
+X
+X          Exp  These two numbers give your current experience level and ex-
+X               perience  points.    As  you  do things, you gain experience
+X               points.   At certain experience point totals,  you  gain  an
+X               experience level.   The more experienced you are, the better
+X               you are able to fight and to withstand magical attacks.
+X
+X          3.2.  The top line
+X
+X               The top line of the screen is reserved for printing messages
+X          that  describe  things that are impossible to represent visually.
+X          If you see a  "--More--"  on  the  top  line,   this  means  that
+X          nethack  wants  to  print  another  message on the screen, but it
+X          wants to make certain that you have read the one  that  is  there
+X          first.  To read the next message, just type a space.
+X
+X          3.3.  The rest of the screen
+X
+X               The rest of the screen is the map of the level as  you  have
+X          explored  it so far.   Each symbol on the screen represents some-
+X          thing.  Here is a list of what the various symbols mean:
+X
+X          - and |
+X               These form the walls of a room (or maze).
+X
+X          .    this is the floor of a room.
+X
+X          #    this is a corridor.
+X
+X          >    this is the staircase to the next level.
+X
+X          <    the staircase to the previous level.
+X
+X          `    A large boulder.
+X
+X          @    You (usually) or another human.
+X
+X          ^    A trap.
+X
+X          )    A weapon of some sort.
+X
+X          (    Some other useful object (key, rope, dynamite, camera...)
+X
+X
+X
+X          Nethack Version 2.0                            September 25, 1987
+X
+X
+X
+X
+X
+X
+X          A Guide to the Mazes of Menace                                  5
+X
+X
+X          [    A suit of armor.
+X
+X          %    A piece of food (not necessarily healthy...).
+X
+X          /    A wand.
+X
+X          =    A ring.
+X
+X          ?    A scroll.
+X
+X          !    A magic potion.
+X
+X          +    A spellbook containing a spell you can learn; (but usually a
+X               doorway).
+X
+X          }    A pool of water
+X
+X          {    A fountain (your dungeon may not have these).
+X
+X          \    An opulent throne (You may not have this either).
+X
+X          $    A pile or pot of gold.
+X
+X          a-zA-Z
+X               The uppercase letters represent the various  inhabitants  of
+X               the  Mazes  of Menace.  Watch out, they can be nasty and vi-
+X               cious.  Sometimes, however, they can be helpful.
+X
+X          4.  Commands
+X
+X               Commands are given to nethack by typing one or  two  charac-
+X          ters.   Most  commands  can be preceded by a count to repeat them
+X          (e.g. typing "10s" will do ten  searches).   Commands  for  which
+X          counts  make  no sense have the count ignored.  To cancel a count
+X          or a prefix, type <ESCAPE>.  The list of commands is rather long,
+X          but  it can be read at any time during the game with the "?" com-
+X          mand.  Here it is for reference, with a short explanation of each
+X          command.
+X
+X          ?    help: print a help list.
+X
+X          Q    Quit the game.
+X
+X          S    Save the game.
+X
+X          !    Escape to a shell.
+X
+X          ^Z   Suspend the game (UNIX versions with job control only).
+X
+X          <    up: go up the staircase (if you are standing on it).
+X
+X          >    down: go down (just like up).
+X
+X
+X
+X
+X          Nethack Version 2.0                            September 25, 1987
+X
+X
+X
+X
+X
+X
+X          A Guide to the Mazes of Menace                                  6
+X
+X
+X          [kjhlyubn]
+X               go one step in the direction indicated.
+X
+X                   k: north (i.e., to the top of the screen),
+X                   j: south, h: west, l: east, y: ne, u: nw, b: se, n: sw.
+X
+X          KJHLYUBN
+X               Go in that direction until you hit a wall or run into  some-
+X               thing.
+X
+X          m[kjhlyubn]
+X               prefix: move without picking up any objects.
+X
+X          M[kjhlyubn]
+X               prefix: move far, no pickup.
+X
+X          g[kjhlyubn]
+X               prefix: move until something interesting is found.
+X
+X          G[kjhlyubn]
+X               as previous, but forking of corridors is not considered  in-
+X               teresting.
+X
+X          i    print your inventory.
+X
+X          I    print selected parts of your inventory, like in
+X
+X                   I* - all gems in inventory;
+X                   IU - all unpaid items;
+X                   IX - all used up items that are on your shopping bill;
+X                   I$ - count your money.
+X
+X          s    search for secret doors and traps around you.
+X
+X          ^    ask for the type of a trap you found earlier.
+X
+X          )    ask for current wielded weapon.
+X
+X          [    ask for current armor.
+X
+X          =    ask for current rings.
+X
+X          $    count how many gold pieces you are carrying.
+X
+X          .    rest, do nothing.
+X
+X          ,    pick up some things.
+X
+X          :    look at what is here.
+X
+X          ^T   teleport.
+X
+X          ^R   redraw the screen.
+X
+X
+X
+X          Nethack Version 2.0                            September 25, 1987
+X
+X
+X
+X
+X
+X
+X          A Guide to the Mazes of Menace                                  7
+X
+X
+X          ^P   repeat last message (subsequent  ^P's  repeat  earlier  mes-
+X               sages).
+X
+X          /    (followed by any symbol) tell what this symbol represents.If
+X               you  see  fancy  graphics  on  your screen it may ask you to
+X               specify a location rather than taking a symbol argument.
+X
+X          \    tell what has been discovered.
+X
+X          e    eat food.
+X
+X          w    wield weapon. w- means: wield nothing, use bare hands.
+X
+X          q    drink (quaff) a potion.
+X
+X          r    read a scroll.
+X
+X          T    Takeoff armor.  Remove Ring.
+X
+X          W    Wear armor.
+X
+X          P    Put on a ring.
+X
+X          X    transcribe (learn) a spell.
+X
+X          x    print a list of know spells.
+X
+X          z    zap a wand.
+X
+X          Z    zap a spell; same as the `# cast' extended command
+X
+X          t    throw an object or shoot an arrow.
+X
+X          p    pay your shopping bill.
+X
+X          d    drop something. d7a: drop seven items of object a.
+X
+X          D    Drop several things.  In answer to the question "What  kinds
+X               of  things  do  you  want to drop? [!%= au]" you should give
+X               zero or more object symbols possibly followed by 'a'  and/or
+X               'u'.
+X
+X          a    apply - Generic command for using a key to lock or unlock  a
+X               door, using a camera, using a rope, etc.
+X
+X          c    call: name a certain object or class of objects.
+X
+X          C    Call: Name an individual monster.
+X
+X          E    Engrave: Write a message in  the  dust  on  the  floor.   E-
+X               means: use fingers for writing.
+X
+X          O    Set options. You will be asked to enter an option line.   If
+X               this  is empty, the current options are reported.  Otherwise
+X
+X
+X          Nethack Version 2.0                            September 25, 1987
+X
+X
+X
+X
+X
+X
+X          A Guide to the Mazes of Menace                                  8
+X
+X
+X               it should be a list of options separated by commas. Possible
+X               boolean   options   are:  oneline,  time,  news,  tombstone,
+X               rest_on_space, fixinvlet, beginner, male, female.  They  can
+X               be negated by prefixing them with answer to the question"Who
+X               are you?"; it may  have  a  suffix.  A  compound  option  is
+X               endgame;  it  is  followed by a description of what parts of
+X               the list of topscorers should be printed when  the  game  is
+X               finished.  There  is  also  a  graphics option that sets the
+X               characters used for screen displays. Usually  one  will  not
+X               want  to  use  the  'O'  command,  but instead put a HACKOP-
+X               TIONS="...." line in one's environment.
+X
+X          v    print version number.
+X
+X          V    display the game history (about one page).
+X
+X               You can put a number before most  commands  to  repeat  them
+X          that many times, as in "20s" or "40.".
+X
+X          5.  Rooms
+X
+X               Rooms in the dungeons are either lit or dark.   If you  walk
+X          into  a  lit room, the entire room will be drawn on the screen as
+X          soon as you enter.  If you walk into a dark room, it will only be
+X          displayed  as  you explore it.  Upon leaving a room, all monsters
+X          inside the room are erased from the screen.   In the darkness you
+X          can  only see one space in all directions around you.  A corridor
+X          is always dark.
+X
+X          6.  Fighting
+X
+X               If you see a monster and you wish to fight it,  just attempt
+X          to  run into it.  Many times a monster you find will mind its own
+X          business unless you attack it.  It is often the case that discre-
+X          tion is the better part of valor.
+X
+X          7.  Objects you can find
+X
+X               When you find something in the dungeon, it is common to want
+X          to  pick the object up.  This is accomplished in nethack by walk-
+X          ing over the object (unless you use the  "m"  prefix, see above).
+X          If  you  are  carrying too many things, the program will tell you
+X          and it won't pick up the object,  otherwise it  will  add  it  to
+X          your pack and tell you what you just picked up.
+X
+X               Many of the commands that operate on objects must prompt you
+X          to  find  out  which  object you want to use.  If you change your
+X          mind and don't want to do that command after all,  just  type  an
+X          <ESCAPE> and the command will be aborted.
+X
+X               Some objects, like armor and weapons, are  easily  differen-
+X          tiated.   Others,   like  scrolls  and  potions, are given labels
+X          which vary according to type.  During a game, any two of the same
+X          kind  of  object with the same label are the same type.  However,
+X
+X
+X          Nethack Version 2.0                            September 25, 1987
+X
+X
+X
+X
+X
+X
+X          A Guide to the Mazes of Menace                                  9
+X
+X
+X          the labels will vary from game to game.
+X
+X               When you use one of these labeled objects,  if its effect is
+X          obvious, nethack will remember what it is for you.  If its effect
+X          isn't extremely obvious you will be asked what you want to scrib-
+X          ble  on  it  so  you  will recognize it later, or you can use the
+X          "call" command (see above).
+X
+X          7.1.  Weapons
+X
+X               Some weapons, like arrows, come in bunches,  but  most  come
+X          one  at  a   time.   In order to use a weapon, you must wield it.
+X          To fire an arrow out of a  bow,  you must first  wield  the  bow,
+X          then  throw  the arrow.  You can only wield one weapon at a time,
+X          but you can't change weapons if the one you are currently  wield-
+X          ing  is  cursed.  The commands to use weapons are "w" (wield) and
+X          "t" (throw).
+X
+X          7.2.  Armor
+X
+X               There are  various  sorts  of  armor  lying  around  in  the
+X          dungeon.    Some  of it is enchanted, some is cursed, and some is
+X          just normal.  Different armor types have different armor  protec-
+X          tion.    The higher the armor protection, the more protection the
+X          armor affords against the blows of monsters.  Here is  a  partial
+X          list of the various armor types and the level of armor protection
+X          each will give.
+X
+X                       plate mail               3
+X                       splint mail              4
+X                       banded mail              4
+X                       chain mail               5
+X                       scale mail               6
+X                       ring mail                7
+X                       studded leather armor    7
+X                       leather armor            8
+X                       elven cloak              9
+X
+X               If a piece of armor is enchanted, its armor protection  will
+X          be  higher  than normal.  If a suit of armor is cursed, its armor
+X          protection will be lower, and you will not be able to remove  it.
+X          However,  not all armor with a protection that is lower than nor-
+X          mal is cursed and some enchanted armor is also "cursed"  prevent-
+X          ing removal.
+X
+X               The commands to use weapons are  "W"  (wear)  and  "T" (take
+X          off).
+X
+X          7.3.  Scrolls
+X
+X               Scrolls come with titles in an unknown  tongue.   After  you
+X          read  a scroll, it disappears from your pack.  The command to use
+X          a scroll is "r" (read).
+X
+X
+X
+X          Nethack Version 2.0                            September 25, 1987
+X
+X
+X
+X
+X
+X
+X          A Guide to the Mazes of Menace                                 10
+X
+X
+X          7.4.  Potions
+X
+X               Potions are labeled by the color of the  liquid  inside  the
+X          flask.  They disappear after being quaffed.  The command to use a
+X          scroll is "q" (quaff).
+X
+X          7.5.  Staves and Wands
+X
+X               Staves and wands do the same kinds of things.    Staves  are
+X          identified  by  a type of wood; wands by a type of metal or bone.
+X          They are generally things you want to do to something over a long
+X          distance,  so  you  must point them at what you wish to affect to
+X          use them.   Some staves are not affected by  the  direction  they
+X          are  pointed,  though.   Staves come with multiple magic charges,
+X          the number being random, and when they are used up, the staff  is
+X          just a piece of wood or metal.
+X
+X               The command to use a wand or staff is "z" (zap)
+X
+X          7.6.  Rings
+X
+X               Rings are very useful items, since they are relatively  per-
+X          manent  magic,   unlike  the usually fleeting effects of potions,
+X          scrolls, and staves.  Of course, both good and bad rings are more
+X          powerful.    Most rings also cause you to use up food more rapid-
+X          ly, the rate varying with the type of ring.  Rings are  differen-
+X          tiated  by their stone settings.  Some rings are cursed, prevent-
+X          ing removal.  This can happen to helpful and harmful rings alike.
+X
+X               The commands to use rings are "P" (put on) and "R" (remove).
+X
+X          7.7.  Spellbooks
+X
+X               Spellbooks are tomes of mighty magic.  When  read  with  the
+X          `transcribe'  command  X,  they plant the knowledge of a spell in
+X          your head and disappear - unless the attempt backfires. Reading a
+X          spellbook  can  be  harmful to your health if it is cursed or the
+X          mystic runes are at  too  high  a  level  for  your  thaumaturgic
+X          skills!
+X
+X               Casting spells can also backfire.  If you attempt to cast  a
+X          spell  well above your level, or cast it at a time when your luck
+X          is particularly bad, you can end up wasting both the  energy  and
+X          the time required in casting.
+X
+X               The `x' command lists your current spells, each preceded  by
+X          the  spell  points  they  require.  to cast a spell, type `Z' and
+X          answer the questions.
+X
+X          7.8.  Food
+X
+X               Food is necessary to keep you going.   If you  go  too  long
+X          without  eating you will faint, and eventually die of starvation.
+X          The command to use food is "e" (eat).
+X
+X
+X          Nethack Version 2.0                            September 25, 1987
+X
+X
+X
+X
+X
+X
+X          A Guide to the Mazes of Menace                                 11
+X
+X
+X          7.9.  Options
+X
+X               Due to variations in personal tastes and conceptions of  the
+X          way  nethack should do things, there are a set of options you can
+X          set that cause nethack to behave in various different ways.
+X
+X          7.10.  Setting the options
+X
+X               There are two ways to set the options.   The first  is  with
+X          the   "O"   command  of nethack;  the second is with the "HACKOP-
+X          TIONS" environment variable.
+X
+X          7.11.  Using the `O' command
+X
+X               When you type "O" in nethack, it queries you for  an  option
+X          string which is parsed as though it were a HACKOPTIONS value.
+X
+X          7.12.  Using the HACKOPTIONS variable
+X
+X               The HACKOPTIONS variable is a string  containing  a   comma-
+X          separated list of initial values for the various options. Boolean
+X          variables can be turned on by listing their name or turned off by
+X          putting  a  `!' or "no" in front of the name.  You can set string
+X          variables by following the variable name with a colon (this char-
+X          acter  was  chosen over = to avoid conflict with the ring symbol)
+X          and the value of the string. The value is terminated by the  next
+X          comma or the end of string.
+X
+X               Thus to set up an environment variable so that  `female'  is
+X          on,  `pickup'  is  off, and the name is set to "Blue Meanie", you
+X          would enter the command
+X
+X               % setenv HACKOPTIONS "female,!pickup,name:Blue Meanie"
+X
+X          in csh, or
+X
+X               $ HACKOPTIONS="female,!pickup,name:Blue Meanie"
+X               $ export HACKOPTIONS
+X
+X          in sh or ksh.
+X
+X          7.13.  Customization options
+X
+X               Here is a list of the options and  an  explanation  of  what
+X          each  one  is  for.    The  default value for each is enclosed in
+X          square brackets.  For character string options, input over  fifty
+X          characters will be ignored.
+X
+X               Note: some of the options listed may be inactive if the game
+X          has been subsetted.
+X
+X          standout
+X               (default on)  use  standout  where  appropriate  in  display
+X               lists.
+X
+X
+X          Nethack Version 2.0                            September 25, 1987
+X
+X
+X
+X
+X
+X
+X          A Guide to the Mazes of Menace                                 12
+X
+X
+X          null
+X               (default off) don't send padding nulls to the tty.
+X
+X          tombstone
+X               (default on) display tombstone graphic on death.
+X
+X          news
+X               (default on) read hack news if present.
+X
+X          conf
+X               (default on) have user confirm attacks  on  dogs  and  shop-
+X               keepers.
+X
+X          silent
+X               (default on) suppress terminal beeps.
+X
+X          pick
+X               (default on) pick up things you move onto by default.
+X
+X          IBMB
+X               (default off, PC-HACK only) for machines with an IBM-PC com-
+X               patible BIOS ROM.
+X
+X          DECR
+X               (default off, PC-HACK only) for machines  with  DEC  Rainbow
+X               compatible BIOS ROMs.
+X
+X          rawi
+X               (default off) force raw (not cbreak mode) input.
+X
+X          sort
+X               (default on) sort the pack contents by type when  displaying
+X               inventory.
+X
+X          packorder
+X               (default `)[%?+/=!(*0  )')  specify  order  to  list  object
+X               types  in.  The value of this option should be a string con-
+X               taining the symbols for the various object types.
+X
+X          dogname
+X               give your (first) dog a name (eg. dogname:Fang).
+X
+X          time
+X               (default off) show game time in turns on bottom line.
+X
+X          restonspace
+X               (default off) make spacebar a synonym for `.'.
+X
+X          fixinv
+X               (default on) an object's inventory letter sticks to it until
+X               it's  dropped.   If  this is off, everything after a dropped
+X               object shifts letters.
+X
+X
+X
+X
+X          Nethack Version 2.0                            September 25, 1987
+X
+X
+X
+X
+X
+X
+X          A Guide to the Mazes of Menace                                 13
+X
+X
+X          male
+X               (default  on,  most  hackers  are  male)  sets  the  player-
+X               character's sex.
+X
+X          female
+X               (default  off)  sets  the  player-character's  sex   (equal-
+X               opportunity feature :-)).
+X
+X          name
+X               (defaults to player's username) Set  the  player-character's
+X               name.
+X
+X          graphics
+X               (default ` |-++++.:<>^{}\"') set the  graphics  symbols  for
+X               screen  displays.   The  graphics option (if used) should be
+X               last, followed by a string of up to ", 17 chars to  be  used
+X               instead  of the default map-drawing chars. Replacing for any
+X               of these chars causes it to be replaced in the dungeon level
+X               displays,  except  that the five instances of + are used for
+X               top left, top right, bottom  left,  bottom  right  and  door
+X               squares  respectively. The last four characters are required
+X               only if the corresponding options are configured in.
+X
+X          endgame
+X               Endgame is followed by a description of what  parts  of  the
+X               scorelist you want to see. You might for example say:
+X
+X               `endgame:own scores/5 top scores/4 around my score'.
+X
+X               In the PC-HACK version, options may be set in  a  configura-
+X               tion file on disk as well as from the hack options.
+X
+X          7.14.  Scoring
+X
+X               Nethack usually maintains a list of the top  scoring  people
+X          or scores on your machine.  Depending on how it is set up, it can
+X          post either the top scores or the top  players.   In  the  latter
+X          case,   each account on the machine can post only one non-winning
+X          score on this list.   If you score higher than  someone  else  on
+X          this list, or better your previous score on the list, you will be
+X          inserted in the proper place under your current name.   How  many
+X          scores are kept can also be set up by whoever installs it on your
+X          machine.
+X
+X               If you quit the game, you get out with all of your gold  in-
+X          tact.    If,   however,   you get killed in the Dungeons of Doom,
+X          your body is forwarded to your next-of-kin, along  with  90%   of
+X          your  gold;  ten  percent  of  your gold is kept by the Dungeons'
+X          wizard as a fee.  This should make you consider whether you  want
+X          to  take  one last hit at that monster and possibly live, or quit
+X          and thus stop with whatever you have.  If you quit,  you  do  get
+X          all your gold, but if you swing and live, you might find more.
+X
+X
+X
+X
+X          Nethack Version 2.0                            September 25, 1987
+X
+X
+X
+X
+X
+X
+X          A Guide to the Mazes of Menace                                 14
+X
+X
+X               If you just want to see what the current top players/  games
+X          list is, you can type
+X
+X               % nethack -s
+X
+X          8.  Credits
+X
+X               The original hack game was modeled on the Berkeley UNIX `ro-
+X          gue' game.  Large portions of this paper were shamelessly cribbed
+X          from A Guide to the Dungeons of Doom, by Michael C. Toy and  Ken-
+X          neth C. R. C. Arnold.
+X
+X               NetHack is the product of literally dozens of people's work.
+X          A  list of some of those who made major additions to the game ap-
+X          pears below:
+X
+X          Jay Fenlason
+X               wrote the original release of "Hack",  with  helpfrom  Kenny
+X               Woodland, Mike Thome and Jon Payne.
+X
+X          Andries Brouwer
+X               did a major re-write on the program andpublshed  (at  least)
+X               two versions to the Usenet.
+X
+X          Don G. Kneller
+X               ported the 1.0.3 version of Hack to  the  PC,  creating  PC-
+X               Hack.
+X
+X               The following folks didn't actually re-write  the  game,  or
+X          port it to a new machine, but have made significant contributions
+X          to the playability of the game:
+X
+X          ins_akaa@jhunix.UUCP (Ken Arromdee)
+X               New character classes. New weapons code. Armor  weights  im-
+X               plemented. New tools code. Polymorph Self code. Bug fixes.
+X
+X          srt@ucla-cs (Scott R. Turner)
+X               Rockmole & Keystone Kops code. Squeaky Board & Magic  traps.
+X               Fountain code.  More bug fixes.
+X
+X          gil@cornell.UUCP (Gil Neiger)
+X               Magic Marker code. Fountain code enhancements.  Enhancements
+X               to dozens of routines. More bug fixes (esp. in hack.zap.c).
+X
+X          ericb@hplsla.UUCP (Eric Backus)
+X               The #dip mods to fountain code. Yet more bug fixes.
+X
+X          mike@genat.UUCP (Mike Stephenson)
+X               New character classes and traps.  Throne  Rooms.  Spellbooks
+X               and  spellcasting.   Praying.  Endgame enhancements. Nethack
+X               release and coordination.
+X
+X          eric@snark (Eric S. Raymond)
+X               The GRAPHICS option. Changes to make character classes  more
+X
+X
+X          Nethack Version 2.0                            September 25, 1987
+X
+X
+X
+X
+X
+X
+X          A Guide to the Mazes of Menace                                 15
+X
+X
+X               individual  and  mythohistorically authentic. Better random-
+X               number generation. The blindfold tool. The 'Z'  spellcasting
+X               command  synonym. General cleanup of much grotty code, remo-
+X               val of magic numbers. More  bug  fixes.  This  Guide  you're
+X               reading.
+X
+X               You too can enhance this game and join the hallowed ranks of
+X          the net.benefactors. Happy hacking!
+X
+X          Appendix A: Weapon Types in Hack
+X
+X               This material is adapted from a digest of email  replies  to
+X          Carole Chang (carole@uhcc.uhccux.ha). Major sources were:
+X
+X                       Paul Anderson           pha@net1.ucsd.edu
+X                       Vernon Lee              scorpion@rice.edu
+X                       Bryan Ewbank            ihlph!bdewbank
+X
+X          Some terminological corrections (notably the correct set of  dis-
+X          tinctions  for the great mace/morningstar/flail controversy) were
+X          made by your editor (eric@snark), and a good  bit  of  historical
+X          context added.
+X
+X
+X          8.1.  Polearms
+X
+X               The following weapons are all "pole arms", meaning that they
+X          are  wooden  shafts  (5-9' long) capped with a particular weapon-
+X          head. We list these first as they are most likely  to  mystify  a
+X          novice hacker.
+X
+X          glaive
+X               a short polearm with a straight blade  at  the  end  of  the
+X               shaft.  Rare in Europe; more popular in non-Western cultures
+X               under other names, as in the Zulu war assegai  and  Japanese
+X               ashigaru's pike.
+X
+X          halberd
+X               a long (typically 6' or more) polearm ending with  a  single
+X               axe-head,  backed  by a spike and tipped by a spear-head. An
+X               extremely popular weapon in Europe from the Dark Ages to  as
+X               late as 1650. You can see them in pictures of royal or elite
+X               Spanish, English, and French troops or the  Vatican's  Swiss
+X               Guards.
+X
+X          bill-guisarme
+X               a polearm, ends in a spear-head with a spike on one side and
+X               a hook on the other.
+X
+X          fauchard
+X               a polearm topped by a curved sickle-blade.
+X
+X          bec-de-corbin
+X               (literally  "crow's-beak")  a  polearm  ending  in  a  stout
+X
+X
+X          Nethack Version 2.0                            September 25, 1987
+X
+X
+X
+X
+X
+X
+X          A Guide to the Mazes of Menace                                 16
+X
+X
+X               spear-point,  with  a small axe-head on one side and a beak-
+X               shaped spike on the other. This weapon was designed  to  act
+X               like   a  can-opener  for  infantry  fighting  plate-armored
+X               knights.
+X
+X          guisarme
+X               a polearm, ends with a sharpened pruning hook.
+X
+X          spetum
+X               a polearm, ends with a spear-blade that has a smaller  blade
+X               jutting  at an angle from either side; the idea was to catch
+X               an opponent's weapon between two blades and disarm him  with
+X               a twist of the shaft.  Compare the japanese sai.
+X
+X          partisan
+X               a polearm, has a spear-head with a small axe-head to  either
+X               side.  Peasant  levies often carried these; hence our modern
+X               usage of  `partisans'  to  describe  guerilla  or  irregular
+X               troops.
+X
+X          lucern
+X               a polearm, ends  in  a  forward-pointing  and  one  or  more
+X               curved,  downward-pointing (i.e.perpendicular) spikes. Named
+X               after the Swiss city and canton of Lucerne.
+X
+X          voulge
+X               a polearm, with a straight single-edged blade depending from
+X               one side of the shaft's end.
+X
+X          ranseur
+X               a polearm, ends with a broad spear-head with  a  flat  base,
+X               and  a broader "hilt" (often a straight piece with sharpened
+X               ends) behind it. As with the spetum, the idea was  to  catch
+X               weapons between the blade and "hilt".
+X
+X
+X
+X          8.2.  Blade weapons
+X
+X               Blades were, in most  pre-gunpowder  martial  cultures,  the
+X          preferred  weapon for one-on-one combat. Nethack includes several
+X          kinds:
+X
+X          dagger
+X               broadly speaking, could describe any blade less  than  about
+X               two  feet  long.  But  `dagger'  tends  to suggest a hilted,
+X               double-edged weapon.
+X
+X          short
+X               are 2-3' long and used for stabbing. The  Roman  legionary's
+X               gladius  and  the  American  frontiersman's Bowie knife were
+X               both short swords.
+X
+X
+X
+X
+X          Nethack Version 2.0                            September 25, 1987
+X
+X
+X
+X
+X
+X
+X          A Guide to the Mazes of Menace                                 17
+X
+X
+X          broad
+X               are 3-4' long; they have sharpened edged  for  chopping  and
+X               cleaving.
+X
+X          long are also 3-4' long; they are narrower  with  sharpened  tips
+X               for stabbing and slashing.
+X
+X          two-handed
+X               are 5-6' long, with long handles because they  require  both
+X               hands to use.
+X
+X          bastard
+X               a cleaving weapon 4-5' long, which can be wielded  with  one
+X               or (more effectively) two hands.
+X
+X          scimitar
+X               a type of curved, single-edged blade popular  since  ancient
+X               times  in  the  Near East, designed for slashing and drawing
+X               strokes. Recent European weapons modeled on it  include  the
+X               sabre and cutlass.
+X
+X          katana
+X               the long, slender, sabre-like swords of the  Japanese  samu-
+X               rai,  often  considered  the finest blade weapons ever made.
+X               Japanese forging techniques produced what was  in  effect  a
+X               micro-layered  composite of high and low carbon steels, giv-
+X               ing the blade its unique razor-sharpness and flexibility.
+X
+X
+X          8.3.  Missile weapons
+X
+X               These are all weapons meant to transfer kinetic energy to  a
+X          target via a rigid thrown projectile.
+X
+X          bow  in nethack, probably represents the 'self  bow',  a  smaller
+X               single-piece  or  composite bow firing short feather-quilled
+X               arrows (rather than the classic Robin Hood longbow with  its
+X               yard-long shafts).
+X
+X          crossbow
+X               a mechanically-cranked  bow  firing  stubby  conical-profile
+X               bolts,  sometimes  finned. Had a lower rate of fire than the
+X               self- or long-bow but fearsome penetrating power.
+X
+X          javelin
+X               a lightweight, flexible throwing spear.
+X
+X          dart not the three-inch, needle-pointed pub dart associated  with
+X               ale  and  tweed  caps;  rather,  its  progenitor,  a shorter
+X               javelin-like projectile that was mostly soft-iron head. Bar-
+X               rages  of  these  were  thrown  as first volleys in infantry
+X               skirmishes to foul the opponents' shields.
+X
+X
+X
+X
+X          Nethack Version 2.0                            September 25, 1987
+X
+X
+X
+X
+X
+X
+X          A Guide to the Mazes of Menace                                 18
+X
+X
+X          shuriken
+X               a flat, spiked wheel designed to be  thrown  with  a  wrist-
+X               flick  so  the  blades  spin like a buzz-saw in flight. Also
+X               called a `throwing star' or (in India) the `chakram'.
+X
+X
+X          8.4.  Miscellaneous strange weapons
+X
+X          bardiche
+X               (literally, "bearded axe") a short shaft (5') with an  enor-
+X               mous  long axe-head, connected at at least two places. Basi-
+X               cally a huge axe (or a short voulge).
+X
+X          morning-star
+X               usually a spiked ball attached by a chain  to  a  truncheon-
+X               like  handle.  The  term is sometimes used to describe maces
+X               with spiked heads.
+X
+X          flail
+X               several chains, possibly  spiked  and  possibly  with  small
+X               balls on the ends, stapled to a truncheon.
+X
+X          crysknife
+X               a fantasy weapon adapted from Frank Herbert's "Dune"  books.
+X               On  Herbert's Arrakis, the fierce Fremen made their personal
+X               weapons from the scimitar teeth of the shai hulud, the great
+X               sandworms of the Dune deserts.
+X
+X          aklys
+X               a long thong with a weight at the end. Holding the other end
+X               of  the thong, you throw the weight; the thong entangles the
+X               target, and the weight whaps it.
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X          Nethack Version 2.0                            September 25, 1987
+X
+X
+X
+END_OF_Guidebook
+if test 42898 -ne `wc -c <Guidebook`; then
+    echo shar: \"Guidebook\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+if test -f Newstuff/newstuff -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"Newstuff/newstuff\"
+else
+echo shar: Extracting \"Newstuff/newstuff\" \(44416 characters\)
+sed "s/^X//" >Newstuff/newstuff <<'END_OF_Newstuff/newstuff'
+XPath: tekred!tekgen!tektronix!uunet!mcvax!inria!axis!jcc
+XFrom: jcc@axis.fr (Jean-Christophe Collet)
+XNewsgroups: rec.games.hack
+XSubject: Nethack 2.3 Patches and Enhancements
+XKeywords: Nethack, patches
+XMessage-ID: <371@axis.fr>
+XDate: 11 May 88 16:08:45 GMT
+XOrganization: Axis Digital, Paris
+XLines: 1779
+X
+X
+XHello there,
+X
+XHere are a few patches and enhancements for nethack 2.3 :
+X
+X	1) BUGFIX : now, if a Nymph steals your blinfold or your badge,
+X	   you're no longer "Blinfolded / Badged". (in steal.c)
+X
+X	2) LIGHT SWORD : very similar to laser swords, this weapon
+X	   is very powerful but rare and presents some inconveniences.
+X	   I will post SPOILERS for that new feature if asked.
+X	   Note that you have to insert
+X	   #define YODA  /* :-) */
+X	   in your config.h.
+X
+X	3) Graphics enhancement for terminals with an alternate charset
+X	   (semi-graphic characters). I've fully implemented corners,
+X	   cross walls, etc...
+X	   That makes mazes very pretty.
+X	   the HACKOPTIONS variable is used with the 'graphics' option.
+X	   Also used the two capacities "as" & "ae" in TERMCAP ("smacs"
+X	   and "rmacs" in TERMINFO).
+X	   Two chars are needed for each symbol, the first one is the
+X	   ascii value needed and the second is either 'g' for graphic
+X	   charset or 'n' for standard charset.
+X	   exemple : for a vt100 I've defined :
+XHACKOPTIONS="graphics: nxgqglgkgmgjg\`g.nag<n>n^n}n{n\\n\"n#nngwgvgtgug"
+X	   the symbols are :
+X	   stone, vertical wall, horizontal wall, top left corner,
+X	   top right corner, bottom left corner, bottom right corner,
+X	   door, room, corridor, upstairs, downstairs, trap, pool, fountain,
+X	   throne, spider web, kitchen sink, cross wall, T up wall,
+X	   T down wall, T left wall, T right wall.
+X	   Note that you have to insert
+X	   #define JCC
+X	   in your config.h to make these features available.
+X
+XI will happily discuss any points of those patches with anybody !
+X
+XHappy hacking!
+Xjcc
+X
+X-------------------------------------------------------------------------------
+Xjcc@axis.fr          ! "An artificial intelligence is better than none !"
+Xmcvax!inria!axis!jcc ! "Artificial intelligence matches natural stupidity !"
+X-------------------------------------------------------------------------------
+X
+X------ CUT HERE --- CUT HERE --- CUT HERE --- CUT HERE --- CUT HERE ------	
+X*** apply.c.orig	Wed May 11 10:28:24 1988
+X--- apply.c	Wed May 11 11:54:46 1988
+X***************
+X*** 18,23
+X  #ifdef KAA
+X  extern boolean unweapon;
+X  #endif
+X  static use_camera(), use_ice_box(), use_whistle();
+X  static use_magic_whistle(), use_pick_axe();
+X  #ifdef MARKER
+X
+X--- 18,26 -----
+X  #ifdef KAA
+X  extern boolean unweapon;
+X  #endif
+X+ #ifdef YODA
+X+ extern char FirstTime;	/* First use of the light sword */
+X+ #endif
+X  static use_camera(), use_ice_box(), use_whistle();
+X  static use_magic_whistle(), use_pick_axe();
+X  #ifdef MARKER
+X***************
+X*** 102,107
+X  		    seeoff(0);
+X  		} else pline("You are already wearing a blindfold!");
+X  		break;
+X   	case BADGE:
+X   		if (Badged && obj->owornmask) {
+X   		    pline("You remove the badge.");
+X
+X--- 105,142 -----
+X  		    seeoff(0);
+X  		} else pline("You are already wearing a blindfold!");
+X  		break;
+X+ #ifdef YODA
+X+ 	case BATTERY: {
+X+ 		struct obj *otmp;
+X+ 		otmp = getobj("#","apply to");
+X+ 		if (!otmp) {
+X+ 			nomul(0);
+X+ 			return(0);
+X+ 		}
+X+ 		if (otmp->otyp != LIGHT_SWORD && otmp->otyp != SWORD_HILT) {
+X+ 			pline("That's a silly thing to apply batteries!");
+X+ 			nomul(0);
+X+ 			return(0);
+X+ 		}
+X+ 		pline("You succeeded in inserting the battery into the hilt.");
+X+ 		pline("You can feel a new energy to flow in it...");
+X+ 		OPOWER(otmp) = 500;
+X+ 		useup(obj);
+X+ 		if (otmp->otyp == SWORD_HILT && uwep == otmp) {
+X+ 			if (FirstTime) {
+X+ 				if (!Blind) 
+X+ 					pline("A blade of light appears from the hilt!");
+X+ 				pline("You ear a distant voice saying :");
+X+ 				pline("'May the Source be with you...'");
+X+ 				FirstTime = 0;
+X+ 			} else
+X+ 				if (!Blind) 
+X+ 					pline("A blade of light appears from the hilt!");
+X+ 			uwep->otyp = LIGHT_SWORD;
+X+ 		}
+X+ 		}
+X+ 		break;
+X+ #endif
+X   	case BADGE:
+X   		if (Badged && obj->owornmask) {
+X   		    pline("You remove the badge.");
+X***************
+X*** 259,264
+X  			return(0);
+X  		}
+X  		setuwep((struct obj *) 0);
+X  	}
+X  	current_ice_box->owt += obj->owt;
+X  	freeinv(obj);
+X
+X--- 294,306 -----
+X  			return(0);
+X  		}
+X  		setuwep((struct obj *) 0);
+X+ #ifdef YODA
+X+ 		if (obj->otyp == LIGHT_SWORD) {
+X+ 			if (!Blind) 
+X+ 				pline("The blade of light disappears!");
+X+ 			obj->otyp = SWORD_HILT;			
+X+ 		}
+X+ #endif
+X  	}
+X  	current_ice_box->owt += obj->owt;
+X  	freeinv(obj);
+X***************
+X*** 265,270
+X  	obj->o_cnt_id = current_ice_box->o_id;
+X  	obj->nobj = fcobj;
+X  	fcobj = obj;
+X  	obj->age = moves - obj->age;	/* actual age */
+X  	return(1);
+X  }
+X
+X--- 307,315 -----
+X  	obj->o_cnt_id = current_ice_box->o_id;
+X  	obj->nobj = fcobj;
+X  	fcobj = obj;
+X+ #ifdef YODA
+X+ 	if (obj->otyp != SWORD_HILT) 
+X+ #endif
+X  	obj->age = moves - obj->age;	/* actual age */
+X  	return(1);
+X  }
+X***************
+X*** 284,289
+X  		otmp->nobj = obj->nobj;
+X  	}
+X  	current_ice_box->owt -= obj->owt;
+X  	obj->age = moves - obj->age;	/* simulated point of time */
+X  	(void) addinv(obj);
+X  }
+X
+X--- 329,339 -----
+X  		otmp->nobj = obj->nobj;
+X  	}
+X  	current_ice_box->owt -= obj->owt;
+X+ #ifdef YODA
+X+ 	if (obj->otyp == SWORD_HILT)
+X+ 		OPOWER(obj) += rn1(100,100);	/* Supra conductivity ? */
+X+ 	else
+X+ #endif
+X  	obj->age = moves - obj->age;	/* simulated point of time */
+X  	(void) addinv(obj);
+X  }
+X*** bones.c.orig	Wed May 11 10:29:15 1988
+X--- bones.c	Wed May 11 09:56:03 1988
+X***************
+X*** 54,59
+X  			invent = 0;	/* superfluous */
+X  			break;
+X  		}
+X  		otmp = otmp->nobj;
+X  	}
+X  	/* spill any contained objects - added by GAN 03/23/87 */
+X
+X--- 54,63 -----
+X  			invent = 0;	/* superfluous */
+X  			break;
+X  		}
+X+ #ifdef YODA
+X+ 		if (otmp->otyp == LIGHT_SWORD) 
+X+ 			otmp->otyp = SWORD_HILT;
+X+ #endif
+X  		otmp = otmp->nobj;
+X  	}
+X  	/* spill any contained objects - added by GAN 03/23/87 */
+X*** config.h.orig	Wed May 11 12:28:11 1988
+X--- config.h	Wed May 11 12:28:53 1988
+X***************
+X*** 229,233
+X  #define THEOLOGY	/* Smarter gods - The Unknown Hacker */
+X  #define	STOOGES		/* Three wild and crazy guys - Bruce Mewborne */
+X  #define SINKS		/* Kitchen sinks - Janet Walz */
+X  
+X  #if defined(MSDOS) && defined(GRAPHICS)
+X
+X--- 229,235 -----
+X  #define THEOLOGY	/* Smarter gods - The Unknown Hacker */
+X  #define	STOOGES		/* Three wild and crazy guys - Bruce Mewborne */
+X  #define SINKS		/* Kitchen sinks - Janet Walz */
+X+ #define YODA		/* Light Sword Code - JC Collet */
+X+ #define JCC		/* Some change for display - JC Collet */
+X  
+X  #if defined(MSDOS) && defined(GRAPHICS)
+X*** decl.c.orig	Wed May 11 10:35:44 1988
+X--- decl.c	Wed May 11 09:56:05 1988
+X***************
+X*** 20,25
+X  #ifdef SINKS
+X      '#',
+X  #endif
+X  };
+X  
+X  struct symbols showsyms;	/* will contain the symbols actually used */
+X
+X--- 20,28 -----
+X  #ifdef SINKS
+X      '#',
+X  #endif
+X+ #ifdef JCC
+X+     '-','-','-','-','-',
+X+ #endif
+X  };
+X  
+X  struct symbols showsyms;	/* will contain the symbols actually used */
+X*** do.c.orig	Wed May 11 10:36:35 1988
+X--- do.c	Wed May 11 09:56:06 1988
+X***************
+X*** 56,61
+X  			pline("Your weapon is welded to your hand!");
+X  			return(0);
+X  		}
+X  		setuwep((struct obj *) 0);
+X  	}
+X  #ifdef WALKIES
+X
+X--- 56,65 -----
+X  			pline("Your weapon is welded to your hand!");
+X  			return(0);
+X  		}
+X+ #ifdef YODA
+X+ 		if (obj->otyp == LIGHT_SWORD) 
+X+ 			obj->otyp = SWORD_HILT;
+X+ #endif
+X  		setuwep((struct obj *) 0);
+X  	}
+X  #ifdef WALKIES
+X*** dothrow.c.orig	Wed May 11 10:37:56 1988
+X--- dothrow.c	Wed May 11 09:56:08 1988
+X***************
+X*** 1,4
+X- 
+X  /*	SCCS Id: @(#)dothrow.c	2.3	88/02/02
+X  /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+X  
+X
+X--- 1,3 -----
+X  /*	SCCS Id: @(#)dothrow.c	2.3	88/02/02
+X  /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+X  
+X***************
+X*** 48,53
+X  			setuwep(splitobj(obj, 1));
+X  		else
+X  			setuwep((struct obj *) 0);
+X  	}
+X  	else if(obj->quan > 1)
+X  		(void) splitobj(obj, 1);
+X
+X--- 47,56 -----
+X  			setuwep(splitobj(obj, 1));
+X  		else
+X  			setuwep((struct obj *) 0);
+X+ #ifdef YODA
+X+ 		if (obj->otyp == LIGHT_SWORD) 
+X+ 			obj->otyp = SWORD_HILT;
+X+ #endif
+X  	}
+X  	else if(obj->quan > 1)
+X  		(void) splitobj(obj, 1);
+X*** fight.c.orig	Wed May 11 10:39:38 1988
+X--- fight.c	Wed May 11 09:56:10 1988
+X***************
+X*** 381,386
+X  		if(obj->olet == WEAPON_SYM && obj->dknown && index("VWZ &",
+X  				mon->data->mlet)) tmp += rn2(4);
+X  #endif
+X  		if(!thrown && obj == uwep && obj->otyp == BOOMERANG
+X  		 && !rn2(3)){
+X  		  pline("As you hit %s, the boomerang breaks into splinters.",
+X
+X--- 381,400 -----
+X  		if(obj->olet == WEAPON_SYM && obj->dknown && index("VWZ &",
+X  				mon->data->mlet)) tmp += rn2(4);
+X  #endif
+X+ #ifdef YODA
+X+ 		if (obj->otyp == LIGHT_SWORD && mon->data->mlet == ';') {
+X+ 			/* That was really a bad idea */
+X+ 			pline("As soon a you hit the %s,",monnam(mon));
+X+ 			pline("an extremely powerful lightning bolt erupts");
+X+ 			pline("from your sword, destroying it,");
+X+ 			pline("getting you and the %s blasted!",monnam(mon));
+X+ 			tmp += rn2(40);	/* Hurt the monster */
+X+ 			freeinv(obj);	/* Destroy the sword */
+X+ 			setworn((struct obj *) 0, obj->owornmask);
+X+ 			obfree(obj, (struct obj *) 0);
+X+ 			losehp(rn2(40),"lightning bolt"); /* Hurt player */
+X+ 		}
+X+ #endif
+X  		if(!thrown && obj == uwep && obj->otyp == BOOMERANG
+X  		 && !rn2(3)){
+X  		  pline("As you hit %s, the boomerang breaks into splinters.",
+X***************
+X*** 467,472
+X  	}
+X  	if(tmp < 1) tmp = 1;
+X  	mon->mhp -= tmp;
+X  	if(mon->mhp < 1) {
+X  		killed(mon);
+X  		return(FALSE);
+X
+X--- 481,495 -----
+X  	}
+X  	if(tmp < 1) tmp = 1;
+X  	mon->mhp -= tmp;
+X+ #ifdef YODA
+X+ 	if (obj->otyp == LIGHT_SWORD && mon->data->mlet == 'T') {
+X+ 		mon->mhpmax -= tmp;	/* The light sword burns flesh */
+X+ 		if (mon->mhpmax < 1) {
+X+ 			xkilled(mon,3); /* No Corpse */
+X+ 			return(FALSE);
+X+ 		}
+X+ 	}
+X+ #endif /* YODA */
+X  	if(mon->mhp < 1) {
+X  		killed(mon);
+X  		return(FALSE);
+X***************
+X*** 621,626
+X  		else if(uwep->otyp == CRYSKNIFE) tmp += 3;
+X  		else if(uwep->otyp == SPEAR &&
+X  			index("XDne", mdat->mlet)) tmp += 2;
+X  	}
+X  	if(mtmp->msleep) {
+X  		mtmp->msleep = 0;
+X
+X--- 644,652 -----
+X  		else if(uwep->otyp == CRYSKNIFE) tmp += 3;
+X  		else if(uwep->otyp == SPEAR &&
+X  			index("XDne", mdat->mlet)) tmp += 2;
+X+ #ifdef YODA
+X+ 		else if (uwep->otyp == LIGHT_SWORD) tmp += 5;
+X+ #endif
+X  	}
+X  	if(mtmp->msleep) {
+X  		mtmp->msleep = 0;
+X*** fountain.c.orig	Wed May 11 10:41:13 1988
+X--- fountain.c	Wed May 11 09:56:11 1988
+X***************
+X*** 243,248
+X  	register int fate = rnd(30);
+X  
+X  	if(Levitation) 	pline("You are floating high above the fountain.");
+X  	else if(fate<10)
+X  		if(!obj->rustfree &&
+X  			/* Only swords affected here */
+X
+X--- 243,268 -----
+X  	register int fate = rnd(30);
+X  
+X  	if(Levitation) 	pline("You are floating high above the fountain.");
+X+ #ifdef YODA
+X+ 	if (obj->otyp == LIGHT_SWORD) {
+X+ 		/* Yet Another Bad Idea */
+X+ 		pline("As your %s enters water,",xname(obj));
+X+ 		pline("an extremely powerful lightning bolt erupts from your sword,");
+X+ 		pline("destroying it and getting you blasted!");
+X+ 		freeinv(obj);	/* Destroy the sword */
+X+ 		setworn((struct obj *) 0, obj->owornmask);
+X+ 		obfree(obj, (struct obj *) 0);
+X+ 		losehp(rn2(40),"lightning bolt");
+X+ 	}
+X+ 	else if (obj->otyp == SWORD_HILT) {
+X+ 		/* Water doesn't do anything good to batteries */
+X+ 		if (OPOWER(obj) > 0) {
+X+ 			pline("GLOUB %%%% Pschhhhhhh....");
+X+ 			OPOWER(obj) -= 100;
+X+ 		} else
+X+ 			pline("GLOUB %%%%%");
+X+ 	}
+X+ #endif
+X  	else if(fate<10)
+X  		if(!obj->rustfree &&
+X  			/* Only swords affected here */
+X*** lev.c.orig	Wed May 11 10:42:33 1988
+X--- lev.c	Wed May 11 09:56:13 1988
+X***************
+X*** 281,286
+X  					break;
+X  				/* Now the ugly stuff */
+X  				case HWALL:
+X  				  up = (y > 0) ? levl[x][y-1].typ : 0;
+X  				  dn = (y < ROWNO-1) ?levl[x][y+1].typ : 0;
+X  				  lt = (x > 0) ? levl[x-1][y].typ : 0;
+X
+X--- 281,287 -----
+X  					break;
+X  				/* Now the ugly stuff */
+X  				case HWALL:
+X+ #ifndef JCC
+X  				  up = (y > 0) ? levl[x][y-1].typ : 0;
+X  				  dn = (y < ROWNO-1) ?levl[x][y+1].typ : 0;
+X  				  lt = (x > 0) ? levl[x-1][y].typ : 0;
+X***************
+X*** 304,309
+X  				  else if (osym == osymbol.hwall)
+X  					nsym = showsyms.hwall;
+X  				  break;
+X  				default:
+X  					break;
+X  				}
+X
+X--- 305,351 -----
+X  				  else if (osym == osymbol.hwall)
+X  					nsym = showsyms.hwall;
+X  				  break;
+X+ #else
+X+ 				  if (osym == osymbol.hwall)
+X+ 					nsym = showsyms.hwall;
+X+ 				  break;
+X+ 				case TLCORNER:
+X+ 					if (osym == osymbol.tlcorn) 
+X+ 						nsym = showsyms.tlcorn;
+X+ 					break;
+X+ 				case TRCORNER:
+X+ 					if (osym == osymbol.trcorn) 
+X+ 						nsym = showsyms.trcorn;
+X+ 					break;
+X+ 				case BLCORNER:
+X+ 					if (osym == osymbol.blcorn) 
+X+ 						nsym = showsyms.blcorn;
+X+ 					break;
+X+ 				case BRCORNER:
+X+ 					if (osym == osymbol.brcorn) 
+X+ 						nsym = showsyms.brcorn;
+X+ 					break;
+X+ 				case CROSSWALL:
+X+ 					if (osym == osymbol.crwall) 
+X+ 						nsym = showsyms.crwall;
+X+ 					break;
+X+ 				case TUPWALL:
+X+ 					if (osym == osymbol.twall) 
+X+ 						nsym = showsyms.twall;
+X+ 					break;
+X+ 				case TDOWNWALL:
+X+ 					if (osym == osymbol.tdwall) 
+X+ 						nsym = showsyms.tdwall;
+X+ 					break;
+X+ 				case TRIGHTWALL:
+X+ 					if (osym == osymbol.trwall) 
+X+ 						nsym = showsyms.trwall;
+X+ 					break;
+X+ 				case TLEFTWALL:
+X+ 					if (osym == osymbol.tlwall) 
+X+ 						nsym = showsyms.tlwall;
+X+ 					break;
+X+ #endif
+X  				default:
+X  					break;
+X  				}
+X*** mklev.c.orig	Wed May 11 10:43:59 1988
+X--- mklev.c	Wed May 11 09:56:31 1988
+X***************
+X*** 514,519
+X  		levl[x][y].scrsym = ROOM_SYM;
+X  		levl[x][y].typ = ROOM;
+X  	}
+X  	levl[lowx-1][lowy-1].scrsym = TLCORN_SYM;
+X  	levl[hix+1][lowy-1].scrsym = TRCORN_SYM;
+X  	levl[lowx-1][hiy+1].scrsym = BLCORN_SYM;
+X
+X--- 514,525 -----
+X  		levl[x][y].scrsym = ROOM_SYM;
+X  		levl[x][y].typ = ROOM;
+X  	}
+X+ #ifdef JCC
+X+ 	levl[lowx-1][lowy-1].typ = TLCORNER;
+X+ 	levl[hix+1][lowy-1].typ = TRCORNER;
+X+ 	levl[lowx-1][hiy+1].typ = BLCORNER;
+X+ 	levl[hix+1][hiy+1].typ = BRCORNER;
+X+ #endif
+X  	levl[lowx-1][lowy-1].scrsym = TLCORN_SYM;
+X  	levl[hix+1][lowy-1].scrsym = TRCORN_SYM;
+X  	levl[lowx-1][hiy+1].scrsym = BLCORN_SYM;
+X*** mkmaze.c.orig	Wed May 11 10:44:46 1988
+X--- mkmaze.c	Wed May 11 09:56:32 1988
+X***************
+X*** 74,79
+X  		for(y = 2; y < ROWNO-1; y++) {
+X  			switch(levl[x][y].typ) {
+X  			case HWALL:
+X  				levl[x][y].scrsym = HWALL_SYM;
+X  				break;
+X  			case ROOM:
+X
+X--- 74,139 -----
+X  		for(y = 2; y < ROWNO-1; y++) {
+X  			switch(levl[x][y].typ) {
+X  			case HWALL:
+X+ #ifdef JCC
+X+ #define ISWALL(x,y)	((x)>1 && (y)>1 && (x)<COLNO-1 && (y)<ROWNO-1 && \
+X+ 			levl[x][y].typ <= TRIGHTWALL)
+X+ 				if (ISWALL(x,y-1)) 
+X+ 				   if (ISWALL(x,y+1))
+X+ 				      if (ISWALL(x-1,y)) 
+X+ 					 if (ISWALL(x+1,y)) {
+X+ 						levl[x][y].scrsym = CRWALL_SYM; /* -+- */
+X+ 						levl[x][y].typ = CROSSWALL;
+X+ 					 } else {
+X+ 						levl[x][y].scrsym = TRIGHTWALL_SYM; /* -| */
+X+ 						levl[x][y].typ = TRIGHTWALL;
+X+ 				      } else 
+X+ 					 if (ISWALL(x+1,y)) {
+X+ 						levl[x][y].scrsym = TLEFTWALL_SYM; /* |- */
+X+ 						levl[x][y].typ = TLEFTWALL;
+X+ 					 }
+X+ 					 else {
+X+ 						levl[x][y].scrsym = VWALL_SYM; /* | */
+X+ 						levl[x][y].typ = VWALL;
+X+ 					 }
+X+ 				   else
+X+ 				      if (ISWALL(x-1,y)) 
+X+ 					 if (ISWALL(x+1,y)) {			    /*  |  */
+X+ 						 levl[x][y].scrsym = TDOWNWALL_SYM; /* -+- */
+X+ 						 levl[x][y].typ = TDOWNWALL;
+X+ 					 } else {				 /*  | */
+X+ 						 levl[x][y].scrsym = BRCORN_SYM; /* -+ */
+X+ 						 levl[x][y].typ = BRCORNER;
+X+ 				      } else
+X+ 					 if (ISWALL(x+1,y)) {			 /* |  */
+X+ 						 levl[x][y].scrsym = BLCORN_SYM; /* +- */
+X+ 						 levl[x][y].typ = BLCORNER;
+X+ 					 } else {
+X+ 						 levl[x][y].scrsym = VWALL_SYM; /* | */
+X+ 						 levl[x][y].typ = VWALL;
+X+ 					 }
+X+ 				else
+X+ 				   if (ISWALL(x,y+1))
+X+ 				      if (ISWALL(x-1,y)) 
+X+ 				         if (ISWALL(x+1,y)) {		      /* -+- */
+X+ 					     levl[x][y].scrsym = TUPWALL_SYM; /*  |  */
+X+ 					     levl[x][y].typ = TUPWALL;
+X+ 				         } else {			     /* -+ */
+X+ 					     levl[x][y].scrsym = TRCORN_SYM; /*  | */
+X+ 					     levl[x][y].typ = TRCORNER;
+X+ 				      } else
+X+ 				         if (ISWALL(x+1,y)) {		     /* +- */
+X+ 					     levl[x][y].scrsym = TLCORN_SYM; /* |  */
+X+ 					     levl[x][y].typ = TLCORNER;
+X+ 				         } else {
+X+ 					     levl[x][y].scrsym = VWALL_SYM; /* | */
+X+ 					     levl[x][y].typ = VWALL;
+X+ 					 }
+X+ 				   else {
+X+ 					   levl[x][y].scrsym = HWALL_SYM;
+X+ 					   levl[x][y].typ = HWALL;
+X+ 				   }
+X+ #undef ISWALL
+X+ #else
+X  				levl[x][y].scrsym = HWALL_SYM;
+X  #endif /* JCC */
+X  				break;
+X***************
+X*** 75,80
+X  			switch(levl[x][y].typ) {
+X  			case HWALL:
+X  				levl[x][y].scrsym = HWALL_SYM;
+X  				break;
+X  			case ROOM:
+X  				levl[x][y].scrsym = ROOM_SYM;
+X
+X--- 135,141 -----
+X  #undef ISWALL
+X  #else
+X  				levl[x][y].scrsym = HWALL_SYM;
+X+ #endif /* JCC */
+X  				break;
+X  			case ROOM:
+X  				levl[x][y].scrsym = ROOM_SYM;
+X*** mkobj.c.orig	Wed May 11 10:51:28 1988
+X--- mkobj.c	Wed May 11 10:19:10 1988
+X***************
+X*** 111,116
+X  		    let) ? 0 : 1;
+X  	switch(let) {
+X  	case WEAPON_SYM:
+X  		otmp->quan = (otmp->otyp <= ROCK) ? rn1(6,6) : 1;
+X  		if(!rn2(11)) otmp->spe = rne(2);
+X  		else if(!rn2(10)) {
+X
+X--- 111,122 -----
+X  		    let) ? 0 : 1;
+X  	switch(let) {
+X  	case WEAPON_SYM:
+X+ #ifdef YODA
+X+ 		otmp->quan=((otmp->otyp <= ROCK) && (otmp->otyp != SWORD_HILT))
+X+ 			     ? rn1(6,6) : 1;
+X+ 		if (otmp->otyp == SWORD_HILT)
+X+ 			OPOWER(otmp) = 500;
+X+ #else
+X  		otmp->quan = (otmp->otyp <= ROCK) ? rn1(6,6) : 1;
+X  #endif
+X  		if(!rn2(11)) otmp->spe = rne(2);
+X***************
+X*** 112,117
+X  	switch(let) {
+X  	case WEAPON_SYM:
+X  		otmp->quan = (otmp->otyp <= ROCK) ? rn1(6,6) : 1;
+X  		if(!rn2(11)) otmp->spe = rne(2);
+X  		else if(!rn2(10)) {
+X  			otmp->cursed = 1;
+X
+X--- 118,124 -----
+X  			OPOWER(otmp) = 500;
+X  #else
+X  		otmp->quan = (otmp->otyp <= ROCK) ? rn1(6,6) : 1;
+X+ #endif
+X  		if(!rn2(11)) otmp->spe = rne(2);
+X  		else if(!rn2(10)) {
+X  			otmp->cursed = 1;
+X*** obj.h.orig	Wed May 11 10:52:17 1988
+X--- obj.h	Wed May 11 10:19:43 1988
+X***************
+X*** 62,65
+X  #define	ONAME(otmp)	((char *) otmp->oextra)
+X  #define	OGOLD(otmp)	(otmp->oextra[0])
+X  
+X  #endif
+X
+X--- 62,69 -----
+X  #define	ONAME(otmp)	((char *) otmp->oextra)
+X  #define	OGOLD(otmp)	(otmp->oextra[0])
+X  
+X+ #ifdef YODA
+X+ #define OPOWER(otmp)	otmp->age
+X+ #endif
+X+ 
+X  #endif
+X*** objclass.h.orig	Wed May 11 10:57:21 1988
+X--- objclass.h	Wed May 11 11:44:55 1988
+X*** objects.h.orig	Wed May 11 10:55:11 1988
+X--- objects.h	Wed May 11 10:21:10 1988
+X***************
+X*** 123,128
+X  	WEAPON("mace",		6, 3, 6, 7), /* +1 small */
+X  	WEAPON("axe",		5, 3, 6, 4),
+X  	WEAPON("flail",		5, 3, 6, 5), /* +1 small, +1d4 large */
+X  	WEAPON("long sword",	5, 3, 8, 12),
+X  	WEAPON("two-handed sword",	4, 4, 12, 6), /* +2d6 large */
+X  	WEAPON("dagger",	4, 3, 4, 3),
+X
+X--- 123,132 -----
+X  	WEAPON("mace",		6, 3, 6, 7), /* +1 small */
+X  	WEAPON("axe",		5, 3, 6, 4),
+X  	WEAPON("flail",		5, 3, 6, 5), /* +1 small, +1d4 large */
+X+ #ifdef YODA
+X+ 	WEAPON("long sword",	4, 3, 8, 12),
+X+ 	WEAPON("light sword",	0, 1, 15, 15), /* +5 to hit */
+X+ #else
+X  	WEAPON("long sword",	5, 3, 8, 12),
+X  #endif
+X  	WEAPON("two-handed sword",	4, 4, 12, 6), /* +2d6 large */
+X***************
+X*** 124,129
+X  	WEAPON("axe",		5, 3, 6, 4),
+X  	WEAPON("flail",		5, 3, 6, 5), /* +1 small, +1d4 large */
+X  	WEAPON("long sword",	5, 3, 8, 12),
+X  	WEAPON("two-handed sword",	4, 4, 12, 6), /* +2d6 large */
+X  	WEAPON("dagger",	4, 3, 4, 3),
+X  	WEAPON("worm tooth",	0, 4, 2, 2),
+X
+X--- 128,134 -----
+X  	WEAPON("light sword",	0, 1, 15, 15), /* +5 to hit */
+X  #else
+X  	WEAPON("long sword",	5, 3, 8, 12),
+X+ #endif
+X  	WEAPON("two-handed sword",	4, 4, 12, 6), /* +2d6 large */
+X  	WEAPON("dagger",	4, 3, 4, 3),
+X  	WEAPON("worm tooth",	0, 4, 2, 2),
+X***************
+X*** 154,159
+X  	WEAPON("bow",		4, 3, 4, 6),
+X  	WEAPON("sling",		4, 3, 6, 6),
+X  	WEAPON("crossbow",	5, 3, 4, 6),
+X  #ifdef WALKIES
+X  	{ "whistle", "whistle", NULL, 0, 0, TOOL_SYM, 51, 0, 2, 0, 0, 0 },
+X  	{ "leash", NULL, NULL, 1, 0, TOOL_SYM, 26, 0, 20, 0, 0, 0 },
+X
+X--- 159,168 -----
+X  	WEAPON("bow",		4, 3, 4, 6),
+X  	WEAPON("sling",		4, 3, 6, 6),
+X  	WEAPON("crossbow",	5, 3, 4, 6),
+X+ #ifdef  YODA
+X+ 	WEAPON("sword hilt",	1, 1, 2, 2),
+X+ #endif
+X+ 
+X  #ifdef WALKIES
+X  	{ "whistle", "whistle", NULL, 0, 0, TOOL_SYM, 51, 0, 2, 0, 0, 0 },
+X  #ifdef YODA
+X***************
+X*** 156,161
+X  	WEAPON("crossbow",	5, 3, 4, 6),
+X  #ifdef WALKIES
+X  	{ "whistle", "whistle", NULL, 0, 0, TOOL_SYM, 51, 0, 2, 0, 0, 0 },
+X  	{ "leash", NULL, NULL, 1, 0, TOOL_SYM, 26, 0, 20, 0, 0, 0 },
+X  #else
+X  	{ "whistle", "whistle", NULL, 0, 0, TOOL_SYM, 71, 0, 2, 0, 0, 0 },
+X
+X--- 165,173 -----
+X  
+X  #ifdef WALKIES
+X  	{ "whistle", "whistle", NULL, 0, 0, TOOL_SYM, 51, 0, 2, 0, 0, 0 },
+X+ #ifdef YODA
+X+ 	{ "leash", NULL, NULL, 1, 0, TOOL_SYM, 14, 0, 20, 0, 0, 0 },
+X+ #else
+X  	{ "leash", NULL, NULL, 1, 0, TOOL_SYM, 26, 0, 20, 0, 0, 0 },
+X  #endif
+X  #else
+X***************
+X*** 157,162
+X  #ifdef WALKIES
+X  	{ "whistle", "whistle", NULL, 0, 0, TOOL_SYM, 51, 0, 2, 0, 0, 0 },
+X  	{ "leash", NULL, NULL, 1, 0, TOOL_SYM, 26, 0, 20, 0, 0, 0 },
+X  #else
+X  	{ "whistle", "whistle", NULL, 0, 0, TOOL_SYM, 71, 0, 2, 0, 0, 0 },
+X  	{ "leash", NULL, NULL, 1, 0, TOOL_SYM, 16, 0, 20, 0, 0, 0 },
+X
+X--- 169,175 -----
+X  	{ "leash", NULL, NULL, 1, 0, TOOL_SYM, 14, 0, 20, 0, 0, 0 },
+X  #else
+X  	{ "leash", NULL, NULL, 1, 0, TOOL_SYM, 26, 0, 20, 0, 0, 0 },
+X+ #endif
+X  #else
+X  	{ "whistle", "whistle", NULL, 0, 0, TOOL_SYM, 71, 0, 2, 0, 0, 0 },
+X  #ifdef YODA
+X***************
+X*** 159,164
+X  	{ "leash", NULL, NULL, 1, 0, TOOL_SYM, 26, 0, 20, 0, 0, 0 },
+X  #else
+X  	{ "whistle", "whistle", NULL, 0, 0, TOOL_SYM, 71, 0, 2, 0, 0, 0 },
+X  	{ "leash", NULL, NULL, 1, 0, TOOL_SYM, 16, 0, 20, 0, 0, 0 },
+X  #endif
+X  	{ "magic whistle", "whistle", NULL, 0, 0, TOOL_SYM, 5, 0, 2, 0, 0, 0 },
+X
+X--- 172,180 -----
+X  #endif
+X  #else
+X  	{ "whistle", "whistle", NULL, 0, 0, TOOL_SYM, 71, 0, 2, 0, 0, 0 },
+X+ #ifdef YODA
+X+ 	{ "leash", NULL, NULL, 1, 0, TOOL_SYM, 14, 0, 20, 0, 0, 0 },
+X+ #else
+X  	{ "leash", NULL, NULL, 1, 0, TOOL_SYM, 16, 0, 20, 0, 0, 0 },
+X  #endif
+X  #endif
+X***************
+X*** 161,166
+X  	{ "whistle", "whistle", NULL, 0, 0, TOOL_SYM, 71, 0, 2, 0, 0, 0 },
+X  	{ "leash", NULL, NULL, 1, 0, TOOL_SYM, 16, 0, 20, 0, 0, 0 },
+X  #endif
+X  	{ "magic whistle", "whistle", NULL, 0, 0, TOOL_SYM, 5, 0, 2, 0, 0, 0 },
+X  #ifdef RPH
+X  	{ "blindfold", "blindfold", NULL, 0, 0, TOOL_SYM, 5, 0, 2, 0, 0, 0 },
+X
+X--- 177,183 -----
+X  #else
+X  	{ "leash", NULL, NULL, 1, 0, TOOL_SYM, 16, 0, 20, 0, 0, 0 },
+X  #endif
+X+ #endif
+X  	{ "magic whistle", "whistle", NULL, 0, 0, TOOL_SYM, 5, 0, 2, 0, 0, 0 },
+X  #ifdef RPH
+X  	{ "blindfold", "blindfold", NULL, 0, 0, TOOL_SYM, 5, 0, 2, 0, 0, 0 },
+X***************
+X*** 178,183
+X   	{ "lamp", "lamp", NULL, 0, 0, TOOL_SYM, 10, 0, 10, 0, 0, 0 },
+X   	{ "magic lamp", "lamp", NULL, 0, 0, TOOL_SYM, 2, 0, 10, 0, 0, 0 },
+X   	{ "badge", "badge", NULL, 0, 0, TOOL_SYM, 1, 0, 2, 0, 0, 0 },
+X  
+X  	{ "heavy iron ball", NULL, NULL, 1, 0,
+X  		BALL_SYM, 100, 0, 20, 0, 0, 0 },
+X
+X--- 195,203 -----
+X   	{ "lamp", "lamp", NULL, 0, 0, TOOL_SYM, 10, 0, 10, 0, 0, 0 },
+X   	{ "magic lamp", "lamp", NULL, 0, 0, TOOL_SYM, 2, 0, 10, 0, 0, 0 },
+X   	{ "badge", "badge", NULL, 0, 0, TOOL_SYM, 1, 0, 2, 0, 0, 0 },
+X+ #ifdef YODA
+X+ 	{ "battery", NULL, NULL, 1, 0, TOOL_SYM, 2, 0, 1, 500, 0, 0 },
+X+ #endif
+X  
+X  	{ "heavy iron ball", NULL, NULL, 1, 0,
+X  		BALL_SYM, 100, 0, 20, 0, 0, 0 },
+X*** options.c.orig	Wed May 11 11:00:13 1988
+X--- options.c	Wed May 11 09:56:37 1988
+X***************
+X*** 51,56
+X  		*op++ = 0;
+X  		parseoptions(op, from_env);
+X  	}
+X  	if(op = index(opts, ' ')) {
+X  		op2 = op;
+X  		while(*op++)
+X
+X--- 51,57 -----
+X  		*op++ = 0;
+X  		parseoptions(op, from_env);
+X  	}
+X+ #ifndef JCC
+X  	if(op = index(opts, ' ')) {
+X  		op2 = op;
+X  		while(*op++)
+X***************
+X*** 56,61
+X  		while(*op++)
+X  			if(*op != ' ') *op2++ = *op;
+X  	}
+X  	if(!*opts) return;
+X  	negated = FALSE;
+X  	while((*opts == '!') || !strncmp(opts, "no", 2)) {
+X
+X--- 57,63 -----
+X  		while(*op++)
+X  			if(*op != ' ') *op2++ = *op;
+X  	}
+X+ #endif
+X  	if(!*opts) return;
+X  	negated = FALSE;
+X  	while((*opts == '!') || !strncmp(opts, "no", 2)) {
+X***************
+X*** 237,242
+X   * or SINKS in or out and forget to change the tail entries in your graphics
+X   * string.
+X   */
+X  #define SETPCHAR(f, n)	showsyms.f = (strlen(opts) > n) ? opts[n] : defsyms.f
+X  		SETPCHAR(stone, 0);
+X  		SETPCHAR(vwall, 1);
+X
+X--- 239,282 -----
+X   * or SINKS in or out and forget to change the tail entries in your graphics
+X   * string.
+X   */
+X+ #ifdef JCC
+X+ #define SETPCHAR(f, n)	showsyms.f = ((strlen(opts) > n+1) ?\
+X+ 		        (opts[n+1] == 'g' ? opts[n] | 0x80 : opts[n]) \
+X+ 			: defsyms.f)
+X+ 		SETPCHAR(stone, 0);
+X+ 		SETPCHAR(vwall, 2);
+X+ 		SETPCHAR(hwall, 4);
+X+ 		SETPCHAR(tlcorn, 6);
+X+ 		SETPCHAR(trcorn, 8);
+X+ 		SETPCHAR(blcorn, 10);
+X+ 		SETPCHAR(brcorn, 12);
+X+ 		SETPCHAR(door, 14);
+X+ 		SETPCHAR(room, 16);
+X+ 		SETPCHAR(corr, 18);
+X+ 		SETPCHAR(upstair, 20);
+X+ 		SETPCHAR(dnstair, 22);
+X+ 		SETPCHAR(trap, 24);
+X+ #ifdef FOUNTAINS
+X+ 		SETPCHAR(pool, 26);
+X+ 		SETPCHAR(fountain, 28);
+X+ #endif
+X+ #ifdef NEWCLASS
+X+ 		SETPCHAR(throne, 30);
+X+ #endif
+X+ #ifdef SPIDERS
+X+ 		SETPCHAR(web, 32);
+X+ #endif
+X+ #ifdef SINKS
+X+ 		SETPCHAR(sink, 34);
+X+ #endif
+X+ 		SETPCHAR(crwall,36);
+X+ 		SETPCHAR(twall,38);
+X+ 		SETPCHAR(tdwall,40);
+X+ 		SETPCHAR(tlwall,42);
+X+ 		SETPCHAR(trwall,44);
+X+ #undef SETPCHAR
+X+ 
+X+ #else
+X  #define SETPCHAR(f, n)	showsyms.f = (strlen(opts) > n) ? opts[n] : defsyms.f
+X  		SETPCHAR(stone, 0);
+X  		SETPCHAR(vwall, 1);
+X***************
+X*** 265,270
+X  		SETPCHAR(sink, 17);
+X  #endif
+X  #undef SETPCHAR
+X  		return;
+X  	}
+X  #endif /* GRAPHICS */
+X
+X--- 305,311 -----
+X  		SETPCHAR(sink, 17);
+X  #endif
+X  #undef SETPCHAR
+X+ #endif /* JCC */
+X  		return;
+X  	}
+X  #endif /* GRAPHICS */
+X*** pcmain.c.orig	Wed May 11 11:25:59 1988
+X--- pcmain.c	Wed May 11 09:56:38 1988
+X***************
+X*** 320,325
+X  			if(Glib) glibr();
+X  			timeout();
+X  			++moves;
+X  #ifdef PRAYERS
+X  			if (u.ublesscnt)  u.ublesscnt--;
+X  #endif
+X
+X--- 320,337 -----
+X  			if(Glib) glibr();
+X  			timeout();
+X  			++moves;
+X+ #ifdef YODA
+X+ 			if (uwep && uwep->otyp == LIGHT_SWORD) {
+X+ 				OPOWER(uwep)--;
+X+ 				if (OPOWER(uwep) == 50 && !Blind) 
+X+ 					pline("The blade of your %s seems dimmer.",xname(uwep));
+X+ 				if (OPOWER(uwep) <= 0) {
+X+ 					if (!Blind) 
+X+ 						pline("The blade of your %s disappears!",xname(uwep));
+X+ 					uwep->otyp = SWORD_HILT;
+X+ 				}
+X+ 			}
+X+ #endif
+X  #ifdef PRAYERS
+X  			if (u.ublesscnt)  u.ublesscnt--;
+X  #endif
+X*** polyself.c.orig	Wed May 11 11:26:41 1988
+X--- polyself.c	Wed May 11 09:56:39 1988
+X***************
+X*** 192,197
+X  	  if (cantwield(turninto)) {
+X  	       pline("You find you must drop your weapon!");
+X  	       setuwep((struct obj *)0);
+X  	       dropx(otmp);
+X  	  }
+X       }
+X
+X--- 192,201 -----
+X  	  if (cantwield(turninto)) {
+X  	       pline("You find you must drop your weapon!");
+X  	       setuwep((struct obj *)0);
+X+ #ifdef YODA
+X+ 		if (otmp->otyp == LIGHT_SWORD) 
+X+ 			otmp->otyp = SWORD_HILT;
+X+ #endif
+X  	       dropx(otmp);
+X  	  }
+X       }
+X*** pri.c.orig	Wed May 11 11:28:28 1988
+X--- pri.c	Wed May 11 11:28:54 1988
+X***************
+X*** 9,14
+X  #ifdef MSDOSCOLOR
+X  extern int hilite();
+X  #endif
+X  xchar scrlx, scrhx, scrly, scrhy;	/* corners of new area on screen */
+X  
+X  extern char *hu_stat[];	/* in eat.c */
+X
+X--- 9,17 -----
+X  #ifdef MSDOSCOLOR
+X  extern int hilite();
+X  #endif
+X+ #ifdef JCC
+X+ static char GFlag = 0;	/* graphic flag */
+X+ #endif
+X  xchar scrlx, scrhx, scrly, scrhy;	/* corners of new area on screen */
+X  
+X  extern char *hu_stat[];	/* in eat.c */
+X***************
+X*** 98,103
+X  #ifdef MSDOSCOLOR
+X  		hilite(ch);
+X  #else
+X  		(void) putchar(ch);
+X  #endif
+X  	curx++;
+X
+X--- 101,121 -----
+X  #ifdef MSDOSCOLOR
+X  		hilite(ch);
+X  #else
+X+ #ifdef JCC
+X+ 		if (ch & 0x80) {
+X+ 			if (!GFlag) {
+X+ 				graph_on();
+X+ 				GFlag = 1;
+X+ 			}
+X+ 			(void) putchar(ch ^ 0x80);
+X+ 		} else {
+X+ 			if (GFlag) {
+X+ 				graph_off();
+X+ 				GFlag = 0;
+X+ 			}
+X+ 			(void) putchar(ch);
+X+ 		}
+X+ #else
+X  		(void) putchar(ch);
+X  #endif 	/* JCC */
+X  #endif
+X***************
+X*** 99,104
+X  		hilite(ch);
+X  #else
+X  		(void) putchar(ch);
+X  #endif
+X  	curx++;
+X  }
+X
+X--- 117,123 -----
+X  		}
+X  #else
+X  		(void) putchar(ch);
+X+ #endif 	/* JCC */
+X  #endif
+X  	curx++;
+X  }
+X***************
+X*** 196,201
+X  			} else if(room->seen)
+X  				at(x,y,room->scrsym);
+X  #endif
+X  	scrlx = COLNO;
+X  	scrly = ROWNO;
+X  	scrhx = scrhy = 0;
+X
+X--- 215,226 -----
+X  			} else if(room->seen)
+X  				at(x,y,room->scrsym);
+X  #endif
+X+ #ifdef JCC
+X+ 	if (GFlag) {
+X+ 		graph_off();
+X+ 		GFlag = 0;
+X+ 	}
+X+ #endif
+X  	scrlx = COLNO;
+X  	scrly = ROWNO;
+X  	scrhx = scrhy = 0;
+X***************
+X*** 245,250
+X  			DECgraphicsOFF();
+X  	}
+X  #endif
+X  	if(ymax > ROWNO) {
+X  		cornbot(xmin-1);
+X  		if(ymax > ROWNO+1 && CD) {
+X
+X--- 270,281 -----
+X  			DECgraphicsOFF();
+X  	}
+X  #endif
+X+ #ifdef JCC
+X+ 	if (GFlag) {
+X+ 		graph_off();
+X+ 		GFlag = 0;
+X+ 	}
+X+ #endif
+X  	if(ymax > ROWNO) {
+X  		cornbot(xmin-1);
+X  		if(ymax > ROWNO+1 && CD) {
+X***************
+X*** 328,333
+X  		mon->mdx = mon->mx;
+X  		mon->mdy = mon->my;
+X  	}
+X  }
+X  
+X  unpmon(mon) register struct monst *mon; {
+X
+X--- 359,370 -----
+X  		mon->mdx = mon->mx;
+X  		mon->mdy = mon->my;
+X  	}
+X+ #ifdef JCC
+X+ 	if (GFlag) {
+X+ 		graph_off();
+X+ 		GFlag = 0;
+X+ 	}
+X+ #endif
+X  }
+X  
+X  unpmon(mon) register struct monst *mon; {
+X***************
+X*** 350,355
+X  				room->new = 0;
+X  				at(x,y,room->scrsym);
+X  			}
+X  	scrhx = scrhy = 0;
+X  	scrlx = COLNO;
+X  	scrly = ROWNO;
+X
+X--- 387,398 -----
+X  				room->new = 0;
+X  				at(x,y,room->scrsym);
+X  			}
+X+ #ifdef JCC
+X+ 	if (GFlag) {
+X+ 		graph_off();
+X+ 		GFlag = 0;
+X+ 	}
+X+ #endif
+X  	scrhx = scrhy = 0;
+X  	scrlx = COLNO;
+X  	scrly = ROWNO;
+X*** prisym.c.orig	Wed May 11 11:31:31 1988
+X--- prisym.c	Wed May 11 11:30:47 1988
+X***************
+X*** 215,220
+X  		tmp = room->scrsym;	/* %% wrong after killing mimic ! */
+X  		break;
+X  	case HWALL:
+X  		tmp = room->scrsym;	/* OK for corners only */
+X  		if (!IS_CORNER(tmp))
+X  			tmp = HWALL_SYM;
+X
+X--- 215,221 -----
+X  		tmp = room->scrsym;	/* %% wrong after killing mimic ! */
+X  		break;
+X  	case HWALL:
+X+ #ifndef JCC
+X  		tmp = room->scrsym;	/* OK for corners only */
+X  		if (!IS_CORNER(tmp))
+X  #endif
+X***************
+X*** 217,222
+X  	case HWALL:
+X  		tmp = room->scrsym;	/* OK for corners only */
+X  		if (!IS_CORNER(tmp))
+X  			tmp = HWALL_SYM;
+X  		break;
+X  	case VWALL:
+X
+X--- 218,224 -----
+X  #ifndef JCC
+X  		tmp = room->scrsym;	/* OK for corners only */
+X  		if (!IS_CORNER(tmp))
+X+ #endif
+X  			tmp = HWALL_SYM;
+X  		break;
+X  	case VWALL:
+X***************
+X*** 222,227
+X  	case VWALL:
+X  		tmp = VWALL_SYM;
+X  		break;
+X  	case LDOOR:
+X  	case DOOR:
+X  		tmp = DOOR_SYM;
+X
+X--- 224,258 -----
+X  	case VWALL:
+X  		tmp = VWALL_SYM;
+X  		break;
+X+ #ifdef JCC
+X+ 	case TLCORNER:
+X+ 		tmp = TLCORN_SYM;
+X+ 		break;
+X+ 	case TRCORNER:
+X+ 		tmp = TRCORN_SYM;
+X+ 		break;
+X+ 	case BLCORNER:
+X+ 		tmp = BLCORN_SYM;
+X+ 		break;
+X+ 	case BRCORNER:
+X+ 		tmp = BRCORN_SYM;
+X+ 		break;
+X+ 	case CROSSWALL:
+X+ 		tmp = CRWALL_SYM;
+X+ 		break;
+X+ 	case TUPWALL:
+X+ 		tmp = TUPWALL_SYM;
+X+ 		break;
+X+ 	case TDOWNWALL:
+X+ 		tmp = TDOWNWALL_SYM;
+X+ 		break;
+X+ 	case TLEFTWALL:
+X+ 		tmp = TLEFTWALL_SYM;
+X+ 		break;
+X+ 	case TRIGHTWALL:
+X+ 		tmp = TRIGHTWALL_SYM;
+X+ 		break;
+X+ #endif
+X  	case LDOOR:
+X  	case DOOR:
+X  		tmp = DOOR_SYM;
+X*** rm.h.orig	Wed May 11 11:32:33 1988
+X--- rm.h	Wed May 11 09:56:43 1988
+X***************
+X*** 11,16
+X  /* Level location types */
+X  #define	HWALL 1
+X  #define	VWALL 2
+X  #define	SDOOR 3
+X  #define	SCORR 4
+X  #define	LDOOR 5
+X
+X--- 11,39 -----
+X  /* Level location types */
+X  #define	HWALL 1
+X  #define	VWALL 2
+X+ #ifdef JCC
+X+ #define TLCORNER	3
+X+ #define TRCORNER	4
+X+ #define BLCORNER	5
+X+ #define BRCORNER	6
+X+ #define CROSSWALL	7	/* From here to TRIGHTWALL, only used in */
+X+ #define TUPWALL		8	/* Mazes, in order to make it pretty ! */
+X+ #define TDOWNWALL	9
+X+ #define TLEFTWALL	10
+X+ #define TRIGHTWALL	11
+X+ #define	SDOOR		12
+X+ #define	SCORR		13
+X+ #define	LDOOR		14
+X+ #define	POOL		15	/* not yet fully implemented */
+X+ 				/* this should in fact be a bit like lit */
+X+ #define	DOOR	  	16
+X+ #define	CORR	  	17
+X+ #define	ROOM	  	18
+X+ #define	STAIRS 	 	19
+X+ #define FOUNTAIN 	20
+X+ #define THRONE	 	21
+X+ #define	SINK	 	22
+X+ #else
+X  #define	SDOOR 3
+X  #define	SCORR 4
+X  #define	LDOOR 5
+X***************
+X*** 23,28
+X  #define FOUNTAIN 11
+X  #define THRONE	 12
+X  #define	SINK	 13
+X  /*
+X   * Avoid using the level types in inequalities:
+X   *  these types are subject to change.
+X
+X--- 46,52 -----
+X  #define FOUNTAIN 11
+X  #define THRONE	 12
+X  #define	SINK	 13
+X+ #endif
+X  /*
+X   * Avoid using the level types in inequalities:
+X   *  these types are subject to change.
+X***************
+X*** 28,33
+X   *  these types are subject to change.
+X   * Instead, use one of the macros below.
+X   */
+X  #define	IS_WALL(typ)	((typ) <= VWALL)
+X  #define IS_ROCK(typ)	((typ) < POOL)		/* absolutely nonaccessible */
+X  #define	ACCESSIBLE(typ)	((typ) >= DOOR)			/* good position */
+X
+X--- 52,60 -----
+X   *  these types are subject to change.
+X   * Instead, use one of the macros below.
+X   */
+X+ #ifdef JCC
+X+ #define	IS_WALL(typ)	((typ) <= TRIGHTWALL)
+X+ #else
+X  #define	IS_WALL(typ)	((typ) <= VWALL)
+X  #endif
+X  #define IS_ROCK(typ)	((typ) < POOL)		/* absolutely nonaccessible */
+X***************
+X*** 29,34
+X   * Instead, use one of the macros below.
+X   */
+X  #define	IS_WALL(typ)	((typ) <= VWALL)
+X  #define IS_ROCK(typ)	((typ) < POOL)		/* absolutely nonaccessible */
+X  #define	ACCESSIBLE(typ)	((typ) >= DOOR)			/* good position */
+X  #define	IS_ROOM(typ)		((typ) >= ROOM)		/* ROOM or STAIRS */
+X
+X--- 56,62 -----
+X  #define	IS_WALL(typ)	((typ) <= TRIGHTWALL)
+X  #else
+X  #define	IS_WALL(typ)	((typ) <= VWALL)
+X+ #endif
+X  #define IS_ROCK(typ)	((typ) < POOL)		/* absolutely nonaccessible */
+X  #define	ACCESSIBLE(typ)	((typ) >= DOOR)			/* good position */
+X  #define	IS_ROOM(typ)		((typ) >= ROOM)		/* ROOM or STAIRS */
+X***************
+X*** 89,94
+X  #ifdef SINKS
+X      unsigned char sink;
+X  #endif
+X  };
+X  extern struct symbols showsyms, defsyms;
+X  
+X
+X--- 117,125 -----
+X  #ifdef SINKS
+X      unsigned char sink;
+X  #endif
+X+ #ifdef JCC
+X+     unsigned char crwall, twall, tdwall, tlwall, trwall;
+X+ #endif
+X  };
+X  extern struct symbols showsyms, defsyms;
+X  
+X***************
+X*** 110,115
+X  #define THRONE_SYM      showsyms.throne
+X  #define WEB_SYM         showsyms.web
+X  #define SINK_SYM	showsyms.sink
+X  #endif
+X  
+X  #define	ERRCHAR	']'
+X
+X--- 141,153 -----
+X  #define THRONE_SYM      showsyms.throne
+X  #define WEB_SYM         showsyms.web
+X  #define SINK_SYM	showsyms.sink
+X+ #ifdef JCC
+X+ #define CRWALL_SYM	showsyms.crwall
+X+ #define TUPWALL_SYM	showsyms.twall
+X+ #define TDOWNWALL_SYM	showsyms.tdwall
+X+ #define TLEFTWALL_SYM	showsyms.tlwall
+X+ #define TRIGHTWALL_SYM	showsyms.trwall
+X+ #endif
+X  #endif
+X  
+X  #define	ERRCHAR	']'
+X*** save.c.orig	Wed May 11 11:33:13 1988
+X--- save.c	Wed May 11 09:56:44 1988
+X***************
+X*** 8,13
+X  extern char genocided[60];		/* defined in decl.c */
+X  extern char fut_geno[60];		/* idem */
+X  extern struct permonst	pm_wizard;	/* since the wizard evolves */
+X  
+X  extern char SAVEF[], nul[];
+X  extern char pl_character[PL_CSIZ];
+X
+X--- 8,16 -----
+X  extern char genocided[60];		/* defined in decl.c */
+X  extern char fut_geno[60];		/* idem */
+X  extern struct permonst	pm_wizard;	/* since the wizard evolves */
+X+ #ifdef YODA
+X+ extern char FirstTime;			/* first use of light sword */
+X+ #endif
+X  
+X  extern char SAVEF[], nul[];
+X  extern char pl_character[PL_CSIZ];
+X***************
+X*** 97,102
+X  #ifdef HARD
+X  	bwrite(fd, (char *) &pm_wizard, sizeof(struct permonst));
+X  #endif
+X  	savenames(fd);
+X  #ifdef DGK
+X  	if (mode == COUNT) {
+X
+X--- 100,108 -----
+X  #ifdef HARD
+X  	bwrite(fd, (char *) &pm_wizard, sizeof(struct permonst));
+X  #endif
+X+ #ifdef YODA
+X+ 	bwrite(fd, (char *) &FirstTime, sizeof FirstTime);
+X+ #endif
+X  	savenames(fd);
+X  #ifdef DGK
+X  	if (mode == COUNT) {
+X***************
+X*** 218,223
+X  	mread(fd, (char *) &pm_wizard, sizeof(struct permonst));
+X  	pm_wizard.mname = name;
+X  	}
+X  #endif
+X  	restnames(fd);
+X  #ifdef DGK
+X
+X--- 224,232 -----
+X  	mread(fd, (char *) &pm_wizard, sizeof(struct permonst));
+X  	pm_wizard.mname = name;
+X  	}
+X+ #endif
+X+ #ifdef YODA
+X+ 	mread(fd, (char *) &FirstTime, sizeof FirstTime);
+X  #endif
+X  	restnames(fd);
+X  #ifdef DGK
+X*** steal.c.orig	Wed May 11 11:34:30 1988
+X--- steal.c	Wed May 11 11:38:39 1988
+X***************
+X*** 157,162
+X  	}
+X  	freeinv(otmp);
+X  	pline("%s stole %s.", named ? "She" : Monnam(mtmp), doname(otmp));
+X  	mpickobj(mtmp,otmp);
+X  	return((multi < 0) ? 0 : 1);
+X  }
+X
+X--- 157,176 -----
+X  	}
+X  	freeinv(otmp);
+X  	pline("%s stole %s.", named ? "She" : Monnam(mtmp), doname(otmp));
+X+ #ifdef YODA
+X+ 	if (otmp->otyp == LIGHT_SWORD) 
+X+ 		otmp->otyp = SWORD_HILT;
+X+ #endif
+X+ 	if (otmp->otyp == BLINDFOLD && Blindfolded && otmp->owornmask) {
+X+ 	    Blindfolded = 0;
+X+ 	    if (!Blinded)	Blinded = 1;	/* see on next move */
+X+ 	    else		pline("You still cannot see.");
+X+ 	    otmp->owornmask = 0;
+X+ 	}
+X+ 	if (otmp->otyp == BADGE && Badged && otmp->owornmask) {
+X+ 		Badged = 0;
+X+ 		otmp->owornmask = 0;
+X+ 	}
+X  	mpickobj(mtmp,otmp);
+X  	return((multi < 0) ? 0 : 1);
+X  }
+X*** termcap.c.orig	Wed May 11 11:39:54 1988
+X--- termcap.c	Wed May 11 12:25:18 1988
+X***************
+X*** 23,28
+X  static char tbuf[512];
+X  static char *HO, *CL, *CE, *UP, *CM, *ND, *XD, *BC, *SO, *SE, *TI, *TE;
+X  static char *VS, *VE, *US, *UE;
+X  static int SG;
+X  static char PC = '\0';
+X  char *CD;		/* tested in pri.c: docorner() */
+X
+X--- 23,31 -----
+X  static char tbuf[512];
+X  static char *HO, *CL, *CE, *UP, *CM, *ND, *XD, *BC, *SO, *SE, *TI, *TE;
+X  static char *VS, *VE, *US, *UE;
+X+ #ifdef JCC
+X+ static char *AS, *AE;
+X+ #endif
+X  static int SG;
+X  static char PC = '\0';
+X  char *CD;		/* tested in pri.c: docorner() */
+X***************
+X*** 113,118
+X  #ifdef MSDOSCOLOR
+X  	init_hilite();
+X  #endif
+X  }
+X  
+X  start_screen()
+X
+X--- 116,125 -----
+X  #ifdef MSDOSCOLOR
+X  	init_hilite();
+X  #endif
+X+ #ifdef JCC
+X+ 	AS = tgetstr("as",&tbufptr);
+X+ 	AE = tgetstr("ae",&tbufptr);
+X+ #endif
+X  }
+X  
+X  start_screen()
+X***************
+X*** 397,399
+X  
+X  #endif
+X  
+X
+X--- 404,419 -----
+X  
+X  #endif
+X  
+X+ #ifdef JCC
+X+ void
+X+ graph_on()
+X+ {
+X+ 	if (AS) xputs(AS);
+X+ }
+X+ 
+X+ void
+X+ graph_off()
+X+ {
+X+ 	if (AE) xputs(AE);
+X+ }
+X+ #endif /* JCC */
+X*** u_init.c.orig	Wed May 11 11:41:00 1988
+X--- u_init.c	Wed May 11 10:22:46 1988
+X***************
+X*** 30,35
+X  #ifdef KAA
+X  	"Valkyrie", "Elf", "Healer",
+X  #endif
+X  	"Wizard"
+X  };
+X  #define	NR_OF_ROLES	SIZE(roles)
+X
+X--- 30,38 -----
+X  #ifdef KAA
+X  	"Valkyrie", "Elf", "Healer",
+X  #endif
+X+ #ifdef YODA
+X+ 	"Jedi-knight",
+X+ #endif
+X  	"Wizard"
+X  };
+X  #define	NR_OF_ROLES	SIZE(roles)
+X***************
+X*** 198,203
+X  };
+X  #endif /* NEWCLASS /**/
+X  
+X  u_init(){
+X  register int i;
+X  char exper = 'y', pc;
+X
+X--- 201,213 -----
+X  };
+X  #endif /* NEWCLASS /**/
+X  
+X+ #ifdef YODA
+X+ struct	trobj	Jedi[] = {
+X+ 	{ LIGHT_SWORD, 1, WEAPON_SYM, 1, 1 },
+X+ 	{ ELVEN_CLOAK, 0, ARMOR_SYM, 1, 1},
+X+ 	{ 0, 0, 0, 0, 0 }
+X+ };
+X+ #endif /* YODA */
+X  u_init(){
+X  register int i;
+X  char exper = 'y', pc;
+X***************
+X*** 454,459
+X  		objects[POT_HOLY_WATER].oc_name_known = 1;
+X  		break;
+X  #endif /* NEWCLASS /**/
+X  	default:	/* impossible */
+X  		u.uhp = u.uhpmax = 12;
+X  		u.ustr = u.ustrmax = 16;
+X
+X--- 464,482 -----
+X  		objects[POT_HOLY_WATER].oc_name_known = 1;
+X  		break;
+X  #endif /* NEWCLASS /**/
+X+ #ifdef YODA
+X+ 	case 'j':
+X+ 	case 'J':
+X+ 		Fast = INTRINSIC;
+X+ 		Stealth = INTRINSIC;
+X+ 		u.uhp = u.uhpmax = 15;
+X+ 		u.ustr = u.ustrmax = 10;
+X+ 		ini_inv(Jedi);
+X+ 		ini_batteries();
+X+ 		if(!rn2(5)) ini_inv(Blindfold);
+X+ 		OPOWER(uwep) = rn1(300,200);
+X+ 		break;
+X+ #endif /* YODA */
+X  	default:	/* impossible */
+X  		u.uhp = u.uhpmax = 12;
+X  		u.ustr = u.ustrmax = 16;
+X***************
+X*** 473,478
+X  		u.ustr++, u.ustrmax++;
+X  }
+X  
+X  
+X  ini_inv(trop) register struct trobj *trop; {
+X  register struct obj *obj;
+X
+X--- 496,512 -----
+X  		u.ustr++, u.ustrmax++;
+X  }
+X  
+X+ #ifdef YODA
+X+ ini_batteries()
+X+ {	register struct obj *obj;
+X+ 	extern struct obj *mksobj();
+X+ 	obj = mksobj(BATTERY);
+X+ 	obj->known = 0;
+X+ 	obj->quan = !rn2(6) ? rn1(2,4) : rn1(2,2);
+X+ 	obj->owt = weight(obj);
+X+ 	(void)addinv(obj);
+X+ }
+X+ #endif
+X  
+X  ini_inv(trop) register struct trobj *trop; {
+X  register struct obj *obj;
+X*** unixmain.c.orig	Wed May 11 11:41:34 1988
+X--- unixmain.c	Wed May 11 09:56:58 1988
+X***************
+X*** 285,290
+X  			if(Glib) glibr();
+X  			timeout();
+X  			++moves;
+X  #ifdef PRAYERS
+X  			if (u.ublesscnt)  u.ublesscnt--;
+X  #endif
+X
+X--- 285,302 -----
+X  			if(Glib) glibr();
+X  			timeout();
+X  			++moves;
+X+ #ifdef YODA
+X+ 			if (uwep && uwep->otyp == LIGHT_SWORD) {
+X+ 				OPOWER(uwep)--;
+X+ 				if (OPOWER(uwep) == 50 && !Blind) 
+X+ 					pline("The blade of your %s seems dimmer.",xname(uwep));
+X+ 				if (OPOWER(uwep) <= 0) {
+X+ 					if (!Blind) 
+X+ 						pline("The blade of your %s disappears!",xname(uwep));
+X+ 					uwep->otyp = SWORD_HILT;
+X+ 				}
+X+ 			}
+X+ #endif
+X  #ifdef PRAYERS
+X  			if (u.ublesscnt)  u.ublesscnt--;
+X  #endif
+X*** wield.c.orig	Wed May 11 11:42:41 1988
+X--- wield.c	Wed May 11 09:57:00 1988
+X***************
+X*** 7,12
+X  #ifdef KAA
+X  extern boolean unweapon;
+X  #endif
+X  
+X  setuwep(obj) register struct obj *obj; {
+X  	setworn(obj, W_WEP);
+X
+X--- 7,15 -----
+X  #ifdef KAA
+X  extern boolean unweapon;
+X  #endif
+X+ #ifdef YODA
+X+ char FirstTime = 1;	/* first use of the light sword */
+X+ #endif
+X  
+X  setuwep(obj) register struct obj *obj; {
+X  	setworn(obj, W_WEP);
+X***************
+X*** 31,36
+X  	  } else if (welded(uwep))
+X  		pline("The %s welded to your hand!",aobjnam(uwep,"are"));
+X  	  	else  {
+X  	  	  setuwep((struct obj *) 0);
+X  	  	  res++;
+X  	  	  pline("You are empty handed.");
+X
+X--- 34,46 -----
+X  	  } else if (welded(uwep))
+X  		pline("The %s welded to your hand!",aobjnam(uwep,"are"));
+X  	  	else  {
+X+ #ifdef YODA
+X+ 		  if (uwep->otyp == LIGHT_SWORD) {
+X+ 			  if (!Blind) 
+X+ 				  pline("The blade of light disappears!");
+X+ 			  uwep->otyp = SWORD_HILT;
+X+ 		  }
+X+ #endif
+X  	  	  setuwep((struct obj *) 0);
+X  	  	  res++;
+X  	  	  pline("You are empty handed.");
+X***************
+X*** 51,56
+X  	else if(wep->owornmask & (W_ARMOR | W_RING))
+X  		pline("You cannot wield that!");
+X  	else {
+X  		setuwep(wep);
+X  		res++;
+X  		if(welded(uwep))
+X
+X--- 61,87 -----
+X  	else if(wep->owornmask & (W_ARMOR | W_RING))
+X  		pline("You cannot wield that!");
+X  	else {
+X+ #ifdef YODA
+X+ 		if (uwep->otyp == LIGHT_SWORD) {
+X+ 			if (!Blind) 
+X+ 				pline("The blade of light disappears!");
+X+ 			uwep->otyp = SWORD_HILT;
+X+ 		}
+X+ 		if (wep->otyp ==  SWORD_HILT && OPOWER(wep) > 0) {
+X+ 			if (FirstTime) {
+X+ 				pline("As you grab the %s, your thumb",xname(wep));
+X+ 				pline("press an hidden button. Click !!");
+X+ 				if (!Blind) 
+X+ 					pline("A blade of light appears from the hilt!");
+X+ 				pline("You ear a distant voice saying :");
+X+ 				pline("'May the Source be with you...'");
+X+ 				FirstTime = 0;
+X+ 			} else
+X+ 				if (!Blind) 
+X+ 					pline("A blade of light appears from the hilt!");
+X+ 			wep->otyp = LIGHT_SWORD;
+X+ 		}
+X+ #endif
+X  		setuwep(wep);
+X  		res++;
+X  		if(welded(uwep))
+X***************
+X*** 69,74
+X  
+X  corrode_weapon(){
+X  	if(!uwep || uwep->olet != WEAPON_SYM) return;	/* %% */
+X  	if(uwep->rustfree)
+X  		pline("Your %s not affected.", aobjnam(uwep, "are"));
+X  	else if (uwep->spe > -6) {
+X
+X--- 100,129 -----
+X  
+X  corrode_weapon(){
+X  	if(!uwep || uwep->olet != WEAPON_SYM) return;	/* %% */
+X+ #ifdef YODA
+X+ 	if (uwep->otyp == LIGHT_SWORD) {
+X+ 		/* the light sword is really a very delicate
+X+ 		   weapon */
+X+ 		struct obj *obj;
+X+ 		obj = uwep;
+X+ 		pline("An extremely powerful lightning bolt erupts from your sword,");
+X+ 		pline("destroying it and getting you blasted!");
+X+ 		freeinv(obj);	/* Destroy the sword */
+X+ 		setworn((struct obj *) 0, obj->owornmask);
+X+ 		obfree(obj, (struct obj *) 0);
+X+ 		losehp(rn2(40),"lightning bolt");
+X+ 	} else 
+X+ 	if (uwep->otyp == SWORD_HILT) {
+X+ 		struct obj *obj;
+X+ 		obj = uwep;
+X+ 		pline("Your sword hilt melts into non descriptible magma,");
+X+ 		pline("hurting your hand very badly !!!");
+X+ 		freeinv(obj);	/* Destroy the hilt */
+X+ 		setworn((struct obj *) 0, obj->owornmask);
+X+ 		obfree(obj, (struct obj *) 0);
+X+ 		losehp(rn2(10),"acid magma");		
+X+ 	} else
+X+ #endif
+X  	if(uwep->rustfree)
+X  		pline("Your %s not affected.", aobjnam(uwep, "are"));
+X  	else if (uwep->spe > -6) {
+X*** zap.c.orig	Wed May 11 11:43:42 1988
+X--- zap.c	Wed May 11 10:24:00 1988
+X***************
+X*** 1207,1212
+X     if successful. */
+X  	if (otmp) { 
+X  #endif
+X  		wishquan = otmp->quan;
+X  		otmp = addinv(otmp);
+X  		/* indented lines added below so quantity shows
+X
+X--- 1207,1218 -----
+X     if successful. */
+X  	if (otmp) { 
+X  #endif
+X+ #ifdef YODA
+X+ 		if (otmp->otyp == LIGHT_SWORD) 
+X+ 			otmp->otyp = SWORD_HILT;
+X+ 		if (otmp->otyp == SWORD_HILT) 
+X+ 			OPOWER(otmp) = rnd(500);
+X+ #endif
+X  		wishquan = otmp->quan;
+X  		otmp = addinv(otmp);
+X  		/* indented lines added below so quantity shows
+X
+X
+END_OF_Newstuff/newstuff
+if test 44416 -ne `wc -c <Newstuff/newstuff`; then
+    echo shar: \"Newstuff/newstuff\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+if test -f cmd.c -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"cmd.c\"
+else
+echo shar: Extracting \"cmd.c\" \(15456 characters\)
+sed "s/^X//" >cmd.c <<'END_OF_cmd.c'
+X/*	SCCS Id: @(#)cmd.c	2.3	88/01/21
+X/* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+X
+X#include	"hack.h"
+X#include	"func_tab.h"
+X
+Xint doredraw(),doredotopl(),dodrop(),dodrink(),doread(),dosearch(),dopickup(),
+Xdoversion(),doweararm(),dowearring(),doremarm(),doddoremarm(),doremring(),
+Xdopay(),doapply(),dosave(),dowield(),ddoinv(),dozap(),ddocall(),dowhatis(),
+Xdoengrave(),dotele(),dohelp(),doeat(),doddrop(),do_mname(),doidtrap(),
+Xdoprwep(),doprarm(),doprring(),doprgold(),dodiscovered(),dotypeinv(),dolook(),
+Xdoset(),doup(), dodown(), done1(), donull(), dothrow(), doextcmd(), dodip(),
+Xdopray(), doextlist(), dorub();
+X
+X#ifdef THEOLOGY
+Xint dosacrifice ();
+X#endif;
+X
+X#ifdef WIZARD
+Xint wiz_wish(), wiz_identify(), wiz_map(), wiz_detect(), wiz_attributes();
+X#endif
+X#ifdef NEWCLASS
+Xint dosit(), doturn();
+X#endif
+X#ifdef SPELLS
+Xint docast(), dovspell(), doxcribe();
+X#endif
+X#ifdef SHELL
+Xint dosh();
+X#endif
+X#ifdef SUSPEND
+Xint dosuspend();
+X#endif
+X#ifdef KAA
+Xint doremove(), dobreathe();
+X# ifdef KOPS
+Xint dowipe();
+X# endif
+X#endif
+X
+Xint rndobjsym(), rndmonsym();
+Xchar *hcolor(), *rndmonnam(), *defmonnam();
+X
+Xextern char *occtxt;
+Xextern int (*occupation)();
+X
+X#ifdef DGKMOD
+Xint dotogglepickup(), doMSCversion();
+X# ifdef DEBUG
+Xint dodebug();
+X# endif
+X
+Xstatic int (*timed_occ_fn)();
+X
+X/* Count down by decrementing multi */
+Xtimed_occupation() {
+X	(*timed_occ_fn)();
+X	if (multi > 0)
+X		multi--;
+X	return (multi > 0);
+X}
+X
+X/* If a time is given, use it to timeout this function, otherwise the
+X * function times out by its own means.
+X */
+Xvoid
+Xset_occupation(fn, txt, time)
+Xint (*fn)();
+Xchar *txt;
+X{
+X	if (time) {
+X		occupation = timed_occupation;
+X		timed_occ_fn = fn;
+X	} else
+X		occupation = fn;
+X	occtxt = txt;
+X	occtime = 0;
+X}
+X#endif /* DGKMOD */
+X
+X#ifdef REDO
+X/* Provide a means to redo the last command.  The flag `in_doagain' is set
+X * to true while redoing the command.  This flag is tested in commands that
+X * require additional input (like `throw' which requires a thing and a
+X * direction), and the input prompt is not shown.  Also, while in_doagain is
+X * TRUE, no keystrokes can be saved into the saveq.
+X */
+X#define BSIZE 20
+Xstatic char pushq[BSIZE], saveq[BSIZE];
+Xstatic int phead, ptail, shead, stail;
+Xextern int in_doagain;
+X
+Xchar
+Xpopch() {
+X	/* If occupied, return 0, letting tgetch know a character should
+X	 * be read from the keyboard.  If the character read is not the
+X	 * ABORT character (as checked in main.c), that character will be
+X	 * pushed back on the pushq.
+X	 */
+X	if (occupation) return(0);
+X	if (in_doagain) return ((shead != stail) ? saveq[stail++] : 0);
+X	else		return ((phead != ptail) ? pushq[ptail++] : 0);
+X}
+X
+X/* A ch == 0 resets the pushq */
+Xvoid
+Xpushch(ch)
+Xchar ch;
+X{
+X	if (!ch)
+X		phead = ptail = 0;
+X	if (phead < BSIZE)
+X		pushq[phead++] = ch;
+X}
+X
+X/* A ch == 0 resets the saveq.  Only save keystrokes when not
+X * replaying a previous command.
+X */
+Xvoid
+Xsavech(ch)
+Xchar ch;
+X{
+X	if (!in_doagain) {
+X		if (!ch)
+X			phead = ptail = shead = stail = 0;
+X		else if (shead < BSIZE)
+X			saveq[shead++] = ch;
+X	}
+X}
+X#endif /* REDO */
+X
+Xstruct func_tab cmdlist[]={
+X#if defined(DGKMOD) && defined(DEBUG_DOESNT_WORK)
+X	{'\004', /* ^D */ dodebug},	/* generic debug function */
+X#endif
+X#ifdef WIZARD
+X	{'\005', /* ^E */ wiz_detect},
+X	{'\006', /* ^F */ wiz_map},
+X	{'\011', /* ^I */ wiz_identify},
+X#endif
+X	{'\020', /* ^P */ doredotopl},
+X	{'\022', /* ^R */ doredraw},
+X	{'\024', /* ^T */ dotele},
+X#ifdef WIZARD
+X	{'\027', /* ^W */ wiz_wish},
+X	{'\030', /* ^X */ wiz_attributes},
+X#endif
+X#ifdef SUSPEND
+X	{'\032', /* ^Z */ dosuspend},
+X#endif
+X	{'a', doapply},
+X	{'A', doddoremarm},
+X/*	'b', 'B' : go sw */
+X	{'c', ddocall},
+X	{'C', do_mname},
+X	{'d', dodrop},
+X	{'D', doddrop},
+X	{'e', doeat},
+X	{'E', doengrave},
+X/* Soon to be
+X	{'f', dofight, "fighting"},
+X	{'F', doFight, "fighting"},
+X */
+X/*	'g', 'G' : multiple go */
+X/*	'h', 'H' : go west */
+X	{'I', dotypeinv},		/* Robert Viduya */
+X	{'i', ddoinv},
+X/*	'j', 'J', 'k', 'K', 'l', 'L', 'm', 'M', 'n', 'N' : move commands */
+X/*	'o', doopen,	*/
+X	{'O', doset},
+X	{'p', dopay},
+X	{'P', dowearring},
+X	{'q', dodrink},
+X	{'Q', done1},
+X	{'r', doread},
+X	{'R', doremring},
+X	{'s', dosearch, "searching"},
+X	{'S', dosave},
+X	{'t', dothrow},
+X	{'T', doremarm},
+X/*	'u', 'U' : go ne */
+X	{'v', doversion},
+X	{'w', dowield},
+X	{'W', doweararm},
+X#ifdef SPELLS
+X	{'x', dovspell},			/* Mike Stephenson */
+X	{'X', doxcribe},			/* Mike Stephenson */ 
+X#endif
+X/*	'y', 'Y' : go nw */
+X	{'z', dozap},
+X#ifdef SPELLS
+X	{'Z', docast},
+X#endif
+X	{'<', doup},
+X	{'>', dodown},
+X	{'/', dowhatis},
+X	{'?', dohelp},
+X#ifdef SHELL
+X	{'!', dosh},
+X#endif
+X	{'.', donull, "waiting"},
+X	{' ', donull, "waiting"},
+X	{',', dopickup},
+X	{':', dolook},
+X	{'^', doidtrap},
+X	{'\\', dodiscovered},		/* Robert Viduya */
+X#ifdef DGKMOD
+X	{'@', dotogglepickup},
+X	{'V', doMSCversion},
+X#endif
+X	{WEAPON_SYM,  doprwep},
+X	{ARMOR_SYM,  doprarm},
+X	{RING_SYM,  doprring},
+X	{GOLD_SYM, doprgold},
+X	{'#', doextcmd},
+X	{0,0,0}
+X};
+X
+Xstruct ext_func_tab extcmdlist[] = {
+X#ifdef KAA
+X	"breathe", "breathe fire like a red dragon", dobreathe,
+X#endif
+X#ifdef SPELLS
+X	"cast", "cast a spell", docast,
+X#endif
+X	"dip", "dip an object into something", dodip,
+X#ifdef PRAYERS
+X#ifdef THEOLOGY
+X	"sacrifice", "offer a sacrifice to the gods", dosacrifice,
+X#endif
+X	"pray", "pray to the gods for help", dopray,
+X#endif
+X#ifdef KAA
+X	"remove", "remove a cursed item", doremove,
+X#endif
+X#ifdef NEWCLASS
+X	"rub", "rub a lamp", dorub,
+X	"sit", "sit down", dosit,
+X	"turn", "turn undead", doturn,
+X#endif
+X#if defined(KOPS) && defined(KAA)
+X	"wipe", "wipe your face off", dowipe,
+X#endif
+X	"?", "get this list of extended commands", doextlist,
+X	(char *) 0, (char *) 0, donull
+X};
+X
+Xextern char *parse(), lowc(), unctrl(), quitchars[];
+X
+Xrhack(cmd)
+Xregister char *cmd;
+X{
+X	register struct func_tab *tlist = cmdlist;
+X	boolean firsttime = FALSE;
+X	register res;
+X
+X	if(!cmd) {
+X		firsttime = TRUE;
+X		flags.nopick = 0;
+X		cmd = parse();
+X	}
+X#ifdef REDO
+X	if (*cmd == DOAGAIN && !in_doagain && saveq[0]) {
+X		in_doagain = TRUE;
+X		stail = 0;
+X		rhack((char *) 0);	/* read and execute command */
+X		in_doagain = FALSE;
+X		return;
+X	}
+X
+X	/* Special case of *cmd == ' ' handled better below */
+X	if(!*cmd || *cmd == (char)0377) {
+X#else
+X	if(!*cmd || *cmd == (char)0377 || (flags.no_rest_on_space && *cmd == ' ')){
+X#endif
+X		bell();
+X		flags.move = 0;
+X		return;		/* probably we just had an interrupt */
+X	}
+X	if(movecmd(*cmd)) {
+X	walk:
+X		if(multi) flags.mv = 1;
+X		domove();
+X		return;
+X	}
+X	if(movecmd(lowc(*cmd))) {
+X		flags.run = 1;
+X	rush:
+X		if(firsttime){
+X			if(!multi) multi = COLNO;
+X			u.last_str_turn = 0;
+X		}
+X		flags.mv = 1;
+X#ifdef QUEST
+X		if(flags.run >= 4) finddir();
+X		if(firsttime){
+X			u.ux0 = u.ux + u.dx;
+X			u.uy0 = u.uy + u.dy;
+X		}
+X#endif
+X		domove();
+X		return;
+X	}
+X	if((*cmd == 'g' && movecmd(cmd[1])) || movecmd(unctrl(*cmd))) {
+X		flags.run = 2;
+X		goto rush;
+X	}
+X	if(*cmd == 'G' && movecmd(lowc(cmd[1]))) {
+X		flags.run = 3;
+X		goto rush;
+X	}
+X	if(*cmd == 'm' && movecmd(cmd[1])) {
+X		flags.run = 0;
+X		flags.nopick = 1;
+X		goto walk;
+X	}
+X	if(*cmd == 'M' && movecmd(lowc(cmd[1]))) {
+X		flags.run = 1;
+X		flags.nopick = 1;
+X		goto rush;
+X	}
+X#ifdef QUEST
+X	if(*cmd == cmd[1] && (*cmd == 'g' || *cmd == 'G')) {
+X		flags.run = 4;
+X		if(*cmd == 'G') flags.run += 2;
+X		if(cmd[2] == '-') flags.run += 1;
+X		goto rush;
+X	}
+X#endif
+X	while(tlist->f_char) {
+X		if(*cmd == tlist->f_char){
+X#ifdef DGKMOD
+X			/* Special case of *cmd == ' ' handled here */
+X			if (*cmd == ' ' && flags.no_rest_on_space)
+X				break;
+X
+X			/* Now control-A can stop lengthy commands */
+X			if (tlist->f_text && !occupation && multi)
+X				set_occupation(tlist->f_funct, tlist->f_text,
+X					multi);
+X#endif
+X			res = (*(tlist->f_funct))();
+X			if(!res) {
+X				flags.move = 0;
+X				multi = 0;
+X			}
+X			return;
+X		}
+X		tlist++;
+X	}
+X	{ char expcmd[10];
+X	  register char *cp = expcmd;
+X	  while(*cmd && cp-expcmd < sizeof(expcmd)-2) {
+X		if(*cmd >= 040 && *cmd < 0177)
+X			*cp++ = *cmd++;
+X		else {
+X			*cp++ = '^';
+X			*cp++ = *cmd++ ^ 0100;
+X		}
+X	  }
+X	  *cp++ = 0;
+X	  pline("Unknown command '%s'.", expcmd);
+X	}
+X	multi = flags.move = 0;
+X	return;
+X}
+X
+Xdoextcmd()	/* here after # - now read a full-word command */
+X{
+X	char buf[BUFSZ];
+X	register struct ext_func_tab *efp = extcmdlist;
+X
+X	pline("# ");
+X#ifdef COM_COMPL
+X	get_ext_cmd(buf);
+X#else
+X	getlin(buf);
+X#endif
+X	clrlin();
+X	if(buf[0] == '\033')
+X		return(0);
+X	while(efp->ef_txt) {
+X		if(!strcmp(efp->ef_txt, buf))
+X			return((*(efp->ef_funct))());
+X		efp++;
+X	}
+X	pline("%s: unknown command.", buf);
+X	return(0);
+X}
+X
+Xdoextlist()	/* here after #? - now list all full-word commands */
+X{
+X	register struct ext_func_tab *efp = extcmdlist;
+X	char     buf[BUFSZ];
+X
+X	set_pager(0);
+X	if(page_line("") ||
+X	   page_line("        Extended Command Set:") ||
+X	   page_line(""))					 goto quit;
+X
+X	while(efp->ef_txt) {
+X
+X		(void)sprintf(buf, "    %-8s  - %s.", efp->ef_txt, efp->ef_desc);
+X		if(page_line(buf)) goto quit;
+X		efp++;
+X	}
+X	set_pager(1);
+X	return(0);
+Xquit:
+X	set_pager(2);
+X	return(0);
+X}
+X
+Xchar
+Xlowc(sym)
+Xchar sym;
+X{
+X    return( (sym >= 'A' && sym <= 'Z') ? sym+'a'-'A' : sym );
+X}
+X
+Xchar
+Xunctrl(sym)
+Xchar sym;
+X{
+X    return( (sym >= ('A' & 037) && sym <= ('Z' & 037)) ? sym + 0140 : sym );
+X}
+X
+X/* 'rogue'-like direction commands */
+Xchar sdir[] = "hykulnjb><";
+Xschar xdir[10] = { -1,-1, 0, 1, 1, 1, 0,-1, 0, 0 };
+Xschar ydir[10] = {  0,-1,-1,-1, 0, 1, 1, 1, 0, 0 };
+Xschar zdir[10] = {  0, 0, 0, 0, 0, 0, 0, 0, 1,-1 };
+X
+Xmovecmd(sym)	/* also sets u.dz, but returns false for <> */
+Xchar sym;
+X{
+X	register char *dp;
+X
+X	u.dz = 0;
+X	if(!(dp = index(sdir, sym))) return(0);
+X	u.dx = xdir[dp-sdir];
+X	u.dy = ydir[dp-sdir];
+X	u.dz = zdir[dp-sdir];
+X	return(!u.dz);
+X}
+X
+Xgetdir(s)
+Xboolean s;
+X{
+X	char dirsym;
+X
+X#ifdef REDO
+X	if (!in_doagain)
+X#endif
+X	    if(s) pline("In what direction?");
+X	dirsym = readchar();
+X#ifdef REDO
+X	savech(dirsym);
+X#endif
+X#ifdef KAA
+X	if(dirsym == '.' || dirsym == 's')
+X		u.dx = u.dy = u.dz = 0;
+X	else
+X#endif
+X	if(!movecmd(dirsym) && !u.dz) {
+X		if(!index(quitchars, dirsym))
+X			pline("What a strange direction!");
+X		return(0);
+X	}
+X	if(Confusion && !u.dz) confdir();
+X	return(1);
+X}
+X
+Xconfdir()
+X{
+X	register x = rn2(8);
+X	u.dx = xdir[x];
+X	u.dy = ydir[x];
+X}
+X
+X#ifdef QUEST
+Xfinddir(){
+Xregister int i, ui = u.di;
+X	for(i = 0; i <= 8; i++){
+X		if(flags.run & 1) ui++; else ui += 7;
+X		ui %= 8;
+X		if(i == 8){
+X			pline("Not near a wall.");
+X			flags.move = multi = 0;
+X			return(0);
+X		}
+X		if(!isroom(u.ux+xdir[ui], u.uy+ydir[ui]))
+X			break;
+X	}
+X	for(i = 0; i <= 8; i++){
+X		if(flags.run & 1) ui += 7; else ui++;
+X		ui %= 8;
+X		if(i == 8){
+X			pline("Not near a room.");
+X			flags.move = multi = 0;
+X			return(0);
+X		}
+X		if(isroom(u.ux+xdir[ui], u.uy+ydir[ui]))
+X			break;
+X	}
+X	u.di = ui;
+X	u.dx = xdir[ui];
+X	u.dy = ydir[ui];
+X}
+X
+Xisroom(x,y)  register x,y; {		/* what about POOL? */
+X	return(isok(x,y) && (levl[x][y].typ == ROOM ||
+X				(levl[x][y].typ >= LDOOR && flags.run >= 6)));
+X}
+X#endif /* QUEST /**/
+X
+Xisok(x,y) register x,y; {
+X	/* x corresponds to curx, so x==1 is the first column. Ach. %% */
+X	return(x >= 1 && x <= COLNO-1 && y >= 0 && y <= ROWNO-1);
+X}
+X
+X#ifdef WIZARD
+Xint wiz_wish()	/* Unlimited wishes for wizard mode by Paul Polderman */
+X{
+X	if (!wizard) {
+X		pline("Alas! You are not allowed to make a wish.");
+X		pline("Nice try though...");
+X	} else
+X		makewish();
+X	return(0);
+X}
+X
+Xint wiz_identify()
+X{
+X	struct obj *obj;
+X
+X	if (!wizard)
+X		pline("You don't have the proper identity!");
+X	else {
+X		for (obj = invent; obj; obj = obj->nobj)
+X			if (!objects[obj->otyp].oc_name_known || !obj->known)
+X				identify(obj);
+X	}
+X	return(0);
+X}
+X
+Xint wiz_map()
+X{
+X	if (wizard)	do_mapping();
+X	else		pline("If you want a map, you'll have to make one yourself!");
+X}
+X
+Xint wiz_detect()
+X{
+X	if(wizard) {
+X		if(!findit()) return;
+X	} else	pline("Don't ask me where anything is, I only work here!");
+X}
+X
+Xint wiz_attributes()
+X{
+X	char buf[BUFSZ];
+X
+X	if (!wizard) {
+X		pline("Alas! You are not allowed see attributes.");
+X		pline("Nice try though...");
+X		return;
+X	}
+X
+X	set_pager(0);
+X	if(page_line("Current Attributes:") || page_line(""))  goto quit;
+X
+X	if (Adornment) {
+X		(void) sprintf(buf, "You are adorned.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Teleportation) {
+X		(void) sprintf(buf, "You can teleport.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Regeneration) {
+X		(void) sprintf(buf, "You regenerate.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Searching) {
+X		(void) sprintf(buf, "You have searching.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (See_invisible) {
+X		(void) sprintf(buf, "You see invisible.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Stealth) {
+X		(void) sprintf(buf, "You have stealth.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Levitation) {
+X		(void) sprintf(buf, "You are levitated.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Poison_resistance) {
+X		(void) sprintf(buf, "You are poison resistant.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Aggravate_monster) {
+X		(void) sprintf(buf, "You aggravate monsters.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Hunger) {
+X		(void) sprintf(buf, "You have hunger.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Fire_resistance) {
+X		(void) sprintf(buf, "You are fire resistant.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Cold_resistance) {
+X		(void) sprintf(buf, "You are cold resistant.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Protection_from_shape_changers) {
+X		(void) sprintf(buf, "You are protected from shape changers.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Conflict) {
+X		(void) sprintf(buf, "You cause conflict.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Gain_strength) {
+X		(void) sprintf(buf, "You have extra strength.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Increase_damage) {
+X		(void) sprintf(buf, "You cause extra damage.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Protection) {
+X		(void) sprintf(buf, "You are protected.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Warning) {
+X		(void) sprintf(buf, "You are warned.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Teleport_control) {
+X		(void) sprintf(buf, "You have teleport control.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Polymorph) {
+X		(void) sprintf(buf, "You are polymorphing.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Polymorph_control) {
+X		(void) sprintf(buf, "You have polymorph control.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Shock_resistance) {
+X		(void) sprintf(buf, "You are shock resistant.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Telepat) {
+X		(void) sprintf(buf, "You have telepathy.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Fast) {
+X		(void) sprintf(buf, "You are fast.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Confusion) {
+X		(void) sprintf(buf, "You are confused.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Invisible) {
+X		(void) sprintf(buf, "You are invisible.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Glib) {
+X		(void) sprintf(buf, "You are glib.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Punished) {
+X		(void) sprintf(buf, "You are punished.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Sick) {
+X		(void) sprintf(buf, "You are sick.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Blinded) {
+X		(void) sprintf(buf, "You are blinded.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Wounded_legs) {
+X		(void) sprintf(buf, "You have wounded legs.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Stoned) {
+X		(void) sprintf(buf, "You are stoned.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Hallucination) {
+X		(void) sprintf(buf, "You are hallucinated.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Blindfolded) {
+X		(void) sprintf(buf, "You are blindfolded.");
+X		if(page_line(buf)) goto quit;
+X		}
+X	if (Badged) {
+X		(void) sprintf(buf, "You are badged.");
+X		if(page_line(buf)) goto quit;
+X		}
+X
+X	set_pager(1);
+X	return(0);
+Xquit:
+X	set_pager(2);
+X	return(0);
+X}
+X#endif /* WIZARD */
+END_OF_cmd.c
+if test 15456 -ne `wc -c <cmd.c`; then
+    echo shar: \"cmd.c\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+echo shar: End of archive 2 \(of 13\).
+cp /dev/null ark2isdone
+MISSING=""
+for I in 1 2 3 4 5 6 7 8 9 10 11 12 13 ; do
+    if test ! -f ark${I}isdone ; then
+	MISSING="${MISSING} ${I}"
+    fi
+done
+if test "${MISSING}" = "" ; then
+    echo You have unpacked all 13 archives.
+    rm -f ark[1-9]isdone ark[1-9][0-9]isdone
+else
+    echo You still need to unpack the following archives:
+    echo "        " ${MISSING}
+fi
+##  End of shell archive.
+exit 0

@@ -1,0 +1,19 @@
+Path: utzoo!attcan!uunet!husc6!mailrus!tut.cis.ohio-state.edu!bloom-beacon!bu-cs!purdue!decwrl!hplabs!sdcrdcf!trwrb!ucla-an!remsit!stb!michael
+From: michael@stb.UUCP (Michael)
+Newsgroups: comp.sources.games.bugs
+Subject: Nethack: do_wear.c is missing 2 #ifdef SHIRT's.
+Message-ID: <10305@stb.UUCP>
+Date: 19 May 88 16:37:53 GMT
+Reply-To: michael@stb.UUCP (Michael)
+Organization: STB BBS, La, Ca, Usa, +1 213 459 7231
+Lines: 9
+
+Subject says it all. In two places, uarmu is used without any #ifdef SHIRT
+around them.
+			Michael
+: --- 
+: Michael Gersten			 uunet.uu.net!denwa!stb!michael
+:				 ihnp4!hermix!ucla-an!denwa!stb!michael
+:				sdcsvax!crash!gryphon!denwa!stb!michael
+: "Machine Takeover? Just say no."
+: "Sockets? Just say no."     <-- gasoline

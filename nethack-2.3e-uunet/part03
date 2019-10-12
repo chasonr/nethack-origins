@@ -1,0 +1,3768 @@
+#! /bin/sh
+# This is a shell archive.  Remove anything before this line, then unpack
+# it by saving it into a file and typing "sh file".  To overwrite existing
+# files, type "sh file -c".  You can also feed this as standard input via
+# unshar, or by typing "sh <file", e.g..  If this archive is complete, you
+# will see the following message at the end:
+#		"End of archive 3 (of 13)."
+# Contents:  Newstuff/Spoil_ms.diff hack.c make.exe.uu spell.h
+# Wrapped by billr@tekred on Mon Jun 20 11:38:21 1988
+PATH=/bin:/usr/bin:/usr/ucb ; export PATH
+if test -f Newstuff/Spoil_ms.diff -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"Newstuff/Spoil_ms.diff\"
+else
+echo shar: Extracting \"Newstuff/Spoil_ms.diff\" \(38667 characters\)
+sed "s/^X//" >Newstuff/Spoil_ms.diff <<'END_OF_Newstuff/Spoil_ms.diff'
+X
+XThe Spoilers.mm distributed from the Nethack 2.3 upgrade kit is written
+Xwith the -mm macros, which I don't have access to.  I've modified the
+Xdocument for the -ms package.  It's not perfect, but it's good enough
+Xfor me.  To apply the patch, do:
+X
+X	1. Save everything below the cutoff line into Spoilers.diff
+X	   and move it to the directory containing Spoilers.mm
+X	2. Copy Spoilers.mm to Spoilers.ms: cp Spoilers.mm Spoilers.ms
+X	3. Use the patch program: patch Spoilers.ms < Spoilers.diff
+X	4. Format it using nroff, troff, psroff, ptroff, etc.:
+X		ex: tbl Spoilers.ms | nroff -ms > Spoilers.txt
+X
+X	
+X					Joe S Chen
+X
+XARPA:	joec%alheka@oberon.usc.edu, joec@ecla.usc.edu
+XUUCP:	{sdcrdcf,cit-vax,uscvax}!oberon!alheka!joec
+XBITNET:	joec@kylara
+X
+X-----CUT HERE----------CUT HERE----------CUT HERE----------CUT HERE-----
+X1,2c1,3
+X< 
+X< .ND "December 10, 1987"
+X---
+X> .nr PO 0.34i
+X> .nr LL 7.2i
+X> .RP
+X5,7c6,13
+X< .AF "{amd, ihnp4, microsoft, ucscc}!sco!stevem"
+X< .AU "Edited by Stephen Marino*"
+X< .AS x .5i
+X---
+X> .sp 2
+X> {amd, ihnp4, microsoft, ucscc}!sco!stevem
+X> .br
+X> .AU
+X> Edited by Stephen Marino*
+X> 
+X> .ND "December 10, 1987"
+X> .AB
+X24c30
+X< .SP 2
+X---
+X> .sp 2
+X51c57,59
+X< .H 1 "INTRODUCTION"
+X---
+X> .NH
+X> INTRODUCTION
+X> .PP
+X55c63
+X< .P
+X---
+X> .PP
+X63,65c71,73
+X< '
+X< .H 2 "How to Use this Guide"
+X< '
+X---
+X> .NH 2
+X> How to Use this Guide
+X> .PP
+X67,68c75,79
+X< .BL
+X< .LI
+X---
+X> .RS
+X> .RS
+X> .IP 1.
+X> Introduction
+X> .IP 2.
+X70c81
+X< .LI
+X---
+X> .IP 3.
+X72c83
+X< .LI
+X---
+X> .IP 4.
+X74c85
+X< .LI
+X---
+X> .IP 5.
+X76c87
+X< .LI
+X---
+X> .IP 6.
+X78c89
+X< .LI
+X---
+X> .IP 7.
+X80c91
+X< .LI
+X---
+X> .IP 8.
+X82c93
+X< .LI
+X---
+X> .IP 9.
+X84c95
+X< .LI
+X---
+X> .IP 10.
+X86c97
+X< .LI
+X---
+X> .IP 11.
+X88,89c99,102
+X< .LE
+X< .P
+X---
+X> .RE
+X> .RE
+X> .LP
+X> .PP
+X93,96c106,110
+X< .H 1 "BASIC INSTRUCTIONS"
+X< '
+X< .H 2 "Getting Started"
+X< '
+X---
+X> .NH 1
+X> BASIC INSTRUCTIONS
+X> .NH 2
+X> Getting Started
+X> .PP
+X105,107c119,121
+X< '
+X< .H 2 "Character Classes"
+X< '
+X---
+X> .NH 2
+X> Character Classes
+X> .PP
+X129,131c143,144
+X< .BL
+X< .LI "\(de"
+X< Denotes standard Hack character classes.  All others exclusive to
+X---
+X> .PP
+X> \(de Denotes standard Hack character classes.  All others exclusive to
+X135c148
+X< .P
+X---
+X> .PP
+X146,148c159,161
+X< '
+X< .H 2 "Words to the Wise"
+X< '
+X---
+X> .NH 2
+X> Words to the Wise
+X> .PP
+X151c164,166
+X< .H 3 "Choose an appropriate character."
+X---
+X> .NH 3
+X> Choose an appropriate character.
+X> .PP
+X155,156c170,172
+X< .P
+X< .H 3 "Your best friend is your dog."
+X---
+X> .NH 3
+X> Your best friend is your dog.
+X> .PP
+X171,172c187,189
+X< .P
+X< .H 3 "Don't let the monster get the upper hand."
+X---
+X> .NH 3
+X> Don't let the monster get the upper hand.
+X> .PP
+X180c197,199
+X< .H 3 "Beware Swarms of Orcs."
+X---
+X> .NH 3
+X> Beware Swarms of Orcs.
+X> .PP
+X185c204,206
+X< .H 3 "Where possible, eat what you kill."
+X---
+X> .NH 3
+X> Where possible, eat what you kill.
+X> .PP
+X193,194c214,216
+X< .P
+X< .H 3 "In Hack, relief is spelled E-l-b-e-r-e-t-h."
+X---
+X> .NH 3
+X> In Hack, relief is spelled E-l-b-e-r-e-t-h.
+X> .PP
+X204c226,228
+X< .H 2 "Learning the Ways of Magic"
+X---
+X> .NH 2
+X> Learning the Ways of Magic
+X> .PP
+X211,212c235,237
+X< .P
+X< .H 3 "Test potions and scrolls carefully."
+X---
+X> .NH 3
+X> Test potions and scrolls carefully.
+X> .PP
+X220c245
+X< .P
+X---
+X> .PP
+X228c253
+X< .P
+X---
+X> .PP
+X238,239c263,265
+X< .P
+X< .H 3 "Zap wands immediately."
+X---
+X> .NH 3
+X> Zap wands immediately.
+X> .PP
+X250,251c276,278
+X< .P
+X< .H 3 "Never experiment with rings."
+X---
+X> .NH 3
+X> Never experiment with rings.
+X> .PP
+X259,261c286,292
+X< .H 1 "STRATEGY"
+X< .H 2 "Upper Levels"
+X< .H 3 "Let the dog fight for you when you are badly hurt or outclassed."
+X---
+X> .NH 1
+X> STRATEGY
+X> .NH 2
+X> Upper Levels
+X> .NH 3
+X> Let the dog fight for you when you are badly hurt or outclassed.
+X> .PP
+X266c297
+X< .P
+X---
+X> .PP
+X279c310
+X< .P
+X---
+X> .PP
+X287c318
+X< .P
+X---
+X> .PP
+X299,300c330,332
+X< .P
+X< .H 3 "Don't get careless."
+X---
+X> .NH 3
+X> Don't get careless.
+X> .PP
+X314,315c346,348
+X< .P
+X< .H 3 "You may want to eat a leprechaun and a floating eye."
+X---
+X> .NH 3
+X> You may want to eat a leprechaun and a floating eye.
+X> .PP
+X339,340c372,374
+X< .P
+X< .H 3 "Try to conserve your missiles and magic."
+X---
+X> .NH 3
+X> Try to conserve your missiles and magic.
+X> .PP
+X356c390
+X< .P
+X---
+X> .PP
+X359,360c393,395
+X< .P
+X< .H 3 "Do anything to survive."
+X---
+X> .NH 3
+X> Do anything to survive.
+X> .PP
+X367,370c402,406
+X< '
+X< .H 2 "Lower Levels"
+X< '
+X< .H 3 "Be prepared for crowded rooms."
+X---
+X> .NH 2
+X> Lower Levels
+X> .NH 3
+X> Be prepared for crowded rooms.
+X> .PP
+X385c421,423
+X< .H 3 "Rob stores; the risk is worth it."
+X---
+X> .NH 3
+X> Rob stores; the risk is worth it.
+X> .PP
+X389c427,429
+X< .H 3 "Don't throw away bad potions."
+X---
+X> .NH 3
+X> Don't throw away bad potions.
+X> .PP
+X393c433,435
+X< .H 3 "Genocide with consideration."
+X---
+X> .NH 3
+X> Genocide with consideration.
+X> .PP
+X397c439,441
+X< .H 3 "There are eight truly awful monsters in the dungeon; know them."
+X---
+X> .NH 3
+X> There are eight truly awful monsters in the dungeon; know them.
+X> .PP
+X400,401c444,446
+X< .VL 12
+X< .LI Humans
+X---
+X> .sp
+X> .RS
+X> .IP "Humans" 20
+X403c448
+X< .LI Dragons
+X---
+X> .IP "Dragons"
+X408c453
+X< .LI Demons
+X---
+X> .IP "Demons"
+X413c458
+X< .LI Ettins
+X---
+X> .IP "Ettins"
+X415c460
+X< .LI Eels
+X---
+X> .IP "Eels"
+X420,421c465
+X< .LI
+X< Cockatrices
+X---
+X> .IP "Cockatrices"
+X427c471
+X< .LI Xans
+X---
+X> .IP "Xans"
+X432c476
+X< .LI Nymphs
+X---
+X> .IP "Nymphs"
+X438,439c482,486
+X< .LE
+X< .H 3 "To win the game, you must go to hell and back."
+X---
+X> .RE
+X> .LP
+X> .NH 3
+X> To win the game, you must go to hell and back.
+X> .PP
+X449c496,498
+X< .H 1 "ROOMS AND OTHER BAD PLACES"
+X---
+X> .NH 1
+X> ROOMS AND OTHER BAD PLACES
+X> .PP
+X454,456c503,505
+X< '
+X< .H 2 "Assorted Shops"
+X< '
+X---
+X> .NH 2
+X> Assorted Shops
+X> .PP
+X462c511
+X< .P
+X---
+X> .PP
+X466c515
+X< .P
+X---
+X> .PP
+X471c520
+X< .P
+X---
+X> .PP
+X479,482c528,531
+X< .P
+X< .H 3 "Strategies for dealing with shopkeepers" 
+X< .BL
+X< .LI
+X---
+X> .NH 3
+X> Strategies for dealing with shopkeepers"
+X> .RS
+X> .IP o
+X487c536
+X< .LI
+X---
+X> .IP o
+X489c538
+X< .LI
+X---
+X> .IP o
+X492c541
+X< .LI
+X---
+X> .IP o
+X496c545
+X< .LI
+X---
+X> .IP o
+X503c552
+X< .LI
+X---
+X> .IP o
+X512c561
+X< .LI
+X---
+X> .IP o
+X519,520c568
+X< .LE
+X< .P
+X---
+X> .IP o
+X534,535c582,586
+X< .P
+X< .H 2 "The Magical Memory Vault"
+X---
+X> .RE
+X> .LP
+X> .NH 2
+X> The Magical Memory Vault
+X> .PP
+X543c594
+X< .P
+X---
+X> .PP
+X549c600
+X< .P
+X---
+X> .PP
+X556c607
+X< .P
+X---
+X> .PP
+X559,560c610,612
+X< .AL
+X< .LI
+X---
+X> .RS
+X> .RS
+X> .IP o
+X563c615
+X< .LI
+X---
+X> .IP o
+X565c617
+X< .LI
+X---
+X> .IP o
+X568c620
+X< .LI
+X---
+X> .IP o
+X570,573c622,627
+X< .LE
+X< '
+X< .H 2 "David's Treasure Zoo"
+X< '
+X---
+X> .RE
+X> .RE
+X> .LP
+X> .NH 2
+X> David's Treasure Zoo
+X> .PP
+X588,590c642,644
+X< '
+X< .H 2 "Hives"
+X< '
+X---
+X> .NH 2
+X> Hives
+X> .PP
+X595,597c649,651
+X< '
+X< .H 2 "The Morgue"
+X< '
+X---
+X> .NH 2
+X> The Morgue
+X> .PP
+X601,603c655,657
+X< '
+X< .H 2 "Throne Rooms"
+X< '
+X---
+X> .NH 2
+X> Throne Rooms
+X> .PP
+X612c666
+X< .P
+X---
+X> .PP
+X640,642c694,696
+X< '
+X< .H 2 "Mazes"
+X< '
+X---
+X> .NH 2
+X> Mazes
+X> .PP
+X656,658c710,712
+X< '
+X< .H 2 "Traps"
+X< '
+X---
+X> .NH 2
+X> Traps
+X> .PP
+X661,662c715,717
+X< .VL 22
+X< .LI "dart trap"
+X---
+X> .RS
+X> .RS
+X> .IP "dart trap" 22
+X664c719
+X< .LI "arrow trap"
+X---
+X> .IP "arrow trap"
+X666c721
+X< .LI "pit trap"
+X---
+X> .IP "pit trap"
+X669c724
+X< .LI "bear trap"
+X---
+X> .IP "bear trap"
+X671c726
+X< .LI "sleeping gas trap"
+X---
+X> .IP "sleeping gas trap"
+X674c729
+X< .LI "teleport trap"
+X---
+X> .IP "teleport trap"
+X676c731
+X< .LI "level teleport trap"
+X---
+X> .IP "level teleport trap"
+X683c738
+X< .LI trapdoor
+X---
+X> .IP "trapdoor"
+X685c740
+X< .LI "squeaky board"
+X---
+X> .IP "squeaky board"
+X687c742
+X< .LI "anti-magic field"
+X---
+X> .IP "anti-magic field"
+X689c744
+X< .LI "water trap"
+X---
+X> .IP "water trap"
+X691c746
+X< .LI "magic trap"
+X---
+X> .IP "magic trap"
+X696c751,753
+X< .LE
+X---
+X> .RE
+X> .RE
+X> .LP
+X715c772
+X< .P
+X---
+X> .PP
+X719,721c776,778
+X< '
+X< .H 2 "Fountains"
+X< '
+X---
+X> .NH 2
+X> Fountains
+X> .PP
+X736,741c793,855
+X< .P
+X< .so fount.tbl
+X< .H 1 "FOOD"
+X< '
+X< .H 2 "Hunger, Weakness and Death"
+X< '
+X---
+X> .PP
+X> .S 9 10
+X> .TS H
+X> tab (#), center, expand, box;
+X> c c
+X> l | l.
+X> Message#Effect
+X> _
+X> .TH
+X> ``Good Lord!  An endless stream of snakes pours forth!''#3-4 snakes appear
+X> ``The fountain bubbles furiously for a moment, then calms.''#makemon failed
+X> _
+X> ``You have unleashed a water demon!''#Infrequent, but dangerous
+X> ``Grateful for his release, he grants you a wish!''#Very unlikely (3%)
+X> _
+X> ``You have attracted a water nymph!''#Nymph appears, will steal
+X> ``A large bubble rises to the surface and pops.''#makemon failed
+X> _
+X> ``Water gushes forth from the overflowing fountain!''#Drowning pools
+X> _
+X> ``You spot a gem in the sparkling waters!''#Real gem appears
+X> _
+X> ``The fountain dries up!''#Usually happens after 2-5 dips
+X> _
+X> ``The cool draught refreshes you.''#Decreases hunger
+X> _
+X> ``The water is foul!  You gag and vomit.''#Hunger
+X> ``What a relief!''#Cures if already sick
+X> _
+X> ``The water is contaminated!''#Poison damage, - strength
+X> ``Perhaps it is run off from the nearby orange farm.''#If poison resistant
+X> _
+X> ``This water's no good!''#Curses an object, hunger
+X> _
+X> ``You see an image of someone stalking you. But it disappears.''#Permanent see invisible
+X> _
+X> ``You sense the presence of monsters.''#Detect monster
+X> ``You feel oddly disturbed.''#If no monsters
+X> _
+X> ``This water gives you bad breath!''#Cause fear
+X> _
+X> ``Your weapon rusts somewhat.''#-1 damage (swords only)
+X> ``Your weapon looks quite rusted.''#If < -6 already
+X> _
+X> ``A murky hand from the depths reaches up to bless the sword.''#+5 Excalibur
+X> ``As the hand retreats, the fountain disappears!''
+X> _
+X> ``Well, it looks wet now.''#Sword may be stickeycursed
+X> ``The water glows for a moment.''#Lift curse from weapon
+X> ``A feeling of loss comes over you.''#Missed lift curse
+X> _
+X> ``Your thirst is quenched.''#No effect
+X> ``A strange tingling runs up your arm.''#No effect
+X> ``You feel a sudden chill.''#No effect
+X> ``An urge to take a bath nearly overwhelms you.''#No effect
+X> ``Far below you, you see coins glistening in the water.''#No effect
+X> .TE
+X> .S
+X> .NH 1
+X> FOOD
+X> .NH 2
+X> Hunger, Weakness and Death
+X> .PP
+X749,751c863,865
+X< '
+X< .H 2 "Monsters"
+X< '
+X---
+X> .NH 2
+X> Monsters
+X> .PP
+X760,762c874,876
+X< '
+X< .H 2 "Food Items"
+X< '
+X---
+X> .NH 2
+X> Food Items
+X> .PP
+X776,778c890,892
+X< '
+X< .H 2 "Tins"
+X< '
+X---
+X> .NH 2
+X> Tins
+X> .PP
+X790,792c904,906
+X< '
+X< .H 2 "Food Attribute Index"
+X< '
+X---
+X> .NH 2
+X> Food Attribute Index
+X> .PP
+X816,818c930,1026
+X< .P
+X< .so food.tbl
+X< .P
+X---
+X> .PP
+X> .TS
+X> tab (#),center,expand,box;
+X> l c c c c
+X> l | n n n | l.
+X> Name#Chance#Weight#Energy#Remarks
+X> _
+X> food ration #46#4#800
+X> tripe ration#16#2#200#50% chance of vomiting.
+X> pancake#3#1#200
+X> dead lizard#3#1#40#Eat to avoid turning to stone.
+X> fortune cookie#7#1#40
+X> carrot#2#1#50
+X> slice of pizza#5#1#250
+X> cream pie#3#1#100
+X> tins:#7#1#0
+X> - spinach#50#7#600#Adds strength
+X> - peaches#8#8#40
+X> - salmon#8#7#60#Slippery hands for 1-15 turns
+X> - apple juice#8#7#20
+X> - substance#8#7#500#Tastes awful, adds experience.
+X> - rotten meat#8#7#-50#Causes vomiting.
+X> - empty can#8#7#0
+X> orange#1#1#80
+X> apple#1#1#50
+X> pear#1#1#50
+X> melon#1#1#100
+X> banana#1#1#80
+X> candy bar#1#1#100
+X> egg#1#1#80
+X> clove of garlic#1#1#40#Wield against vampires.
+X> lump of royal jelly #0#1#200#Cures xans, strength +
+X> .TE
+X> .TS H
+X> tab (#),center,expand,box;
+X> l c c c 
+X> l | n n | l.
+X> Name#Weight#Energy#Remarks
+X> _
+X> .TH
+X> dead human#40#400#Permanent aggravate monster.
+X> dead giant ant#3#30#Poisonous.
+X> dead giant bat#3#30#Confusion.
+X> dead centaur#50#500
+X> dead dragon#150#1500#Fire resistance.
+X> dead floating eye#1#10#Telepathy, damage
+X> dead freezing sphere#1#10#Cold resistance.
+X> dead gnome#10#100
+X> dead hobgoblin#20#200
+X> dead stalker#40#400#See invisible.
+X> dead jackal#10#100
+X> dead kobold#10#100#Poisonous.
+X> dead leprechaun#40#400#Teleport ability, damage. 
+X> dead mimic#40#400#Mimic a treasure chest.
+X> dead nymph#40#400#Teleport ability, damage. 
+X> dead orc#20#200#Damage.
+X> dead purple worm#70#700#Damage.
+X> dead quantum mechanic#20#200#Teleport ability, damage.
+X> dead rust monster#50#500#Damage.
+X> dead snake#10#100#Poisonous.
+X> dead troll#40#400
+X> dead umber hulk#50#500#Damage.
+X> dead vampire#40#400Poisonous.
+X> dead wraith#1#10#Gain level.
+X> dead xorn#70#700
+X> dead yeti#70#700#Cold resistance.
+X> dead zombie#3#30
+X> dead acid blob#3#30#Poisonous.
+X> dead giant beetle#1#10#Poisonous.
+X> dead cockatrice#3#30#Instant death.
+X> dead dog#20#200#Aggravate monsters.
+X> dead ettin#3#30
+X> dead fog cloud#1#10
+X> dead gelatinous cube#10#100
+X> dead homunculus#20#200#Poisonous.
+X> dead imp#1#10
+X> dead jaguar#30#300#Gain level?
+X> dead killer bee#1#10#Poison resistance.
+X> dead leocrotta#50#500
+X> dead minotaur#70#700# 
+X> dead nurse#40#400#Heal, aggravate monsters.
+X> dead owlbear#70#700
+X> dead piercer#20#200
+X> dead quivering blob#10#100
+X> dead giant rat#3#30
+X> dead giant scorpion#10#100#Poisonous.
+X> dead tengu#30#300#Teleport ability.
+X> dead unicorn#30#300#Damage.
+X> dead violet fungus#10#100#Hallucinogenic.
+X> dead long worm#50#500
+X> dead xan#30#300#Damage.
+X> dead yellow light#1#10#Confusion, vision++
+X> dead zruty#60#600#Damage.
+X> dead giant#70#700#Strength++.
+X> dead daemon#80#800
+X> .TE
+X> .PP
+X825,831c1033,1135
+X< .H 1 "MONSTERS"
+X< '
+X< .H 2 "Monster Data Index"
+X< '
+X< .so monster.tbl
+X< .P
+X< .H 2 "Descriptions"
+X---
+X> .NH 1
+X> MONSTERS
+X> .NH 2
+X> Monster Data Index
+X> .PP
+X> The descriptions are as follows:
+X> .RS
+X> .RS
+X> .IP \fImlev\fR 12
+X> Monster's level.
+X> .IP \fImmove\fR
+X> Non-Spelunkers have a \fImmove\fR of 12.
+X> .IP \fIac\fR
+X> Monster's armor class.
+X> .IP Damage
+X> Monster's basic attack on you.  Note that quasits, jaguars, dragons,
+X> etc. have extra attacks.
+X> .IP *
+X> Whether monster is large.  Determines weapon damage.
+X> .IP \(dg
+X> Monsters specific to NetHack.
+X> .RE
+X> .RE
+X> .LP
+X> .TS H
+X> tab (#),center,expand,box;
+X> c c c c c c c
+X> c l | n n n | l n.
+X> Symbol#Monster#\fImlev\fR#\fImmove\fR#\fIac\fR#Damage#XP
+X> _
+X> .TH
+X> A#giant ant*#3#18#3#1d6#16
+X> B#bat#1#22#8#1d4#2
+X> C#centaur*#4#18#4#1d6#17
+X> D#dragon*#10#9#-1#3d10+2(1d8)#257
+X> E#floating eye#2#1#9#0d0#5
+X> F#freezing sphere#2#13#4#6d6#5
+X> G#gnome#1#6#5#1d6#2
+X> H#hobgoblin#1#9#5#1d8#2
+X> I#invisible stalker*#8#12#3#4d4#131
+X> J#jackal#0#12#7#1d2#1
+X> K#keystone kop\(dg#1#6#7#1d4#
+X> K#kobold#1#6#7#1d4#2
+X> L#leprechaun#5#15#8#1d2#26
+X> M#mimic#7#3#7#3d4#100
+X> N#nymph#6#12#9#1d2#37
+X> O#orc#2#9#6#1d8#5
+X> P#purple worm*#15#9#6#2d8#411
+X> Q#quantum mechanic\(dg#6#12#3#1d4#
+X> Q#quasit#3#15#3#1d4+2(1d2)#10
+X> R#rust monster#10#18#3#0d0#171
+X> S#snake*#4#15#3#1d6#25
+X> T#troll*#7#12#4#2d6+2(1d6)#114
+X> U#umber hulk*#9#6#2#2d10+2(3d4)#169
+X> V#vampire*#8#12#1#1d6#199
+X> W#wraith#5#12#5#1d6#36
+X> X#xorn#8#9#-2#4d6+3(1d6)#149
+X> Y#yeti*#5#15#6#2(1d6)#26
+X> Z#zombie#2#6#8#1d8#5
+X> a#acid blob#2#3#8#0d0#9
+X> b#giant beetle*#4#6#4#3d4#17
+X> c#cockatrice#4#6#6#1d3#25
+X> d#dog#4#16#5#1d6#17
+X> d#large dog*#6#15#4#2d4#37
+X> d#little dog#2#18#6#1d6#17
+X> e#ettin*#10#12#3#2d8+3d#241
+X> f#fog cloud#3#1#0#1d6#24
+X> g#gelatinous cube*#4#6#8#2d4#17
+X> h#homunculus#2#6#6#1d3#5
+X> i#imp#2#6#2#1d4#15
+X> j#jaguar#4#15#6#1d8+2(1d3)+2(1d4)#17
+X> k#killer bee#4#14#4#2d4#17
+X> l#leocrotta*#6#18#4#3d6#37
+X> m#minotaur*#15#15#6#4d8#276
+X> n#nurse*#11#6#0#1d3#208
+X> o#owlbear*#5#12#5#2d6+2(1d6)+2d8#26
+X> p#piercer#3#1#3#2d6#10
+X> q#quivering blob#3#1#8#1d8#10
+X> r#giant rat#0#12#7#1d3#1
+X> r#rockmole\(dg#3#3#0#1d6#
+X> s#giant spider\(dg*#5#15#3#1d4#
+X> s#giant scorpion*#5#15#3#1d4+2(1d8)#36
+X> t#tengu#5#13#5#1d7#26
+X> u#unicorn#8#24#5#1d10#115
+X> v#violet fungi#3#1#7#1d4#10
+X> w#long worm*#8#3#5#1d4#115
+X> w#wumpus*#8#3#2#3d6#
+X> x#xan#7#18#-2#2d4#118
+X> y#yellow light#3#15#0#0d0#24
+X> z#zruty#9#8#3#3d6#132
+X>  #ghost*#10#3#-5#?#265
+X> &#demon*#10#9#-4#1d4#263
+X> ,#trapper*#12#3#3#0d0#303
+X> 1#wizard of yendor*#15#12#-2#1d12#
+X> 2#mail daemon#\-#\-#\-#n/a#
+X> 9#giant\(dg*#9#18#5#2d12#
+X> :#chameleon#6#5#6#4d2#49
+X> ;#giant eel\(dg*#15#6#-3#3d6#
+X> @#shopkeeper#10#18#0#4d8#40#165
+X> ~#lurker above*#10#3#3#0d0#151
+X> .TE
+X> .NH 2
+X> Descriptions
+X833,834c1137,1139
+X< .LI
+X< Acid Blob:  Not edible.  Does not attack unless confused, but when you hit 
+X---
+X> .RS
+X> .IP "Acid Blob" 20
+X> Not edible.  Does not attack unless confused, but when you hit 
+X841,844c1146,1149
+X< .LI
+X< Giant Beetle: Edible.  Nothing else special.
+X< .LI
+X< Cockatrice: Very dangerous!  Any hit will turn you to stone.  Even if it
+X---
+X> .IP "Giant Beetle"
+X> Edible.  Nothing else special.
+X> .IP "Cockatrice"
+X> Very dangerous!  Any hit will turn you to stone.  Even if it
+X858,859c1163,1164
+X< .LI
+X< Dog: your dog, or that of a previous adventurer.  If you throw tripe or
+X---
+X> .IP "Dog"
+X> your dog, or that of a previous adventurer.  If you throw tripe or
+X879,888c1184,1193
+X< .LI
+X< Ettin: in D&D, hard to surprise.  In hack, hard to kill (meaner than a troll).
+X< .LI
+X< Fog Cloud: edible, weak, but difficult to kill. 24XP. A real bargain.
+X< .LI
+X< Gelatinous cube: Occasionally paralyzes. 23XP.
+X< .LI
+X< Homunculus: bite can put you to sleep. (Rare for wizards) Not edible.
+X< .LI
+X< Imp:  Poor attack, but hard to hit.  You might starve to death trying 
+X---
+X> .IP "Ettin"
+X> in D&D, hard to surprise.  In hack, hard to kill (meaner than a troll).
+X> .IP "Fog Cloud"
+X> edible, weak, but difficult to kill. 24XP. A real bargain.
+X> .IP "Gelatinous cube"
+X> Occasionally paralyzes. 23XP.
+X> .IP "Homunculus"
+X> bite can put you to sleep. (Rare for wizards) Not edible.
+X> .IP "Imp"
+X>  Poor attack, but hard to hit.  You might starve to death trying 
+X890,893c1195,1198
+X< .LI
+X< Jaguar: has multiple attacks, but does not inflict much damage. 
+X< .LI
+X< Killer Bee:  Like orcs, this denizen of the dungeon appears in swarms.
+X---
+X> .IP "Jaguar"
+X> has multiple attacks, but does not inflict much damage. 
+X> .IP "Killer Bee"
+X>  Like orcs, this denizen of the dungeon appears in swarms.
+X900,901c1205,1206
+X< .LI
+X< Leocrotta: The leocrotta is a master of hit and run tactics.  He tends to 
+X---
+X> .IP "Leocrotta"
+X> The leocrotta is a master of hit and run tactics.  He tends to 
+X904,905c1209,1210
+X< .LI
+X< Minotaur: The minotaur is the king of the mazes that exist on the lowest
+X---
+X> .IP "Minotaur"
+X> The minotaur is the king of the mazes that exist on the lowest
+X909,910c1214,1215
+X< .LI
+X< Nurse: tends to a wear a ring, but not always.
+X---
+X> .IP "Nurse"
+X> tends to a wear a ring, but not always.
+X916,917c1221,1222
+X< .LI
+X< Owlbear: If the owlbear gets a good hit on you, he will embrace you in a
+X---
+X> .IP "Owlbear"
+X> If the owlbear gets a good hit on you, he will embrace you in a
+X920,921c1225,1226
+X< .LI
+X< Piercer: can drop from ceiling by surprise.
+X---
+X> .IP "Piercer"
+X> can drop from ceiling by surprise.
+X926,929c1231,1234
+X< .LI
+X< Quivering Blob: Edible.  Weak and slow.
+X< .LI
+X< Giant Rat or Rockmole\(dg: Both are edible.  Rockmoles bore into walls
+X---
+X> .IP "Quivering Blob"
+X> Edible.  Weak and slow.
+X> .IP "Giant Rat or Rockmole\(dg"
+X> Both are edible.  Rockmoles bore into walls
+X931,932c1236,1237
+X< .LI
+X< Giant Scorpion or Spider\(dg: poisonous sting. Edible
+X---
+X> .IP "Giant Scorpion or Spider\(dg"
+X> poisonous sting. Edible
+X939,940c1244,1245
+X< .LI
+X< Tengu: The tengu tends to engage in guerilla tactics (like the leocrotta).
+X---
+X> .IP "Tengu"
+X> The tengu tends to engage in guerilla tactics (like the leocrotta).
+X943,944c1248,1249
+X< .LI
+X< Unicorn: DON'T fight! this is a good guy.  Throw gems at it.  If the gems
+X---
+X> .IP "Unicorn"
+X> DON'T fight! this is a good guy.  Throw gems at it.  If the gems
+X950,953c1255,1258
+X< .LI
+X< Violet Fungi: slow, edible.  Sticks to you.
+X< .LI
+X< Long Worm or Wumpus: Has a long body (~) behind a head (w).
+X---
+X> .IP "Violet Fungi"
+X> slow, edible.  Sticks to you.
+X> .IP "Long Worm or Wumpus"
+X> Has a long body (~) behind a head (w).
+X970c1275
+X< .P
+X---
+X> .sp
+X973,974c1278,1279
+X< .LI
+X< Xan: pricks your leg. More than one prick ruins your load-carrying
+X---
+X> .IP "Xan"
+X> pricks your leg. More than one prick ruins your load-carrying
+X979,980c1284,1285
+X< .LI
+X< Yellow light: if it hits, it will blind you and disappear.  Blindness is
+X---
+X> .IP "Yellow light"
+X> if it hits, it will blind you and disappear.  Blindness is
+X983,985c1288,1290
+X< .LI
+X< Zruty: nothing special.  Hits a lot. 
+X< .LE
+X---
+X> .IP "Zruty"
+X> nothing special.  Hits a lot. 
+X> .LP
+X987,988c1292,1293
+X< .LI
+X< Giant Ant: poisonous sting can lower your strength.  Moves several times
+X---
+X> .IP "Giant Ant"
+X> poisonous sting can lower your strength.  Moves several times
+X990,991c1295,1296
+X< .LI
+X< Giant Bat: jumps around.  Not powerful, but so fast that it can hit you and
+X---
+X> .IP "Giant Bat"
+X> jumps around.  Not powerful, but so fast that it can hit you and
+X994,997c1299,1302
+X< .LI
+X< Centaur: Fast and powerful.  Edible, but corpse is heavy.
+X< .LI
+X< Dragon: A mega-monster.  Nasty attack or breathes fire. The second best reason
+X---
+X> .IP "Centaur"
+X> Fast and powerful.  Edible, but corpse is heavy.
+X> .IP "Dragon"
+X> A mega-monster.  Nasty attack or breathes fire. The second best reason
+X1008,1009c1313,1314
+X< .LI
+X< Floating Eye: Gaze can paralyze you, leaving you game for monsters.  It 
+X---
+X> .IP "Floating Eye"
+X> Gaze can paralyze you, leaving you game for monsters.  It 
+X1020,1021c1325,1326
+X< .LI
+X< Freezing Sphere: eating corpse gives protection from cold as ring, but
+X---
+X> .IP "Freezing Sphere"
+X> eating corpse gives protection from cold as ring, but
+X1028,1031c1333,1336
+X< .LI
+X< Gnome: edible.
+X< .LI
+X< Hobgoblin: edible \- good food source.  Attack can do up to 8 points 
+X---
+X> .IP "Gnome"
+X> edible.
+X> .IP "Hobgoblin"
+X> edible \- good food source.  Attack can do up to 8 points 
+X1033,1034c1338,1339
+X< .LI
+X< Invisible Stalker: this monster is invisible; the letter is what you
+X---
+X> .IP "Invisible Stalker"
+X> this monster is invisible; the letter is what you
+X1038,1039c1343,1344
+X< .LI
+X< Jackal: usually edible, but seems to rot fast, or perhaps sometimes start
+X---
+X> .IP "Jackal"
+X> usually edible, but seems to rot fast, or perhaps sometimes start
+X1041,1042c1346,1347
+X< .LI
+X< Keystone Kop: The guys that come to get you when you rob a store.  Do not
+X---
+X> .IP "Keystone Kop"
+X> The guys that come to get you when you rob a store.  Do not
+X1047,1048c1352,1353
+X< .LI
+X< Leprechaun: if it hits while you are carying gold, will do no damage but 
+X---
+X> .IP "Leprechaun"
+X> if it hits while you are carying gold, will do no damage but 
+X1055,1056c1360,1361
+X< .LI
+X< Mimic: Poses as object in shop or elsewhere.  Step outside shop, the items
+X---
+X> .IP "Mimic"
+X> Poses as object in shop or elsewhere.  Step outside shop, the items
+X1065,1066c1370,1371
+X< .LI
+X< Nymph: Seduces you and swipes many possessions, including at least one armor
+X---
+X> .IP "Nymph"
+X> Seduces you and swipes many possessions, including at least one armor
+X1073,1074c1378,1379
+X< .LI
+X< Orc: Always appear in swarms.  If you see one, there are others.
+X---
+X> .IP "Orc"
+X> Always appear in swarms.  If you see one, there are others.
+X1079,1080c1384,1385
+X< .LI
+X< Purple Worm: Not that hard to deal with, by the time you get to that
+X---
+X> .IP "Purple Worm"
+X> Not that hard to deal with, by the time you get to that
+X1084,1085c1389,1390
+X< .LI
+X< Quasit or Quantum Mechanic\(dg: Fast (3 spaces and/or attacks per move),
+X---
+X> .IP "Quasit or Quantum Mechanic\(dg"
+X> Fast (3 spaces and/or attacks per move),
+X1088,1089c1393,1394
+X< .LI
+X< Rust Monster:  Rusts armor when it hits.  Items that will rust: all armor
+X---
+X> .IP "Rust Monster"
+X>  Rusts armor when it hits.  Items that will rust: all armor
+X1096,1099c1401,1404
+X< .LI
+X< Snake: can hide under items on floor.  Can appear in numbers from fountains.
+X< .LI
+X< Troll: in D&D and rogue, regenerates its wounds. Hack Trolls do not seem
+X---
+X> .IP "Snake"
+X> can hide under items on floor.  Can appear in numbers from fountains.
+X> .IP "Troll"
+X> in D&D and rogue, regenerates its wounds. Hack Trolls do not seem
+X1101,1102c1406,1407
+X< .LI
+X< Umber Hulk: chance of confusing you (as potion) if you catch sight of it. 
+X---
+X> .IP "Umber Hulk"
+X> chance of confusing you (as potion) if you catch sight of it. 
+X1106,1107c1411,1412
+X< .LI
+X< Vampire: Hits from the vampire reduce your maximum hit points,
+X---
+X> .IP "Vampire"
+X> Hits from the vampire reduce your maximum hit points,
+X1111,1112c1416,1417
+X< .LI
+X< Wraith: in D&D, drains one level/hit. Drops you an experience level if it
+X---
+X> .IP "Wraith"
+X> in D&D, drains one level/hit. Drops you an experience level if it
+X1119,1120c1424,1425
+X< .LI
+X< Xorn: In Hack, a xorn is a tough monster, about the same as 
+X---
+X> .IP "Xorn"
+X> In Hack, a xorn is a tough monster, about the same as 
+X1122,1126c1427,1431
+X< .LI
+X< Yeti: gives cold resistance when eaten.
+X< .LI
+X< Zombie: edible.
+X< .LI @)
+X---
+X> .IP "Yeti"
+X> gives cold resistance when eaten.
+X> .IP "Zombie"
+X> edible.
+X> .IP @ 10
+X1142c1447
+X< .LI ,)
+X---
+X> .IP ,
+X1158c1463
+X< .P
+X---
+X> .sp
+X1162c1467
+X< .LI &)
+X---
+X> .IP &
+X1174c1479
+X< .LI ~)
+X---
+X> .IP ~
+X1176c1481
+X< .LI :)
+X---
+X> .IP :
+X1184c1489
+X< .LI "`` '')"
+X---
+X> .IP "`` ''"
+X1203c1508
+X< .LI ;)
+X---
+X> .IP ;
+X1207c1512
+X< .LI 1)
+X---
+X> .IP 1
+X1210c1515
+X< .LI 2)
+X---
+X> .IP 2
+X1213c1518
+X< .LI 9)
+X---
+X> .IP 9
+X1216,1223c1521,1585
+X< .LE
+X< .H 1 "WEAPONS AND ARMOR"
+X< .H 2 "Weapons"
+X< .P
+X< .so weapon.tbl
+X< '
+X< .H 2 "Armor Items"
+X< '
+X---
+X> .RE
+X> .LP
+X> .NH 1
+X> WEAPONS AND ARMOR
+X> .NH 2
+X> Weapons
+X> .sp
+X> .IP Key:
+X> C=Chance, W=Weight, SD=Small damage, LD=Large damage
+X> *=pole arm, \(dg=NetHack only
+X> .IP Notes:
+X> Pole arms consist of a 5-9 foot pole capped with the implement described.
+X> .LP
+X> .TS H
+X> tab (#),center,box;
+X> c c c c c c
+X> l | n n n n | l.
+X> Name#C#W#SD#LD#Description
+X> _
+X> .TH
+X> arrow#6#0#6#6
+X> sling bullet#6#0#4#6#see sling
+X> crossbow bolt#6#0#4#6
+X> dart#6#0#3#2
+X> shuriken#3#0#8#6#throwing star
+X> rock#4#1#3#3
+X> boomerang#1#3#9#9
+X> mace#6#3#6#7#
+X> axe#5#3#6#4
+X> flail#5#3#6#5#stick w/spiked ball & chain
+X> long sword#5#3#8#12#3-4' sword
+X> two handed sword#4#4#12#12#5-6' sword (no shield)
+X> dagger#4#3#4#3
+X> worm tooth#0#4#2#2#see crysknife
+X> crysknife#0#3#10#10#enchanted worm tooth
+X> aklys#1#3#6#3#spear-thrower
+X> bardiche*#1#3#4#4#5' shaft with wide axe
+X> bec de corbin*#1#3#8#6#axe head/spike
+X> bill-guisarme*#1#3#4#10#spearhead/hook
+X> club#1#3#6#3
+X> fauchard*#1#3#6#8#sickle blade
+X> glaive*#1#3#6#10#straight blade
+X> guisarme*#1#3#4#8#sharp pruning hook
+X> halberd*#1#3#10#6#spearhead with axe
+X> lucern hammer*#1#3#4#6#forward & down-curving spikes
+X> javelin#1#3#6#6
+X> katana#1#3#12#12#japanese sword
+X> lance*#1#3#6#8
+X> morning star#1#3#4#6#spiked ball on stick
+X> partisan*#1#3#6#6#spearhead w/double axe
+X> ranseur*#1#3#4#4#broad spearhead w/hilt
+X> scimitar#1#3#8#8#large knife
+X> spetum*#1#3#6#6#spearhead w/catching blades
+X> broad sword#1#3#4#6#3-4' chopping sword
+X> short sword#1#3#6#8#2-3' sword
+X> trident#1#3#6#4#three-pronged fork
+X> voulge*#1#3#4#4#single-edge blade
+X> spear#4#3#6#8
+X> bow#4#3#4#6
+X> sling#4#3#6#6#uses bullets or rocks
+X> crossbow#5#3#4#6
+X> .TE
+X> .NH 2
+X> Armor Items
+X> .PP
+X1238c1600
+X< .sp
+X---
+X> .PP
+X1255c1617
+X< .P
+X---
+X> .PP
+X1257,1258c1619,1621
+X< .P
+X< .H 3 "Elven Cloaks"
+X---
+X> .NH 3
+X> Elven Cloaks
+X> .PP
+X1263c1626,1628
+X< .H 3 "Helmets"
+X---
+X> .NH 3
+X> Helmets
+X> .PP
+X1267c1632,1634
+X< .H 3 "Gloves"
+X---
+X> .NH 3
+X> Gloves
+X> .PP
+X1285c1652,1654
+X< .H 3 "Armor"
+X---
+X> .NH 3
+X> Armor
+X> .PP
+X1291,1294c1660,1664
+X< .H 1 "SCROLLS, POTIONS, RINGS AND WANDS"
+X< '
+X< .H 2 " Scrolls"
+X< '
+X---
+X> .NH 1
+X> SCROLLS, POTIONS, RINGS AND WANDS
+X> .NH 2
+X> Scrolls
+X> .PP
+X1299c1669
+X< .P
+X---
+X> .PP
+X1301c1671
+X< .P
+X---
+X> .PP
+X1319c1689
+X< .P
+X---
+X> .PP
+X1321,1322c1691,1693
+X< .LI
+X< genocide: everyone's favorite scroll.
+X---
+X> .RS
+X> .IP "genocide" 20
+X> everyone's favorite scroll.
+X1331,1332c1702,1703
+X< .LI
+X< destroy armor: Destroys outermost layer of armor.  If you are wearing
+X---
+X> .IP "destroy armor"
+X> Destroys outermost layer of armor.  If you are wearing
+X1335,1336c1706,1707
+X< .LI
+X< enchant armor: As destroy armor, but +1 added to enchantment.
+X---
+X> .IP "enchant armor"
+X> As destroy armor, but +1 added to enchantment.
+X1339,1340c1710,1711
+X< .LI
+X< enchant weapon: weapon in hand or random if barehanded. Otherwise as 
+X---
+X> .IP "enchant weapon"
+X> weapon in hand or random if barehanded. Otherwise as 
+X1342c1713
+X< .P
+X---
+X> .sp
+X1351,1352c1722,1723
+X< .LI
+X< damage weapon:  -1 added to weapon. No effect on or of stickeycurse.
+X---
+X> .IP "damage weapon"
+X>  -1 added to weapon. No effect on or of stickeycurse.
+X1356,1359c1727,1730
+X< .LI
+X< food/gold/object/monster detection: briefly see all on level.
+X< .LI
+X< magic mapping: all rooms, corridors, secret doors and stairs on level 
+X---
+X> .IP "food/gold/object/monster detection"
+X> briefly see all on level.
+X> .IP "magic mapping"
+X> all rooms, corridors, secret doors and stairs on level 
+X1361,1362c1732,1733
+X< .LI
+X< amnesia: accumulated map of level lost, except for where you're standing.
+X---
+X> .IP "amnesia"
+X> accumulated map of level lost, except for where you're standing.
+X1366,1367c1737,1738
+X< .LI
+X< teleportation: random spot on level.  See ring of teleport control.
+X---
+X> .IP "teleportation"
+X> random spot on level.  See ring of teleport control.
+X1369,1372c1740,1743
+X< .LI
+X< fire: reduces your maximum hit points permanently.
+X< .LI
+X< taming: difficult to identify.  If a monster is in sight, it becomes tame,
+X---
+X> .IP "fire"
+X> reduces your maximum hit points permanently.
+X> .IP "taming"
+X> difficult to identify.  If a monster is in sight, it becomes tame,
+X1381,1382c1752,1753
+X< .LI
+X< identify: identify one item.  A few (perhaps 1 in 10) of these will ID 
+X---
+X> .IP "identify"
+X> identify one item.  A few (perhaps 1 in 10) of these will ID 
+X1387,1388c1758,1759
+X< .LI
+X< remove curse: gets rid of all stickeycurses on worn items.
+X---
+X> .IP "remove curse"
+X> gets rid of all stickeycurses on worn items.
+X1393,1394c1764,1765
+X< .LI
+X< create monster: one monster in adjacent square, appropriate to level.
+X---
+X> .IP "create monster"
+X> one monster in adjacent square, appropriate to level.
+X1397,1398c1768,1769
+X< .LI
+X< monster confusion: your hands begin to glow blue.  The next monster you
+X---
+X> .IP "monster confusion"
+X> your hands begin to glow blue.  The next monster you
+X1404,1405c1775,1776
+X< .LI
+X< punishment: this cursed scroll outfits you with a ball and chain, 
+X---
+X> .IP "punishment"
+X> this cursed scroll outfits you with a ball and chain, 
+X1416,1417c1787,1788
+X< .LI
+X< scare monster: Similar to rogue in use. If you pick up a scroll that
+X---
+X> .IP "scare monster"
+X> Similar to rogue in use. If you pick up a scroll that
+X1426,1427c1797,1798
+X< .LI
+X< blank: this scroll "appears to be blank."  This scroll may be utilized
+X---
+X> .IP "blank"
+X> this scroll "appears to be blank."  This scroll may be utilized
+X1430,1434c1801,1805
+X< .LE
+X< .P
+X< '
+X< .H 2 "Potions"
+X< '
+X---
+X> .RE
+X> .LP
+X> .NH 2
+X> Potions
+X> .PP
+X1511,1513c1882,1884
+X< '
+X< .H 2 "Rings"
+X< '
+X---
+X> .NH 2
+X> Rings
+X> .PP
+X1531,1534c1902,1903
+X< .P
+X< .VL 10
+X< .LI
+X< NOTE:
+X---
+X> .sp
+X> .UL NOTE:
+X1536,1537d1904
+X< .LE
+X< .P
+X1539,1540c1906,1909
+X< .LI
+X< cold resistance: You are invulnerable to cold, including backblasts from
+X---
+X> .RS
+X> .RS
+X> .IP "cold resistance" 25
+X> You are invulnerable to cold, including backblasts from
+X1542,1543c1911,1912
+X< .LI
+X< fire resistance: You are invulnerable to fire, including backblasts from
+X---
+X> .IP "fire resistance"
+X> You are invulnerable to fire, including backblasts from
+X1545,1546c1914,1915
+X< .LI
+X< teleport control: gives you control of teleport destination, no matter what 
+X---
+X> .IP "teleport control"
+X> gives you control of teleport destination, no matter what 
+X1549,1550c1918,1919
+X< .LI
+X< regeneration: Regain extra one hit point per round (but increases food
+X---
+X> .IP "regeneration"
+X> Regain extra one hit point per round (but increases food
+X1552,1553c1921,1922
+X< .LI
+X< conflict: causes monsters to attack each other instead of you, if they are 
+X---
+X> .IP "conflict"
+X> causes monsters to attack each other instead of you, if they are 
+X1555,1560c1924,1929
+X< .LI
+X< hunger: Increases hunger.
+X< .LI
+X< stealth: Monsters don't wake up when you enter a room.
+X< .LI
+X< searching: finds secret doors/traps more easily, and occasionally without 
+X---
+X> .IP "hunger"
+X> Increases hunger.
+X> .IP "stealth"
+X> Monsters don't wake up when you enter a room.
+X> .IP "searching"
+X> finds secret doors/traps more easily, and occasionally without 
+X1563,1566c1932,1935
+X< .LI
+X< increase damage: Increases the damage you do to monsters when hitting them.
+X< .LI
+X< protection: Increases your armor class and probably your (internal) saving
+X---
+X> .IP "increase damage"
+X> Increases the damage you do to monsters when hitting them.
+X> .IP "protection"
+X> Increases your armor class and probably your (internal) saving
+X1568,1569c1937,1938
+X< .LI
+X< teleportation: teleports you randomly about every once in a while.  No way 
+X---
+X> .IP "teleportation"
+X> teleports you randomly about every once in a while.  No way 
+X1574,1575c1943,1944
+X< .LI
+X< adornment: useless in rogue, but in Hack it protects against nymphs
+X---
+X> .IP "adornment"
+X> useless in rogue, but in Hack it protects against nymphs
+X1577,1578c1946,1947
+X< .LI
+X< resistance to poison: You are invulnerable to poison (including poison 
+X---
+X> .IP "resistance to poison"
+X> You are invulnerable to poison (including poison 
+X1581,1584c1950,1953
+X< .LI
+X< gain strength: Just what it says.  Increments as with ring of protection.
+X< .LI
+X< protection from shape changers: Forces chameleons to take on their
+X---
+X> .IP "gain strength"
+X> Just what it says.  Increments as with ring of protection.
+X> .IP "protection from shape changers"
+X> Forces chameleons to take on their
+X1586,1587c1955,1956
+X< .LI
+X< warning: glows in various colors, which may be indications of approaching
+X---
+X> .IP "warning"
+X> glows in various colors, which may be indications of approaching
+X1589,1590c1958,1959
+X< .LI
+X< levitation: equivalent to a potion of levitation when worn.  Has minor
+X---
+X> .IP "levitation"
+X> equivalent to a potion of levitation when worn.  Has minor
+X1594,1596c1963,1967
+X< .LI
+X< see invisible: same as potion.
+X< .P
+X---
+X> .IP "see invisible"
+X> same as potion.
+X> .RE
+X> .RE
+X> .PP
+X1601,1604c1972,1975
+X< .LE
+X< '
+X< .H 2 "Wands"
+X< '
+X---
+X> .LP
+X> .NH 2
+X> Wands
+X> .PP
+X1622c1993
+X< .P
+X---
+X> .PP
+X1624d1994
+X< .P
+X1626,1627c1996,1999
+X< .LI
+X< Wishing: you usually get 3 wishes, and wishing for wands of wishing
+X---
+X> .RS
+X> .RS
+X> .IP "Wishing" 20
+X> you usually get 3 wishes, and wishing for wands of wishing
+X1637,1638c2009,2012
+X< .BL
+X< .LI
+X---
+X> .sp
+X> .RS
+X> .RS
+X> .IP o
+X1640c2014
+X< .LI
+X---
+X> .IP o
+X1642c2016
+X< .LI
+X---
+X> .IP o
+X1644c2018
+X< .LI
+X---
+X> .IP o
+X1646,1647c2020,2022
+X< .LE
+X< .P
+X---
+X> .RE
+X> .RE
+X> .sp
+X1653,1654c2028,2030
+X< .LI
+X< Drain Life: usually kills target creature, taking
+X---
+X> .LP
+X> .IP "Drain Life"
+X> usually kills target creature, taking
+X1656,1657c2032,2033
+X< .LI
+X< Sleep: of variable duration, and doesn't seem to work on bats.  Some 
+X---
+X> .IP "Sleep"
+X> of variable duration, and doesn't seem to work on bats.  Some 
+X1660,1661c2036,2037
+X< .LI
+X< Fire, Cold, Lightning, Magic Missile: all fire rays/bolts/zaps which do
+X---
+X> .IP "Fire, Cold, Lightning, Magic Missile"
+X> all fire rays/bolts/zaps which do
+X1664,1665c2040,2041
+X< .LI
+X< Striking: wand hits the first monster in the direction you point it, even 
+X---
+X> .IP "Striking"
+X> wand hits the first monster in the direction you point it, even 
+X1667,1668c2043,2044
+X< .LI
+X< Polymorph: turns one monster or thing into a random other.
+X---
+X> .IP "Polymorph"
+X> turns one monster or thing into a random other.
+X1682,1683c2058,2059
+X< .LI
+X< Make invisible: makes monster invisible, permanently.
+X---
+X> .IP "Make invisible"
+X> makes monster invisible, permanently.
+X1687,1688c2063,2064
+X< .LI
+X< Teleport monster: monster teleported to random spot on level.
+X---
+X> .IP "Teleport monster"
+X> monster teleported to random spot on level.
+X1692,1693c2068,2069
+X< .LI
+X< Haste monster: monster moves twice as fast. Use on dog, but watch you
+X---
+X> .IP "Haste monster"
+X> monster moves twice as fast. Use on dog, but watch you
+X1695,1696c2071,2072
+X< .LI
+X< Slow monster: monster moves at half speed. Some monsters get multiple 
+X---
+X> .IP "Slow monster"
+X> monster moves at half speed. Some monsters get multiple 
+X1699,1700c2075,2076
+X< .LI
+X< Digging: This produces new corridor sections, and doors where the ray 
+X---
+X> .IP "Digging"
+X> This produces new corridor sections, and doors where the ray 
+X1702,1703c2078,2079
+X< .LI
+X< Undead turning: somewhat like fear, but no effect on most monsters.  
+X---
+X> .IP "Undead turning"
+X> somewhat like fear, but no effect on most monsters.  
+X1707,1708c2083,2084
+X< .LI
+X< Create monster: Creates a monster next to you, just like the scroll.  
+X---
+X> .IP "Create monster"
+X> Creates a monster next to you, just like the scroll.  
+X1711,1712c2087,2088
+X< .LI
+X< Cancellation: Should knock out any magical abilities of the monster. 
+X---
+X> .IP "Cancellation"
+X> Should knock out any magical abilities of the monster. 
+X1728,1729c2104,2105
+X< .LI
+X< Secret door detection: discovers all secret doors in room or in sight in
+X---
+X> .IP "Secret door detection"
+X> discovers all secret doors in room or in sight in
+X1733,1736c2109,2112
+X< .LI
+X< Light: lights up dark rooms. Usually comes in 10+ charges.
+X< .LI
+X< Probing: Gives stats on a creature in the direction you indicate. Tells
+X---
+X> .IP "Light"
+X> lights up dark rooms. Usually comes in 10+ charges.
+X> .IP "Probing"
+X> Gives stats on a creature in the direction you indicate. Tells
+X1738,1739c2114,2119
+X< .LE
+X< .H 3 "Don't shoot your own foot off."
+X---
+X> .RE
+X> .RE
+X> .LP
+X> .NH 3
+X> Don't shoot your own foot off.
+X> .PP
+X1749c2129,2131
+X< .H 3 "Test them first."
+X---
+X> .NH 3
+X> Test them first.
+X> .PP
+X1756c2138,2140
+X< .H 1 "EXTENDED COMMAND SET"
+X---
+X> .NH 1
+X> EXTENDED COMMAND SET
+X> .PP
+X1760,1761c2144,2146
+X< .VL 10
+X< .LI #dip
+X---
+X> .RS
+X> .RS
+X> .IP #dip 10
+X1769c2154
+X< .LI #pray
+X---
+X> .IP #pray
+X1774c2159
+X< .LI #sit
+X---
+X> .IP #sit
+X1778c2163
+X< .LI #wipe
+X---
+X> .IP #wipe
+X1780c2165
+X< .LI #breathe 
+X---
+X> .IP #breathe 
+X1782c2167
+X< .LI #remove
+X---
+X> .IP #remove
+X1784c2169
+X< .LI #cast
+X---
+X> .IP #cast
+X1786,1788c2171,2176
+X< '
+X< .H 2 "Spells and Spellbooks"
+X< '
+X---
+X> .RE
+X> .RE
+X> .LP
+X> .NH 2
+X> Spells and Spellbooks
+X> .PP
+X1794c2182
+X< .P
+X---
+X> .PP
+X1820c2208
+X< .P
+X---
+X> .PP
+X1824c2212
+X< .P
+X---
+X> .PP
+X1835c2223
+X< .P
+X---
+X> .PP
+X1838,1839c2226,2230
+X< .H 1 "ITEMS (Tools, Gems, etc.)"
+X< .H 2 "Tools"
+X---
+X> .NH 1
+X> ITEMS (Tools, Gems, etc.)
+X> .NH 2
+X> Tools
+X> .PP
+X1841,1842c2232,2234
+X< '
+X< .H 3 "Whistles"
+X---
+X> .NH 3
+X> Whistles
+X> .PP
+X1849,1850c2241,2243
+X< .P
+X< .H 3 "Icebox"
+X---
+X> .NH 3
+X> Icebox
+X> .PP
+X1855,1856c2248,2250
+X< .P
+X< .H 3 "Camera"
+X---
+X> .NH 3
+X> Camera
+X> .PP
+X1859,1860c2253,2255
+X< .P
+X< .H 3 "Pickaxe"
+X---
+X> .NH 3
+X> Pickaxe
+X> .PP
+X1864,1865c2259,2261
+X< .P
+X< .H 3 "Leash"
+X---
+X> .NH 3
+X> Leash
+X> .PP
+X1868c2264,2266
+X< .H 3 "Can Opener"
+X---
+X> .NH 3
+X> Can Opener
+X> .PP
+X1870,1872c2268,2270
+X< '
+X< .H 2 "Amulet" 
+X< '
+X---
+X> .NH 2
+X> Amulet
+X> .PP
+X1879,1881c2277,2279
+X< '
+X< .H 2 "Gems"
+X< '
+X---
+X> .NH 2
+X> Gems
+X> .PP
+X1905,1906c2303,2307
+X< .H 1 "TRICKS AND OTHER NON-INTUITIVE ACTIONS"
+X< .H 2 "Elbereth"
+X---
+X> .NH 1
+X> TRICKS AND OTHER NON-INTUITIVE ACTIONS
+X> .NH 2
+X> Elbereth
+X> .PP
+X1927c2328
+X< .P
+X---
+X> .PP
+X1934c2335,2337
+X< .H 2 "Orcrist"
+X---
+X> .NH 2
+X> Orcrist
+X> .PP
+X1937c2340,2342
+X< .H 2 "Excalibur"
+X---
+X> .NH 2
+X> Excalibur
+X> .PP
+X1941c2346,2348
+X< .H 2 "Hit Points and Nurses"
+X---
+X> .NH 2
+X> Hit Points and Nurses
+X> .PP
+X1947c2354,2356
+X< .H 2 "Your Score"
+X---
+X> .NH 2
+X> Your Score
+X> .PP
+X1958c2367,2369
+X< .H 2 "Luck"
+X---
+X> .NH 2
+X> Luck
+X> .PP
+X2006c2417
+X< .P
+X---
+X> .PP
+X2037c2448
+X< .P
+X---
+X> .PP
+X
+X
+END_OF_Newstuff/Spoil_ms.diff
+if test 38667 -ne `wc -c <Newstuff/Spoil_ms.diff`; then
+    echo shar: \"Newstuff/Spoil_ms.diff\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+if test -f hack.c -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"hack.c\"
+else
+echo shar: Extracting \"hack.c\" \(25101 characters\)
+sed "s/^X//" >hack.c <<'END_OF_hack.c'
+X/* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+X
+X#include <stdio.h>
+X#include "hack.h"
+X#ifdef UNIX
+Xstatic	char	SCCS_Id[] = "@(#)hack.c	2.3\t88/02/18";
+X#endif
+Xextern char news0();
+Xextern char *nomovemsg;
+Xextern char *exclam();
+Xextern struct obj *addinv();
+Xextern boolean hmon();
+X
+X/* called on movement:
+X	1. when throwing ball+chain far away
+X	2. when teleporting
+X	3. when walking out of a lit room
+X */
+Xunsee() {
+X	register x,y;
+X	register struct rm *lev;
+X
+X/*
+X	if(u.udispl){
+X		u.udispl = 0;
+X		newsym(u.udisx, u.udisy);
+X	}
+X*/
+X#ifndef QUEST
+X	if(seehx){
+X		seehx = 0;
+X	} else
+X#endif
+X	for(x = u.ux-1; x < u.ux+2; x++)
+X	  for(y = u.uy-1; y < u.uy+2; y++) {
+X		if(!isok(x, y)) continue;
+X		lev = &levl[x][y];
+X		if(!lev->lit && lev->scrsym == ROOM_SYM) {
+X			lev->scrsym = STONE_SYM;
+X			lev->new = 1;
+X			on_scr(x,y);
+X		}
+X	}
+X}
+X
+X/* called:
+X	in apply.c:  seeoff(0)	- when taking a picture of yourself
+X				- when donning a blindfold
+X	in do.c:     seeoff(0)	- blind after drinking potion
+X	in do.c:     seeoff(1)	- go up or down the stairs
+X	in eat.c:    seeoff(0)	- blind after eating rotten food
+X	in mhitu.c:  seeoff(0)	- blinded by a yellow light
+X	in mon.c:    seeoff(1)	- swallowed
+X	in potion.c: seeoff(0)	- quaffing or sniffing a potion of blindness
+X	in spell.c:  seeoff(0)	- due to a cursed spellbook
+X	in trap.c:   seeoff(1)	- fall through trapdoor
+X	in wizard.c: seeoff(0)	- hit by a cream pie.
+X */
+Xseeoff(mode)	/* 1 to redo @, 0 to leave them */
+X{	/* 1 means misc movement, 0 means blindness */
+X	register x,y;
+X	register struct rm *lev;
+X
+X	if(u.udispl && mode){
+X		u.udispl = 0;
+X		levl[u.udisx][u.udisy].scrsym = news0(u.udisx,u.udisy);
+X	}
+X#ifndef QUEST
+X	if(seehx) {
+X		seehx = 0;
+X	} else
+X#endif
+X	if(!mode) {
+X		for(x = u.ux-1; x < u.ux+2; x++)
+X			for(y = u.uy-1; y < u.uy+2; y++) {
+X				if(!isok(x, y)) continue;
+X				lev = &levl[x][y];
+X				if(!lev->lit && lev->scrsym == ROOM_SYM)
+X					lev->seen = 0;
+X			}
+X	}
+X}
+X
+Xstatic
+Xmoverock() {
+X	register xchar rx, ry;
+X	register struct obj *otmp;
+X	register struct trap *ttmp;
+X	register struct	monst *mtmp;
+X	struct monst *m_at();
+X
+X	while(otmp = sobj_at(ENORMOUS_ROCK, u.ux+u.dx, u.uy+u.dy)) {
+X		rx = u.ux+2*u.dx;
+X		ry = u.uy+2*u.dy;
+X		nomul(0);
+X		if(isok(rx,ry) && !IS_ROCK(levl[rx][ry].typ) &&
+X		    (levl[rx][ry].typ != DOOR || !(u.dx && u.dy)) &&
+X		    !sobj_at(ENORMOUS_ROCK, rx, ry)) {
+X			if((mtmp = m_at(rx,ry))) {
+X			    if(canseemon(mtmp))
+X				pline("There's %s on the other side.", monnam(mtmp));
+X			    else
+X				pline("You hear a monster behind the rock.");
+X			    pline("Perhaps that's why you cannot move it.");
+X			    goto cannot_push;
+X			}
+X			if(ttmp = t_at(rx,ry))
+X			    switch(ttmp->ttyp) {
+X			    case PIT:
+X				pline("You push the rock into a pit!");
+X				deltrap(ttmp);
+X				delobj(otmp);
+X				pline("It completely fills the pit!");
+X				continue;
+X			    case TELEP_TRAP:
+X				pline("You push the rock and suddenly it disappears!");
+X				delobj(otmp);
+X				continue;
+X			    }
+X			if(levl[rx][ry].typ == POOL) {
+X				levl[rx][ry].typ = ROOM;
+X				mnewsym(rx,ry);
+X				prl(rx,ry);
+X				pline("You push the rock into the water.");
+X				pline("Now you can cross the water!");
+X				delobj(otmp);
+X				continue;
+X			}
+X			otmp->ox = rx;
+X			otmp->oy = ry;
+X			/* pobj(otmp); */
+X			if(cansee(rx,ry)) atl(rx,ry,otmp->olet);
+X			if(Invisible) newsym(u.ux+u.dx, u.uy+u.dy);
+X
+X			{ static long lastmovetime;
+X			/* note: this var contains garbage initially and
+X			   after a restore */
+X			if(moves > lastmovetime+2 || moves < lastmovetime)
+X			pline("With great effort you move the enormous rock.");
+X			lastmovetime = moves;
+X			}
+X		} else {
+X		    pline("You try to move the enormous rock, but in vain.");
+X	    cannot_push:
+X#ifdef KAA
+X		    if (u.usym=='9') {
+X# ifdef DGKMOD
+X			if(!flags.pickup)
+X				pline("You easily can push it aside.");
+X			else
+X# endif
+X				pline("However, you easily can pick it up.");
+X			break;
+X		    }
+X#endif
+X		    if((!invent || inv_weight()+90 <= 0) &&
+X			(!u.dx || !u.dy || (IS_ROCK(levl[u.ux][u.uy+u.dy].typ)
+X					&& IS_ROCK(levl[u.ux+u.dx][u.uy].typ)))){
+X			pline("However, you can squeeze yourself into a small opening.");
+X			break;
+X		    } else
+X			return (-1);
+X		}
+X	}
+X	return (0);
+X}
+X
+Xdomove()
+X{
+X	register struct monst *mtmp;
+X	register struct rm *tmpr,*ust;
+X	struct trap *trap;
+X
+X	u_wipe_engr(rnd(5));
+X
+X	if(inv_weight() > 0){
+X		pline("You collapse under your load.");
+X		nomul(0);
+X		return;
+X	}
+X	if(u.uswallow) {
+X		u.dx = u.dy = 0;
+X		u.ux = u.ustuck->mx;
+X		u.uy = u.ustuck->my;
+X	} else {
+X		if(Confusion) {
+X			do {
+X				confdir();
+X			} while(!isok(u.ux+u.dx, u.uy+u.dy) ||
+X			    IS_ROCK(levl[u.ux+u.dx][u.uy+u.dy].typ));
+X		}
+X		if(!isok(u.ux+u.dx, u.uy+u.dy)){
+X			nomul(0);
+X			return;
+X		}
+X	}
+X
+X	ust = &levl[u.ux][u.uy];
+X	u.ux0 = u.ux;
+X	u.uy0 = u.uy;
+X	if(!u.uswallow && (trap = t_at(u.ux+u.dx, u.uy+u.dy)) && trap->tseen)
+X		nomul(0);
+X	if(u.ustuck && !u.uswallow && (u.ux+u.dx != u.ustuck->mx ||
+X		u.uy+u.dy != u.ustuck->my)) {
+X		if(dist(u.ustuck->mx, u.ustuck->my) > 2){
+X			/* perhaps it fled (or was teleported or ... ) */
+X			u.ustuck = 0;
+X		} else {
+X			if(Blind) pline("You cannot escape from it!");
+X			else pline("You cannot escape from %s!",
+X				monnam(u.ustuck));
+X			nomul(0);
+X			return;
+X		}
+X	}
+X	if(u.uswallow || (mtmp = m_at(u.ux+u.dx,u.uy+u.dy))) {
+X	/* attack monster */
+X
+X#ifdef SAFE_ATTACK
+X		/* Don't attack if you're running */
+X		if (flags.run && !mtmp->mimic
+X		&& (Blind ? Telepat : (!mtmp->minvis || See_invisible))) {
+X			nomul(0);
+X			flags.move = 0;
+X			return;
+X		}
+X#endif
+X		nomul(0);
+X		gethungry();
+X		if(multi < 0) return;	/* we just fainted */
+X
+X		/* try to attack; note that it might evade */
+X		if(attack(u.uswallow ? u.ustuck : mtmp))
+X			return;
+X	}
+X	/* not attacking an animal, so we try to move */
+X	if(u.utrap) {
+X		if(u.utraptype == TT_PIT) {
+X			pline("You are still in a pit.");
+X			u.utrap--;
+X#ifdef SPIDERS
+X		} else if (u.utraptype == TT_WEB) {
+X		    	pline("You are stuck to the web.");
+X			u.utrap--;
+X#endif
+X		} else {
+X			pline("You are caught in a bear trap.");
+X			if((u.dx && u.dy) || !rn2(5)) u.utrap--;
+X		}
+X		return;
+X	}
+X	tmpr = &levl[u.ux+u.dx][u.uy+u.dy];
+X	if(IS_ROCK(tmpr->typ) ||
+X	   (u.dx && u.dy && (tmpr->typ == DOOR || ust->typ == DOOR))){
+X		flags.move = 0;
+X		nomul(0);
+X		return;
+X	}
+X	if(moverock() < 0) return;
+X	if(u.dx && u.dy && IS_ROCK(levl[u.ux][u.uy+u.dy].typ) &&
+X		IS_ROCK(levl[u.ux+u.dx][u.uy].typ) &&
+X		invent && inv_weight()+40 > 0) {
+X		pline("You are carrying too much to get through.");
+X		nomul(0);
+X		return;
+X	}
+X	if(Punished &&
+X	   DIST(u.ux+u.dx, u.uy+u.dy, uchain->ox, uchain->oy) > 2){
+X		if(carried(uball)) {
+X			movobj(uchain, u.ux, u.uy);
+X			goto nodrag;
+X		}
+X
+X		if(DIST(u.ux+u.dx, u.uy+u.dy, uball->ox, uball->oy) < 3){
+X			/* leave ball, move chain under/over ball */
+X			movobj(uchain, uball->ox, uball->oy);
+X			goto nodrag;
+X		}
+X
+X		if(inv_weight() + (int) uball->owt/2 > 0) {
+X			pline("You cannot %sdrag the heavy iron ball.",
+X			invent ? "carry all that and also " : "");
+X			nomul(0);
+X			return;
+X		}
+X
+X		movobj(uball, uchain->ox, uchain->oy);
+X		unpobj(uball);		/* BAH %% */
+X		uchain->ox = u.ux;
+X		uchain->oy = u.uy;
+X		nomul(-2);
+X		nomovemsg = "";
+X	nodrag:	;
+X	}
+X	u.ux += u.dx;
+X	u.uy += u.dy;
+X	if(flags.run) {
+X		if(tmpr->typ == DOOR ||
+X		(xupstair == u.ux && yupstair == u.uy) ||
+X		(xdnstair == u.ux && ydnstair == u.uy)
+X#ifdef FOUNTAINS
+X		|| IS_FOUNTAIN(levl[u.ux][u.uy].typ)
+X#endif
+X#ifdef NEWCLASS
+X		|| IS_THRONE(levl[u.ux][u.uy].typ)
+X#endif
+X#ifdef SINKS
+X		|| IS_SINK(levl[u.ux][u.uy].typ)
+X#endif
+X		)
+X			nomul(0);
+X	}
+X
+X#ifdef SINKS
+X	if(IS_SINK(levl[u.ux][u.uy].typ) && Levitation)
+X		dosinkfall();
+X#endif
+X	if(tmpr->typ == POOL && !Levitation)
+X		drown();	/* not necessarily fatal */
+X
+X/*
+X	if(u.udispl) {
+X		u.udispl = 0;
+X		newsym(u.ux0,u.uy0);
+X	}
+X*/
+X	if(!Blind) {
+X#ifdef QUEST
+X		setsee();
+X#else
+X		if(ust->lit) {
+X			if(tmpr->lit) {
+X				if(tmpr->typ == DOOR)
+X					prl1(u.ux+u.dx,u.uy+u.dy);
+X				else if(ust->typ == DOOR)
+X					nose1(u.ux0-u.dx,u.uy0-u.dy);
+X			} else {
+X				unsee();
+X				prl1(u.ux+u.dx,u.uy+u.dy);
+X			}
+X		} else {
+X			if(tmpr->lit) setsee();
+X			else {
+X				prl1(u.ux+u.dx,u.uy+u.dy);
+X				if(tmpr->typ == DOOR) {
+X					if(u.dy) {
+X						prl(u.ux-1,u.uy);
+X						prl(u.ux+1,u.uy);
+X					} else {
+X						prl(u.ux,u.uy-1);
+X						prl(u.ux,u.uy+1);
+X					}
+X				}
+X			}
+X			nose1(u.ux0-u.dx,u.uy0-u.dy);
+X		}
+X#endif /* QUEST /**/
+X	} else {
+X		pru();
+X	}
+X	if(!flags.nopick) pickup(1);
+X	if(trap) dotrap(trap);		/* fall into pit, arrow trap, etc. */
+X	(void) inshop();
+X	if(!Blind) read_engr_at(u.ux,u.uy);
+X}
+X
+Xmovobj(obj, ox, oy)
+Xregister struct obj *obj;
+Xregister int ox, oy;
+X{
+X	/* Some dirty programming to get display right */
+X	freeobj(obj);
+X	unpobj(obj);
+X	obj->nobj = fobj;
+X	fobj = obj;
+X	obj->ox = ox;
+X	obj->oy = oy;
+X}
+X
+Xdopickup(){
+X	/* uswallow case added by GAN 01/29/87 */
+X	if(u.uswallow)  {
+X		pline("You pick up %s's tongue.",monnam(u.ustuck));
+X		pline("But it's kind of slimy, so you drop it.");
+X		return(1);
+X	}
+X	if(!g_at(u.ux,u.uy) && !o_at(u.ux,u.uy)) {
+X		pline("There is nothing here to pick up.");
+X		return(0);
+X	}
+X	if(Levitation) {
+X		pline("You cannot reach the floor.");
+X		return(1);
+X	}
+X	pickup(0);
+X	return(1);
+X}
+X
+Xpickup(all)
+X{
+X	register struct gold *gold;
+X	register struct obj *obj, *obj2;
+X	register int wt;
+X	char buf[BUFSZ];
+X	register char *ip;
+X	register char sym;
+X	register int oletct = 0, iletct = 0;
+X	char olets[20], ilets[20];
+X
+X	if(Levitation) return;
+X#ifdef DGKMOD
+X	if (all && !flags.pickup) {
+X		int ct = 0;
+X
+X		for (obj = fobj; obj; obj = obj->nobj)
+X			if (obj->ox == u.ux && obj->oy == u.uy)
+X				if (!Punished || obj != uchain)
+X					ct++;
+X		/* If gold is the only thing here, pick it up.
+X		 */
+X		if (!ct && g_at(u.ux, u.uy)) {
+X			if (flags.run) nomul(0);
+X			while (gold = g_at(u.ux,u.uy)) {
+X				pline("%ld gold piece%s.", gold->amount,
+X					plur(gold->amount));
+X				u.ugold += gold->amount;
+X				flags.botl = 1;
+X				freegold(gold);
+X			}
+X			if (Invisible) newsym(u.ux,u.uy);
+X		}
+X
+X		/* If there are objects here, take a look.
+X		 */
+X		if (ct) {
+X			if (flags.run)
+X				nomul(0);
+X			nscr();
+X			if (ct < 5)
+X				dolook();
+X			else
+X				pline("There are several objects here.");
+X		}
+X		return;
+X	}
+X#endif
+X	while(gold = g_at(u.ux,u.uy)) {
+X		pline("%ld gold piece%s.", gold->amount, plur(gold->amount));
+X		u.ugold += gold->amount;
+X		flags.botl = 1;
+X		freegold(gold);
+X		if(flags.run) nomul(0);
+X		if(Invisible) newsym(u.ux,u.uy);
+X	}
+X	/* check for more than one object */
+X	if(!all) {
+X		register int ct = 0;
+X
+X		for(obj = fobj; obj; obj = obj->nobj)
+X			if(obj->ox == u.ux && obj->oy == u.uy) ct++;
+X		if(g_at(u.ux,u.uy))
+X			ct++;
+X		if(ct < 2)
+X			all++;
+X		else
+X			pline("There are several objects here.");
+X	}
+X
+X	/* added by GAN 10/24/86 to allow selective picking up */
+X	if(!all)  {
+X		register struct obj *otmp = fobj;
+X
+X		if(g_at(u.ux,u.uy)) ilets[iletct++] = GOLD_SYM;
+X		ilets[iletct] = 0;
+X		while(otmp) {
+X			if(!index(ilets, otmp->olet) &&
+X			   otmp->ox == u.ux && otmp->oy == u.uy)  {
+X				ilets[iletct++] = otmp->olet;
+X				ilets[iletct] = 0;
+X			}
+X			otmp = otmp->nobj;
+X		}        
+X		if(iletct == 1)
+X			strcpy(buf,ilets);
+X		else  {
+X			ilets[iletct++] = ' ';
+X			ilets[iletct++] = 'a';
+X			ilets[iletct++] = 'A';
+X			ilets[iletct] = 0;
+X
+X			if(iletct = 3)    
+X			pline("What kinds of thing do you want to pick up? [%s] ", ilets);
+X			getlin(buf);
+X			if(buf[0] == '\033') {
+X				clrlin();
+X				return;
+X			}
+X#ifdef KJSMODS
+X			else if(!buf[0]) strcpy(buf,"A");
+X#endif
+X		}
+X		ip = buf;
+X		olets[0] = 0;
+X		while(sym = *ip++){
+X			/* new A function (selective all) added by
+X			 * GAN 01/09/87
+X			 */
+X			if(sym == 'A')  {
+X				for(oletct = 0; ilets[oletct] != ' '; oletct++)
+X					olets[oletct] = ilets[oletct];
+X				olets[oletct] = 0;
+X				break;
+X			}
+X			if(sym == ' ') continue;
+X			if(sym == 'a') all++; else
+X			if(index(ilets, sym)){
+X				if(!index(olets, sym)){
+X					olets[oletct++] = sym;
+X					olets[oletct] = 0;
+X				}
+X			}
+X			else pline("There are no %c's here.", sym);
+X		}        
+X	}
+X
+X	if(all || index(olets, GOLD_SYM))
+X		while(gold = g_at(u.ux,u.uy)) {
+X			pline("%ld gold piece%s.", gold->amount,
+X			   plur(gold->amount));
+X			u.ugold += gold->amount;
+X			flags.botl = 1;
+X			freegold(gold);
+X			if(flags.run) nomul(0);
+X			if(Invis) newsym(u.ux,u.uy);
+X	}
+X
+X
+X	for(obj = fobj; obj; obj = obj2) {
+X	    obj2 = obj->nobj;   /* perhaps obj will be picked up */
+X	    if(obj->ox == u.ux && obj->oy == u.uy) {
+X		if(flags.run) nomul(0);
+X
+X		if(!all)  {
+X			char c;
+X		       
+X			if(!index(olets,obj->olet)) continue;
+X 
+X			pline("Pick up %s ? [ynaq]", doname(obj));
+X			while(!index("ynaq ", (c = readchar())))
+X				bell();
+X			if(c == 'q') return;
+X			if(c == 'n') continue;
+X			if(c == 'a') all = 1;
+X		}
+X 
+X		if(obj->otyp == DEAD_COCKATRICE && !uarmg && u.usym != 'c') {
+X		    pline("Touching the dead cockatrice is a fatal mistake.");
+X		    pline("You turn to stone.");
+X		    pline("You die...");
+X		    killer = "cockatrice cadaver";
+X		    done("died");
+X		}        
+X 
+X		if(obj->otyp == SCR_SCARE_MONSTER){
+X		  if(!obj->spe) obj->spe = 1;
+X		  else {
+X		    /* Note: perhaps the 1st pickup failed: you cannot
+X			carry anymore, and so we never dropped it -
+X			lets assume that treading on it twice also
+X			destroys the scroll */
+X		    pline("The scroll turns to dust as you pick it up.");
+X#ifdef KAA
+X			if(!(objects[SCR_SCARE_MONSTER].oc_name_known) &&
+X			   !(objects[SCR_SCARE_MONSTER].oc_uname))
+X				docall(obj);
+X#endif
+X		    delobj(obj);
+X		    continue;
+X		  }
+X		}
+X		   
+X		/* do not pick up uchain */
+X		if(Punished && obj == uchain)
+X			continue;
+X
+X				  
+X		wt = inv_weight() + obj->owt;
+X		if(wt > 0) {
+X			if(obj->quan > 1) {
+X				/* see how many we can lift */
+X				extern struct obj *splitobj();
+X				int savequan = obj->quan;
+X				int iw = inv_weight();
+X				int qq;
+X				for(qq = 1; qq < savequan; qq++){
+X					obj->quan = qq;
+X					if(iw + weight(obj) > 0)
+X						break;
+X				}
+X				obj->quan = savequan;
+X				qq--;
+X				/* we can carry qq of them */
+X				if(!qq) goto too_heavy;
+X			pline("You can only carry %s of the %s lying here.",
+X					(qq == 1) ? "one" : "some",
+X					doname(obj));
+X				{
+X				register struct obj *obj3;
+X
+X				obj3 = splitobj(obj, qq);
+X				if(obj3->otyp == SCR_SCARE_MONSTER)
+X					if(obj3->spe) obj->spe = 0;
+X				}
+X				/* note: obj2 is set already, so well never
+X				 * encounter the other half; if it should be
+X				 * otherwise then write
+X				 *      obj2 = splitobj(obj,qq);
+X				 */
+X				goto lift_some;
+X			}          
+X		too_heavy:
+X			pline("There %s %s here, but %s.",
+X				(obj->quan == 1) ? "is" : "are",
+X				doname(obj),
+X				!invent ? "it is too heavy for you to lift"
+X				/* There is no such word as "anymore". KAA */
+X					: "you cannot carry any more");
+X				if(obj->otyp == SCR_SCARE_MONSTER)
+X					if(obj->spe) obj->spe = 0;
+X			break;
+X		}
+X	lift_some:
+X		if(inv_cnt() >= 52) {
+X		    pline("Your knapsack cannot accommodate any more items.");
+X				if(obj->otyp == SCR_SCARE_MONSTER)
+X					if(obj->spe) obj->spe = 0;
+X		    break;
+X		}
+X		freeobj(obj);
+X		if(Invisible) newsym(u.ux,u.uy);
+X		addtobill(obj);       /* sets obj->unpaid if necessary */
+X		if(wt > -5) pline("You have a little trouble lifting");
+X		{ int pickquan = obj->quan;
+X		  int mergquan;
+X#ifdef KAA
+X		if(!Blind) if(obj->olet != WEAPON_SYM) obj->dknown = 1;
+X#else
+X		if(!Blind) obj->dknown = 1;     /* this is done by prinv(),
+X				 but addinv() needs it already for merging */
+X#endif
+X		obj = addinv(obj);    /* might merge it with other objects */
+X		  mergquan = obj->quan;
+X		  obj->quan = pickquan; /* to fool prinv() */
+X		prinv(obj);
+X		  obj->quan = mergquan;
+X		}
+X	    }
+X	}
+X}
+X
+X/* stop running if we see something interesting */
+X/* turn around a corner if that is the only way we can proceed */
+X/* do not turn left or right twice */
+Xlookaround(){
+Xregister x,y,i,x0,y0,m0,i0 = 9;
+Xregister int corrct = 0, noturn = 0;
+Xregister struct monst *mtmp;
+X#ifdef LINT
+X	/* suppress "used before set" message */
+X	x0 = y0 = 0;
+X#endif
+X	if(Blind || flags.run == 0) return;
+X	if(flags.run == 1 && levl[u.ux][u.uy].typ == ROOM) return;
+X#ifdef QUEST
+X	if(u.ux0 == u.ux+u.dx && u.uy0 == u.uy+u.dy) goto stop;
+X#endif
+X	for(x = u.ux-1; x <= u.ux+1; x++) for(y = u.uy-1; y <= u.uy+1; y++){
+X		if(x == u.ux && y == u.uy) continue;
+X		if(!levl[x][y].typ) continue;
+X		if((mtmp = m_at(x,y)) && !mtmp->mimic &&
+X		    (!mtmp->minvis || See_invisible)){
+X			if(!mtmp->mtame || (x == u.ux+u.dx && y == u.uy+u.dy))
+X				goto stop;
+X		} else mtmp = 0; /* invisible M cannot influence us */
+X		if(x == u.ux-u.dx && y == u.uy-u.dy) continue;
+X		{
+X		register uchar sym = levl[x][y].scrsym;
+X
+X		if (sym == VWALL_SYM || sym == HWALL_SYM
+X		    || sym == ROOM_SYM || sym == STONE_SYM
+X		    || IS_CORNER(sym))
+X			continue;
+X		else if (sym == DOOR_SYM) {
+X			if(x != u.ux && y != u.uy) continue;
+X			if(flags.run != 1) goto stop;
+X			goto corr;
+X		} else if (sym == CORR_SYM) {
+X		corr:
+X			if(flags.run == 1 || flags.run == 3) {
+X				i = DIST(x,y,u.ux+u.dx,u.uy+u.dy);
+X				if(i > 2) continue;
+X				if(corrct == 1 && DIST(x,y,x0,y0) != 1)
+X					noturn = 1;
+X				if(i < i0) {
+X					i0 = i;
+X					x0 = x;
+X					y0 = y;
+X					m0 = mtmp ? 1 : 0;
+X				}
+X			}
+X			corrct++;
+X			continue;
+X		} else if (sym == TRAP_SYM) {
+X			if(flags.run == 1) goto corr;	/* if you must */
+X			if(x == u.ux+u.dx && y == u.uy+u.dy) goto stop;
+X			continue;
+X		} else {		/* e.g. objects or trap or stairs */
+X			if(flags.run == 1) goto corr;
+X			if(mtmp) continue;		/* d */
+X		}
+X		stop:
+X			nomul(0);
+X			return;
+X		}
+X	}
+X#ifdef QUEST
+X	if(corrct > 0 && (flags.run == 4 || flags.run == 5)) goto stop;
+X#endif
+X	if(corrct > 1 && flags.run == 2) goto stop;
+X	if((flags.run == 1 || flags.run == 3) && !noturn && !m0 && i0 &&
+X		(corrct == 1 || (corrct == 2 && i0 == 1))) {
+X		/* make sure that we do not turn too far */
+X		if(i0 == 2) {
+X		    if(u.dx == y0-u.uy && u.dy == u.ux-x0)
+X			i = 2;		/* straight turn right */
+X		    else
+X			i = -2;		/* straight turn left */
+X		} else if(u.dx && u.dy) {
+X		    if((u.dx == u.dy && y0 == u.uy) ||
+X			(u.dx != u.dy && y0 != u.uy))
+X			i = -1;		/* half turn left */
+X		    else
+X			i = 1;		/* half turn right */
+X		} else {
+X		    if((x0-u.ux == y0-u.uy && !u.dy) ||
+X			(x0-u.ux != y0-u.uy && u.dy))
+X			i = 1;		/* half turn right */
+X		    else
+X			i = -1;		/* half turn left */
+X		}
+X		i += u.last_str_turn;
+X		if(i <= 2 && i >= -2) {
+X			u.last_str_turn = i;
+X			u.dx = x0-u.ux, u.dy = y0-u.uy;
+X		}
+X	}
+X}
+X
+X/* something like lookaround, but we are not running */
+X/* react only to monsters that might hit us */
+Xmonster_nearby() {
+Xregister int x,y;
+Xregister struct monst *mtmp;
+X	if(!Blind)
+X	for(x = u.ux-1; x <= u.ux+1; x++) for(y = u.uy-1; y <= u.uy+1; y++){
+X		if(x == u.ux && y == u.uy) continue;
+X		if((mtmp = m_at(x,y)) && !mtmp->mimic && !mtmp->mtame &&
+X			!mtmp->mpeaceful && !index("Ea", mtmp->data->mlet) &&
+X			!mtmp->mfroz && !mtmp->msleep &&  /* aplvax!jcn */
+X			(!mtmp->minvis || See_invisible))
+X			return(1);
+X	}
+X	return(0);
+X}
+X
+X#ifdef QUEST
+Xcansee(x,y) xchar x,y; {
+Xregister int dx,dy,adx,ady,sdx,sdy,dmax,d;
+X	if(Blind) return(0);
+X	if(!isok(x,y)) return(0);
+X	d = dist(x,y);
+X	if(d < 3) return(1);
+X	if(d > u.uhorizon*u.uhorizon) return(0);
+X	if(!levl[x][y].lit)
+X		return(0);
+X	dx = x - u.ux;	adx = abs(dx);	sdx = sgn(dx);
+X	dy = y - u.uy;  ady = abs(dy);	sdy = sgn(dy);
+X	if(dx == 0 || dy == 0 || adx == ady){
+X		dmax = (dx == 0) ? ady : adx;
+X		for(d = 1; d <= dmax; d++)
+X			if(!rroom(sdx*d,sdy*d))
+X				return(0);
+X		return(1);
+X	} else if(ady > adx){
+X		for(d = 1; d <= ady; d++){
+X			if(!rroom(sdx*( (d*adx)/ady ), sdy*d) ||
+X			   !rroom(sdx*( (d*adx-1)/ady+1 ), sdy*d))
+X				return(0);
+X		}
+X		return(1);
+X	} else {
+X		for(d = 1; d <= adx; d++){
+X			if(!rroom(sdx*d, sdy*( (d*ady)/adx )) ||
+X			   !rroom(sdx*d, sdy*( (d*ady-1)/adx+1 )))
+X				return(0);
+X		}
+X		return(1);
+X	}
+X}
+X
+Xrroom(x,y) register int x,y; {
+X	return(IS_ROOM(levl[u.ux+x][u.uy+y].typ));
+X}
+X
+X#else
+X
+Xcansee(x,y) xchar x,y; {
+X	if(Blind || u.uswallow) return(0);
+X	if(dist(x,y) < 3) return(1);
+X	if(levl[x][y].lit && seelx <= x && x <= seehx && seely <= y &&
+X		y <= seehy) return(1);
+X	return(0);
+X}
+X#endif /* QUEST /**/
+X
+Xsgn(a) register int a; {
+X	return((a > 0) ? 1 : (a == 0) ? 0 : -1);
+X}
+X
+X#ifdef QUEST
+Xsetsee()
+X{
+X	register x,y;
+X
+X	if(Blind) {
+X		pru();
+X		return;
+X	}
+X	for(y = u.uy-u.uhorizon; y <= u.uy+u.uhorizon; y++)
+X		for(x = u.ux-u.uhorizon; x <= u.ux+u.uhorizon; x++) {
+X			if(cansee(x,y))
+X				prl(x,y);
+X	}
+X}
+X
+X#else
+X
+Xsetsee()
+X{
+X	register x,y;
+X
+X	if(Blind) {
+X		pru();
+X		return;
+X	}
+X	if(!levl[u.ux][u.uy].lit) {
+X		seelx = u.ux-1;
+X		seehx = u.ux+1;
+X		seely = u.uy-1;
+X		seehy = u.uy+1;
+X	} else {
+X		for(seelx = u.ux; levl[seelx-1][u.uy].lit; seelx--);
+X		for(seehx = u.ux; levl[seehx+1][u.uy].lit; seehx++);
+X		for(seely = u.uy; levl[u.ux][seely-1].lit; seely--);
+X		for(seehy = u.uy; levl[u.ux][seehy+1].lit; seehy++);
+X	}
+X	for(y = seely; y <= seehy; y++)
+X		for(x = seelx; x <= seehx; x++) {
+X			prl(x,y);
+X	}
+X	if(!levl[u.ux][u.uy].lit) seehx = 0; /* seems necessary elsewhere */
+X	else {
+X	    if(seely == u.uy) for(x = u.ux-1; x <= u.ux+1; x++) prl(x,seely-1);
+X	    if(seehy == u.uy) for(x = u.ux-1; x <= u.ux+1; x++) prl(x,seehy+1);
+X	    if(seelx == u.ux) for(y = u.uy-1; y <= u.uy+1; y++) prl(seelx-1,y);
+X	    if(seehx == u.ux) for(y = u.uy-1; y <= u.uy+1; y++) prl(seehx+1,y);
+X	}
+X}
+X#endif /* QUEST /**/
+X
+Xnomul(nval)
+Xregister nval;
+X{
+X#ifdef DGKMOD
+X	if(multi < nval) return;	/* This is a bug fix by ab@unido */
+X#else
+X	if(multi < 0) return;
+X#endif
+X	multi = nval;
+X	flags.mv = flags.run = 0;
+X}
+X
+Xabon()
+X{
+X#ifdef KAA
+X	if (u.usym != '@') return(mons[u.umonnum].mlevel-3);
+X#endif
+X	if(u.ustr == 3) return(-3);
+X	else if(u.ustr < 6) return(-2);
+X	else if(u.ustr < 8) return(-1);
+X	else if(u.ustr < 17) return(0);
+X	else if(u.ustr < 69) return(1);	/* up to 18/50 */
+X	else if(u.ustr < 118) return(2);
+X	else return(3);
+X}
+X
+Xdbon()
+X{
+X	if (u.usym != '@') return(0);
+X
+X	if(u.ustr < 6) return(-1);
+X	else if(u.ustr < 16) return(0);
+X	else if(u.ustr < 18) return(1);
+X	else if(u.ustr == 18) return(2);	/* up to 18 */
+X	else if(u.ustr < 94) return(3);		/* up to 18/75 */
+X	else if(u.ustr < 109) return(4);	/* up to 18/90 */
+X	else if(u.ustr < 118) return(5);	/* up to 18/99 */
+X	else return(6);
+X}
+X
+Xlosestr(num)	/* may kill you; cause may be poison or monster like 'A' */
+Xregister num;
+X{
+X	u.ustr -= num;
+X	while(u.ustr < 3) {
+X		u.ustr++;
+X		u.uhp -= 6;
+X		u.uhpmax -= 6;
+X	}
+X	flags.botl = 1;
+X}
+X
+Xlosehp(n,knam)
+Xregister n;
+Xregister char *knam;
+X{
+X#ifdef KAA
+X	if (u.mtimedone) {
+X		u.mh -= n;
+X		if (u.mhmax < u.mh) u.mhmax = u.mh;
+X		flags.botl = 1;
+X		if (u.mh < 1) rehumanize();
+X		return;
+X	}
+X#endif
+X	u.uhp -= n;
+X	if(u.uhp > u.uhpmax)
+X		u.uhpmax = u.uhp;	/* perhaps n was negative */
+X	flags.botl = 1;
+X	if(u.uhp < 1) {
+X		killer = knam;	/* the thing that killed you */
+X		pline("You die...");
+X		done("died");
+X	}
+X}
+X
+Xlosehp_m(n,mtmp)
+Xregister n;
+Xregister struct monst *mtmp;
+X{
+X#ifdef KAA
+X	if (u.mtimedone) {
+X		u.mh -= n;
+X		flags.botl = 1;
+X		if (u.mh < 1) rehumanize();
+X		return;
+X	}
+X#endif
+X	u.uhp -= n;
+X	flags.botl = 1;
+X	if(u.uhp < 1)
+X		done_in_by(mtmp);
+X}
+X
+Xlosexp()	/* hit by V or W */
+X{
+X	register num;
+X	extern long newuexp();
+X
+X	if (u.usym == 'V' || u.usym=='W') return;
+X
+X	if(u.ulevel > 1)
+X		pline("Goodbye level %u.", u.ulevel--);
+X	else
+X		u.uhp = -1;
+X	num = rnd(10);
+X	u.uhp -= num;
+X	u.uhpmax -= num;
+X#ifdef SPELLS
+X	num = rnd(u.ulevel/2+1) + 1;		/* M. Stephenson */
+X	u.uen -= num;
+X	if (u.uen < 0)		u.uen = 0;
+X	u.uenmax -= num;
+X	if (u.uenmax < 0)	u.uenmax = 0;
+X#endif
+X	u.uexp = newuexp();
+X	flags.botl = 1;
+X}
+X
+Xinv_weight(){
+Xregister struct obj *otmp = invent;
+Xregister int wt = (u.ugold + 500)/1000;
+Xregister int carrcap;
+X#ifdef KAA
+X	if (u.mtimedone) {
+X		if (u.usym == '9') carrcap = MAX_CARR_CAP * 4;
+X		else if (u.usym == 'N') carrcap = MAX_CARR_CAP;
+X		else if (mons[u.umonnum].mlevel <= 3)
+X			carrcap = 5*mons[u.umonnum].mlevel + 30;
+X		else carrcap = 5*mons[u.umonnum].mlevel + 100;
+X	}
+X#endif
+X	if(Levitation)			/* pugh@cornell */
+X		carrcap = MAX_CARR_CAP;
+X	else {
+X#ifdef HARD
+X		carrcap = 5*(((u.ustr > 18) ? 20 : u.ustr) + u.ulevel);
+X#else
+X	        carrcap = 5*u.ulevel;      /* New strength stewr 870807 */
+X		if (u.ustr < 19) carrcap += 5*u.ustr;
+X		if (u.ustr > 18) carrcap += u.ustr - 18 + 90;
+X		if (u.ustr > 68) carrcap += u.ustr - 68;
+X		if (u.ustr > 93) carrcap += u.ustr - 93;
+X		if (u.ustr > 108) carrcap += 2*(u.ustr - 108);
+X		if (u.ustr > 113) carrcap += 5*(u.ustr - 113);
+X		if (u.ustr == 118) carrcap += 100;
+X#endif
+X		if(carrcap > MAX_CARR_CAP) carrcap = MAX_CARR_CAP;
+X		if(Wounded_legs & LEFT_SIDE) carrcap -= 10;
+X		if(Wounded_legs & RIGHT_SIDE) carrcap -= 10;
+X	}
+X	while(otmp){
+X		wt += otmp->owt;
+X		otmp = otmp->nobj;
+X	}
+X	return(wt - carrcap);
+X}
+X
+Xinv_cnt(){
+Xregister struct obj *otmp = invent;
+Xregister int ct = 0;
+X	while(otmp){
+X		ct++;
+X		otmp = otmp->nobj;
+X	}
+X	return(ct);
+X}
+X
+Xlong
+Xnewuexp()
+X{
+X	return(10*(1L << (u.ulevel-1)));
+X}
+X
+Xchange_luck(n)
+X	register schar n;
+X{
+X	u.uluck += n;
+X	if (u.uluck < 0 && u.uluck < LUCKMIN)	u.uluck = LUCKMIN;
+X	if (u.uluck > 0 && u.uluck > LUCKMAX)	u.uluck = LUCKMAX;
+X}
+X
+X#ifdef SINKS
+Xdosinkfall() {
+Xregister struct obj *obj;
+X	pline("You crash to the floor!");
+X	losehp(rn2(15) + 3*u.ulevel,"fall onto a sink");
+X	for(obj=fobj; obj; obj=obj->nobj)
+X	    if(obj->ox == u.ux && obj->oy == u.uy && obj->olet == WEAPON_SYM) {
+X		pline("You fell on %s.",doname(obj));
+X		losehp(rn2(3),"fall onto a sink");
+X	    }
+X
+X	Levitation += 1;
+X	if(uleft && uleft->otyp == RIN_LEVITATION) {
+X	    obj = uleft;
+X	    ringoff(obj);
+X	    off_msg(obj);
+X	}
+X	if(uright && uright->otyp == RIN_LEVITATION) {
+X	    obj = uright;
+X	    ringoff(obj);
+X	    off_msg(obj);
+X	}
+X	Levitation = 0;
+X}
+X#endif
+END_OF_hack.c
+if test 25101 -ne `wc -c <hack.c`; then
+    echo shar: \"hack.c\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+if test -f make.exe.uu -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"make.exe.uu\"
+else
+echo shar: Extracting \"make.exe.uu\" \(38369 characters\)
+sed "s/^X//" >make.exe.uu <<'END_OF_make.exe.uu'
+Xbegin 644 ./make.exe
+XM35JR`#<`"@`@`,L`RP#V!@`(HY2?+```'@````$`F`NI!:`L``"4,```MS,`
+XM`/H\``!S/0``Q3T``+D_``"Z#ZD%O@^I!0``````````````````````````
+XM````````````````````````````````````````````````````````````
+XM````````````````````````````````````````````````````````````
+XM````````````````````````````````````````````````````````````
+XM````````````````````````````````````````````````````````````
+XM````````````````````````````````````````````````````````````
+XM````````````````````````````````````````````````````````````
+XM````````````````````````````````````````````````````````````
+XM````````````````````````````````````````````````````````````
+XM````````````````````````````````````````````````````````````
+XM````````````````````````````````````````````58OLN#``Z'(L5L=&
+XM^@``QT;\``#'!@H5`0`SP*,0%:,.%:,&%:,,%:,(%>D]`8M&_BT_`#TU`'8#
+XMZ:\``\"3+O^G#P&#/O04`'1`BQ[T%(`_+74/N'D`4%/HC32#Q`0+P'4H@W[Z
+XM%'T1BW;Z_T;ZT>:A]!2)0M#I\0"X%`!0N'L`4.@%!H/$!.G@`+B5`%#H^`7K
+XM3L<&"A4``+AN`.L_QP8&%0$`N&D`ZS3'!@@5`0"X=`#K*<<&#A4!`+AK`.L>
+XMQT;\`0"X<@#K%,<&#!4!`+AS`.L)QP80%0$`N&0`4.C&'X/$`NF#`.AK)8M>
+XM!O\WN*X`4.A+!8/$!.A9)>ML^`#[`/L`^P#[`.4`^P!4`/L`^`"O`/L`Q0#[
+XM`/L`I`#[`/L`^P#0`-H`N@#[`/L`^P#[`/L`^P#[`/L`^P#[`/L`^P#[`/L`
+XM^P#E`/L`5`#[`/@`KP#[`,4`^P#[`*0`^P#[`/L`T`#:`+H`N&,`4/]V!O]V
+XM!.@G)X/$!HE&_D!T`^FJ_NB;'X-^_`!T"KC#`%#H(AV#Q`*#?OH`="#'1OX`
+XM`(M&^CE&_GT=BW;^T>;_<M#HJ`"#Q`+_1O[KY?\VU`3HF0"#Q`*A"`N)1O[K
+XM.K@]`%"+7O[1XXMV!O\PZ*TR@\0$"\!T#XM>_M'CBW8&_S#HGP7K#8M>_M'C
+XMBW8&_S#H7QR#Q`+_1OZ+1@0Y1OY\OH,^$A4`=0BAX!"C$A7K'*$2%>L&BU[X
+XMBT<$B4;XB]B#?P0`=>^AX!")1P2#/A`5`'0&Z'P)Z)80Z*@DZ-<7,\!0Z%$D
+XM@\0"7HOE7<-5B^RX`@#H%2JXR`!0_W8$Z'DR@\0$"\!U$+C*`%"X$@M0Z#``
+XM@\0$ZR>XT`!0_W8$Z$PL@\0$B4;^"\!T$_]V!%#H$`"#Q`3_=O[HBRN#Q`*+
+XMY5W#58OLN`0`Z,`I@SX0%0!T#?]V!KC2`%#H6B^#Q`2A`A6C=!!`4.@$`X/$
+XM`J-R$*%T$`,&<A"C=A"+'O`2QP<``,<&>A```.F2`,=&_@``BQYR$(`_`'1:
+XM@#\C=%6`/RYU!E/HW![K1(L><A"`/PET!8`_('4)_S9R$.CB#^LMN#T`4/\V
+XM<A#H4C&#Q`0+P'04_S9R$.A*!(/$`HL>\!+'!P``ZPW_-G(0Z/0(@\0"B4;^
+XM@W[^`'0D_S9R$(-^_O]U!;CH`.L#N/,`4/\V>A#_=@:X]`!0Z``#@\0*_W8$
+XMZ!4`@\0""\!T`^E>__\V<A#HM"V+Y5W#58OLN`@"Z,HH5U;'AOC]``"A<A"C
+XM>!#_!GH0_W8$N``"4(V&`/Y0Z*\J@\0&"\!U(HM>!/9'!A!T!3/`Z1X!_S;&
+XM`.B^+8/$`K@!`%#H)BJ#Q`*+]8'N``*#OOC]`'04ZPV*!)B+V/:'A0P(=`9&
+XM@#P`=>Z+_K@C`%!6Z&<P@\0$B8;^_0O`=`6+^,8%`+@*`%!6Z$\P@\0$B8;^
+XM_0O`=`6+^,8%`,>&^/T``+A<`%!6Z*(Q@\0$B8;^_0O`="&+V(!_`0!U&<>&
+XM^/T!`(OXZPR*!9B+V/:'A0P(=%7&!0!/._YS[.M+H780.09X$'(W@09T$/\#
+XMH7(0B8;^_:%T$$!0_S9R$.A4`8/$!*-R$*%T$`,&<A"C=A"A>!`KAO[]`P9R
+XM$*-X$(L>>!#_!G@0K(@'@#P`=;"#OOC]`'0+BQYX$/\&>!#&!R"#OOC]`'0#
+XMZ<3^BQYX$,8'`+@!`%Y?B^5=PU6+[+@"`.AG)U=6BW8$QT;^``#K68M&!CE&
+XM_G-6ZPV*!)B+V/:'A0P(=`9&@#P`=>ZA`!4Y1OYR"@4_`%#HLQN#Q`*+7O[_
+XM1O[1XXL^Y!*),>L-B@28B]CVAX4,"'4&1H`\`'7N@#P`=`3&!`!&@#P`=:*+
+XM7O[1XXL^Y!+'`0``BT;^7E^+Y5W#58OLN`0`Z-XFZP^*!YB+V/:'A0P(=`O_
+XM1@2+7@2`/P!UZ?]V!.B?+X/$`D")1OY0Z!<`@\0"B4;\_W8$4.AD+X/$!(M&
+XM_(OE7<-5B^RX`@#HE";_=@3H>2N#Q`*)1OX+P'4*_S;$`.B,`(/$`HOE7<-5
+XMB^PSP.AN)H-^!`!T#O]V!O]V!.BL+(/$!.L)_W8&Z#\K@\0"B48$"\!U"O\V
+XMQ`#H4@"#Q`*+1@2+Y5W#58OL,\#H,2;_-L8`N`@!4+@B"U#HJBB#Q`;_=A#_
+XM=@[_=@S_=@K_=@C_=@;_=@2X(@M0Z(LH@\00N`T!4+@B"U#H?2B+Y5W#58OL
+XM,\#HZ27_-L8`N!`!4+@B"U#H8BB#Q`;_=A#_=@[_=@S_=@K_=@C_=@;_=@2X
+XM(@M0Z$,H@\00N!4!4+@B"U#H-2B#Q`2X`0!0Z,X?B^5=PU6+[+@&`.B6):'F
+XM$NL8BU[\_S?_=@3H]"V#Q`0+P'1!BU[\BT<&B4;\"\!UX8-^!@!U1/]V!.BR
+XM*(/$`HE&_@O`="/'1OSH$HM>_(M&!(D'BU[\BT;^B4<"BU[\QT<$``"+1OSK
+XM3?]V!+@@`5#H]OZ#Q`0SP.L\N`@`4.B$_H/$`HE&_/]V!.@N_H/$`HM>_(D'
+XMBU[\QT<"``"+7OS'1P0``(M>_*'F$HE'!HM&_*/F$NNNB^5=PU6+[+@&`.C?
+XM)+@]`%#_=@3HYRR#Q`2)1OH+P'4@N#0`4+@_`5"X1P%0N"(+4.A`)X/$"+@!
+XM`%#H42:#Q`*+7OK_1OK&!P#K#XH'F(O8]H>%#`AT"_]&^HM>^H`_`'7IN`$`
+XM4/]V!.@/_8/$!+@!`%"+'N02_S?HT/Z#Q`2)1OR+V(-_`@!T"?]W`N@X*8/$
+XM`O]V^NAK_8/$`HM>_(E'`HOE7<-5B^RX"`#H/"2+7@2`/RAU"L9&_"C&1O@I
+XMZPC&1OQ[QD;X?8M>!(I&_#@'=`J+P_]&!(E&_NLZ_T8$BT8$B4;^ZPJ*1O@X
+XM!W0+_T8$BUX$@#\`=>Z+7@2`/P!U%8M&_DA(4(I&^)A0N&L!4.CF_8/$!HM>
+XM!(H'B$;ZQ@<`_W;^Z-S\@\0"BUX&B0>+7@2*1OJ(!XI&^#A&^G4#_T8$BT8$
+XMB^5=PU6+[#/`Z)DCH0(5HWP00%#H\?R#Q`*C@!"C@A"A?!`#!H`0HWX0_W8&
+XM_W8$Z!$`@\0$BQZ"$,8'`*&`$(OE7<-5B^RX!@#H6"-6Z?@`H7X0.0:"$'(U
+XM@09\$/\#H8`0B4;^H7P00%#_-H`0Z+W\@\0$HX`0H8(0*T;^`P:`$*."$*%\
+XM$`,&@!"C?A"+'H(0_P:"$(MV!/]&!(H$B`>+7@2`/P!T$(`_)'6C_T8$BUX$
+XM@#\D=)B+7@2`/P!U`^F0`(U&^E!3Z)3^@\0$B48$BU[Z@'\!`'4@B@>84+A^
+XM`5#HT2J#Q`0+P'0._W8&_W;ZZ&,`@\0$ZT4SP%#_=OKH`OV#Q`2)1OP+P'0R
+XMB]B#?P0!=0O_-[B#`5#HE?SKU8M>_,='!`$`_W8&BU[\_W<"Z`__@\0$BU[\
+XMQT<$``#_=OKH/">#Q`*+7@2`/P!T`^E-_UZ+Y5W#58OLN!0`Z$,B5L=&_`$`
+XM@WX&`'41BUX$B@>84+B8`5#H./R#Q`2+7@2*!Y@]*@!T$CT\`'0V/3\`=#$]
+XM0`!T(>E+`?]V!C/`4%"+1@8%$`!0Z"08@\0&4.B0_H/$!.DM`?]V!HM&!@40
+XM`.OKH8`0B4;NH8(0B4;RH7X0B4;^H7P0B4;X_W8&Z`(&@\0"B4;PB4;ZBT;N
+XMHX`0BT;RHX(0BT;^HWX0BT;XHWP0ZQ**!YB+V/:'A0P(=0/IO@#_1OJ+7OJ`
+XM/P!UYNFP`(O#B4;LZP^*!YB+V/:'A0P(=0O_1OJ+7OJ`/P!UZ8M>^HH'B$;T
+XMQ@<`BUX$@#\\=16#?OP`=`?'1OP``.M%_W8&N+<!ZS8SP%#_=NSHB0.#Q`2)
+XM1O8+P'0VB]B+=@:+1`B+5`HY5PI\)G\%.4<(=A^#?OP`=<'_=@:XN0%0Z*']
+XM@\0$_W8&_W;LZ)7]@\0$BU[ZBD;TB`>+7OJ`/P!T$8H'F(O8]H>%#`AT!?]&
+XM^NOGBU[Z@#\`=`/I1?__=O#HGB6#Q`)>B^5=PU6+[+@$`.BP(+B[`5#HBB:#
+XMQ`*AYA+K&(M>_O]W`O\WN,L!4.@])H/$!HM>_HM'!HE&_@O`=>&XU@%0Z%PF
+XM@\0"H?(2ZQ6+1OQ`0%"XZ`%0Z!$F@\0$BU[\BP>)1OP+P'7D_PX<"X,^'`L`
+XM?!"P"HL>&@O_!AH+B`<JY.L.N!H+4+@*`%#H%!^#Q`2+Y5W#58OLN!``Z"$@
+XM5U;_=@3H,OF#Q`*)1O)0Z!L%@\0"B4;^"\!U!KC__^F:`8M>_O]&_L8'`#/`
+XM4/]V\NA,_(/$!(E&_+C__U#_=OSH;?B#Q`2+7OZ`/SIU3(L>Y!*+'X`_+G4Z
+XMN"X`4(L>Y!*+!T!0Z,HG@\0$"\!T)+CL`5"+'N02_S?H!"F#Q`0+P'40N/`!
+XM4.A=^8/$`K@!`.DH`<=&^@(`ZQ/'1OH!`.L/B@>8B]CVAX4,"'0+_T;^BU[^
+XM@#\`=>FX.P!0_W;^Z'`G@\0$B4;P"\!T"(O8_T;PQ@<`,_;K93DV_!1W#:'\
+XM%`4_`%#HEQ.#Q`+_=OJX`0!0B][1XXL^Y!+_,>AW`8/$!HO>T>.+/O`2B0&+
+XMWM'CBS[P$H,Y`'4#Z7'_B][1XXL9@$\,$(M>_H`_`'4.B][1XXL^\!*+&8!/
+XM#`%&B][1XXL^Y!*#.0!UCHO>T>.+/O`2QP$``/]V_.BA(X/$`HM>_H`_`'0Q
+XMN/__4%/H0?>#Q`0S]NL5_S;D$HO>T>.+/O`2_S'H.@"#Q`1&B][1XXL^\!*#
+XM.0!UWL=&^```@W[P`'0,_W;PZ`P%@\0"B4;X_W;RZ$@C@\0"BT;X7E^+Y5W#
+XM58OLN`8`Z%8>5U:#?@0`=`/IDP"X5@!0N!("4+@;`E"X(@M0Z,`@@\0(N`$`
+XM4.C1'X/$`NMQN#\"4/\WZ%HF@\0$"\!U"8M>!(!/#`CK5#/`4+@!`%"+7@;_
+XM-^A7`(/$!HE&^C/_BUX$BW<"ZPR+!#E&^G0NB_Z+=`(+]G7PN`0`4.@]]X/$
+XM`HOPBT;ZB03'1`(```O_=0B+7@2)=P+K`XEU`H-&!@*+7@:#/P!UAUY?B^5=
+XMPU6+[+@*`.BA'5=6BUX$@#\N=2BX+@!0B\-`4.B>)8/$!`O`=!:X20)0_W8$
+XMZ-LF@\0$"\!U!;CB$.L/@S[X%`!T!;C@$.L#N!(5B4;V,_^)?OZ+V(LW"_9U
+XM`^FA`/]V!(U$$%#HL26#Q`0+P'0#Z:<`@WX&`'02@WX(`'0,@WP.`'4+BT8(
+XMB40.B\;I5@&#?@@!=5F#?`X!=5.+7@2`/RYU/[@N`%"+PT!0Z`\E@\0$"\!T
+XM+;A-`E#_=@3H3":#Q`0+P'4<ZQ6+'(M'!HE&^O\TZ+,A@\0"BT;ZB02#/`!U
+XMYH,\`'2C@60,_?_KG(-^"`)U%H-\#@)U$,=&_@$`@WX&`'4<,\#IVP#_=@2X
+XM40)0Z%[V@\0$Z^R+_HMT!.DV_X-^_@%U#XO^ZP6+?`:+]X-\!@!U]?]V!.A/
+XM)8/$`@42`%#HR/6#Q`*+\/]V!(U$$%#H$R6#Q`3'1`0``,=$`@``QP0``,=$
+XM!@``,\")1`J)1`B+1@B)1`Z`3`P"@60,[_^!9`S[_X%D#/?_@60,_O^#/O@4
+XM`'45BUX$@#\N=1**1P&8B]CVAX4,`W0%N`$`ZP(SP"4!`+$%T^"+3`R!X=__
+XM"\&)1`P+_W4(BU[VB3?IM_Z#?OX!=0:)=0;IJ_Z)=03II?Y>7XOE7<-5B^RX
+XM$`#HMQM75J$"%8E&_D!0Z`WU@\0"B4;PB_B+1OX#QXE&^HM>!.F'`/]V!(M>
+XM\HL'!1``4.CD]X/$!(E&^(OP@#P`=$6*!)B+V/:'A0P(=#E&Z^PY?OIW+8%&
+XM_O\#BT;PB4;\BT;^0$!0_W;PZ-?T@\0$B4;P*T;\`\>+^(M&_@-&\(E&^JR(
+XM!4>`/`!UQ8M>\H-_`@!T#(M>^(`_`'0$Q@4@1_]V^.CP'X/$`HM>\HM'`HE&
+XM\@O`=`/I;/_&!0"+1O!>7XOE7<-5B^RX!`#HZQI75HMV!.LEB_Y&@#TZ=1V`
+XM/`!T%(H$F(O8]H>%#`AU"#P[=`0\.G4$B\?K!X`\`'76,\!>7XOE7<-5B^PS
+XMP.BJ&NL<BUX$BP<%$`!0N(`"4.A#((/$!(M>!(M'`HE&!(-^!`!UWHOE7<-5
+XMB^PSP.AZ&NL:BT8$!0@`4+B$`E#H%2"#Q`2+7@2+1P:)1@2#?@0`=>"+Y5W#
+XM58OLN`0`Z$L:Z9\`BUX$@W\.`'4#Z8H`@W\&`'0%N(D"ZP.XBP*)1OR+1@3K
+XM8_]V_(M&!`40`%"XC`)0Z,`?@\0&BU[^_W<"Z%?_@\0"BU[^_S?H?/^#Q`*+
+XM7OZ#?P8`="G_#AP+@SX<"P!\$+`*BQX:"_\&&@N(!RKDZPZX&@M0N`H`4.BO
+XM&(/$!(M>_HM'!HE&_@O`=9:XD@)0Z)8?@\0"BUX$BT<$B48$@WX$`'0#Z5C_
+XMB^5=PU6+[#/`Z)09N)0"4.AN'X/$`O\V$A7H+_^#Q`*XI@)0Z%H?@\0"_S;B
+XM$.@;_XOE7<-5B^RX!@#H8AE75NL/B@>8B]CVAX4,"'0+_T8$BUX$@#\`=>F+
+XM7@2`/P!U`^G>`(L>\!*#/P!U$+BY`E#H\_*#Q`*X`0#IQP#_=@3H_2&#Q`(%
+XM"@!0Z';R@\0"B4;^_W8$!0@`4.C`(8/$!(M>_L='!@``,_:+WM'CBS[P$HL9
+XM]T<,`@!U&HO>T>.+/O`2BP$%$`!0N-`"4.B7\H/$!.NBBQ[P$HL?BP>)1OH+
+XMP'09ZP:+1P:)1OJ+7OJ#?P8`=?&+1OZ)1P;K"XL>\!*+'XM&_HD'O@$`BQ[P
+XM$HL?BP>)1OKK'8O>T>.+/O`2BQGW1PP"`'22B][1XXL9BT;ZB0=&B][1XXL^
+XM\!*#.0!UUC/`7E^+Y5W#58OLN`8`Z$T8BT8$B4;^ZP^*!YB+V/:'A0P(=0O_
+XM1OZ+7OZ`/P!UZ8M>_HH'B$;ZQ@<`@'[Z`'0#_T;^,\!0_W;^_W8$_W8$4.BS
+XM'X/$"HE&_(!^^@!T"_]._HM>_HI&^H@'BT;\B^5=PU6+[+@"`.CC%X,^^A0`
+XM=!XSP%#_=@3_-NH"_S;Z%/\V^A10Z&\?@\0,B4;^ZP^X[`)0Z'[Q@\0"QT;^
+XM`0"+1OZ+Y5W#58OLN!``Z)\7@SX(%0!T&8M>!/='#`$`=0^+PP40`%#H\P^#
+XMQ`+IB@*+7@2+!XE&\`O`=0/I>P+'1O@``,=&\@``QT;Z``#_=@0%"`!0Z+;S
+XM@\0$B4;VB4;^BU[^B@>84+CW`E#H4A^#Q`0+P'0^BU[^_T;^B@>8/2L`=`P]
+XM+0!T#CU``'00Z]''1O(!`.O*QT;X`0#KP\=&^@$`Z[R*!YB+V/:'A0P(=`O_
+XM1OZ+7OZ`/P!UZ8,^#!4`=0:#?OH`=`>#/@H5`'4-_W;^N/L"4.B`'(/$!(-^
+XM\@!U%KC_`E#_=O[H(B"#Q`0+P'0%QT;R`0"#/@H5`'42_W;VZ(8;@\0"BU[P
+XMBT<&Z2/_N`$`4+@"`%#H1!V#Q`2)1O2#?O(`=1S_=O[H*OZ#Q`*)1OP+P'T,
+XM@SY"#`)U!<=&\@$`@W[R`'0,_W;^Z'+^@\0"B4;\@W[\`'U5@SY"#`=U3K@$
+XM`%#_=OZX`P-0Z#8?@\0&"\!T%;@$`%#_=OZX"`-0Z"$?@\0&"\!U)/]V\H,^
+XM#!4`=0:#?OH`=`6X`0#K`C/`4/]V_N@2`8/$!HE&_(-^_`!U`^FS`(-^_`!]
+XM&?]V_K@-`U#HJ^^#Q`3_-L8`Z`L;@\0"ZQ'_=ORX'0-0N"(+4.A/&(/$!H,^
+XM!A4`=0:#?O@`=`6X+P/K`[@Z`U"X.P-0N"(+4.@K&(/$!H,^!A4`=2*#?O@`
+XM=1R+7@3W1PP(`'42@W\"`'0,B\,%$`!0Z"8?@\0"@SX.%0!T&/]V]NA'&H/$
+XM`O]V]+@"`%#H#QR#Q`3K8X,^!A4`=1"#?O@`=0JX`0!0Z&\/@\0"@SX,%0!U
+XM-8-^^@!U+X-^\@!U*?\.'`N#/AP+`'P0L`J+'AH+_P8:"X@'*N3K#K@:"U"X
+XM"@!0Z.L3@\0$_W;TN`(`4.BM&X/$!.E&_HOE7<-5B^RX&`+HZ!16QD;H*\=&
+XM_@``N#\#4(U&[E#HD!V#Q`2-1NY0Z!,9@\0""\!U"KA(`U#HRNZ#Q`*#?@8`
+XM=0Z-1NY0N&8#4.A2&H/$!+B``U"-1NY0Z/L6@\0$B4;L"\!U%(U&[E"X@@-0
+XMZ$ON@\0$N`$`Z2$"_W8$Z([M@\0"B4;XN/__4/]V^.CU[(/$!,=&^@$`BU[Z
+XMT>.+-N02@S@`=!Z#?@@`=0/IA@"XH0-0BU[ZT>/_,.B8'8/$!`O`='&XN0-0
+XM_W;LZ*\6@\0$_W;LZ-D5@\0"C4;N4(L>Y!+_-[B[`U"-ANC]4.C"&X/$"(M>
+XM^M'CBS;D$H,X`'4#Z4X!C8;H_5#HR1R#Q`*+\(V"Z/V)1NJ+7OK_1OK1XXLV
+XMY!+_,+C"`U#_=NKH@AN#Q`;KOK@L`%"+7OK1XXLVY!+_,.C`&X/$!(E&Z@O`
+XM='R+V/]&ZL8'`(M>^M'CBS;D$O\PZ&X<@\0"0`%&_H-^_C)V$HI&Z)A0N*4#
+XM4/]V[.CZ%8/$!HM>^M'CBS;D$O\PN*D#4/]V[.CB%8/$!NL/B@>8B]CVAX4,
+XM"'0+_T;JBU[J@#\`=>F+7OK1XXLVY!*+1NJ)`,=&_@``Z<O^BU[ZT>.+-N02
+XM_S#H^AN#Q`)``4;^@W[^,G9,BW;ZT>:+'N02@W@"`'0]N*T#4(MV^M'F_W`"
+XMZ$\<@\0$"\!U)XI&Z)A0N+$#4/]V[.AA%8/$!HM>^M'CBS;D$O\PZ*@;@\0"
+XM0(E&_HM>^M'CBS;D$O\PN+4#4/]V[.@T%8/$!O]&^NE&_O]V^.AZ%X/$`H-^
+XM!@!U#XV&Z/U0N,8#4.@S&(/$!(-^"`!T"HV&Z/U0Z(OZZPB-ANC]4.@7^H/$
+XM`HE&_(U&[E#H#!R#Q`*+1OQ>B^5=PU6+[+@$`.A,$H,^$!4`=`JXR@-0Z!\8
+XM@\0"@S[^%`!U+:$2%8E&_`O`=!.+V/='#"``=5,%$`!0Z`$$@\0"@W[\`'4*
+XMN.`#4.@9[(/$`J'^%(E&_@O`='^X\`-0BU[^_S?H7QJ#Q`0+P'4D,\!0BU[^
+XM_S?H-?2#Q`0+P'42BU[^_S>X]0/K0(M>_(M'!.N5QP:$$```BU[^_S?H8@&#
+XMQ`(SP%"+7O[_-^@`](/$!(E&_(,^A!``=1:+V(,_`'0/BU[^_S>X`010Z%'K
+XM@\0$BU[^BT<"Z7K_B^5=PU6+[+@0`.AQ$8M>!(L'BU<"B4;TB5;V"\)U$;@4
+XM!%"XB!!0Z!$9@\0$Z9``BT;T)1\`T>")1O*P!5"-1O10Z!P1BT;T)3\`B4;Z
+XML`90C4;T4.@)$8M&]"4?`(E&^+`%4(U&]%#H]A"+1O0E'P")1O"P!5"-1O10
+XMZ.,0BT;T)0\`B4;^L`10C4;T4.C0$(M&]`50`(E&_/]V\O]V^O]V^#UD`'(#
+XM+60`4/]V\/]V_K@F!%"XB!!0Z'X8@\00N(@0B^5=PU6+[+@$`.BN$/]V!.B(
+XM&8/$`HE&_CT,`'8%+0P`ZP(SP`,&]A0M&`#WV(E&_`O`?P7'1OP!`(M&!@4(
+XM`%#H_?Z#Q`)0N$,$4/]V_/]V!+A$!%#_-O84N$4$4.@%%HOE7<-5B^RX)`#H
+XM31!6,\!0N`$`4/]V!.B5\H/$!HE&WHO8BT<("T<*=`/IWP'W1PP$`'0#Z=4!
+XM_W8$Z"X'@\0"BU[>B4<(B5<*BU[>BT<(BU<*B4;\B5;^@SX0%0!T"E/_=@3H
+XM//^#Q`3_!H80H880T>#1X*/V%(M>WH!/#`3'1N8``(M&_`M&_G4%QT;F`0"+
+XM7MZ#/P!U,XU&[%!3Z,@"@\0$B4;H"\!T(8M>WHOPBP2)!XU&[(E&X,=&X@``
+XMC4;@4/]VWN@R\8/$!/]VWNC(\X/$`HE&W(E&ZNL/B@>8B]CVAX4,"'0+_T;J
+XMBU[J@#\`=>F+7NJ`/P!U2?]VW.@U%(/$`H-^Y@!U#8M>WO='#`$`=0/IS0"+
+XM7MZ#/P!U`^FH`%/HB_>#Q`+'!H00`0`SP%#HV@:#Q`*+7MZ)1PB)5PKIH`"+
+XMPXE&^NL/B@>8B]CVAX4,"'4+_T;JBU[J@#\`=>F+7NJ*!XA&Y,8'`/]V^NB0
+XM_H/$`CM6_GPH?P4[1OQV(8,^$!4`=!7_=@2X5`10_S;V%+A5!%#H:12#Q`C'
+XM1N8!`(M>ZHI&Y(@'BU[J@#\`=0/I/?^*!YB+V/:'A0P(=0/I+O__1NKKX8M>
+XMWO='#!``=1"+PP40`%"X=`10Z(?H@\0$BU[>@6<,^_^+7MZ#?P8`=`F+1P:)
+XM1M[I>?[_#H80H880T>#1X*/V%(,^$!4`=!^+7MZ+1OR+5OXY5PIU!3E'"'0,
+XM_W;>_W8$Z'/]@\0$BU[>BT<(BU<*7HOE7<-5B^RX!`#H$`ZX!`!0Z&SG@\0"
+XMB4;^H?X4B4;\BU[^BT8$B0>+7O['1P(``(,^_A0`=0Z+1OZC_A3K%8M'`HE&
+XM_(M>_(-_`@!U\8M&_HE'`HOE7<-5B^RX"@#HO`U6ZQ>*!YB+V/:'A0P(=0B+
+XM7@2`/SIU"_]&!(M>!(`_`'7A,\!0_W8$Z/#I@\0$B4;XN/__4/]V^.@1YH/$
+XM!(E&^@O`=2:A\A+K$HM>_HL'B4;\4^A#$H/$`HM&_(E&_@O`=>?'!O(2``#K
+XM4HM&^DB)1O;K0XM>]M'CBS;D$O\PZ!H6@\0"!00`4.B3YH/$`HE&_HM>]M'C
+XMBS;D$O\P0$!0Z-85@\0$BU[^H?(2B0>+1OZC\A+_3O:#?O8`?;?_=OCHUA&#
+XMQ`)>B^5=PU6+[+@,`NCH#(V&]/U0C8;^_5"+1@0%$`!0Z``#@\0&BY[T_8`_
+XM`'4#Z>P`H?(2B8;V_0O`=!%`0%#_MO3]Z!X5@\0$"\!U"H.^]OT`=0OIQ@"+
+XMGO;]BP?KU8N>]OWIJ@#_MO3]BX;X_4!`4+B0!%"-A@#^4.@V%(/$"#/`4(V&
+XM`/Y0Z,'N@\0$B8;Z_0O`=':#/A`5`'07C88`_E"XE010_S;V%+B6!%#H\!&#
+XMQ`B+AOC]0$!0_[;^_;BI!%#_=@;HZA.#Q`@SP%#_=@;H7`6#Q`2)AOS]"\!\
+XM+(,^$!4`=!7_=@:XK@10_S;V%+BO!%#HJ!&#Q`C_MOS]Z*P%@\0"BX;Z_>L3
+XMBY[X_8L'B8;X_0O`=`/I2?\SP(OE7<-5B^PSP.C+"XI&!)A0N)@04.C1$X/$
+XM!`O`=1.XF!!0Z)$4@\0"B]B*1@2(AY@0B^5=PU6+[#/`Z)D+BT8$H_P4T>!`
+XM0%#_-O`2Z!'E@\0$H_`2B^5=PU6+[#/`Z'4+BT8$HP`5T>!`0%#_-N02Z.WD
+XM@\0$H^02B^5=PU6+[+@(`NA0"\<&`A7_`[@_`%#HQO^#Q`*X/P!0Z)C_@\0"
+XMN)@04(`^F!``=`6X+0#K`[@@`%"XV`10C8;X_5#HTQ*#Q`B-AOC]4.@CYH/$
+XM`KCD!%"-AOC]4.BY$X/$!+C[`5"-AOS]4.BL#8/$!(V&^/U0Z/KE@\0"N.D$
+XM4.@D#H/$`J/Z%.BZ`8L>Z@*(!XV&^/U0N/$$4/\VU@3HT0B#Q`:)1O@+P'0C
+XMQP;X%`$`C8;X_5#_=OCHU>"#Q`3_=OCH4`R#Q`+'!O@4``"+Y5W#58OLN`(`
+XMZ'\*BUX$@#\N=""X7`!0N/,$4+CZ!%"X(@M0Z.P,@\0(N`$`4.C]"X/$`K@)
+XM`%"X'@50_W8$Z$(3@\0&"\!U#XM&!`4)`%#H<_R#Q`+K6;@'`%"X*`50_W8$
+XMZ!X3@\0&"\!U",<&#!4!`.L\N`<`4+@P!5#_=@3H`1.#Q`8+P'4(QP8&%0$`
+XMZQ__=@3HR>F#Q`(+P'02_W8$N#@%4.BIXX/$!+@!`.L",\"+Y5W#58OLN`8`
+XMZ,L)5O]V!.BD$H/$`@-&!(E&_.L+BU[\@#\N=`O_3OR+1@0Y1OQW[8M&_(E&
+XM^O].^HM&!#E&^G(5BU[ZB@>84+A1!5#HF1&#Q`0+P'3@_T;ZQT;^J!#K&XM&
+XM_BVH$#T(`'T8BU[^_T;^BW;Z_T;ZB@2(!XM&_#E&^G+=BU[^Q@<`@WX&`'0'
+XMBUX&QP>H$+@$`%#_=ORXHA!0Z&P2@\0&Q@:F$`"#?@@`=`>+7@C'!Z(0N*@0
+XM7HOE7<-5B^RX#@#H#`G&1O,WQD;R`(U&\E"-1O)0Z)4,@\0$BD;XF(OE7<-5
+XMB^RX%`#HY0@SP%#_=@3H%P*#Q`2)1O`+P'T%,\"9ZW_&1O(`QD;S5XM&\(E&
+XM](U&\E"-1O)0Z%`,@\0$BD;Y*N2)1NS'1NX``(M6[HKRBM2*X"K`BD[X*NT#
+XMP8/2`(E&[(E6[HKRBM2*X"K`BD[W`\&#T@")1NR)5NZ*\HK4BN`JP(I.]@/!
+XM@](`B4;LB5;N_W;PZ!`"@\0"BT;LBU;NB^5=PU6+[+@2`.A!",9&\RJ-1O)0
+XMC4;R4.C."X/$!(M&]BV\!XE&[L=&\```BU;PL03H6`R*3ODJ[0/!@](`B4;N
+XMB5;PL07H0PR*3O@J[0/!@](`B4;NB5;PQD;S+(U&\E"-1O)0Z($+@\0$BT;N
+XMBU;PL07H%@R*3O<J[0/!@](`B4;NB5;PL0;H`0R*3O8J[0/!@](`B4;NB5;P
+XML07H[`N*3OG0Z2KM*]L#R!/:B4[NB5[PB\&+TXOE7<-5B^RX%`#HB0>X`0!0
+XM_W8$Z+H`@\0$B4;L"\!]&?]V!.CR`(/$`K@!`%#_=@3HG0"#Q`2)1NR#?NP`
+XM?0__=@2X5050Z!/A@\0$ZWZ#/@P5`'4-_W8$N&8%4.CA#(/$!#/`4.CC_H/$
+XM`HE&[HE6\,9&\@'&1O-7BT;LB4;TBD;NB$;VL`A0C4;N4.CI!HI&[HA&][`(
+XM4(U&[E#HV0:*1NZ(1OBP"%"-1NY0Z,D&BD;NB$;YC4;R4(U&\E#H<0J#Q`3_
+XM=NSHA0"#Q`*+Y5W#58OLN!P`Z+P&BT8$B4;\C%[^B4;TC-B)1NK&1N\]BD8&
+XMB$;NC4;D4(U&[E"-1NY0Z',*@\0&@W[Z`'0%N/__ZP.+1NZ+Y5W#58OLN!H`
+XMZ'0&BT8$B4;\C%[^B4;TC-B)1NS&1N\\QT;R``"-1N90C4;N4(U&[E#H+`J+
+XMY5W#58OLN`X`Z#X&QD;S/HM&!(E&](U&\E"-1O)0Z,4)B^5=PU6+[+@"`.@<
+XM!L=&_DH*N$4*4(M>_O\WZ+8+@\0$ZPC_-^CB"X/$`H-&_@*+7OZ#/P!U[#/`
+XM4.B/!XOE7<-5B^PSP.C@!;@!`%#H!`"+Y5W#58OLN`X`Z,P%N`$`4+@"`%#H
+XM<PR#Q`2A"A6)1O;'!@H5`0`SP%"X@@I0Z/[G@\0$B4;^"\!T!U#H\NV#Q`*+
+XM1O:C"A7_=@3H+@>+Y5W#58OLN!0`Z'X%QT;^``"X`0!0N`(`4.@@#(/$!,=&
+XM_$H*ZQR#1OP"BP>)1OJ+7OJ`/P!T"_]&^HH'F`%&_NOMBU[\@S\`==R!?O[:
+XMH'0),\!0Z-8&@\0"H0H5B4;PQP8*%0$`,\!0N(D*4.APYX/$!(E&^`O`=`=0
+XMZ&3M@\0"BT;PHPH5N*,F4+@"`%#HJ@N+Y5W#CP:2"HX>0`P6![Z``*R8,](F
+XM@#Y(#`-R95".!BP`,\"+R/?1B_CRKB8X!77Y@\<#B\CWT8OW)HH%1T$ZX'04
+XM/")T"#P)=`0\('7K6!8'OH$`ZRM/*_X+_W3QB\]"6XO#`\$%`P`E_O\KX(O\
+XM'@8?%@?SI+`@JHO+'[Z!`.L.B\@$!"3^*^"+_+A#(*OSI(O!JHOT%A]0B]R+
+XM_JRJ"L!T3CPB=3!.5D;_!DH,K`K`=#T\(G46@'W_7'0/JCOW=0ZLQ@4`"L!T
+XM)^O/3ZKKWD?&1?\`Z\3H.@!TOTY61O\&2@RLJ@K`=`CH*`!U]>OAJHOT2TL[
+XM\W,(K8<'B43^Z_*+W`O2=0+_!XDF3`SHH`W_)I(*/`ET`CP@PU6+[+@(`.C3
+XM`U=6@SX*"P%U3J$("SE&!'X@BUX&T>`#V(L?@#\M=1*+7@:A"`O1X`/8BQ^`
+XM?P$`=0:X___IK@&XE`I0BUX&H0@+T>`#V/\WZ,,+@\0$"\!U!O\&"`OKVHM>
+XM!J$("]'@`]B+'P,>"@N*!YB+\(DV!!6#_CIT$%;_=@CH:0N#Q`2+^`O_=7^#
+XM/@8+`'1/B\:(1OK&1OL*BUX&_S?H%@R#Q`)0BUX&_S>X`@!0Z)</@\0&N)<*
+XM4.C\"X/$`E"XK`I0N`(`4.A^#X/$!K@"`%"-1OI0N`(`4.AL#X/$!HM>!J$(
+XM"]'@`]B+'_\&"@L#'@H+@#\`=0K_!@@+QP8*"P$`N#\`Z>$`1X`].G0#Z:T`
+XMBUX&H0@+T>`#V(L?`QX*"X!_`0!T%XM>!J$("_\&"`O1X`/8BP<#!@H+0.MU
+XM_P8("Z$("SE&!']9@SX&"P!TJXO&B$;XQD;Y"HM>!O\WZ%4+@\0"4(M>!O\W
+XMN`(`4.C6#H/$!KC!"E#H.PN#Q`)0N.,*4+@"`%#HO0Z#Q`:X`@!0C4;X4+@"
+XM`%#HJPZ#Q`;I6?^+7@:A"`O_!@@+T>`#V(L'H_04QP8*"P$`ZRF+7@:A"`O1
+XMX`/8BQ__!@H+`QX*"X`_`'4*QP8*"P$`_P8("\<&]!0``(O&7E^+Y5W#58OL
+XMN`H"Z-\!5H-^"`!T!8M&".L$C8;X_8F&]OW_=@10Z($*@\0$_W8&_[;V_>@9
+XM!(/$!(E&^`O`=`/IB`"X#`M0Z.\$@\0"B4;ZZW&+7OJ`/P!T;XN&]OV)1O[K
+XM&(`_.W0;BU[^_T;^BW;Z_T;ZB@2(!XA&_(M>^H`_`'7@@'[\7'0/@'[\+W0)
+XMBU[^_T;^Q@=<_W8$_W;^Z`D*@\0$_W8&_[;V_>BA`X/$!(E&^`O`=1.+7OJ`
+XM/P!T`_]&^H-^^@!UB3/`7HOE7<-5B^R#[`175HMV!HI$!IBI@P!T!O9$!D!T
+XM!KC__^G:`/9$!@%T!H!,!B#K[H!,!@*`9`;O,\")1`*+^(E^_O9$!@AU#XI$
+XM!YB+V-'C]H>R"P%T,(L\*WP$"_]^$E?_=`2*1`>84.@F#8/$!HE&_HM$!$")
+XM!,=$`O\!BUP$BD8$B`?K:O9$!@1U3H'^&@MU+8I$!YA0Z"(6@\0""\!U-<<&
+XM1@R;0,=$!.00BD0'F(O8T>/&A[(+`<<$Y1#KN+@``E#H106#Q`*)1`0+P'0&
+XM@$P&".N;@$P&!+\!`%>-1@10BD0'F%#HIPR#Q`:)1OXY?OYT`^DQ_XI&!"KD
+XM7E^+Y5W#58OLBUX$BP>+5P*+3@;HR!6+7@2)!XE7`EW"!`!9B]PKV'(*.Q[<
+XM"W($B^/_X>EH`;^D!8LV`@`K]X'^`!!R`[X`$/J.UX'$'A7[<P/I20&!Y/[_
+XM-HDFY@LVB2;D"XO&L033X$@VH^(+M##-(3:C2`P\`G,J'C/`4`X?NO$LM`G-
+XM(<M$3U,@,BXP(&]R(&QA=&5R(')E<75I<F5D#0HD`_>)-@(`C,,KWO?;M$K-
+XM(3:,'D`,BS8L`!X6N``US2$VB1[>"S:,!N`+#A^X`"6Z("[-(3:+#F@0XR(V
+XMQ09J$(S:,]LV_QYF$',#Z<P`-L4&;A",VKL#`#;_'F80!Q_\OW(0N2`5*\\S
+XMP/.J%A8''^@$$;L$`+@`1,TA<@KVPH!T!8"/9@Q`2WGLZ/WYZ&4<NW(0@?MR
+XM$',(4_\76T-#Z_*Y!@`KX;Y*#(O\%@?SI.@`$3/MZ$S24.AF``T*4W1A8VL@
+XM;W9E<F9L;W<-"@T*1&EV:61E(&5R<F]R#0H-"D9L;V%T:6YG('!O:6YT(&YO
+XM="!L;V%D960-"K$2NL@M,NT.'[L"`+1`S2$6'[C_`%#HKPNQ$+K:+>OEL1VZ
+XMZBWKWE6+[(,^1@P`=`3_%D8,_W8$Z(T+B^5=PU6+[(/L`E=6BW8$O___BD0&
+XMF*F#`'0H]D0&0'4B5NC)$8/$`HOX5NA>#(/$`HI$!YA0Z+(0@\0""\!]`[__
+XM_\9$!@"+QUY?B^5=PU6+[(/L!%=6BW8(BWX$@WX&`'4JZQ)6Z&@+@\0"B4;^
+XM0'4).7X$=0XSP.LJBD;^B`5'/`IU",8%`(M&!.L8_TX&=//_3`*#?`(`?,J+
+XM'/\$B@<JY.O'7E^+Y5W#58OL@^P"5NC+&XOP"_9T#U;_=@;_=@3H^0N#Q`;K
+XM`C/`7HOE7<-5B^R#[`175O]V!.C4#(/$`HOPC48(4/]V!O]V!.@?$X/$!HOX
+XM_W8$5N@X#8/$!(O'7E^+Y5W#58OL@^Q"5U:+=@:+?@0+_W4>5N@6`H/$`HOX
+XM"_]U#L<&0@P,`,<&4`P(`.M:B7X$,\!0C4:^4.C"#X/$!(U&OE#HW06#Q`(%
+XM`P`[QGP0QP9"#"(`QP90#`$`,\#K*3/`4%"X&0!0Z,$.@\0&!$&(!4?&!3I'
+XMQ@5<1XU&OE!7Z'T%@\0$BT8$7E^+Y5W#58OL@^P$5U:+-DX,"_9T.(-^!`!T
+XM,O]V!.AX!8/$`HOXZR"+'(`Y/7465_]V!%/H>P6#Q`8+P'4'BQR-00'K"H/&
+XM`H,\`'7;,\!>7XOE7<-5B^Q75HM^!(L%BUT"BTT$BU4&BW4(BWT*S2%7BWX&
+XMB06)70*)302)50:)=0B/10IR!#/VZPCH#0^^`0"+!8EU#%Y?7<-5B^Q75AZ+
+XM?@2+!8M=`HM-!(M5!HMU"/]U"HM^"(X%CET&7\TA5QZ_I`6.WXM^"(P%CT4&
+XMBWX&B06)70*)302)50:)=0B/10IR!#/VZPCHL`Z^`0"+!8EU#!]>7UW#,NWC
+XM!M'@T=+B^L-5B^R#[`975HMV!+]A`.@G$8E&_NL!1H`\`'7ZZQF+1OXKTKD*
+XM`/?Q@,(PB!2+1OXKTO?QB4;^3H`\6'3A1H`\`'4'ZQ>+QT>(!/]V!.@9`(/$
+XM`@O`=`F#_WMUZ3/`ZP.+1@1>7XOE7<-5B^S'!D(,```SP%#_=@3HN`N#Q`1`
+XM=0N#/D(,`G4$,\#K`[@!`(OE7<-5B^R+7@2`3_X!B^5=PU6+[%97NX8-@S\`
+XM=2D>![@%`.C*#'4%,\"9ZR1`)/ZCA@VCB`V6QP0!`(/&!,=$_O[_B3:,#8M.
+XM!(S8CL#H=`M?7HOE7<-5B^R#[`)75HMV!+\"``OV="*`/`!T'5;HE`,#YU!6
+XM5^@=!X/$!HO'4+BV#E!7Z`\'@\0&H10/.09"#'T3@SY"#`!\#(L>0@S1XXN'
+XMR@[K`[BY#HOP5NA6`X/$`E!65^C>!H/$!K@!`%"XQPY05^C/!H/$!EY?B^5=
+XMPU6+[(/L!E=6OAH+5NBP"8/$`HOXC48&4/]V!%;H_0^#Q`:)1OI65^@7"H/$
+XM!(M&^EY?B^5=PU6+[(/L"%=6OAH+_W8$Z.X"@\0"B_A6Z&\)@\0"B4;^5E>X
+XM`0!0_W8$Z#<.@\0(B4;Z5O]V_NC2"8/$!#E^^G4B_TP"@WP"`'P,L`J+'/\$
+XMB`<JY.L05K@*`%#HI/B#Q`3K`[C__UY?B^5=PU6+[(/L!E=6BW8$_W8&5NBW
+XM#(/$!`O`=`B`9/[^B\;K/H!,_@&+?/Z!Y_[__W8&Z&S^@\0"B4;^"\!T(SE^
+XM!G,#BWX&BT;^B4;ZZPF+7OK_1OJLB`>+QT\+P'7PBT;^7E^+Y5W#58OL@WX$
+XM`G0'N`$`^>D4#*&`#*,6#Z&"#*,8#X-^!@!U#Z%^#*."#*%\#*.`#.LLD(,^
+XM?@P`=1FP([0US2&,!GX,B1Y\#+JR,QX.'[0ES2$?BT8&HX`,C,BC@@RA%@^+
+XM%A@/.P9\#'4*.Q9^#'4$,\"+T%W#G!Y04KBD!8[8@SYZ#`!U&*&`#(L6@@P]
+XM`0!T83D&?`QU,3D6?@QU*X/L!%6+[(/%`K`$BU8$B58`147^R#P`=?*A?`R)
+XM1@"A?@R)1@)=6E@?G<NC&@^)%AP/!E575E%3H7P,HX`,H7X,HX(,N`(`4/S_
+XM%AH/1$1;65Y?70=:6!^=SU6+[(U&"%#_=@;_=@3HV!2+Y5W#58OL@^P,5U:+
+XM_8/O"L9%!D*+1@2)102)!<=%`O]_C48(4/]V!E?HX0V#Q`:+\/]-`H-]`@!\
+XM##+`BQW_!8@'*N3K"E<SP%#HW/:#Q`2+QEY?B^5=PU6+[%>+?@0>!XO?,\"Y
+XM___RKD'WV8I&!HO[\JY/.`5T`C/_B\=?7<-5B^Q75HMV!(M^!AX'B]\SP+G_
+XM__*N0??9B_OSIHI$_S/).D7_<@5T!4'K`O?1B\%>7UW#58OL5U:+=@2+?@8>
+XM![=!LUJU82KOBB2*!0KD="`*P'0<1D<ZYW(&.N-W`@+E.L=R!CK#=P("Q3K@
+XM=0;KV#K@=`IR!;@!`.L#N/__7E]=PU6+[%=6'@>+?@:+]S/`N?__\JY!]]F+
+XM?@2+U_.DB\)>7UW#58OL5QX'BWX$,\"Y___RKHO!0$#WV%]=PU6+[%=6'@>+
+XM3@CC+XO9BWX$B_<SP+G___*N0??9.\MV`HO+B_Z+=@;SIHI$_S/).D7_=P5T
+XM!4'K`O?1B\%>7UW#58OL5U8>!XM^!(MV!HO?BTX(XPRL"L!T`ZKB^#+`\ZJ+
+XMPUY?7<-5B^Q75AX'BW8&Z&84BW8$,\"L.L1T".B`%'3VB\9(7E]=PU6+[%<>
+XM!XM^!#/`N?__\JY!]]E/BD8&_?*N1S@%=`0SP.L"B\?\7UW#58OLBU8$M$'-
+XM(>D5"56+[+@*`.@^]E=6BS9,##/`H[00H[(0Z)<&BS9,#.MHBQR`/R)U+U/H
+XM_/Z#Q`*+V$N)7O@#'(`_(G4;BP1`4.CG`8/$`@O`=`/IK@"+7O@#',8'`.LO
+XMN!X/4/\TZ$C_@\0$B4;\"\!T$%#_-.B1`(/$!`O`=`_I@0#_-.BK`8/$`@O`
+XM=76#Q@*#/`!UD\=&^```BSZR$.L&BWT"_T;X"_]U]HM&^-'@0$!0Z(7Z@\0"
+XMB4;V"\!T0Z-,#(M&^*-*#(L^LA#K#HM>]H-&]@*+!8D'BWT""_]U[HM>]L<'
+XM``#K$8L>LA"+1P*CLA!7Z#7Z@\0"BSZR$`O_=>=>7XOE7<-5B^RX"@#H/O57
+XM5HMV!L=&^@``ZPN`/%QT"X`\.G0&3CEV!'7P@#PZ=12+1@1`.\9T#/]V!.CQ
+XM`(/$`NGE`(`\7'0%@#PZ=0F+QBM&!$")1OC_=@3H.@6#Q`*+^`O_=-*AM!")
+XM1ORX(0]05^@3_8/$!`O`='FX(P]05^@$_8/$!`O`=&J`/%QT(X`\.G0>5^C*
+XM$H/$`HE&!`O`=`M0Z(D`@\0""\!T1+C__^MW5^AW_8/$`@-&^$!0Z'?Y@\0"
+XMB4;V"\!TXE?_=OC_=@10Z+']@\0&`T;X4.@J_8/$!"M&^%#H10"#Q`(+P'6\
+XM_T;Z,\!0Z)T$@\0"B_@+_W0#Z6;_@W[Z`'4#Z2G_@W[\`'0(BU[\BT<"ZP.A
+XMLA!0Z%,`@\0",\!>7XOE7<-5B^RX`@#H%?16N`0`4.CX^(/$`HOP"_9U!;C_
+XM_^LDBT8$B03'1`(``(,^LA``=`F+'K00B7<"ZP2)-K(0B3:T$#/`7HOE7<-5
+XMB^RX!`#HS?-75HMV!`OV="_K)O\T_S7H]?N#Q`0+P'T.BP2)1OR+!8D$BT;\
+XMB06+?0(+_W7=BW0"BWP""_]UTUY?B^5=PU6+[(M>!/:'9@P@=`ZX`D(SR8O1
+XMS2%S`^E*!O:'9@R`=0/I@0"+3@B+5@8>!S/`_%=6B_"+^N-EN`I`\JYU,E&+
+XMSRO*2>,0S2&<`_"=<P2T">M)"\!T+T:Y`@"Z)@^T0,TA<P2T">LT"\!T&EF+
+XMU^O%48O/*\K-(9P#\)US!+0)ZQH+P'46]H=F#$!T"XM>!H`_&G4#^.L$^;@(
+XM'%ER`HO&7E_IOP6+3@B+5@:T0,TA<P2T">OMX^L+P'7G]H=F#$!T"HO:@#\:
+XM=0/XZ];YN`@<Z]!5B^R[<A"!^W(0<PA3_Q=;0T/K\NB>!`KD=`J`?@0`=03&
+XM1@3^'L46W@NX`"7-(1^+#F@0XP>[`@#_'F80BT8$M$S-(56+[%:+=@2*1`:8
+XMJ8,`=`;V1`9`=`:X___IF@#V1`8"=`:`3`8@Z^Z`3`8!]D0&#'4IBD0'F(O8
+XMT>/VA[(+`74:N``"4.@;]X/$`HE$!`O`=`2P".L"L`0(1`:#?`0`=0R*1`>8
+XMT>`%LPN)1`2+1`2)!/9$!@1T!;@!`.L#N``"4/]T!(I$!YA0Z`43@\0&B40"
+XM"\!_%0O`=`2P(.L"L!`(1`;'1`(``.EK__],`HL<_P2*!RKD7HOE7<-5B^Q6
+XMBW8$BD0&F*F#`'0=]D0&"'07_W0$Z'[V@\0"@&0&]S/`B02)1`2)1`)>B^5=
+XMPU6+[(/L!E=6BW8(BUX&B@>8/6$`=$(]<@!T"#UW`'0QZ88`QT;^`0#_1@:+
+XM7@:`/RMU!X!._@C_1@:+1OXE!P`]`0!T&CT"`'0T/00`=#3K$,=&_@(`Z]#'
+XM1OX$`.O),__W1OX(`'0(@<\"`('G_O^+7@:`/W1U$('/`$#K%K\!`^O>OPD!
+XMZ]F+7@:`/V)U!('/`("XI`%05_]V!.BP$(/$!HE&^@O`?00SP.M"]T;^"`!T
+XM!L9$!H#K$?=&_@8`=`;&1`8"ZP3&1`8!QP9&#)M`,L"+7OK1XXB'L@N8B40"
+XM,\")!(E$!(I&^HA$!XO&7E^+Y5W#58OL5HMV!('^&@MU//9$!@QU-HI$!YB+
+XMV-'C]H>R"P%U)\=$!.00BD0'F(O8T>/&A[(+`<<&1@R;0,=$`@`"BT0$B02X
+XM`0#K-('^,@MU+/9$!@QU)HI$!YB+V-'C]H>R"P%U%[@``E#H%O6#Q`*)1`0+
+XMP'0&@$P&".NY,\!>B^5=PU6+[%:+=@:#?@0`=$R!_AH+=26*1`>84.B5!8/$
+XM`@O`=!96Z),#@\0"BD0'F(O8T>/&A[(+`.L:@?XR"W4;5NAW`X/$`O]T!.BF
+XM](/$`H!D!O<SP(D$B40$7HOE7<-5B^R+5@0+TG0'N1$`M$[K`K1/S2%S!#/`
+XMZP.X1@]=PU6+[!ZXI`6.V+HH#[0:S2$?7<-5B^R+5@2X`$/-(7(/]D8&`G0)
+XM]L$!=`2X!0WYZ3("Z<L`@_GN<_A!@.'^BW<"_*V+_J@!=$)(.\%S%8O0`_"M
+XMJ`%T-`/"!0(`B_>)1/[KYHO^=`P#^8E,_BO!2(D%ZP4#^?Y,_HO&C-J!^J0%
+XM=`4FC!Y8#XE_`L,FQ@9<#P(]_O]T)8O^`_"MJ`%T\HO^2#O!<[V+T`/PK:@!
+XM=.(#P@4"`(OWB43^Z^:+1P@+P'0$CMCK$R;^#EP/=!",V#VD!70%)HX>5`^+
+XM-^N]BW<&,\#H60`[QG0-)`%`0)CH30!T#?Y-_N@+`'0%EDY.ZYHSP)G#48M%
+XM_J@!=`,KR$E!0;K_?R8[%EH/=@31ZG7UB\$#QG(5`\)R#??2(\(KQN@,`'4(
+XM]]+1ZG7E,\!9PU)1Z!T`=!A7B_Z+\`/RQT3^_O^)=P:+UBO72HE5_EA96L-3
+XM4#/2'E)24+@!`%`&'^B6#(/$"(/Z_Q]:6W0""]+#58OLBF8$BU8&BD8(S2%=
+XMPU6+[%8S]KDU`#+D_*PRX.+[@/15_@XU`'4&B"8T`.L1"N1T#;HV`+L"`+D9
+XM`+1`S2$RP*(U`%Z+Y5W#58OL@^P(5U:+-DX,ZQ>X#`!0N%X/4/\TZ*KV@\0&
+XM"\!T"(/&`H,\`'7D@SP`=#F+/(/'#,=&_@``B@5'F(E&^NL<B@68/?\`=00R
+XMP.L"B@6+7O[_1OZ(AV8,_T[Z1X-^^@!UWL<$``!>7XOE7<-5B^R+7@2T/LTA
+XM<@K&AV8,`,:'4@P`Z1,`58OLB]Z+5@:+=@2T1\TAB_-=PW((,\"+Y5W#<P;H
+XM#0"X__^+Y5W#,N3H`0##HE`,"N1U(X`^2`P#<@T\(G,-/"!R!;`%ZP>0/!-V
+XM`K`3NVP/UYBC0@S#BL3K]U6+[%97'OP>!XM.!D&`X?Z+?@0SVXS8/:0%=0.[
+XMA@V+5P)/3XOWK5!7)/Z)!0/P._)U`4*MJ`%T!_\%`05(Z^W1ZG,#B7\".PUT
+XM+G(?/?[_=2Q'1S/`Z#G^.\9U(>CX_70<EUY:@.(!"!3KLXL%B0U!00/Y*\%`
+XMB06+1@3K`S/`F5]9@.$!"`T?7UZ+Y5W#58OL@^P$5U:+=@0S_U;H?PN#Q`**
+XM1`8D`SP"=3SV1`8(=0^*1`>8B]C1X_:'L@L!=">+!"M$!(E&_`O`?AM0_W0$
+XMBD0'F%#H@OB#Q`8[1OQT!X!,!B"___^+1`2)!,=$`@``B\=>7XOE7<-5B^R#
+XM[`175KX2"S/_ZQ>*1`:8J8,`=`M6Z'G_@\0"0'0!1X/&"#DVV@MSXXO'7E^+
+XMY5W#58OL@^P&5U:+=@2+?@J+1@;W9@B)1OJ)1OP+P'0[]D4&#'4^BD4'F(O8
+XMT>/VA[(+`74O_TT"@WT"`'P,B@2+'?\%B`<JY.L+5XH$F%#H3^J#Q`3V108@
+XM=`4SP.G:`$;_3OSV108(=1**10>8B]C1X_:'L@L!=0/IHP"#?OP`=0/IB0"+
+XM1OPY10)R'%!6_S7HG0J#Q`:+1OPI10*+1OP!!<=&_```Z].#?0(`="'_=0)6
+XM_S7H>0J#Q`:+10(!!8M%`BE&_`-U`L=%`@``ZZS_30*#?0(`?`R*!(L=_P6(
+XM!RKDZPM7B@284.BTZ8/$!/9%!B!U&$;_3OSI?_]7B@284.B<Z8/$!/9%!B!T
+XM#8M&^BM&_"O2]W8&ZQ]&_T[\@W[\`'3I_TT"@WT"`'S/B@2+'?\%B`<JY.O.
+XM7E^+Y5W#H8`/"\!U$K@`A\TA"L!U!K0LS2&+PJ.`#\-5B^R+7@2#^Q1]$8/[
+XM`'P,]H=F#$!T!;@!`.L",\!=PS+MXP;1^M'8XOK#58OLN&(!Z##J5U:+=@:-
+XMAJ+^H\(0BT8$H[H0BT8(H[X0,\"CT!"CSA"`/`!U`^E)`8`\)70#Z0H!QP;(
+XM$`$`,\"CQA"CMA"CRA"CO!"CP!"CN!"CU!"CUA#'!L00(`#K,H`\+74&_P;6
+XM$.LG@#PK=0S_!L80QP:X$```ZQ:`/"!U#8,^QA``=0K_!K@0ZP3_!M001HH$
+XMF%#H!P:#Q`(+P'6_5KC,$%#HD`6#Q`2+\(`\+G42_P;`$$96N,@04.AY!8/$
+XM!(OP@#QL=0?'!KP0`@!&@#P`=0/IH`"*!)B)AI[^/44`=`H]1P!T!3U8`'4)
+XM_P:V$(.&GOX@BX:>_BUC`#T5`'<^`\"3+O^GF4/_!LH0QP;4$```N`H`4.B'
+XM`(/$`NM0N`@`Z_*X$`#K[3/`4.B@`>OIN`$`Z_7_MI[^Z!X"Z]N+_NM!AT-C
+XM0XQ#C$.,0Y5#E4.50Y5#E4.50Y5#=4.50Y5#E4-_0Y5#7T.50Y5#>D.#/M`0
+XM`'0%H<X0ZR!&Z:;^@#TE=`9'@#T`=?6+QRO&4%;H'@.#Q`2+]^F*_EY?B^5=
+XMPU6+[+@8`.B+Z%=6@WX$"G0$_P;*$(,^O!``=!:+'KX0BP>+5P*)1OB)5OJ#
+XM!KX0!.LI@S[*$`!T$(L>OA"+!XE&^,=&^@``ZPV+'KX0BP>9B4;XB5;Z@P:^
+XM$`*#/M00`'0-BT;X"T;Z=`6+1@3K`C/`H](0BS;"$(,^RA``=2J#?OH`?22#
+XM?@0*=1?&!"U&BT;XBU;Z]]B#T@#WVHE&^(E6^L=&]@$`ZP7'1O8``(O]@^\8
+XM_W8$5_]V^O]V^.AA"X/$"(,^P!``="!7Z*;P@\0"BP[($"O(B4[^ZP3&!#!&
+XMBT;^_T[^"\!_\HH%B`2#/K80`'0'/&%\`X`L($9'@'W_`'7F@S[*$`!U%*'&
+XM$`L&N!!T"X-^]@!U!;@!`.L",\!0Z%4"@\0"7E^+Y5W#58OLN`@`Z%WG5U;'
+XM!L00(`"#?@0`=!"^`0"AOA"#!KX0`HE&_.LSBQZ^$(L'B4;\@P:^$`(+P'4%
+XMQT;\@@__=OSH`O"#Q`*+\(,^P!``=`HY!L@0<P2+-L@0BS[,$"O^@S[6$`!U
+XM!U?H#@&#Q`)6_W;\Z&T!@\0$@S[6$`!T!U?H]@"#Q`)>7XOE7<-5B^RX`@#H
+XMT>:AOA")1OZ#/L`0`'4&QP;($`8`_S:V$/\VR!#_=@3_-L(0_W;^Z.H%@\0*
+XM@WX$9W0&@WX$1W48@S[4$`!U$8,^R!``=`K_-L(0Z-`%@\0"@S[4$`!T$8,^
+XMR!``=0K_-L(0Z,(%@\0"@P:^$`C'!M(0``"AQA`+!K@0=!+_=O[HN06#Q`(+
+XMP'0%N`$`ZP(SP%#H)`&+Y5W#58OL,\#H,N96@S[0$`!U.(L>NA#_3P*#?P(`
+XM?!&*1@2+'KH0BS?_!X@$*N3K#?\VNA#_=@3HY>2#Q`1`=0;_!M`0ZP3_!LX0
+XM7HOE7<-5B^RX`@#HY.575H,^T!``=5&+=@0+]GY*ZS.+'KH0_T\"@W\"`'P1
+XMH,00BQZZ$(L__P>(!2KDZP[_-KH0_S;$$.B,Y(/$!$!U!/\&T!"+QDX+P'_&
+XM@S[0$`!U!XM&!`$&SA!>7XOE7<-5B^RX`@#H>^575HMV!(M^!H,^T!``=4SK
+XM-8L>NA#_3P*#?P(`?!**!(L>NA"+#_\'B]F(!RKDZP[_-KH0B@284.@CY(/$
+XM!$!U!/\&T!!&B\=/"\!UQ(,^T!``=0>+1@8!!LX07E^+Y5W#58OLN`H`Z!'E
+XM5U:+-L(0,\")1OR)1OB+/LP05NC;[8/$`HE&^BOX*WX$H=(0L0/3^"OX@S[6
+XM$`!U%8`\+740@S[$$#!U":R84.B4_H/$`H,^Q!`P=`L+_WX'@S[6$`!T&8-^
+XM!`!T!O]&^.A>`(,^TA``=`;_1OSH;P"#/M80`'4F5^BH_H/$`H-^!`!T"8-^
+XM^`!U`^@T`(,^TA``=`F#?OP`=0/H0@#_=OI6Z.C^@\0$@S[6$`!T#<<&Q!`@
+XM`%?H:_Z#Q`)>7XOE7<-5B^PSP.A'Y(,^QA``=`2P*^L"L""84.C[_8OE7<-5
+XMB^PSP.@IY+@P`%#HZ/V#Q`*#/M(0$'45@SZV$`!T!+!8ZP*P>)A0Z,S]@\0"
+XMB^5=PU6+[+@"`.CVXU=6BW8&@#PJ=0Z+'KX0@P:^$`*+/T;K.C/_@#PP?#.`
+XM/#E_+CD^P!!U"X`\,'4&QP;$$#``K)B+S]'AT>$#S]'A`\B#Z3"+^8`\,'P%
+XM@#PY?N.+7@2)/XO&7E^+Y5W#58OLN`(`Z([C5KZ)#^L-B@0X1@1U!;@!`.L(
+XM1H`\`'7N,\!>B^5=PU6+[+C6`.AFXU=6B_V#[U+_-DX,_W8(_W8&_W8$Z"X%
+XM@\0(B4;^0'4J@SY"#`)U(XM>!H`_7'0;@#\`=`:`?P$Z=!"XC@]0Z''F@\0"
+XMB_`+]G4&BT;^Z8<`N'\`4%:-ABS_4.A#[(/$!HOPQD:K`+B3#U!6Z#(&@\0$
+XMB_`+]G335E?HI^N#Q`17Z,/K@\0"B]B`>?]<=`NXE0]05^C;!8/$!/]V!E?H
+XMT06#Q`3_-DX,_W8(5_]V!.B4!(/$"(E&_D!UD(,^0@P"=8FXEP]0,\!0Z-4%
+XM@\0$B_`+]G6CZ7/_7E^+Y5W#CP::#XX>0`PSR8O!B^F+^4F+-BP`"_9T"([&
+XM\JY%KG7Z19=`)/Z+_='E`\46'^A8XHO/B_P#_8OL%@>.WC/V2>,-B7X`146L
+XMJ@K`=?KB\XE.`!8?B29.#/\FF@^_G`^+W[D0`#/`\ZJL"L!T%8OXL0/3[P/[
+XML@&*R(#A!]+B"!7KYL-1B_BQ`]/O`_NR`8K(@.$'TN)9,\"$%70!0,-5B^Q7
+XMBWX$5^C`ZD!0Z,;F6PO`=0-;ZP=0Z(SJ@\0$7UW#58OL@^P"5KX2"XI$!IBI
+XM@P!U%3/`B40"B$0&B40$B03&1`?_B\;K#8O&@\8(.P;:"W77,\!>B^5=PU6+
+XM[%97!H-^"`!U.+_F"XM6!HM&!$AU!^A3`'(GZTB+-C8,2'01._=T#8M$`HE&
+XM#%;H.@!><S"#Q@2!_C8,<P0+TG4&N/__F>L=B]J#PP_1V[$#T^NT2,TA<NF2
+XMB02)5`*)-C8,,\`'7UZ+Y5W#BTX,B_<Y3`)T#(/&!('^-@QU\OGK/XO:`QQR
+XM.8O3CL$[]W4&.1[B"W,F@\,/T=O1Z]'KT>L[]W4)`]FA0`PKV([`M$K-(7(-
+XM._=U!(D6X@N2AP2+T<-5B^R+7@2`9P;/7<-5B^SH5>*+Y5W#58OLZ$OBB^5=
+XMPU6+[.A!XHOE7<-5B^SH-^*+Y5W#58OLZ"WBB^5=PU6+[%=6'@>+?@2+=@:+
+XMUXM."#O^=A2+Q@/!._AS#`/Q`_E.3_WSI/SK(8O'"\;1Z',*B\<SQM'H<NND
+XM28O9T>GSI='K<P6*!":(!8O"7E]=PU6+[#+_B#[8#XM&!C+MJ0@`=`*U((@N
+XMUP\E`P`]`P!U!8%V!@$`NJP/M!K-(;DG`(M6!+1.S2%S`^F;`(M&!HO()0`%
+XM/0`%=0>X!1'YZ<+RQ@;9#P&1J0`"=`N+5@2X`$/-(>F@`*D#`'17J0"`=5+V
+XM!CL0@'5+L`(*!M@/BU8$M#W-(7+'D[@`1,TA]L*`=2VY__^+T;@"0LTA]]FZ
+XMK`^T/\TA"\!T%H`^K`\:=0_WV8O1N`)"S2$SR;1`S2&T/LTABD8&)`,*!M@/
+XMBU8$M#W-(7([Z0L%]T8&``%U!K@"`.EH_\8&V0\`_W8(Z$,%68E."#+M]@;8
+XM#_]U!_=&!@(`=0.`X?Z+5@2T/,TA<P/I`/+V!M@/_W4']T8&`@!U,I.T/LTA
+XMBD8&)`,*!M@/BU8$M#W-(7+8]@;9#P%U%/=&"`$`=`V`R0&3BU8$N`%#S2&3
+XMZ8T$58OLBUX$]H=2#`%T!3/`Z:OQBTX(BU8&M#_-(7,$M`GK"O:'9@R`=`/H
+XM`P#ICO%65_R+\HOZB\CC&[0-K#K$=!<\&G4'QH=2#`'K!8@%1^+KB\<KPE]>
+XMPX/Y`70'@#P*=.WKZ/:'9@Q`=!FX`$3-(??"(`!U"HT6V@^T/\TA<M6P"NLO
+XMQ@;:#P"-%MH/M#_-(7+""\!T&H-^"`%T(+G__XO1N`%"S2&Y`0"`/MH/"G0'
+XML`V+5@;KE(M6!NN2@#[:#PIUV>NZ58OLN(H`Z!C>5U:+=@:#?@0"=1#_=@K_
+XM=@A6Z-($@\0&Z0(!@SY&#`!T!/\61@PSP%"-AGC_4#/`4(U&^%"-1OY0_W8*
+XM_W8(Z&L!@\0.0'4&N/__Z<\`N%P`4%;H1>>#Q`2+^`O_=0*+_K@N`%!7Z,'E
+XM@\0$"\!T&/]V^(V&>/]05O]V!.BV`X/$"(E&^NF)`%;H;.:#Q`(%!0!0Z&WB
+XM@\0"B_@+_W4+_W;^Z%#B@\0"ZYZXW`]05E?H(N:#Q`10Z&D`@\0$QP9"#```
+XM_W;XC89X_U!7_W8$Z&,#@\0(B4;Z@SY"#`!T*[CA#U"X+@!05^BPYH/$!%#H
+XMX^6#Q`3_=OB-AGC_4%?_=@3H,0.#Q`B)1OI7Z.?A@\0"_W;^Z-[A@\0"BT;Z
+XM7E^+Y5W#58OL5U8>!XM^!(O7,\"Y___RKD^+]XM^!HO?N?__\JY!]]F+_HOS
+XM\Z2+PEY?7<-5B^Q75AX'BW8&Z(SZ@`\!BW8$"_9U!(LVY@\SP*P*P'0MZ)OZ
+XM.L1U]$Z+SC/`K(KPZ(SZ.L1T]@KV=0E.._%U"#/`ZPK&1/\`B3;F#XO!7E]=
+XMPU6+[+,`Z>D%58OL@^P.5U:#?@8`=0:A3@R)1@:+=@;'1O0``.L0@\8"_W3^
+XMZ"3E@\0"0`%&](,\`'7KBT;T0(E&]L=&_!,`BU[\@+]F#`!U"?]._(-^_/]_
+XM[8-^_`!\$[CH#U#H[.2#Q`(#1OP%`P`!1O:#?A``=!&+7@3_-^C2Y(/$`@4#
+XM``%&]HM&]@4/`%#HRN"#Q`*)1OB+7@B)!PO`=2&#?@P`=`G_=@SHH>"#Q`+'
+XM!D(,#`#'!E`,"`"X___I,@&+1O@%#P`D\(OXBUX*B3^+=@;K&3/`4/\T5^A/
+XMY(/$!%#HG>.#Q`1`B_B#Q@*#/`!UXH-^_`!\2C/`4+CU#U!7Z"GD@\0$4.AW
+XMXX/$!(OXBD;\_L"(!4?'1O0``(M>]("_9@P`=`:*AV8,ZP*P_X@%1_]&](M&
+XM_/]._`O`==[&!0!'Q@4`@WX0`'0/@\<#BUX$_S=7Z-7C@\0$QT;T``"+?@Y'
+XMBUX$@S\`='F#?P(`=`?&!2!'_T;TBW8$@\8"@SP`=&'_-.C'XX/$`HE&^@-&
+XM]#U]`'XLQP9"#`<`QP90#`H`BUX(_S?HHM^#Q`*#?@P`=0/I!/__=@SHD-^#
+XMQ`+I^/Z+1OI``4;T,\!0_S17Z%KC@\0$4.BHXH/$!(OXQ@4@1^N7Q@4-BUX.
+XMBD;TB`>+1O9>7XOE7<-5B^S&!M</`/]V!NA?`%F)3@:+5@0R[;0\S2%R38O8
+XMBU8$N`!#S2'WP0$`=00RR>L"L1#W1@8`0'4.]T8&`(!U"O8&.Q"`=0.`R8`*
+XM#M</@,D!N`!$S2&+P_;"@'0#@,E`B(]F#,:'4@P`Z>#L58OLH40,]]"+7@0C
+XMPX'C`,"H@'4#@,L!B5X$7<,`````````````58OL5E>,V(M>"K$$T^L#PZ,"
+XM$(M&"*,$$(P>!A`>!XLV!!!&OQ`0N`$IS2&X`2F_(!#-(54&'BZ,%J!2+HDF
+XMGE*[`A"#?@0`=`:P!#/)ZP(RP/B_+@"+-2Z)-J)2BW4"+HDVI%(NC!ZF4E"T
+XM"\TA6,<&>@P!`(M6!K1+S2$NCA:@4BZ+)IY2'\<&>@P``+\N`"Z.'J92+HLV
+XMI%*)=0(NBS:B4HDU!UU?7G($M$W-(>D'[%6+[+BD`.@HV5=6,__'1O0!`#D^
+XM1@QT!/\61@RX7`!0_W8$Z([B@\0$B_`+]G4#BW8$N"X`4%;H">&#Q`0+P'09
+XMN`"`4/]V!.BJ^(/$!(E&YD!U>+C__^E/`O]V!.BQX8/$`@4%`%#HLMV#Q`*+
+XM^`O_=.&X,!!0_W8$5^APX8/$!%#HM_N#Q`2X`(!05^AE^(/$!(E&YD!U,+@U
+XM$%"X+@!05^@/XH/$!%#H0N&#Q`2X`(!05^@^^(/$!(E&YD!U"5?H2MV#Q`+K
+XMBXE^!(OU@>ZB`+@8`%!6_W;FZ&WY@\0&0'4C"_]T!U?H(]V#Q`+_=N;HW^J#
+XMQ`+'!D(,"`#'!E`,"P#I3O^X`@!0*\!04/]VYN@K!8/$"(E&^HE6_`O2?0@S
+XMP(E&_(E&^O=&^@\`=!F+1OJ+5ORQ!.BR[04!`(/2`(E&^HE6_.L*L`10C4;Z
+XM4.C!U_]VYNAZZH/$`H`\374&@'P!6G01@#Q:=`/IN`"`?`%-=`/IKP#_3O2*
+XM1`68L0C3X"K`BDP$*NT#P8E&[L=&\```N"``F5)0C4;N4.AK`8I$"9BQ"-/@
+XM*L"*3`@J[0/!*](I1NX95O"*1`.8L0C3X"+%BDP"`\$M``+WV(E&WK$$TV[>
+XMBT;>*4;N&5;PBD0/F+$(T^`BQ8I,#@/!B4;@BD01F+$(T^`BQ8I,$`/!B4;R
+XMBD05F+$(T^`BQ8I,%`/!B4;HBD07F+$(T^`BQ8I,%@/!B4;^N`$`4(V&7O]0
+XM5XU&Y%"-1OA0_W8(_W8&Z(3Z@\0.B4;B0'40"_]T!U?HN]N#Q`*+1N+K3O]V
+XM^O]VZ/]V_O]V\O]VX/]V[O]VXO]VY(V&7O]0_W8$Z)/?@\0"0%#_=@3_=O3H
+XMH`"#Q!B)1NH+_W0'5^ATVX/$`O]V^.AKVX/$`HM&ZEY?B^5=PU=6BTX*BT8$
+XMBU8&BWX(5QX'_),*P'03@_D*=0X+TGD*L"VJ]]N#T@#WVHOWDC/2"\!T`O?Q
+XMD_?QDH?3!#`\.78"!">JB\(+PW7BB`5/K(8%B$3_3SOW<O587E]=PU6+[(M>
+XM!/]V"/]V!O]W`O\WZ),#BUX$B0>)5P)=P@8`58OL,]*Y$P"[Y@N#PP2+1P(+
+XMP'03CL!3N___M$K-(0/30EN#PP3BYHX&0`R[__^T2LTA`]J`/D@,`G<4=`RZ
+XM/!"T"<TAN`$`ZSB!ZX`"<B^#?@0`=`BXF5DM0EGK";A"62W06`4(``6@``-&
+XM"(M6#H/"#P/"L033Z-/J.]AW![@(`/GI5>@KV$N#?@0`=`B+3AI!<NKK`XM.
+XM$(/!$7+@`\IRW#O9<MB#?@0`=!6!^0`0=\PFBQX"`(S"*]H[V7,"B]E04[D3
+XM`+OF"X/#!(M'`@O`=`N.P+1)S2&#PP3B[EN.!D`,M$K-(5MRF+1(S2%RDE!(
+XM)J,"`$".P!X.'S/_@WX$`'0(N9E9OD)9ZP:Y0EF^T%@KSO.D'XO7@WX$`'40
+XMBT82JXM&%*N+1A:KBT88JXMV!HM."/.DB]^+=@R+3@[SI(X&0`P>4@8?NH``
+XMM!K-(5H?C,`%$`"#?@0`=`0#1AI`0":C+`"_@`"+=@J*#$%!\Z2_7`"1N2``
+XM\ZJ_7`"+=@I&N`$IS2$\_W0",L"*R+]L`+@!*<TA//]T`C+`B_.*V8KX6*->
+XM$(M.#H-^!`"+ZW1')HL^+`",PRO[4;$$T^>+WX/K$";'!P`!)HQ'`B;'1P2,
+XMV";'1P:.P";'1PB+Q8KKL;LFB4\*M?B*SR:)3PQ9)L='#O\OZS"_$`&[``$F
+XMB1>#P@@FQT<$C-@FQT<&CL`FQT<(B\4FQT<*NP`FQT<,`?@FQT<._R_\@SY^
+XM#`!T%%!2'HX>?@R+%GP,L".T)<TA'UI8_RY<$([8\Z2#QP^!Y_#_B]^+Q[$$
+XMT^B,P0/!)HD')HE'`K\``2:)10*X`TN,V8'&D`#ZCM&+YOO-(;L``2:+-R:+
+XM?P*M`\?ZCM"MB^#[G`:X!`%0K0/')HE'`HL$)HD'C,&X(37-(0:.P5.,PHS9
+XMCMJ.P;1)RX[8\Z2,P`40`+L``2:)!R:)1P*X`TN,V8'&D`#ZCM&+YOO-(8S`
+XM)HL>+``KV$NQ!-/C^H[0B^/[,\!0G`:#PP13C,&X(37-(0:.P5.,PHS9CMJ.
+XMP;1)RU6+[(M>!/=&"`"`=$N#?@H`=!HSR8O1N`%"S2%R4/=&"@(`=0X#1@83
+XM5@AY*[@!`/GK.XD68!"C8A"+T;@"0LTA`T8&$U8(>0^+#F`0BQ9B$+@`0LTA
+XMZ]6+5@:+3@B*1@JT0LTA<@?&AU(,`.L#NO__Z53E58OL5HM&"HM.!/?AB]B+
+XM1@B+\/?A`]J6]V8&`]B+TXO&7EW""`````````````````````````````!#
+XM($QI8G)A<GD@+2`H0RE#;W!Y<FEG:'0@36EC<F]S;V9T($-O<G`@,3DX-0`!
+XM3G5L;"!P;VEN=&5R(&%S<VEG;FUE;G0-"@!O=70@;V8@;65M;W)Y`$UA:V4`
+XM9$1N3FE)=%1K2W-3<E)H2#]F.D8Z`"T`;VYL>2`E9"!M86ME9FEL97,@86QL
+XM;W=E9`!N965D(&$@9FEL96YA;64@869T97(@+68`=6YK;F]W;B!O<'1I;VX@
+XM8"5S)PH``%``7@`M`'-T9&EN`'(`*BHJ(')E861I;F<@8"5S)R`J*BH*`&)A
+XM9"!L:6YE.B```"5S*&QI;F4@)74I.B`E<V`E<R<`)7,Z(``N"@`E<SH@`"X@
+XM(%-T;W`N"@``=V%R;FEN9R`M(&UA8W)O(&`E<R<@;F]T(&9O=6YD`&UA8W)O
+XM+F,`07-S97)T:6]N(&9A:6QE9#H@9FEL92`E<RP@;&EN92`E9`H`;6ES<VEN
+XM9R`E8R!I;B!@)7,G`"I`/#\`<F5C=7)S:79E(&UA8W)O(&`E<R<`8V%N)W0@
+XM97AP86YD(')U;G1I;64@;6%C<F\@)"5C`"``(``**BHJ($U!0U)/4R`J*BH`
+XM("`E<R`]("5S"@`**BHJ(%-51D9)6$53("HJ*@`E<R``7#HO`&-A;B=T(&AA
+XM=F4@8#HZ)R!F;W(@9&5F875L="!R=6QE<P!D97!E;F0N8P!!<W-E<G1I;VX@
+XM9F%I;&5D.B!F:6QE("5S+"!L:6YE("5D"@`N4%)%0TE/55,`7#HO`%PZ+P!C
+XM86XG="!H879E(&)O=&@@.B!A;F0@.CH@9&5P96YD96YC:65S(&9O<B!@)7,G
+XM`"`E<P`*"25S`#H``"5S.B5S``H`"BHJ*B!#3TU-04Y$4R`J*BH`"BHJ*B!2
+XM54Q%4R`J*BH``"]#`&-O;6UA;F0@=VET:&]U="!T87)G970`=&]O(&UA;GD@
+XM8V]M;6%N9',@9F]R("5S``"V`FYO($-/35-014,`*RU``"5S"@`^/'P`;&EN
+XM:P!,24Y+`&-A;B=T(&5X96,@8"5S)P`J*BH@17)R;W(@8V]D92`E9``@*&EG
+XM;F]R960I```E<PH`;6M86%A86%@`;6MT96UP("T@;F\@;6]R92!U;FEQ=64@
+XM;F%M97,`57-I;F<@<F5S<&]N<V4@9FEL92!@)7,G"@!W`&-A;FYO="!O<&5N
+XM(')E<W!O;G-E(&9I;&4@8"5S)P`^/'P`)6,*`"5S"@`^/'P`)6,*`"5S(``*
+XM`"5S($`E<P`@)7,`)7,*``HJ*BH@5%)!0TE.1R!-04M%("HJ*@!N;W1H:6YG
+XM('1O(&UA:V4`;&]V90`E<RP@;F]T('=A<@!@)7,G(&ES('5P('1O(&1A=&4`
+XM1&]E<VXG="!E>&ES="!Y970`)3)U+24P,G4M)3`R=2`@)3)U.B4P,G4Z)3`R
+XM=0```"4J<R4M,3)S)2IS)7,*```E*G,M+2TM+2TM+2TM+2T@;F5W97(@=&AA
+XM;B`E<PH`9&]N)W0@:VYO=R!H;W<@=&\@;6%K92!@)7,G`"5S)7,``"4J<VAA
+XM=F4@<G5L92!@)7,G"@`E<R5S```E*G-H879E(&9I;&4@8"5S)PH`;6%K969I
+XM;&4`;6%K92YI;FD`P@3+!$U&3$%'4STE8R5S`$-71#T`0T]-4U!%0P!R`&UI
+XM<V,N8P!!<W-E<G1I;VX@9F%I;&5D.B!F:6QE("5S+"!L:6YE("5D"@`N4U5&
+XM1DE815,`+E-)3$5.5``N24=.3U)%`'5N:VYO=VX@9&]T(&-O;6UA;F0@8"5S
+XM)P!<.B\`8V%N)W0@=&]U8V@@8"5S)P!T;W5C:"@E<RD*```*3D1-04M%("5S
+XM($-O<'ER:6=H="`H0RD@1"X@1RX@2VYE;&QE<BP@,3DX-2P@,3DX-BX@($%L
+XM;"!R:6=H=',@<F5S97)V960N"@!4:&ES('-O9G1W87)E(&UA>2!B92!F<F5E
+XM;'D@8V]P:65D(&%N9"!D:7-T<FEB=71E9"!F;W(@;F]N8V]M;65R8VEA;`!P
+XM=7)P;W-E<R!P<F]V:61E9"!T:&ES(&YO=&EC92!I<R!R971A:6YE9"X@($-O
+XM;6UE<F-I86P@=7-E(&]F('1H:7,`<V]F='=A<F4@<F5Q=6ER97,@;7D@<')I
+XM;W(@=W)I='1E;B!P97)M:7-S:6]N+@``57-A9V4Z(&UA:V4@6R`M9B!M86ME
+XM9FEL92!=(%L@;W!T:6]N<R!=(%L@;6%C<F]S(%T@6R!T87)G971S(%T``%1H
+XM92!;(&]P=&EO;G,@72!A<F4@>F5R;R!O<B!M;W)E(&]F('1H92!F;VQL;W=I
+XM;F<Z``DM9`E$96)U9R!M;V1E+@`)+6@)4')I;G0@=&AI<R!H96QP(&UE<W-A
+XM9V4N``DM:0E)9VYO<F4@97AI="!C;V1E<R!B>2!P<F]G<F%M<R!C86QL960@
+XM9G)O;2!M86ME+@`)+6L)3VX@97)R;W(L(&%B86YD;VX@=V]R:R!F;W(@=&AE
+XM(&-U<G)E;G0@=&%R9V5T(&]N;'DN``DM;@E3:&]W("AW:71H;W5T(&5X96-U
+XM=&EN9RD@=&AE(&-O;6UA;F1S('1O(&)E(&1O;F4N``DM<@E296UO=F4@9&5F
+XM875L="!R=6QE<R`H86-T=6%L;'D@<V5T<R`N4U5&1DE815,@=&\@8F4@96UP
+XM='DI+@`)+7,)4VEL96YT(&UO9&4N("!#;VUM86YD<R!A<F4@;F]T(&1I<W!L
+XM87EE9"!W:&5N(&5X96-U=&5D+@`)+70)5&]U8V@N("!5<&1A=&4@=&AE('1I
+XM;64@9F]R(&%N>2!O=70@;V8@9&%T92!T87)G971S+@!/<'1I;VYS(&UA>2!B
+XM92!G<F]U<&5D('1O9V5T:&5R("@M:6YS(&ES('1H92!S86UE(&%S("UI("UN
+XM("US*2X``%1H92!;(&UA8W)O<R!=(&%R92!Z97)O(&]R(&UO<F4@;6%C<F\@
+XM9&5F:6YI=&EO;G,N("!&;W(@97AA;7!L93H`"4U/1$5,/5,@(D-&3$%'4STM
+XM020H34]$14PI("U$1$5"54<B`%5S92`B("(@=&\@<W5R<F]U;F0@8V]M<&QE
+XM=&5L>2!M86-R;W,@=&AA="!C;VYT86EN('-P86-E<RX``%1H92!;('1A<F=E
+XM=',@72!A<F4@>F5R;R!O<B!M;W)E('1A<F=E=',L('=H:6-H(&%R92!U<W5A
+XM;&QY(&9I;&4@;F%M97,N`%=I;&1C87)D(&-H87)A8W1E<G,@;6%Y(&)E('5S
+XM960@=&\@;6%T8V@@97AI<W1I;F<@9FEL92!N86UE<RX@($EF(&YO`'1A<F=E
+XM=',@87)E('-P96-I9FEE9"P@=&AE(&9I<G-T('1A<F=E="!I;B!T:&4@;6%K
+XM969I;&4@:7,@;6%D92X``&5X86UP;&4Z"4$^(&UA:V4@+61I($U/1$5,/4P@
+XM;6%K92YE>&4*`#,N.```<@6]!0(&109T!G4&M`:U!N@&^`85!TD'@0>W!_<'
+XM,PAL"*P(K0CN"!,)3@E/"9<)W`D="AX*```N049415(`+D)%1D]210`````M
+XM+0`Z(&EL;&5G86P@;W!T:6]N("TM(``Z(&EL;&5G86P@;W!T:6]N("TM(``Z
+XM(&]P=&EO;B!R97%U:7)E<R!A;B!A<F=U;65N="`M+2``.B!O<'1I;VX@<F5Q
+XM=6ER97,@86X@87)G=6UE;G0@+2T@```!``$``0!0051(``#T$@``]!(!````
+XM``````(!````````!@(```````"$`P````````($````````````````````
+XM````````````````````````````````````````````````````````````
+XM````````````````````````````````````````````````````````````
+XM`````````````````````0``````````````````````````````````````
+XM`````````````*H+MA4`````````````I`4`````````````````````````
+XM````````````````````````````````````````````````````````````
+XM````````````````Y@L`````````````````````````````````````````
+XM````````````````````@8&!`0$`````````````````````````````````
+XM`"`@("`@("`@("@H*"@H("`@("`@("`@("`@("`@("`@2!`0$!`0$!`0$!`0
+XM$!`0$(2$A(2$A(2$A(00$!`0$!`0@8&!@8&!`0$!`0$!`0$!`0$!`0$!`0$!
+XM`0$0$!`0$!""@H*"@H("`@("`@("`@("`@("`@("`@("`A`0$!`@````````
+XM````````````````````````````````````````````````````````````
+XM````````````````````````````````````````````````````````````
+XM`````````````````````````````````````````````````````````$5R
+XM<F]R(#```$YO('-U8V@@9FEL92!O<B!D:7)E8W1O<GD``````$%R9R!L:7-T
+XM('1O;R!L;VYG`$5X96,@9F]R;6%T(&5R<F]R`$)A9"!F:6QE(&YU;6)E<@``
+XM`$YO="!E;F]U9V@@8V]R90!097)M:7-S:6]N(&1E;FEE9`````!&:6QE(&5X
+XM:7-T<P!#<F]S<RUD979I8V4@;&EN:P````!);G9A;&ED(&%R9W5M96YT``!4
+XM;V\@;6%N>2!O<&5N(&9I;&5S`````$YO('-P86-E(&QE9G0@;VX@9&5V:6-E
+XM``````!-871H(&%R9W5M96YT`%)E<W5L="!T;V\@;&%R9V4``%)E<V]U<F-E
+XM(&1E861L;V-K('=O=6QD(&]C8W5R`#H@`%5N:VYO=VX@97)R;W(`"@``D`V8
+XM#9D-LPVT#;4-M@VW#<D-VPWK#>P-[0W]#0\.$`X1#A(.'@XP#C$.,@XS#D0.
+XM10Y9#EH.6PY<#G0.=0YV#G<.>`Z&#I<.F`XE````````````*C\`+@`N+@`-
+XM"@``````````````````````````````````````````````````````````
+XM`````````"```#M#7T9)3$5?24Y&3P```!8"`A@-"0P,#`<(____$@T2`O\`
+XM`"AN=6QL*0`K+2`C`%!!5$@`.P!<`#L`````````````````````````````
+XM````````````````````````````````````````````````````````````
+XM`"YC;VT`+F5X90```#M#7T9)3$5?24Y&3P`[0U]&24Q%7TE.1D\`````````
+XMP`^I!=`/J04``````````````````````````````````````````"YC;VT`
+XM+F5X90```$5X96,@;F]T(&%V86EL86)L92!O;B!$3U,@,2YX#0HD````````
+X0`````````````````````&%V
+X`
+Xend
+END_OF_make.exe.uu
+if test 38369 -ne `wc -c <make.exe.uu`; then
+    echo shar: \"make.exe.uu\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+if test -f spell.h -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"spell.h\"
+else
+echo shar: Extracting \"spell.h\" \(285 characters\)
+sed "s/^X//" >spell.h <<'END_OF_spell.h'
+X/*	SCCS Id: @(#)spell.h	2.1	87/10/18
+X/* M. Stephenson  07-07-86 */
+X
+X#ifndef SPELL_H
+X#define SPELL_H
+X
+Xstruct	spell  {
+X
+X	int	sp_id;			/* spell id */
+X	int	sp_lev;			/* power level */
+X	int	sp_flags;		/* spfx flags */
+X#ifdef HARD
+X	int 	sp_uses;		/* uses left to spell */
+X#endif
+X};
+X
+X
+X#endif
+END_OF_spell.h
+if test 285 -ne `wc -c <spell.h`; then
+    echo shar: \"spell.h\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+echo shar: End of archive 3 \(of 13\).
+cp /dev/null ark3isdone
+MISSING=""
+for I in 1 2 3 4 5 6 7 8 9 10 11 12 13 ; do
+    if test ! -f ark${I}isdone ; then
+	MISSING="${MISSING} ${I}"
+    fi
+done
+if test "${MISSING}" = "" ; then
+    echo You have unpacked all 13 archives.
+    rm -f ark[1-9]isdone ark[1-9][0-9]isdone
+else
+    echo You still need to unpack the following archives:
+    echo "        " ${MISSING}
+fi
+##  End of shell archive.
+exit 0

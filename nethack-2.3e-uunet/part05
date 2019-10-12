@@ -1,0 +1,3274 @@
+#! /bin/sh
+# This is a shell archive.  Remove anything before this line, then unpack
+# it by saving it into a file and typing "sh file".  To overwrite existing
+# files, type "sh file -c".  You can also feed this as standard input via
+# unshar, or by typing "sh <file", e.g..  If this archive is complete, you
+# will see the following message at the end:
+#		"End of archive 5 (of 13)."
+# Contents:  Fixes.2.3 invent.c mklev.c rumors.base termcap.uu
+# Wrapped by billr@tekred on Mon Jun 20 11:38:36 1988
+PATH=/bin:/usr/bin:/usr/ucb ; export PATH
+if test -f Fixes.2.3 -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"Fixes.2.3\"
+else
+echo shar: Extracting \"Fixes.2.3\" \(5148 characters\)
+sed "s/^X//" >Fixes.2.3 <<'END_OF_Fixes.2.3'
+X		NetHack Fixes List	Revision 2.3e
+X
+X	New Files:
+X
+XFixes.2.3	This file.
+X
+XMakefile.3B2	A new Makefile for the ATT 3B2.
+X
+XSpoilers.mm	As above - pre nroff -mm
+X
+Xfood.tbl	Tables for above manual
+Xfount.tbl
+Xmonster.tbl
+Xweapon.tbl
+X
+Xnansi.doc	Documentation for nansi.sys.
+X
+Xhh		Fixed improper def of "X" for casting spells.
+X
+Xfight.c		Dogname fix for "you hit your dog" line.  (Janet Walz)
+X
+Xpri.c		Patch for "SCORE_ON_BOTL".  (Gary Erickson)
+Xconfig.h
+X
+Xpray.c		Null refrence bug fix for Suns. (The Unknown Hacker)
+X
+Xtermcap.c	null pointer bug fix. (Michael Grenier)
+X
+Xmon.c		chameleon shape made dependent on current lev. (RPH)
+Xspell.c
+Xmonmove.c
+X
+Xrnd.c		fixed SYSV/BSD problems with random(). (many sources)
+Xconfig.h
+X
+Xshk.c		fix to allow compilation with or without HARD option.
+X		(reported by The Unknown Hacker)
+X
+Xtermcap.c	ospeed fix for SYSV. (reported by Eric Rapin)
+X
+Xunixunix.c	fix for NFS sharing of playground. (Paul Meyer)
+X
+Xoptions.c	many misc. bugs while compiling for the PC. (Tom Almy)
+Xpcmain.c
+Xpctty.c
+Xhack.h
+Xnethack.cnf
+Xpager.c
+Xfight.c
+X
+Xmkroom.h	Addition of reorganized special-room code.
+Xmkshop.c	(Eric S. Raymond)
+Xmklev.c
+Xrnd.c
+X
+Xtrap.c		Fixed teleport to hell problems caused by rnz().
+X		(reported by Janet Walz)
+X
+Xtermcap.c	Various fixes to MSDOSCOLOR code. (Tom Almy)
+Xend.c
+X
+Xhack.c		Fixed typos. (Steve Creps)
+Xmsdos.c
+Xpcmain.c
+X
+Xconfig.h	Enabled the use of termcap file c:\etc\termcap or
+Xtermcap.c	.\termcap.cnf for MS Dos (Steve Creps)
+X
+Xeat.c		Continued implementation of Soldier code.
+Xmakedefs.c	Added Barracks code. (Steve Creps)
+Xmakemon.c
+Xmklev.c
+Xmkroom.h
+Xobjects.h
+Xmkshop.c
+Xmon.c
+Xmonst.c
+Xpermonst.h
+X
+Xmakedefs.c	Added Landmines code. (Steve Creps)
+Xmklev.c
+Xtrap.c
+X
+Xmkroom.h	Fixed item / shop probablility code. (Stefan Wrammerfors)
+Xshknam.c	Added additional item typ available.
+X
+Xpray.c		Randomized time between prayers. (Stefan Wrammerfors)
+X
+Xfight.c		Fixed typo. (Stefan Wrammerfors)
+X
+Xmhitu.c		Fixed monster special abilities usage bug.
+X		(Stefan Wrammerfors)
+X
+Xobjnam.c	Randomized max number and max bonus limits on objects
+X		wished for.
+X		Identified cursed items shown as such. (Stefan Wrammerfors)
+X
+Xtopten.c	Added logfile to allow overall game tuning for balance.
+Xconfig.h	(Stefan Wrammerfors)
+X
+Xmklev.c		moved code identifying medusa & wizard levs to eliminate
+X*main.c		garbage on screen. (Izchak Miller)
+X
+Xu_init.c	fixed up luck wraparound bug (Izchak Miller)
+Xhack.c
+Xdothrow.c
+Xfight.c
+Xmon.c
+Xplay.c
+Xsave.c
+Xsit.c
+X
+Xmon.c		fixed null referenced pointer bug. (The Unknown Hacker)
+X
+Xconfig.h	Hawaiian shirt code by Steve Linhart
+Xdecl.c
+Xdo_wear.c
+Xextern.h
+Xinvent.c
+Xmhitu.c
+Xobj.h
+Xobjects.h
+Xobjnam.c
+Xpolyself.c
+Xread.c
+Xsteal.c
+Xu_init.c
+Xworn.c
+X
+Xconfig.h	"THEOLOGY" code addition (The Unknown Hacker)
+Xpray.c
+X
+Xmklev.c		Added typecasts to fix object generation bug on Microport
+Xfountain.c	Sys V/AT. (Jerry Lahti)
+X
+XMakefile.unix	Added ${CFLAGS} to makedefs build line. (Jerry Lahti)
+XMakefile.att
+XMakefile.3B2
+X
+Xpager.c		Inventory fix for "things that are here". (Steve Creps)
+X
+Xcmd.c		More wizard debugging tools:
+X			^F = level map
+X			^E = find doors & traps		(Steve Creps)
+X
+Xapply.c		Blindfolded set/unset to "INTRINSIC" (many sources)
+X
+Xlev.c		new restmonchn() code. (Tom May)
+Xsave.c
+X
+Xo_init.c	OS independance in init_objects (Tom May)
+Xobjclass.h	(removal of oc_descr_i)
+X
+Xshk.c		declaration of typename() (Tom May)
+X
+Xapply.c		declaration of lmonnam() (Tom May)
+X
+Xmklev.c		fixes to make medusa and wizard levels dependent on MAXLEVEL
+X		(Richard Hughey as pointed out to him by John Sin)
+X
+Xfountain.c	added "coins in fountain" code. (Chris Woodbury)
+X
+Xobjects.h	bound gem color to type (Janet Walz)
+Xo_init.c
+X
+Xspell.c		spell list now displayed in the corner (Bruce Mewborne)
+X
+Xapply.c		multiple dragon types. (Bruce Mewborne)
+Xcmd.c		wand of lightning.
+Xdo.c		ring of shock resistance.
+Xdo_name.c	giant eel replaced by electric eel.
+Xend.c		"STOOGES" - three stooges code.
+Xengrave.c	Named dagger/short sword "Sting".
+Xfight.c		Lamps & Magic Lamps.
+Xmakemon.c	A Badge - identifies you as a Kop.
+Xconfig.h	^X option for wizard mode - gives current abilities.
+Xmhitu.c		New monster djinni '&' for Magic lamps.
+Xmklev.c		#rub command for lamps.
+Xmkobj.c		New monster: Gremlin 'G' augments Gnome on lower levels.
+Xmon.c		major modifications to buzz() code cleans it up.
+Xmonmove.c
+Xmonst.c		objnam.c	polyself.c	potion.c
+Xpri.c		rip.c		shk.c		sit.c
+Xu_init.c	wizard.c	zap.c		makedefs.c
+Xmonst.h		obj.h		objects.h	permonst.h
+Xyou.h		*main.c		*unix.c
+X
+Xrnd.c		fixed portability bug for 16 bit machines (Paul Eggert)
+X
+Xmhitu.c		fixed many lint flagged bugs (Izchak Miller)
+Xapply.c
+Xfight.c		mklev.c		mkmaze.c	mkshop.c
+Xmonmove.c	shknam.c	trap.c		wizard.c
+Xzap.c		shk.c		do_name.c	invent.c
+Xunixtty.c	pctty.c		unixmain.c	pcmain.c
+Xdo.c		options.c	termcap.c	makemon.c
+Xspell.c
+X
+Xtermcap.c	major rewrite *** NOTE: Untested by MRS *** (Kevin Sweet)
+X
+Xdo_name.c	reversed quantity check for "n blessed +xx items"
+X		(Roland McGrath)
+X
+Xconfig.h	Added Kitchen Sink code (Janet Walz)
+Xrm.h
+Xdecl.c		do.c		hack.c		invent.c
+Xmakedefs.c	mklev.c		options.c	pager.c
+Xprisym.c	wizard.c	zap.c
+X
+Xend.c		Fixed "killed by" bugs in endgame code. (Steve Creps)
+X
+Xobjects.h	Changed weight of a leash to a reasonable value. (Janet Walz)
+END_OF_Fixes.2.3
+if test 5148 -ne `wc -c <Fixes.2.3`; then
+    echo shar: \"Fixes.2.3\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+if test -f invent.c -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"invent.c\"
+else
+echo shar: Extracting \"invent.c\" \(23220 characters\)
+sed "s/^X//" >invent.c <<'END_OF_invent.c'
+X/*	SCCS Id: @(#)invent.c	2.3	88/01/21
+X/* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+X
+X#include	<stdio.h>
+X#include	"hack.h"
+Xextern struct obj *splitobj();
+Xextern struct obj zeroobj;
+Xextern void savech();
+Xextern char morc;
+Xextern char quitchars[];
+Xstatic char *xprname();
+X
+X#ifndef NOWORM
+X#include	"wseg.h"
+Xextern struct wseg *wsegs[32];
+X#endif
+X
+X#define	NOINVSYM	'#'
+X
+Xint lastinvnr = 51;	/* 0 ... 51 */
+X
+Xstatic
+Xassigninvlet(otmp)
+Xregister struct obj *otmp;
+X{
+X	boolean inuse[52];
+X	register int i;
+X	register struct obj *obj;
+X
+X	for(i = 0; i < 52; i++) inuse[i] = FALSE;
+X	for(obj = invent; obj; obj = obj->nobj) if(obj != otmp) {
+X		i = obj->invlet;
+X		if('a' <= i && i <= 'z') inuse[i - 'a'] = TRUE; else
+X		if('A' <= i && i <= 'Z') inuse[i - 'A' + 26] = TRUE;
+X		if(i == otmp->invlet) otmp->invlet = 0;
+X	}
+X	if((i = otmp->invlet) &&
+X	    (('a' <= i && i <= 'z') || ('A' <= i && i <= 'Z')))
+X		return;
+X	for(i = lastinvnr+1; i != lastinvnr; i++) {
+X		if(i == 52) { i = -1; continue; }
+X		if(!inuse[i]) break;
+X	}
+X	otmp->invlet = (inuse[i] ? NOINVSYM :
+X			(i < 26) ? ('a'+i) : ('A'+i-26));
+X	lastinvnr = i;
+X}
+X
+Xstruct obj *
+Xaddinv(obj)
+Xregister struct obj *obj;
+X{
+X	register struct obj *otmp;
+X
+X	/* merge or attach to end of chain */
+X	if(!invent) {
+X		invent = obj;
+X		otmp = 0;
+X	} else
+X	for(otmp = invent; /* otmp */; otmp = otmp->nobj) {
+X		if(merged(otmp, obj, 0))
+X			return(otmp);
+X		if(!otmp->nobj) {
+X			otmp->nobj = obj;
+X			break;
+X		}
+X	}
+X	obj->nobj = 0;
+X
+X	if(flags.invlet_constant) {
+X		assigninvlet(obj);
+X		/*
+X		 * The ordering of the chain is nowhere significant
+X		 * so in case you prefer some other order than the
+X		 * historical one, change the code below.
+X		 */
+X		if(otmp) {	/* find proper place in chain */
+X			otmp->nobj = 0;
+X			if((invent->invlet ^ 040) > (obj->invlet ^ 040)) {
+X				obj->nobj = invent;
+X				invent = obj;
+X			} else
+X			for(otmp = invent; ; otmp = otmp->nobj) {
+X			    if(!otmp->nobj ||
+X				(otmp->nobj->invlet ^ 040) > (obj->invlet ^ 040)){
+X				obj->nobj = otmp->nobj;
+X				otmp->nobj = obj;
+X				break;
+X			    }
+X			}
+X		}
+X	}
+X
+X	return(obj);
+X}
+X
+Xuseup(obj)
+Xregister struct obj *obj;
+X{
+X	if(obj->quan > 1){
+X		obj->quan--;
+X		obj->owt = weight(obj);
+X	} else {
+X		setnotworn(obj);
+X		freeinv(obj);
+X		obfree(obj, (struct obj *) 0);
+X	}
+X}
+X
+Xfreeinv(obj)
+Xregister struct obj *obj;
+X{
+X	register struct obj *otmp;
+X
+X	if(obj == invent)
+X		invent = invent->nobj;
+X	else {
+X		for(otmp = invent; otmp->nobj != obj; otmp = otmp->nobj)
+X			if(!otmp->nobj) panic("freeinv");
+X		otmp->nobj = obj->nobj;
+X	}
+X}
+X
+X/* destroy object in fobj chain (if unpaid, it remains on the bill) */
+Xdelobj(obj) register struct obj *obj; {
+X	freeobj(obj);
+X	unpobj(obj);
+X	obfree(obj, (struct obj *) 0);
+X}
+X
+X/* unlink obj from chain starting with fobj */
+Xfreeobj(obj) register struct obj *obj; {
+X	register struct obj *otmp;
+X
+X	if(obj == fobj) fobj = fobj->nobj;
+X	else {
+X		for(otmp = fobj; otmp->nobj != obj; otmp = otmp->nobj)
+X			if(!otmp) panic("error in freeobj");
+X		otmp->nobj = obj->nobj;
+X	}
+X}
+X
+X/* Note: freegold throws away its argument! */
+Xfreegold(gold) register struct gold *gold; {
+X	register struct gold *gtmp;
+X
+X	if(gold == fgold) fgold = gold->ngold;
+X	else {
+X		for(gtmp = fgold; gtmp->ngold != gold; gtmp = gtmp->ngold)
+X			if(!gtmp) panic("error in freegold");
+X		gtmp->ngold = gold->ngold;
+X	}
+X	free((char *) gold);
+X}
+X
+Xdeltrap(trap)
+Xregister struct trap *trap;
+X{
+X	register struct trap *ttmp;
+X
+X	if(trap == ftrap)
+X		ftrap = ftrap->ntrap;
+X	else {
+X		for(ttmp = ftrap; ttmp->ntrap != trap; ttmp = ttmp->ntrap) ;
+X		ttmp->ntrap = trap->ntrap;
+X	}
+X	free((char *) trap);
+X}
+X
+Xstruct wseg *m_atseg;
+X
+Xstruct monst *
+Xm_at(x,y)
+Xregister x,y;
+X{
+X	register struct monst *mtmp;
+X#ifndef NOWORM
+X	register struct wseg *wtmp;
+X#endif
+X
+X	m_atseg = 0;
+X	for(mtmp = fmon; mtmp; mtmp = mtmp->nmon){
+X		if(mtmp->mx == x && mtmp->my == y)
+X			return(mtmp);
+X#ifndef NOWORM
+X		if(mtmp->wormno){
+X		    for(wtmp = wsegs[mtmp->wormno]; wtmp; wtmp = wtmp->nseg)
+X		    if(wtmp->wx == x && wtmp->wy == y){
+X			m_atseg = wtmp;
+X			return(mtmp);
+X		    }
+X		}
+X#endif
+X	}
+X	return(0);
+X}
+X
+Xstruct obj *
+Xo_at(x,y)
+Xregister x,y;
+X{
+X	register struct obj *otmp;
+X
+X	for(otmp = fobj; otmp; otmp = otmp->nobj)
+X		if(otmp->ox == x && otmp->oy == y) return(otmp);
+X	return(0);
+X}
+X
+Xstruct obj *
+Xsobj_at(n,x,y)
+Xregister n,x,y;
+X{
+X	register struct obj *otmp;
+X
+X	for(otmp = fobj; otmp; otmp = otmp->nobj)
+X		if(otmp->ox == x && otmp->oy == y && otmp->otyp == n)
+X			return(otmp);
+X	return(0);
+X}
+X
+Xcarried(obj) register struct obj *obj; {
+Xregister struct obj *otmp;
+X	for(otmp = invent; otmp; otmp = otmp->nobj)
+X		if(otmp == obj) return(1);
+X	return(0);
+X}
+X
+Xstruct obj *
+Xcarrying(type)
+Xregister int type;
+X{
+X	register struct obj *otmp;
+X
+X	for(otmp = invent; otmp; otmp = otmp->nobj)
+X		if(otmp->otyp == type)
+X			return(otmp);
+X	return((struct obj *) 0);
+X}
+X
+Xstruct obj *
+Xo_on(id, objchn) unsigned int id; register struct obj *objchn; {
+X	while(objchn) {
+X		if(objchn->o_id == id) return(objchn);
+X		objchn = objchn->nobj;
+X	}
+X	return((struct obj *) 0);
+X}
+X
+Xstruct trap *
+Xt_at(x,y)
+Xregister x,y;
+X{
+X	register struct trap *trap = ftrap;
+X	while(trap) {
+X		if(trap->tx == x && trap->ty == y) return(trap);
+X		trap = trap->ntrap;
+X	}
+X	return(0);
+X}
+X
+Xstruct gold *
+Xg_at(x,y)
+Xregister x,y;
+X{
+X	register struct gold *gold = fgold;
+X	while(gold) {
+X		if(gold->gx == x && gold->gy == y) return(gold);
+X		gold = gold->ngold;
+X	}
+X	return(0);
+X}
+X
+X/* make dummy object structure containing gold - for temporary use only */
+Xstruct obj *
+Xmkgoldobj(q)
+Xregister long q;
+X{
+X	register struct obj *otmp;
+X
+X	otmp = newobj(0);
+X	/* should set o_id etc. but otmp will be freed soon */
+X	otmp->olet = GOLD_SYM;
+X	u.ugold -= q;
+X	OGOLD(otmp) = q;
+X	flags.botl = 1;
+X	return(otmp);
+X}
+X
+X/*
+X * getobj returns:
+X *	struct obj *xxx:	object to do something with.
+X *	(struct obj *) 0	error return: no object.
+X *	&zeroobj		explicitly no object (as in w-).
+X */
+Xstruct obj *
+Xgetobj(let,word)
+Xregister char *let,*word;
+X{
+X	register struct obj *otmp;
+X	register char ilet,ilet1,ilet2;
+X	char buf[BUFSZ];
+X	char lets[BUFSZ];
+X	register int foo = 0, foo2;
+X	register char *bp = buf;
+X	xchar allowcnt = 0;	/* 0, 1 or 2 */
+X	boolean allowgold = FALSE;
+X	boolean allowall = FALSE;
+X	boolean allownone = FALSE;
+X	xchar foox = 0;
+X	long cnt;
+X
+X	if(*let == '0') let++, allowcnt = 1;
+X	if(*let == GOLD_SYM) let++, allowgold = TRUE;
+X	if(*let == '#') let++, allowall = TRUE;
+X	if(*let == '-') let++, allownone = TRUE;
+X	if(allownone) *bp++ = '-';
+X	if(allowgold) *bp++ = GOLD_SYM;
+X	if(bp > buf && bp[-1] == '-') *bp++ = ' ';
+X
+X	ilet = 'a';
+X	for(otmp = invent; otmp; otmp = otmp->nobj){
+X	    if(!*let || index(let, otmp->olet)) {
+X		bp[foo++] = flags.invlet_constant ? otmp->invlet : ilet;
+X
+X		/* ugly check: remove inappropriate things */
+X		if((!strcmp(word, "take off") &&
+X		    !(otmp->owornmask & (W_ARMOR - W_ARM2)))
+X		|| (!strcmp(word, "wear") &&
+X		    (otmp->owornmask & (W_ARMOR | W_RING)))
+X		|| (!strcmp(word, "wield") &&
+X		    (otmp->owornmask & W_WEP))
+X#ifdef MARKER
+X		|| (!strcmp(word, "write with") &&
+X		    (otmp->olet == TOOL_SYM && otmp->otyp != MAGIC_MARKER))
+X#endif
+X		    ) {
+X			foo--;
+X			foox++;
+X		}
+X	    }
+X	    if(ilet == 'z') ilet = 'A'; else ilet++;
+X	}
+X	bp[foo] = 0;
+X	if(foo == 0 && bp > buf && bp[-1] == ' ') *--bp = 0;
+X	(void) strcpy(lets, bp);	/* necessary since we destroy buf */
+X	if(foo > 5) {			/* compactify string */
+X		foo = foo2 = 1;
+X		ilet2 = bp[0];
+X		ilet1 = bp[1];
+X		while(ilet = bp[++foo2] = bp[++foo]){
+X			if(ilet == ilet1+1){
+X				if(ilet1 == ilet2+1)
+X					bp[foo2 - 1] = ilet1 = '-';
+X				else if(ilet2 == '-') {
+X					bp[--foo2] = ++ilet1;
+X					continue;
+X				}
+X			}
+X			ilet2 = ilet1;
+X			ilet1 = ilet;
+X		}
+X	}
+X	if(!foo && !allowall && !allowgold && !allownone) {
+X		pline("You don't have anything %sto %s.",
+X			foox ? "else " : "", word);
+X		return(0);
+X	}
+X	for(;;) {
+X		if(!buf[0]) {
+X#ifdef REDO
+X		    if(!in_doagain)
+X#endif
+X			pline("What do you want to %s [*]? ", word);
+X		} else {
+X#ifdef REDO
+X		    if(!in_doagain)
+X#endif
+X			pline("What do you want to %s [%s or ?*]? ",
+X				word, buf);
+X		}
+X		cnt = 0;
+X		ilet = readchar();
+X		while(digit(ilet) && allowcnt) {
+X#ifdef REDO
+X			if (ilet != '?' && ilet != '*')	savech(ilet);
+X#endif
+X			cnt = 10*cnt + (ilet - '0');
+X			allowcnt = 2;	/* signal presence of cnt */
+X			ilet = readchar();
+X		}
+X		if(digit(ilet)) {
+X			pline("No count allowed with this command.");
+X			continue;
+X		}
+X		if(index(quitchars,ilet)) {
+X			pline("Never mind.");
+X			return((struct obj *)0);
+X		}
+X		if(ilet == '-') {
+X			return(allownone ? &zeroobj : (struct obj *) 0);
+X		}
+X		if(ilet == GOLD_SYM) {
+X			if(!allowgold){
+X				pline("You cannot %s gold.", word);
+X				continue;
+X			}
+X			if(!(allowcnt == 2 && cnt < u.ugold))
+X				cnt = u.ugold;
+X			return(mkgoldobj(cnt));
+X		}
+X		if(ilet == '?') {
+X			doinv(lets);
+X			if(!(ilet = morc)) continue;
+X			/* he typed a letter (not a space) to more() */
+X		} else if(ilet == '*') {
+X			doinv((char *) 0);
+X			if(!(ilet = morc)) continue;
+X			/* ... */
+X		}
+X#ifdef REDO
+X		if (ilet != '?' && ilet != '*')	savech(ilet);
+X#endif
+X		if(flags.invlet_constant) {
+X			for(otmp = invent; otmp; otmp = otmp->nobj)
+X				if(otmp->invlet == ilet) break;
+X		} else {
+X			if(ilet >= 'A' && ilet <= 'Z') ilet += 'z'-'A'+1;
+X			ilet -= 'a';
+X			for(otmp = invent; otmp && ilet;
+X					ilet--, otmp = otmp->nobj) ;
+X		}
+X		if(!otmp) {
+X			pline("You don't have that object.");
+X			continue;
+X		}
+X		if(cnt < 0 || otmp->quan < cnt) {
+X			pline("You don't have that many! [You have %u]"
+X			, otmp->quan);
+X			continue;
+X		}
+X		break;
+X	}
+X	if(!allowall && let && !index(let,otmp->olet)) {
+X		pline("That is a silly thing to %s.",word);
+X		return(0);
+X	}
+X	if(allowcnt == 2) {	/* cnt given */
+X		if(cnt == 0) return(0);
+X		if(cnt != otmp->quan) {
+X			register struct obj *obj;
+X			obj = splitobj(otmp, (int) cnt);
+X			if(otmp == uwep) setuwep(obj);
+X		}
+X	}
+X	return(otmp);
+X}
+X
+Xckunpaid(otmp) register struct obj *otmp; {
+X	return( otmp->unpaid );
+X}
+X
+X/* interactive version of getobj - used for Drop and Identify */
+X/* return the number of times fn was called successfully */
+Xggetobj(word, fn, max)
+Xchar *word;
+Xint (*fn)(),  max;
+X{
+Xchar buf[BUFSZ];
+Xregister char *ip;
+Xregister char sym;
+Xregister int oletct = 0, iletct = 0;
+Xregister boolean allflag = FALSE;
+Xchar olets[20], ilets[20];
+Xint (*ckfn)() = (int (*)()) 0;
+Xxchar allowgold = (u.ugold && !strcmp(word, "drop")) ? 1 : 0;	/* BAH */
+X	if(!invent && !allowgold){
+X		pline("You have nothing to %s.", word);
+X		return(0);
+X	} else {
+X		register struct obj *otmp = invent;
+X		register int uflg = 0;
+X
+X		if(allowgold) ilets[iletct++] = GOLD_SYM;
+X		ilets[iletct] = 0;
+X		while(otmp) {
+X			if(!index(ilets, otmp->olet)){
+X				ilets[iletct++] = otmp->olet;
+X				ilets[iletct] = 0;
+X			}
+X			if(otmp->unpaid) uflg = 1;
+X			otmp = otmp->nobj;
+X		}
+X		ilets[iletct++] = ' ';
+X		if(uflg) ilets[iletct++] = 'u';
+X		if(invent) ilets[iletct++] = 'a';
+X		ilets[iletct] = 0;
+X	}
+X	pline("What kinds of thing do you want to %s? [%s] ",
+X		word, ilets);
+X	getlin(buf);
+X	if(buf[0] == '\033') {
+X		clrlin();
+X		return(0);
+X	}
+X	ip = buf;
+X	olets[0] = 0;
+X	while(sym = *ip++){
+X		if(sym == ' ') continue;
+X		if(sym == GOLD_SYM) {
+X			if(allowgold == 1)
+X				(*fn)(mkgoldobj(u.ugold));
+X			else if(!u.ugold)
+X				pline("You have no gold.");
+X			allowgold = 2;
+X		} else
+X		if(sym == 'a' || sym == 'A') allflag = TRUE; else
+X		if(sym == 'u' || sym == 'U') ckfn = ckunpaid; else
+X#ifdef SPELLS
+X		if(index("!%?[()=*/+\"0", sym)){
+X#else
+X		if(index("!%?[()=*/\"0", sym)){
+X#endif
+X			if(!index(olets, sym)){
+X				olets[oletct++] = sym;
+X				olets[oletct] = 0;
+X			}
+X		}
+X		else pline("You don't have any %c's.", sym);
+X	}
+X	if(allowgold == 2 && !oletct)
+X		return(1);	/* he dropped gold (or at least tried to) */
+X	else
+X		return(askchain(invent, olets, allflag, fn, ckfn, max));
+X}
+X
+X/*
+X * Walk through the chain starting at objchn and ask for all objects
+X * with olet in olets (if nonNULL) and satisfying ckfn (if nonNULL)
+X * whether the action in question (i.e., fn) has to be performed.
+X * If allflag then no questions are asked. Max gives the max nr of
+X * objects to be treated. Return the number of objects treated.
+X */
+Xaskchain(objchn, olets, allflag, fn, ckfn, max)
+Xstruct obj *objchn;
+Xregister char *olets;
+Xint allflag;
+Xint (*fn)(), (*ckfn)();
+Xint max;
+X{
+Xregister struct obj *otmp, *otmp2;
+Xregister char sym, ilet;
+Xregister int cnt = 0;
+X#ifdef SORTING
+X	/* changes so the askchain is interrogated in the order specified.
+X	 * For example, if a person specifies =/ then first all rings will be
+X	 * asked about followed by all wands -dgk
+X	 */
+Xnextclass:
+X#endif
+X	ilet = 'a'-1;
+X	for(otmp = objchn; otmp; otmp = otmp2){
+X		if(ilet == 'z') ilet = 'A'; else ilet++;
+X		otmp2 = otmp->nobj;
+X#ifdef SORTING
+X		if (olets && *olets && otmp->olet != *olets) continue;
+X#else
+X		if(olets && *olets && !index(olets, otmp->olet)) continue;
+X#endif
+X		if(ckfn && !(*ckfn)(otmp)) continue;
+X		if(!allflag) {
+X			pline(xprname(otmp, ilet));
+X			addtopl(" [nyaq]? ");
+X			sym = readchar();
+X		}
+X		else	sym = 'y';
+X
+X		switch(sym){
+X		case 'a':
+X			allflag = 1;
+X		case 'y':
+X			cnt += (*fn)(otmp);
+X			if(--max == 0) goto ret;
+X		case 'n':
+X		default:
+X			break;
+X		case 'q':
+X			goto ret;
+X		}
+X	}
+X#ifdef SORTING
+X	if (olets && *olets && *++olets)
+X		goto nextclass;
+X#endif
+X	pline(cnt ? "That was all." : "No applicable objects.");
+Xret:
+X	return(cnt);
+X}
+X
+Xobj_to_let(obj)	/* should of course only be called for things in invent */
+Xregister struct obj *obj;
+X{
+X	register struct obj *otmp;
+X	register char ilet;
+X
+X	if(flags.invlet_constant)
+X		return(obj->invlet);
+X	ilet = 'a';
+X	for(otmp = invent; otmp && otmp != obj; otmp = otmp->nobj)
+X		if(++ilet > 'z') ilet = 'A';
+X	return(otmp ? ilet : NOINVSYM);
+X}
+X
+Xprinv(obj)
+Xregister struct obj *obj;
+X{
+X	pline(xprname(obj, obj_to_let(obj)));
+X}
+X
+Xstatic char *
+Xxprname(obj,let)
+Xregister struct obj *obj;
+Xregister char let;
+X{
+X	static char li[BUFSZ];
+X
+X	(void) sprintf(li, "%c - %s.",
+X		flags.invlet_constant ? obj->invlet : let,
+X		doname(obj));
+X	return(li);
+X}
+X
+Xddoinv()
+X{
+X	doinv((char *) 0);
+X	return(0);
+X}
+X
+X#ifdef SORTING
+X# ifdef SPELLS
+Xchar inv_order[] = "\")[%?+/=!(*0_`";	/* to be safe, include _ and ` */
+X# else
+Xchar inv_order[] = "\")[%?/=!(*0_`";
+X# endif
+Xextern char *let_to_name();
+X#endif
+X
+X/* called with 0 or "": all objects in inventory */
+X/* otherwise: all objects with (serial) letter in lets */
+Xdoinv(lets)
+Xregister char *lets;
+X{
+X	register struct obj *otmp;
+X	register char ilet;
+X	int ct = 0;
+X	char any[BUFSZ];
+X#ifdef SORTING
+X	char *invlet = inv_order;
+X	int classcount = 0;
+X#endif /* SORTING /**/
+X
+X	morc = 0;		/* just to be sure */
+X
+X	if(!invent){
+X		pline("Not carrying anything.");
+X		return;
+X	}
+X
+X	cornline(0, (char *) 0);
+X#ifdef SORTING
+Xnextclass:
+X	classcount = 0;
+X	ilet = 'a';
+X	for(otmp = invent; otmp; otmp = otmp->nobj) {
+X		if(flags.invlet_constant) ilet = otmp->invlet;
+X		if(!lets || !*lets || index(lets, ilet)) {
+X			if (!flags.sortpack || otmp->olet == *invlet) {
+X				if (flags.sortpack && !classcount) {
+X					cornline(1, let_to_name(*invlet));
+X					classcount++;
+X				}
+X				cornline(1, xprname(otmp, ilet));
+X				any[ct++] = ilet;
+X			}
+X		}
+X		if(!flags.invlet_constant) if(++ilet > 'z') ilet = 'A';
+X	}
+X	if (flags.sortpack && *++invlet) goto nextclass;
+X#else
+X	ilet = 'a';
+X	for(otmp = invent; otmp; otmp = otmp->nobj) {
+X	    if(flags.invlet_constant) ilet = otmp->invlet;
+X	    if(!lets || !*lets || index(lets, ilet)) {
+X		    cornline(1, xprname(otmp, ilet));
+X		    any[ct++] = ilet;
+X	    }
+X	    if(!flags.invlet_constant) if(++ilet > 'z') ilet = 'A';
+X	}
+X#endif /* SORTING /**/
+X	any[ct] = 0;
+X	cornline(2, any);
+X}
+X
+Xdotypeinv ()				/* free after Robert Viduya */
+X/* Changed to one type only, so he doesnt have to type cr */
+X{
+X    char c, ilet;
+X    char stuff[BUFSZ];
+X    register int stct;
+X    register struct obj *otmp;
+X    boolean billx = inshop() && doinvbill(0);
+X    boolean unpd = FALSE;
+X
+X	if (!invent && !u.ugold && !billx) {
+X	    pline ("You aren't carrying anything.");
+X	    return(0);
+X	}
+X
+X	stct = 0;
+X	if(u.ugold) stuff[stct++] = GOLD_SYM;
+X	stuff[stct] = 0;
+X	for(otmp = invent; otmp; otmp = otmp->nobj) {
+X	    if (!index (stuff, otmp->olet)) {
+X		stuff[stct++] = otmp->olet;
+X		stuff[stct] = 0;
+X	    }
+X	    if(otmp->unpaid)
+X		unpd = TRUE;
+X	}
+X	if(unpd) stuff[stct++] = 'u';
+X	if(billx) stuff[stct++] = 'x';
+X	stuff[stct] = 0;
+X
+X	if(stct > 1) {
+X#ifdef REDO
+X	  if (!in_doagain)
+X#endif
+X	    pline ("What type of object [%s] do you want an inventory of? ",
+X		stuff);
+X	    c = readchar();
+X#ifdef REDO
+X	    savech(c);
+X#endif
+X	    if(index(quitchars,c)) {
+X	    	    clrlin();
+X	    	    return(0);
+X	    }
+X	} else
+X	    c = stuff[0];
+X
+X	if(c == GOLD_SYM)
+X	    return(doprgold());
+X
+X	if(c == 'x' || c == 'X') {
+X	    if(billx)
+X		(void) doinvbill(1);
+X	    else
+X		pline("No used-up objects on the shopping bill.");
+X	    return(0);
+X	}
+X
+X	if((c == 'u' || c == 'U') && !unpd) {
+X		pline("You are not carrying any unpaid objects.");
+X		return(0);
+X	}
+X
+X	stct = 0;
+X	ilet = 'a';
+X	for (otmp = invent; otmp; otmp = otmp -> nobj) {
+X	    if(flags.invlet_constant) ilet = otmp->invlet;
+X	    if (c == otmp -> olet || (c == 'u' && otmp -> unpaid))
+X		stuff[stct++] = ilet;
+X	    if(!flags.invlet_constant) if(++ilet > 'z') ilet = 'A';
+X	}
+X	stuff[stct] = '\0';
+X	if(stct == 0)
+X		pline("You have no such objects.");
+X	else
+X		doinv (stuff);
+X
+X	return(0);
+X}
+X
+X/* look at what is here */
+Xdolook() {
+X    register struct obj *otmp, *otmp0;
+X    register struct gold *gold;
+X    char *verb = Blind ? "feel" : "see";
+X    int	ct = 0;
+X    int fd = 0;
+X
+X#ifdef KAA
+X    read_engr_at(u.ux, u.uy); /* Eric Backus */
+X#endif
+X    if(!u.uswallow) {
+X	otmp0 = o_at(u.ux, u.uy);
+X	gold = g_at(u.ux, u.uy);
+X    }  else  {
+X	pline("You %s no objects here.", verb);
+X	return(!!Blind);
+X    }
+X
+X    /* added by GAN 10/30/86 */
+X#ifdef FOUNTAINS
+X    if(IS_FOUNTAIN(levl[u.ux][u.uy].typ))  {
+X	fd++;
+X	pline("There is a fountain here.");
+X    }
+X#endif
+X#ifdef NEWCLASS
+X    if(IS_THRONE(levl[u.ux][u.uy].typ))  {
+X	fd++;
+X	pline("There is an opulent throne here.");
+X    }    
+X#endif
+X#ifdef SINKS
+X    if(IS_SINK(levl[u.ux][u.uy].typ))  {
+X	fd++;
+X	pline("There is a kitchen sink here.");
+X    }
+X#endif
+X    if(u.ux == xupstair && u.uy == yupstair)  {
+X	fd++;
+X	pline("There is a stairway up here.");
+X    }
+X    if(u.ux == xdnstair && u.uy == ydnstair)  {
+X	fd++;
+X	pline("There is a stairway down here.");
+X    }
+X    if(Blind)  {
+X	 pline("You try to feel what is lying here on the floor.");
+X	 if(Levitation)  {
+X		pline("But you can't reach it!");
+X		return(0);
+X	 }
+X    }
+X 
+X    if(!otmp0 && !gold) {
+X	if(Blind || !fd)
+X		pline("You %s no objects here.", verb);
+X	return(!!Blind);
+X    }
+X
+X    cornline(0, "Things that are here:");
+X    for(otmp = otmp0; otmp; otmp = otmp->nobj) {
+X	if(otmp->ox == u.ux && otmp->oy == u.uy) {
+X	    ct++;
+X	    cornline(1, doname(otmp));
+X			
+X	    if(Blind && otmp->otyp == DEAD_COCKATRICE && !uarmg) {
+X		pline("Touching the dead cockatrice is a fatal mistake ...");
+X		pline("You die ...");
+X		killer = "dead cockatrice";
+X		done("died");
+X	    }
+X	}
+X    }
+X
+X    if(gold) {
+X	char gbuf[30];
+X
+X	(void) sprintf(gbuf, "%ld gold piece%s",
+X		gold->amount, plur(gold->amount));
+X	if(!ct++)
+X	    pline("You %s here %s.", verb, gbuf);
+X	else
+X	    cornline(1, gbuf);
+X    }
+X
+X    if(ct == 1 && !gold) {
+X	pline("You %s here %s.", verb, doname(otmp0));
+X	cornline(3, (char *) 0);
+X    }
+X    if(ct > 1)
+X	cornline(2, (char *) 0);
+X    return(!!Blind);
+X}
+X
+Xstackobj(obj) register struct obj *obj; {
+Xregister struct obj *otmp = fobj;
+X	for(otmp = fobj; otmp; otmp = otmp->nobj) if(otmp != obj)
+X	if(otmp->ox == obj->ox && otmp->oy == obj->oy &&
+X		merged(obj,otmp,1))
+X			return;
+X}
+X
+X/* merge obj with otmp and delete obj if types agree */
+Xmerged(otmp,obj,lose) register struct obj *otmp, *obj; {
+X	if(obj->otyp == otmp->otyp &&
+X	  obj->unpaid == otmp->unpaid &&
+X	  obj->spe == otmp->spe &&
+X	  obj->dknown == otmp->dknown &&
+X	  obj->cursed == otmp->cursed &&
+X#ifdef SPELLS
+X	  (index("%*?!+", obj->olet) ||
+X#else
+X	  (index("%*?!", obj->olet) ||
+X#endif
+X	    (obj->known == otmp->known &&
+X		(obj->olet == WEAPON_SYM && obj->otyp < BOOMERANG)))) {
+X		otmp->quan += obj->quan;
+X		otmp->owt += obj->owt;
+X		if(lose) freeobj(obj);
+X		obfree(obj,otmp);	/* free(obj), bill->otmp */
+X		return(1);
+X	} else	return(0);
+X}
+X
+X/*
+X * Gold is no longer displayed; in fact, when you have a lot of money,
+X * it may take a while before you have counted it all.
+X * [Bug: d$ and pickup still tell you how much it was.]
+X */
+Xextern int (*occupation)();
+Xextern char *occtxt;
+Xstatic long goldcounted;
+X
+Xcountgold(){
+X	if((goldcounted += 100*(u.ulevel + 1)) >= u.ugold) {
+X		long eps = 0;
+X		if(!rn2(2)) eps = rnd((int) (u.ugold/100 + 1));
+X		pline("You probably have about %ld gold pieces.",
+X			u.ugold + eps);
+X		return(0);	/* done */
+X	}
+X	return(1);		/* continue */
+X}
+X
+Xdoprgold(){
+X	if(!u.ugold)
+X		pline("You do not carry any gold.");
+X	else if(u.ugold <= 500)
+X		pline("You are carrying %ld gold piece%s.", u.ugold, plur(u.ugold));
+X	else {
+X		pline("You sit down in order to count your gold pieces.");
+X		goldcounted = 500;
+X		occupation = countgold;
+X		occtxt = "counting your gold";
+X	}
+X	return(1);
+X}
+X
+X/* --- end of gold counting section --- */
+X
+Xdoprwep(){
+X	if(!uwep) pline("You are empty handed.");
+X	else prinv(uwep);
+X	return(0);
+X}
+X
+Xdoprarm(){
+X#ifdef SHIRT
+X	if(!uarm && !uarmg && !uarms && !uarmh && !uarmu)
+X#else
+X	if(!uarm && !uarmg && !uarms && !uarmh)
+X#endif
+X		pline("You are not wearing any armor.");
+X	else {
+X#ifdef SHIRT
+X		char lets[7];
+X#else
+X		char lets[6];
+X#endif
+X		register int ct = 0;
+X
+X#ifdef SHIRT
+X		if(uarmu) lets[ct++] = obj_to_let(uarmu);
+X#endif
+X		if(uarm) lets[ct++] = obj_to_let(uarm);
+X		if(uarm2) lets[ct++] = obj_to_let(uarm2);
+X		if(uarmh) lets[ct++] = obj_to_let(uarmh);
+X		if(uarms) lets[ct++] = obj_to_let(uarms);
+X		if(uarmg) lets[ct++] = obj_to_let(uarmg);
+X		lets[ct] = 0;
+X		doinv(lets);
+X	}
+X	return(0);
+X}
+X
+Xdoprring(){
+X	if(!uleft && !uright)
+X		pline("You are not wearing any rings.");
+X	else {
+X		char lets[3];
+X		register int ct = 0;
+X
+X		if(uleft) lets[ct++] = obj_to_let(uleft);
+X		if(uright) lets[ct++] = obj_to_let(uright);
+X		lets[ct] = 0;
+X		doinv(lets);
+X	}
+X	return(0);
+X}
+X
+Xdigit(c) char c; {
+X	return(c >= '0' && c <= '9');
+X}
+X
+X/*
+X * useupf(obj)
+X * uses up an object that's on the floor
+X */
+Xuseupf(obj)
+Xregister struct obj *obj;
+X{
+X	if(obj->quan > 1)  {
+X		obj->quan--;
+X		obj->owt = weight(obj);
+X	}  else delobj(obj);
+X}
+X
+X#ifdef SORTING
+X/*
+X * Convert from a symbol to a string for printing object classes
+X *
+X * Names from objects.h
+X * char obj_symbols[] = {
+X *	ILLOBJ_SYM, AMULET_SYM, FOOD_SYM, WEAPON_SYM, TOOL_SYM,
+X *	BALL_SYM, CHAIN_SYM, ROCK_SYM, ARMOR_SYM, POTION_SYM, SCROLL_SYM,
+X *	WAND_SYM, [SPBOOK_SYM], RING_SYM, GEM_SYM, 0 };
+X */
+X#define Sprintf (void) sprintf
+X
+Xextern char obj_symbols[];
+Xstatic char *names[] = {"Illegal objects", "Amulets", "Comestibles", "Weapons",
+X			"Tools", "Iron balls", "Chains", "Rocks", "Armor",
+X			"Potions", "Scrolls", "Wands",
+X#ifdef SPELLS
+X			"Spellbooks",
+X#endif
+X			"Rings", "Gems"};
+Xchar *
+Xlet_to_name(let)
+Xchar let;
+X{
+X	char *pos = index(obj_symbols, let);
+X	extern char *HI, *HE;
+X	/* arbitrary buffer size by Tom May (tom@uw-warp) */
+X	static char *buf = NULL;
+X
+X	if (buf == NULL)
+X	    buf = (char *) alloc ((unsigned)(strlen(HI)+strlen(HE)+15+1));
+X
+X	if (pos == NULL) pos = obj_symbols;
+X	if (HI && HE)
+X	    Sprintf(buf, "%s%s%s", HI, names[pos - obj_symbols], HE);
+X	else
+X	    Sprintf(buf, "%s", names[pos - obj_symbols]);
+X	return (buf);
+X}
+X#endif /* SORTING /**/
+X
+Xreassign ()
+X{
+X	register int i;
+X	register struct obj *obj;
+X
+X	for(obj = invent, i = 0; obj; obj = obj->nobj, i++)
+X		obj->invlet = (i < 26) ? ('a'+i) : ('A'+i-26);
+X	lastinvnr = i;
+X}
+END_OF_invent.c
+if test 23220 -ne `wc -c <invent.c`; then
+    echo shar: \"invent.c\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+if test -f mklev.c -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"mklev.c\"
+else
+echo shar: Extracting \"mklev.c\" \(21798 characters\)
+sed "s/^X//" >mklev.c <<'END_OF_mklev.c'
+X/*	SCCS Id: @(#)mklev.c	2.3	87/12/12
+X/* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+X
+X#include "hack.h"
+X
+Xextern char *getlogin(), *getenv();
+Xextern struct monst *makemon(), *mkmon_at();
+Xextern struct obj *mkobj_at(), *mksobj_at();
+Xextern struct trap *maketrap();
+X
+X#ifdef RPH
+Xextern struct permonst pm_medusa;
+X#endif
+X
+X#ifdef STOOGES
+Xextern struct permonst pm_larry, pm_curly, pm_moe;
+X#endif
+X
+X#define somex() ((int)(rand()%(croom->hx-croom->lx+1))+croom->lx)
+X#define somey() ((int)(rand()%(croom->hy-croom->ly+1))+croom->ly)
+X
+X#include "mkroom.h"
+X#define	XLIM	4	/* define minimum required space around a room */
+X#define	YLIM	3
+Xboolean secret;		/* TRUE while making a vault: increase [XY]LIM */
+Xextern struct mkroom rooms[MAXNROFROOMS+1];
+Xint smeq[MAXNROFROOMS+1];
+Xextern coord doors[DOORMAX];
+Xint doorindex;
+Xstruct rm zerorm;
+Xint comp();
+Xschar nxcor;
+Xboolean goldseen;
+Xint nroom;
+Xextern xchar xdnstair,xupstair,ydnstair,yupstair;
+X
+X/* Definitions used by makerooms() and addrs() */
+X#define	MAXRS	50	/* max lth of temp rectangle table - arbitrary */
+Xstruct rectangle {
+X	xchar rlx,rly,rhx,rhy;
+X} rs[MAXRS+1];
+Xint rscnt,rsmax;	/* 0..rscnt-1: currently under consideration */
+X			/* rscnt..rsmax: discarded */
+X
+Xmakelevel()
+X{
+X	register struct mkroom *croom, *troom;
+X	register unsigned tryct;
+X#ifndef REGBUG
+X	register
+X#endif
+X		 int x,y;
+X#ifdef SPIDERS			/* always put a web with a spider */
+X	struct monst *tmonst;
+X#endif
+X
+X	nroom = 0;
+X	doorindex = 0;
+X	rooms[0].hx = -1;	/* in case we are in a maze */
+X
+X	for(x=0; x<COLNO; x++) for(y=0; y<ROWNO; y++)
+X		levl[x][y] = zerorm;
+X
+X	oinit();	/* assign level dependent obj probabilities */
+X#ifdef RPH
+X	if (u.wiz_level == 0) {
+X	    u.medusa_level = rn1(3, (MAXLEVEL > 30) ? 25 : (MAXLEVEL - 4) ); 
+X	    u.wiz_level    = rn1(MAXLEVEL-u.medusa_level, u.medusa_level)+1;
+X#ifdef STOOGES
+X	    u.stooge_level = rn1(6,4);
+X#endif
+X	}
+X	if (dlevel > u.medusa_level) {
+X	    makemaz();
+X	    return;
+X	}
+X#else
+X	if(dlevel >= rn1(3, 26)) {	/* there might be several mazes */
+X		makemaz();
+X		return;
+X	}
+X#endif
+X	/* construct the rooms */
+X	nroom = 0;
+X	secret = FALSE;
+X	(void) makerooms();
+X
+X	/* construct stairs (up and down in different rooms if possible) */
+X	croom = &rooms[rn2(nroom)];
+X	xdnstair = somex();
+X	ydnstair = somey();
+X	levl[xdnstair][ydnstair].scrsym = DN_SYM;
+X	levl[xdnstair][ydnstair].typ = STAIRS;
+X#ifdef RPH
+X	{ struct monst *mtmp;
+X	if (dlevel == u.medusa_level) 
+X	    if (mtmp = makemon(PM_MEDUSA, xdnstair, ydnstair))
+X	        mtmp->msleep = 1;
+X	}
+X#endif
+X#ifdef STOOGES
+X	{ struct monst *mtmp;
+X	if (dlevel == u.stooge_level) {    /* probably should use enexto */
+X		mtmp = makemon(PM_MOE, xdnstair, ydnstair);
+X		if (mtmp) mtmp->isstooge = 1;
+X		if (mtmp) mtmp->mpeaceful = 1;
+X		if (goodpos(xdnstair+1, ydnstair))
+X	    		mtmp = makemon(PM_LARRY, xdnstair+1, ydnstair);
+X		else if (goodpos(xdnstair-1, ydnstair))
+X	    		mtmp = makemon(PM_LARRY, xdnstair-1, ydnstair);
+X		if (mtmp) mtmp->isstooge = 1;
+X		if (mtmp) mtmp->mpeaceful = 1;
+X		if (goodpos(xdnstair, ydnstair+1))
+X	    		mtmp = makemon(PM_CURLY, xdnstair, ydnstair+1);
+X	    	else if (goodpos(xdnstair, ydnstair-1))
+X	    		mtmp = makemon(PM_CURLY, xdnstair, ydnstair-1);
+X		if (mtmp) mtmp->isstooge = 1;
+X		if (mtmp) mtmp->mpeaceful = 1;
+X	 	}
+X	}
+X#endif
+X	if(nroom > 1) {
+X		troom = croom;
+X		croom = &rooms[rn2(nroom-1)];
+X		if(croom >= troom) croom++;
+X	}
+X	xupstair = somex();	/* %% < and > might be in the same place */
+X	yupstair = somey();
+X	levl[xupstair][yupstair].scrsym = UP_SYM;
+X	levl[xupstair][yupstair].typ = STAIRS;
+X
+X	/* for each room: put things inside */
+X	for(croom = rooms; croom->hx > 0; croom++) {
+X
+X		/* put a sleeping monster inside */
+X		/* Note: monster may be on the stairs. This cannot be
+X		   avoided: maybe the player fell through a trapdoor
+X		   while a monster was on the stairs. Conclusion:
+X		   we have to check for monsters on the stairs anyway. */
+X#ifdef BVH
+X		if(has_amulet() || !rn2(3))
+X#else
+X		if (!rn2(3))
+X#endif
+X#ifndef SPIDERS
+X		    (void)makemon((struct permonst *) 0, somex(), somey());
+X#else
+X		{
+X		    x = somex(); y = somey();
+X		    tmonst=makemon((struct permonst *) 0, x,y);
+X		    if (tmonst && tmonst->data->mlet == 's')
+X		        (void) maketrap (x,y,WEB);
+X		}
+X#endif
+X		/* put traps and mimics inside */
+X		goldseen = FALSE;
+X		while(!rn2(8-(dlevel/6))) mktrap(0,0,croom);
+X		if(!goldseen && !rn2(3)) mkgold(0L,somex(),somey());
+X#ifdef FOUNTAINS
+X		if(!rn2(10)) mkfount(0,croom);
+X#endif
+X#ifdef SINKS
+X		if(!rn2(80)) mksink(croom);
+X#endif
+X		if(!rn2(3)) {
+X			(void) mkobj_at(0, somex(), somey());
+X			tryct = 0;
+X			while(!rn2(5)) {
+X				if(++tryct > 100){
+X					printf("tryct overflow4\n");
+X					break;
+X				}
+X				(void) mkobj_at(0, somex(), somey());
+X			}
+X		}
+X	}
+X
+X	qsort((char *) rooms, nroom, sizeof(struct mkroom), comp);
+X	makecorridors();
+X	make_niches();
+X
+X	/* make a secret treasure vault, not connected to the rest */
+X	if(nroom <= (2*MAXNROFROOMS/3)) if(rn2(3)) {
+X		troom = &rooms[nroom];
+X		secret = TRUE;
+X		if(makerooms()) {
+X			troom->rtype = VAULT;		/* treasure vault */
+X			for(x = troom->lx; x <= troom->hx; x++)
+X			for(y = troom->ly; y <= troom->hy; y++)
+X				mkgold((long)(rnd(dlevel*100) + 50), x, y);
+X			if(!rn2(3))
+X				makevtele();
+X		}
+X	}
+X
+X#ifdef WIZARD
+X	if(wizard && getenv("SHOPTYPE")) mkroom(SHOPBASE); else
+X#endif
+X	if(dlevel > 1 && dlevel < 20 && rn2(dlevel) < 3) mkroom(SHOPBASE);
+X	else
+X#ifdef NEWCLASS
+X	if(dlevel > 4 && !rn2(6)) mkroom(COURT);
+X	else
+X#endif
+X	if(dlevel > 6 && !rn2(7)) mkroom(ZOO);
+X	else
+X	if(dlevel > 9 && !rn2(5)) mkroom(BEEHIVE);
+X	else
+X	if(dlevel > 11 && !rn2(6)) mkroom(MORGUE);
+X	else
+X#ifdef SAC
+X	if(dlevel > 14 && !rn2(4)) mkroom(BARRACKS);
+X	else
+X#endif
+X	if(dlevel > 18 && !rn2(6)) mkroom(SWAMP);
+X}
+X
+Xmakerooms() {
+Xregister struct rectangle *rsp;
+Xregister int lx, ly, hx, hy, lowx, lowy, hix, hiy, dx, dy;
+Xint tryct = 0, xlim, ylim;
+X
+X	/* init */
+X	xlim = XLIM + secret;
+X	ylim = YLIM + secret;
+X	if(nroom == 0) {
+X		rsp = rs;
+X		rsp->rlx = rsp->rly = 0;
+X		rsp->rhx = COLNO-1;
+X		rsp->rhy = ROWNO-1;
+X		rsmax = 1;
+X	}
+X	rscnt = rsmax;
+X
+X	/* make rooms until satisfied */
+X	while(rscnt > 0 && nroom < MAXNROFROOMS-1) {
+X		if(!secret && nroom > (MAXNROFROOMS/3) &&
+X		   !rn2((MAXNROFROOMS-nroom)*(MAXNROFROOMS-nroom)))
+X			return(0);
+X
+X		/* pick a rectangle */
+X		rsp = &rs[rn2(rscnt)];
+X		hx = rsp->rhx;
+X		hy = rsp->rhy;
+X		lx = rsp->rlx;
+X		ly = rsp->rly;
+X
+X		/* find size of room */
+X		if(secret)
+X			dx = dy = 1;
+X		else {
+X			dx = 2 + rn2((hx-lx-8 > 20) ? 12 : 8);
+X			dy = 2 + rn2(4);
+X			if(dx*dy > 50)
+X				dy = 50/dx;
+X		}
+X
+X		/* look whether our room will fit */
+X		if(hx-lx < dx + dx/2 + 2*xlim || hy-ly < dy + dy/3 + 2*ylim) {
+X					/* no, too small */
+X					/* maybe we throw this area out */
+X			if(secret || !rn2(MAXNROFROOMS+1-nroom-tryct)) {
+X				rscnt--;
+X				rs[rsmax] = *rsp;
+X				*rsp = rs[rscnt];
+X				rs[rscnt] = rs[rsmax];
+X				tryct = 0;
+X			} else
+X				tryct++;
+X			continue;
+X		}
+X
+X		lowx = lx + xlim + rn2(hx - lx - dx - 2*xlim + 1);
+X		lowy = ly + ylim + rn2(hy - ly - dy - 2*ylim + 1);
+X		hix = lowx + dx;
+X		hiy = lowy + dy;
+X
+X		if(maker(lowx, dx, lowy, dy)) {
+X			if(secret) return(1);
+X			addrs(lowx-1, lowy-1, hix+1, hiy+1);
+X			tryct = 0;
+X		} else
+X			if(tryct++ > 100)
+X				break;
+X	}
+X	return(0);	/* failed to make vault - very strange */
+X}
+X
+Xaddrs(lowx,lowy,hix,hiy)
+Xregister int lowx,lowy,hix,hiy;
+X{
+X	register struct rectangle *rsp;
+X	register int lx,ly,hx,hy,xlim,ylim;
+X	boolean discarded;
+X
+X	xlim = XLIM + secret;
+X	ylim = YLIM + secret;
+X
+X	/* walk down since rscnt and rsmax change */
+X	for(rsp = &rs[rsmax-1]; rsp >= rs; rsp--) {
+X		
+X		if((lx = rsp->rlx) > hix || (ly = rsp->rly) > hiy ||
+X		   (hx = rsp->rhx) < lowx || (hy = rsp->rhy) < lowy)
+X			continue;
+X		if((discarded = (rsp >= &rs[rscnt]))) {
+X			*rsp = rs[--rsmax];
+X		} else {
+X			rsmax--;
+X			rscnt--;
+X			*rsp = rs[rscnt];
+X			if(rscnt != rsmax)
+X				rs[rscnt] = rs[rsmax];
+X		}
+X		if(lowy - ly > 2*ylim + 4)
+X			addrsx(lx,ly,hx,lowy-2,discarded);
+X		if(lowx - lx > 2*xlim + 4)
+X			addrsx(lx,ly,lowx-2,hy,discarded);
+X		if(hy - hiy > 2*ylim + 4)
+X			addrsx(lx,hiy+2,hx,hy,discarded);
+X		if(hx - hix > 2*xlim + 4)
+X			addrsx(hix+2,ly,hx,hy,discarded);
+X	}
+X}
+X
+Xaddrsx(lx,ly,hx,hy,discarded)
+Xregister int lx,ly,hx,hy;
+Xboolean discarded;		/* piece of a discarded area */
+X{
+X	register struct rectangle *rsp;
+X
+X	/* check inclusions */
+X	for(rsp = rs; rsp < &rs[rsmax]; rsp++) {
+X		if(lx >= rsp->rlx && hx <= rsp->rhx &&
+X		   ly >= rsp->rly && hy <= rsp->rhy)
+X			return;
+X	}
+X
+X	/* make a new entry */
+X	if(rsmax >= MAXRS) {
+X#ifdef WIZARD
+X		if(wizard) pline("MAXRS may be too small.");
+X#endif
+X		return;
+X	}
+X	rsmax++;
+X	if(!discarded) {
+X		*rsp = rs[rscnt];
+X		rsp = &rs[rscnt];
+X		rscnt++;
+X	}
+X	rsp->rlx = lx;
+X	rsp->rly = ly;
+X	rsp->rhx = hx;
+X	rsp->rhy = hy;
+X}
+X
+Xcomp(x,y)
+Xregister struct mkroom *x,*y;
+X{
+X	if(x->lx < y->lx) return(-1);
+X	return(x->lx > y->lx);
+X}
+X
+Xfinddpos(cc, xl,yl,xh,yh)
+Xcoord	*cc;
+Xint	xl,yl,xh,yh;
+X{
+X	register x,y;
+X
+X	x = (xl == xh) ? xl : (xl + rn2(xh-xl+1));
+X	y = (yl == yh) ? yl : (yl + rn2(yh-yl+1));
+X	if(okdoor(x, y))
+X		goto gotit;
+X
+X	for(x = xl; x <= xh; x++) for(y = yl; y <= yh; y++)
+X		if(okdoor(x, y))
+X			goto gotit;
+X
+X	for(x = xl; x <= xh; x++) for(y = yl; y <= yh; y++)
+X		if(levl[x][y].typ == DOOR || levl[x][y].typ == SDOOR)
+X			goto gotit;
+X	/* cannot find something reasonable -- strange */
+X	x = xl;
+X	y = yh;
+Xgotit:
+X	cc->x = x;
+X	cc->y = y;
+X	return(0);
+X}
+X
+X/* see whether it is allowable to create a door at [x,y] */
+Xokdoor(x,y)
+Xregister x,y;
+X{
+X	if(levl[x-1][y].typ == DOOR || levl[x+1][y].typ == DOOR ||
+X	   levl[x][y+1].typ == DOOR || levl[x][y-1].typ == DOOR ||
+X	   levl[x-1][y].typ == SDOOR || levl[x+1][y].typ == SDOOR ||
+X	   levl[x][y-1].typ == SDOOR || levl[x][y+1].typ == SDOOR ||
+X	   (levl[x][y].typ != HWALL && levl[x][y].typ != VWALL) ||
+X	   doorindex >= DOORMAX)
+X		return(0);
+X	return(1);
+X}
+X
+Xdodoor(x,y,aroom)
+Xregister x,y;
+Xregister struct mkroom *aroom;
+X{
+X	if(doorindex >= DOORMAX) {
+X		impossible("DOORMAX exceeded?");
+X		return;
+X	}
+X	if(!okdoor(x,y) && nxcor)
+X		return;
+X	dosdoor(x,y,aroom,rn2(8) ? DOOR : SDOOR);
+X}
+X
+Xdosdoor(x,y,aroom,type)
+Xregister x,y;
+Xregister struct mkroom *aroom;
+Xregister type;
+X{
+X	register struct mkroom *broom;
+X	register tmp;
+X
+X	if(!IS_WALL(levl[x][y].typ))	/* avoid SDOORs with DOOR_SYM as scrsym */
+X		type = DOOR;
+X	levl[x][y].typ = type;
+X	if(type == DOOR)
+X		levl[x][y].scrsym = DOOR_SYM;
+X	aroom->doorct++;
+X	broom = aroom+1;
+X	if(broom->hx < 0) tmp = doorindex; else
+X	for(tmp = doorindex; tmp > broom->fdoor; tmp--)
+X		doors[tmp] = doors[tmp-1];
+X	doorindex++;
+X	doors[tmp].x = x;
+X	doors[tmp].y = y;
+X	for( ; broom->hx >= 0; broom++) broom->fdoor++;
+X}
+X
+X/* Only called from makerooms() */
+Xmaker(lowx,ddx,lowy,ddy)
+Xschar lowx,ddx,lowy,ddy;
+X{
+X	register struct mkroom *croom;
+X	register x, y, hix = lowx+ddx, hiy = lowy+ddy;
+X	register xlim = XLIM + secret, ylim = YLIM + secret;
+X
+X	if(nroom >= MAXNROFROOMS) return(0);
+X	if(lowx < XLIM) lowx = XLIM;
+X	if(lowy < YLIM) lowy = YLIM;
+X	if(hix > COLNO-XLIM-1) hix = COLNO-XLIM-1;
+X	if(hiy > ROWNO-YLIM-1) hiy = ROWNO-YLIM-1;
+Xchk:
+X	if(hix <= lowx || hiy <= lowy) return(0);
+X
+X	/* check area around room (and make room smaller if necessary) */
+X	for(x = lowx - xlim; x <= hix + xlim; x++) {
+X		for(y = lowy - ylim; y <= hiy + ylim; y++) {
+X			if(levl[x][y].typ) {
+X#ifdef WIZARD
+X			    if(wizard && !secret)
+X				pline("Strange area [%d,%d] in maker().",x,y);
+X#endif
+X				if(!rn2(3)) return(0);
+X				if(x < lowx)
+X					lowx = x+xlim+1;
+X				else
+X					hix = x-xlim-1;
+X				if(y < lowy)
+X					lowy = y+ylim+1;
+X				else
+X					hiy = y-ylim-1;
+X				goto chk;
+X			}
+X		}
+X	}
+X
+X	croom = &rooms[nroom];
+X
+X	/* on low levels the room is lit (usually) */
+X	/* secret vaults are always lit */
+X	if((rnd(dlevel) < 10 && rn2(77)) || (ddx == 1 && ddy == 1)) {
+X		for(x = lowx-1; x <= hix+1; x++)
+X			for(y = lowy-1; y <= hiy+1; y++)
+X				levl[x][y].lit = 1;
+X		croom->rlit = 1;
+X	} else
+X		croom->rlit = 0;
+X	croom->lx = lowx;
+X	croom->hx = hix;
+X	croom->ly = lowy;
+X	croom->hy = hiy;
+X	croom->rtype = OROOM;
+X	croom->doorct = croom->fdoor = 0;
+X
+X	for(x = lowx-1; x <= hix+1; x++)
+X	    for(y = lowy-1; y <= hiy+1; y += (hiy-lowy+2)) {
+X		levl[x][y].scrsym = HWALL_SYM;
+X		levl[x][y].typ = HWALL;
+X	}
+X	for(x = lowx-1; x <= hix+1; x += (hix-lowx+2))
+X	    for(y = lowy; y <= hiy; y++) {
+X		levl[x][y].scrsym = VWALL_SYM;
+X		levl[x][y].typ = VWALL;
+X	}
+X	for(x = lowx; x <= hix; x++)
+X	    for(y = lowy; y <= hiy; y++) {
+X		levl[x][y].scrsym = ROOM_SYM;
+X		levl[x][y].typ = ROOM;
+X	}
+X	levl[lowx-1][lowy-1].scrsym = TLCORN_SYM;
+X	levl[hix+1][lowy-1].scrsym = TRCORN_SYM;
+X	levl[lowx-1][hiy+1].scrsym = BLCORN_SYM;
+X	levl[hix+1][hiy+1].scrsym = BRCORN_SYM;
+X
+X	smeq[nroom] = nroom;
+X	croom++;
+X	croom->hx = -1;
+X	nroom++;
+X	return(1);
+X}
+X
+Xmakecorridors() {
+X	register a,b;
+X
+X	nxcor = 0;
+X	for(a = 0; a < nroom-1; a++)
+X		join(a, a+1);
+X	for(a = 0; a < nroom-2; a++)
+X	    if(smeq[a] != smeq[a+2])
+X		join(a, a+2);
+X	for(a = 0; a < nroom; a++)
+X	    for(b = 0; b < nroom; b++)
+X		if(smeq[a] != smeq[b])
+X		    join(a, b);
+X	if(nroom > 2)
+X	    for(nxcor = rn2(nroom) + 4; nxcor; nxcor--) {
+X		a = rn2(nroom);
+X		b = rn2(nroom-2);
+X		if(b >= a) b += 2;
+X		join(a, b);
+X	    }
+X}
+X
+Xjoin(a,b)
+Xregister a,b;
+X{
+X	coord cc,tt;
+X	register tx, ty, xx, yy;
+X	register struct rm *crm;
+X	register struct mkroom *croom, *troom;
+X	register dx, dy, dix, diy, cct;
+X
+X	croom = &rooms[a];
+X	troom = &rooms[b];
+X
+X	/* find positions cc and tt for doors in croom and troom
+X	   and direction for a corridor between them */
+X
+X	if(troom->hx < 0 || croom->hx < 0 || doorindex >= DOORMAX) return;
+X	if(troom->lx > croom->hx) {
+X		dx = 1;
+X		dy = 0;
+X		xx = croom->hx+1;
+X		tx = troom->lx-1;
+X		finddpos(&cc, xx, croom->ly, xx, croom->hy);
+X		finddpos(&tt, tx, troom->ly, tx, troom->hy);
+X	} else if(troom->hy < croom->ly) {
+X		dy = -1;
+X		dx = 0;
+X		yy = croom->ly-1;
+X		finddpos(&cc, croom->lx, yy, croom->hx, yy);
+X		ty = troom->hy+1;
+X		finddpos(&tt, troom->lx, ty, troom->hx, ty);
+X	} else if(troom->hx < croom->lx) {
+X		dx = -1;
+X		dy = 0;
+X		xx = croom->lx-1;
+X		tx = troom->hx+1;
+X		finddpos(&cc, xx, croom->ly, xx, croom->hy);
+X		finddpos(&tt, tx, troom->ly, tx, troom->hy);
+X	} else {
+X		dy = 1;
+X		dx = 0;
+X		yy = croom->hy+1;
+X		ty = troom->ly-1;
+X		finddpos(&cc, croom->lx, yy, croom->hx, yy);
+X		finddpos(&tt, troom->lx, ty, troom->hx, ty);
+X	}
+X	xx = cc.x;
+X	yy = cc.y;
+X	tx = tt.x - dx;
+X	ty = tt.y - dy;
+X	if(nxcor && levl[xx+dx][yy+dy].typ)
+X		return;
+X	dodoor(xx,yy,croom);
+X
+X	cct = 0;
+X	while(xx != tx || yy != ty) {
+X	    xx += dx;
+X	    yy += dy;
+X
+X	    /* loop: dig corridor at [xx,yy] and find new [xx,yy] */
+X	    if(cct++ > 500 || (nxcor && !rn2(35)))
+X		return;
+X
+X	    if(xx == COLNO-1 || xx == 0 || yy == 0 || yy == ROWNO-1)
+X		return;		/* impossible */
+X
+X	    crm = &levl[xx][yy];
+X	    if(!(crm->typ)) {
+X		if(rn2(100)) {
+X			crm->typ = CORR;
+X			crm->scrsym = CORR_SYM;
+X			if(nxcor && !rn2(50))
+X				(void) mkobj_at(ROCK_SYM, xx, yy);
+X		} else {
+X			crm->typ = SCORR;
+X			crm->scrsym = STONE_SYM;
+X		}
+X	    } else
+X	    if(crm->typ != CORR && crm->typ != SCORR) {
+X		/* strange ... */
+X		return;
+X	    }
+X
+X	    /* find next corridor position */
+X	    dix = abs(xx-tx);
+X	    diy = abs(yy-ty);
+X
+X	    /* do we have to change direction ? */
+X	    if(dy && dix > diy) {
+X		register ddx = (xx > tx) ? -1 : 1;
+X
+X		crm = &levl[xx+ddx][yy];
+X		if(!crm->typ || crm->typ == CORR || crm->typ == SCORR) {
+X		    dx = ddx;
+X		    dy = 0;
+X		    continue;
+X		}
+X	    } else if(dx && diy > dix) {
+X		register ddy = (yy > ty) ? -1 : 1;
+X
+X		crm = &levl[xx][yy+ddy];
+X		if(!crm->typ || crm->typ == CORR || crm->typ == SCORR) {
+X		    dy = ddy;
+X		    dx = 0;
+X		    continue;
+X		}
+X	    }
+X
+X	    /* continue straight on? */
+X	    crm = &levl[xx+dx][yy+dy];
+X	    if(!crm->typ || crm->typ == CORR || crm->typ == SCORR)
+X		continue;
+X
+X	    /* no, what must we do now?? */
+X	    if(dx) {
+X		dx = 0;
+X		dy = (ty < yy) ? -1 : 1;
+X		crm = &levl[xx+dx][yy+dy];
+X		if(!crm->typ || crm->typ == CORR || crm->typ == SCORR)
+X		    continue;
+X		dy = -dy;
+X		continue;
+X	    } else {
+X		dy = 0;
+X		dx = (tx < xx) ? -1 : 1;
+X		crm = &levl[xx+dx][yy+dy];
+X		if(!crm->typ || crm->typ == CORR || crm->typ == SCORR)
+X		    continue;
+X		dx = -dx;
+X		continue;
+X	    }
+X	}
+X
+X	/* we succeeded in digging the corridor */
+X	dodoor(tt.x, tt.y, troom);
+X
+X	if(smeq[a] < smeq[b])
+X		smeq[b] = smeq[a];
+X	else
+X		smeq[a] = smeq[b];
+X}
+X
+Xmake_niches()
+X{
+X	register int ct = rnd(nroom/2 + 1);
+X#ifdef NEWCLASS
+X	boolean	ltptr = TRUE,
+X		vamp = TRUE;
+X
+X	while(ct--) {
+X
+X		if(dlevel > 15 && !rn2(6) && ltptr) {
+X
+X			ltptr = FALSE;
+X			makeniche(LEVEL_TELEP);
+X		} else if (dlevel > 5 && dlevel < 25
+X			   && !rn2(6) && vamp) {
+X
+X			vamp = FALSE;
+X			makeniche(TRAPDOOR);
+X		} else	makeniche(NO_TRAP);
+X	}
+X#else
+X	while(ct--) makeniche(NO_TRAP);
+X#endif
+X}
+X
+Xmakevtele()
+X{
+X	makeniche(TELEP_TRAP);
+X}
+X
+X/* there should be one of these per trap */
+Xchar    *engravings[] = {       "", "", "", "", "",
+X				"ad ae?ar um", "?la? ?as ?er?",
+X				"", "", ""
+X#ifdef NEWTRAPS
+X				,"", ""
+X#endif
+X#ifdef SPIDERS
+X				,""
+X#endif
+X#ifdef NEWCLASS
+X				, "", "ad ae?ar um"
+X#endif
+X#ifdef SPELLS
+X				,""
+X#endif
+X#ifdef KAA
+X				,""
+X#ifdef RPH
+X				,""
+X#endif
+X#endif
+X#ifdef SAC
+X				,""
+X#endif
+X				};
+X
+Xmakeniche(trap_type)
+Xint trap_type;
+X{
+X	register struct mkroom *aroom;
+X	register struct rm *rm;
+X	register int vct = 8;
+X	coord dd;
+X	register dy,xx,yy;
+X	register struct trap *ttmp;
+X
+X	if(doorindex < DOORMAX)
+X	  while(vct--) {
+X	    aroom = &rooms[rn2(nroom-1)];
+X	    if(aroom->rtype != OROOM) continue;	/* not an ordinary room */
+X	    if(aroom->doorct == 1 && rn2(5)) continue;
+X	    if(rn2(2)) {
+X		dy = 1;
+X		finddpos(&dd, aroom->lx, aroom->hy+1, aroom->hx, aroom->hy+1);
+X	    } else {
+X		dy = -1;
+X		finddpos(&dd, aroom->lx, aroom->ly-1, aroom->hx, aroom->ly-1);
+X	    }
+X	    xx = dd.x;
+X	    yy = dd.y;
+X	    if((rm = &levl[xx][yy+dy])->typ) continue;
+X	    if(trap_type || !rn2(4)) {
+X
+X		rm->typ = SCORR;
+X		rm->scrsym = STONE_SYM;
+X		if(trap_type) {
+X		    ttmp = maketrap(xx, yy+dy, trap_type);
+X		    ttmp->once = 1;
+X		    if (strlen(engravings[trap_type]) > 0)
+X			make_engr_at(xx, yy-dy, engravings[trap_type]);
+X		}
+X		dosdoor(xx, yy, aroom, SDOOR);
+X	    } else {
+X		rm->typ = CORR;
+X		rm->scrsym = CORR_SYM;
+X		if(rn2(7))
+X		    dosdoor(xx, yy, aroom, rn2(5) ? SDOOR : DOOR);
+X		else {
+X		    mksobj_at(SCR_TELEPORTATION, xx, yy+dy);
+X		    if(!rn2(3)) (void) mkobj_at(0, xx, yy+dy);
+X		}
+X	    }
+X	    return;
+X	}
+X}
+X
+X/* make a trap somewhere (in croom if mazeflag = 0) */
+Xmktrap(num, mazeflag, croom)
+X#ifndef REGBUG
+Xregister
+X#endif
+X	 int num, mazeflag;
+X#ifndef REGBUG
+Xregister
+X#endif
+X	 struct mkroom *croom;
+X{
+X#ifndef REGBUG
+X	register
+X#endif
+X		 struct trap *ttmp;
+X#ifndef REGBUG
+X	register
+X#endif
+X		int kind,nopierc,nomimic,fakedoor,fakegold,
+X#ifdef SPIDERS
+X		    nospider,
+X#endif
+X#ifdef NEWCLASS
+X		    nospikes, nolevltp,
+X#endif
+X#ifdef SAC
+X		    nolandmine,
+X#endif
+X		    tryct = 0;
+X
+X	xchar mx,my;
+X	extern char fut_geno[];
+X
+X	if(!num || num >= TRAPNUM) {
+X		nopierc = (dlevel < 4) ? 1 : 0;
+X#ifdef NEWCLASS
+X		nolevltp = (dlevel < 5) ? 1 : 0;
+X		nospikes = (dlevel < 6) ? 1 : 0;
+X#endif
+X#ifdef SPIDERS
+X		nospider = (dlevel < 7) ? 1 : 0;
+X#endif
+X#ifdef SAC
+X		nolandmine = (dlevel < 5) ? 1 : 0;
+X#endif
+X		nomimic = (dlevel < 9 || goldseen ) ? 1 : 0;
+X		if(index(fut_geno, 'M')) nomimic = 1;
+X
+X		do {
+X		    kind = rnd(TRAPNUM-1);
+X			if((kind == PIERC && nopierc) ||
+X			   (kind == MIMIC && nomimic)
+X#ifdef SPIDERS
+X			   || ((kind == WEB) && nospider)
+X#endif
+X#ifdef NEWCLASS
+X			   || (kind == SPIKED_PIT && nospikes)
+X			   || (kind == LEVEL_TELEP && nolevltp)
+X#endif
+X#ifdef SAC
+X			   || (kind == LANDMINE && nolandmine)
+X#endif
+X			   )  kind = NO_TRAP;
+X		} while(kind == NO_TRAP);
+X	} else kind = num;
+X
+X	if(kind == MIMIC) {
+X		register struct monst *mtmp;
+X
+X		fakedoor = (!rn2(3) && !mazeflag);
+X		fakegold = (!fakedoor && !rn2(2));
+X		if(fakegold) goldseen = TRUE;
+X		do {
+X			if(++tryct > 200) return;
+X			if(fakedoor) {
+X				/* note: fakedoor maybe on actual door */
+X				if(rn2(2)){
+X				    if(rn2(2))	mx = croom->hx+1;
+X				    else	mx = croom->lx-1;
+X				    my = somey();
+X				} else {
+X				    if(rn2(2))	my = croom->hy+1;
+X				    else	my = croom->ly-1;
+X				    mx = somex();
+X				}
+X			} else if(mazeflag) {
+X				coord mm;
+X				mazexy(&mm);
+X				mx = mm.x;
+X				my = mm.y;
+X			} else {
+X				mx = somex();
+X				my = somey();
+X			}
+X		} while(m_at(mx,my) || levl[mx][my].typ == STAIRS);
+X		if(mtmp = makemon(PM_MIMIC,mx,my)) {
+X		    mtmp->mimic = 1;
+X		    mtmp->mappearance =
+X			fakegold ? '$' : fakedoor ? DOOR_SYM :
+X			(mazeflag && rn2(2)) ? AMULET_SYM :
+X#ifdef SPELLS
+X			"=/)%?![<>+" [ rn2(10) ];
+X#else
+X			"=/)%?![<>" [ rn2(9) ];
+X#endif
+X		}
+X		return;
+X	}
+X
+X	do {
+X		if(++tryct > 200)
+X			return;
+X		if(mazeflag){
+X			coord mm;
+X			mazexy(&mm);
+X			mx = mm.x;
+X			my = mm.y;
+X		} else {
+X			mx = somex();
+X			my = somey();
+X		}
+X	} while(t_at(mx, my) || levl[mx][my].typ == STAIRS);
+X	ttmp = maketrap(mx, my, kind);
+X#ifdef SPIDERS
+X	if (kind == WEB) mkmon_at ('s', mx, my);
+X#endif
+X	if(mazeflag && !rn2(10) && ttmp->ttyp < PIERC)
+X		ttmp->tseen = 1;
+X}
+X
+X#ifdef FOUNTAINS
+Xmkfount(mazeflag,croom)
+Xregister struct mkroom *croom;
+Xregister mazeflag;
+X{
+X      register xchar mx,my;
+X      register int tryct = 0;
+X
+X      do {
+X	      if(++tryct > 200)
+X		      return;
+X	      if(mazeflag){
+X		      coord mm;
+X		      mazexy(&mm);
+X		      mx = mm.x;
+X		      my = mm.y;
+X	      } else {
+X		      mx = somex();
+X		      my = somey();
+X	      }
+X      } while(t_at(mx, my) || levl[mx][my].typ == STAIRS
+X#ifdef NEWCLASS
+X	      || IS_THRONE(levl[mx][my].typ)
+X#endif
+X	     );
+X
+X       /* Put a fountain at mx, my */
+X
+X       levl[mx][my].typ = FOUNTAIN;
+X       levl[mx][my].scrsym = FOUNTAIN_SYM;
+X
+X}
+X#endif /* FOUNTAINS /**/
+X
+X#ifdef SINKS
+Xmksink(croom)
+Xregister struct mkroom *croom;
+X{
+X      register xchar mx,my;
+X      register int tryct = 0;
+X
+X      do {
+X	      if(++tryct > 200)
+X		      return;
+X	      mx = somex();
+X	      my = somey();
+X      } while(t_at(mx, my) || levl[mx][my].typ == STAIRS
+X#ifdef FOUNTAINS
+X	      || IS_FOUNTAIN(levl[mx][my].typ)
+X#endif
+X#ifdef NEWCLASS
+X	      || IS_THRONE(levl[mx][my].typ)
+X#endif
+X	     );
+X
+X       /* Put a sink at mx, my */
+X
+X       levl[mx][my].typ = SINK;
+X       levl[mx][my].scrsym = SINK_SYM;
+X
+X}
+X#endif /* SINKS /**/
+END_OF_mklev.c
+if test 21798 -ne `wc -c <mklev.c`; then
+    echo shar: \"mklev.c\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+if test -f rumors.base -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"rumors.base\"
+else
+echo shar: Extracting \"rumors.base\" \(25522 characters\)
+sed "s/^X//" >rumors.base <<'END_OF_rumors.base'
+X"Quit" is a four letter word.
+X"So when I die, the first thing I will see in Heaven is a score list?"
+X-- more --
+X...and rings may protect your fingers.
+X...and sometimes a piercer drops by.
+XA Quasit is even faster than a jaguar!
+XA blindfold can be very useful if you're telepathic
+XA chameleon imitating a postman often delivers scrolls of fire.
+XA chameleon imitating a postman sometimes delivers scrolls of punishment.
+XA clove of garlic a day keeps your best friends away.
+XA cockatrice's corpse is guaranteed to be untainted!
+XA confused acid blob may attack.
+XA dead lizard is a good thing to turn undead.
+XA dragon is just a Snake that ate a scroll of fire.
+XA fading corridor enlightens your insight.
+XA glowing potion is too hot to drink.
+XA good amulet may protect you against guards.
+XA homunculus wouldn't want to hurt a wizard.
+XA jaguar shouldn't frighten you.
+XA long worm can be defined recursively. So how should you attack it?
+XA long worm hits with all of its length.
+XA magic vomit pump is a necessity for gourmands.
+XA monstrous mind is a toy for ever.
+XA nurse a day keeps the doctor away.
+XA potion of blindness makes you see invisible things.
+XA ring is just a wound wand.
+XA ring of adornment protects against Nymphs.
+XA ring of conflict is a bad thing if there is a nurse in the room.
+XA ring of extra ring finger is useless if not enchanted.
+XA ring of stealth can be recognized by that it does not teleport you.
+XA rope may form a trail in a maze.
+XA rumor has it that rumors are just rumors.
+XA scroll of enchant amulet is only useful on your way back.
+XA smoky potion surely affects your vision.
+XA spear might hit a nurse.
+XA spear will hit an ettin.
+XA staff may recharge if you drop it for awhile.
+XA tin of smoked eel is a wonderful find.
+XA truly wise man never plays leapfrog with a unicorn.
+XA two-handed sword usually misses.
+XA unicorn can be tamed only by a fair maiden.
+XA visit to the Zoo is very educational; you meet interesting animals.
+XA wand of deaf is a more dangerous weapon than a wand of sheep.
+XA wand of vibration might bring the whole cave crashing about your ears.
+XA winner never quits. A quitter never wins.
+XA xan is a small animal. It doesn't reach higher than your leg.
+XAcid blobs should be attacked bare-handed.
+XAffairs with Nymphs are often very expensive.
+XAfraid of Mimics? Try to wear a ring of true seeing.
+XAfraid of falling piercers? Wear a helmet!
+XAfter being attacked by a Harpy you have a lot of arrows.
+XAll monsters are created evil, but some are more evil than others.
+XAlways attack a floating Eye from behind!
+XAlways be aware of the phase of the moon!
+XAlways read the info about a monster before dealing with it.
+XAlways sweep the floor before engraving important messages.
+XAmulets are hard to make. Even for a wand of wishing.
+XAn Umber hulk can be a confusing sight.
+XAn elven cloak is always the height of fashion.
+XAn elven cloak protects against magic.
+XAn ettin is hard to kill; an imp is hard to hit. See the difference?
+XAny small object that is accidentally dropped will hide under a larger object.
+XAre you blind? Catch a floating Eye!
+XAsking about monsters may be very useful.
+XAttack long worms from the rear - that is so much safer!
+XAttacking an eel when there is none usually is a fatal mistake!
+XBalrogs only appear on the deeper levels.
+XBe careful when eating bananas. Monsters might slip on the peels.
+XBe careful when eating salmon - your fingers might become greasy.
+XBe careful when the moon is in its last quarter.
+XBe careful when throwing a boomerang - you might hit the back of your head.
+XBe nice to a nurse: put away your weapon and take off your clothes.
+XBeing digested is a painfully slow process.
+XBetter go home and hit your kids. They are just little monsters!
+XBetter go home and play with your kids. They are just little monsters!
+XBetter leave the dungeon, otherwise you might get hurt badly.
+XBeware of dark rooms - they may be the Morgue.
+XBeware of death rays!
+XBeware of falling rocks, wear a helmet!
+XBeware of hungry dogs!
+XBeware of the minotaur. He's very horny!
+XBeware of the potion of nitroglycerin - it's not for the weak of heart.
+XBeware of wands of instant disaster.
+XBeware: there's always a chance that your wand explodes as you try to zap it!
+XBeyond the 23-rd level lies a happy retirement in a room of your own.
+XBlank scrolls make more interesting reading.
+XBlind? Eat a carrot!
+XBooksellers never read scrolls; it might carry them too far away.
+XBooksellers never read scrolls; it might leave their shop unguarded.
+XChanging your suit without dropping your sword? You must be kidding!
+XCockatrices might turn themselves to stone faced with a mirror.
+XConsumption of home-made food is strictly forbidden in this dungeon.
+XDark gems are just colored glass.
+XDark room? Just flash often with your camera.
+XDark room? Your chance to develop your photographs!
+XDark rooms are not *completely* dark: just wait and let your eyes adjust...
+XDead lizards protect against a cockatrice.
+XDeath is just around the next door.
+XDeath is life's way of telling you you've been fired.
+XDescend in order to meet more decent monsters.
+XDid you know worms had teeth?
+XDidn't you forget to pay?
+XDirect a direct hit on your direct opponent, directing in the right direction.
+XDo something big today: lift a boulder.
+XDo you want to visit hell? Dig a *very* deep hole.
+XDogs are attracted by the smell of tripe.
+XDogs do not eat when the moon is full.
+XDogs never step on cursed items.
+XDogs of ghosts aren't angry, just hungry.
+XDon't bother about money: only Leprechauns and shopkeepers are interested.
+XDon't create fireballs: they might turn against you.
+XDon't eat too much: you might start hiccoughing!
+XDon't forget! Large dogs are MUCH harder to kill than little dogs.
+XDon't play hack at your work, your boss might hit you!
+XDon't swim with weapons or armor: they might rust!
+XDon't tell a soul you found a secret door, otherwise it isn't secret anymore.
+XDon't throw gems. They are so precious! Besides, you might hit a roommate.
+XDrinking might affect your health.
+XDrop your vanity and get rid of your jewels! Pickpockets about!
+XDungeon expects every monster to do his duty.
+XDust is an armor of poor quality.
+XEat 10 cloves of garlic and keep all humans at a two-square distance.
+XEat a homunculus if you want to avoid sickness.
+XEating a Wraith is a rewarding experience!
+XEating a freezing sphere is like eating a yeti.
+XEating a killer bee is like eating a scorpion.
+XEating a tengu is like eating a Nymph.
+XEating unpaid Leprechauns may be advantageous.
+XEels hide under mud. Use a unicorn to clear the water and make them visible.
+XElven cloaks cannot rust.
+XEngrave your wishes with a wand of wishing.
+XEventually all wands of striking do strike.
+XEventually you will come to admire the swift elegance of a retreating nymph.
+XEver fought with an enchanted tooth?
+XEver heard hissing outside? I *knew* you hadn't!
+XEver seen a leocrotta dancing the tengu?
+XEver slept in the arms of a homunculus?
+XEver tamed a shopkeeper?
+XEver tried digging through a Vault Guard?
+XEver tried enchanting a rope?
+XEver tried to catch a flying boomerang?
+XEver tried to put a Troll into a large box?
+XEver wondered why one would want to dip something in a potion?
+XEvery dog should be a domesticated one.
+XEvery hand has only one finger to put a ring on. You've got only two hands. So?
+XEvery level contains a shop; only the entrance is often hidden.
+XEverybody should have tasted a scorpion at least once in his life.
+XExpensive cameras have penetrating flashlights.
+XFeeding the animals is strictly prohibited. The Management.
+XFeeling lousy? Why don't you drink a potion of tea?
+XFiery letters might deter monsters.
+XFirst Law of Hacking: leaving is much more difficult than entering.
+XFor any remedy there is a misery.
+XFourth Law of Hacking: you will find the exit at the entrance.
+XGems are the droppings of other inmates.
+XGems are the droppings of Umber Hulks.
+XGems do get a burden.
+XGenocide on shopkeepers is punishable.
+XGetting Hungry? Stop wearing rings!
+XGetting Hungry? Wear an amulet!
+XGhosts always empty the fridge.
+XGhosts are visible because they don't leave a trace.
+XGiant beetles make giant holes in giant trees!
+XGiving head to a long worm is like a long lasting reception.
+XGold is a heavy metal.
+XGood day for overcoming obstacles.  Try a steeplechase.
+XGossip is the opiate of the depressed.
+XHackers do it with bugs.
+XHalf Moon tonight.  (At least it's better than no Moon at all.)
+XHandle your flasks carefully - there might be a ghost inside!
+XHave a good meal today: eat a minotaur.
+XHey guys, you *WIELD* a dead lizard against a cockatrice! [David London]
+XHissing is a sound I hate.
+XHitting is the lingua franca in these regions.
+XHumans use walking canes when they grow old.
+XHunger is a confusing experience for a dog!
+XHungry dogs are unreliable.
+XHungry? There is an abundance of food on the next level.
+XHungry? Wear an amulet!
+XI doubt whether nurses are virgins.
+XI guess you have never hit a postman with an Amulet of Yendor yet...
+XI once knew a hacker who ate too fast and choked to death.....
+XI smell a maze of twisty little passages.
+XI wished, I never wished a wand of wishing. (Wishful thinking)
+XIf "nothing happens", something *has* happened anyway!!
+XIf a chameleon mimics a mace, it really mimics a Mimic mimicking a mace.
+XIf a shopkeeper kicks you out of his shop, he'll kick you out of the dungeon.
+XIf you are being punished, it's done with a deadly weapon.
+XIf you are the shopkeeper you can take things for free.
+XIf you are too cute some monsters might be tempted to embrace you.
+XIf you can't learn to do it well, learn to enjoy doing it badly.
+XIf you need a wand of digging, kindly ask the minotaur.
+XIf you see nurses you better start looking somewhere for a doctor.
+XIf you turn blind: don't expect your dog to be turned into a seeing-eye dog.
+XIf you want to feel great, you must eat something real big.
+XIf you want to float you'd better eat a floating eye.
+XIf you want to genocide nurses, genocide @'s.
+XIf you want to hit, use a dagger.
+XIf you want to rob a shop, train your dog.
+XIf you were a troll, would you like looking yourself?
+XIf you're afraid of trapdoors, just cover the floor with all you've got.
+XIf you're lost, try buying a map next time you're in a shop.
+XIf your ghost kills a player, it increases your score.
+XImportant mail? Be careful that it isn't stolen!
+XImprove your environment, using a wand of rearrangement.
+XIn a hurry? Try a ride on a fast moving quasit!
+XIn a way, a scorpion is like a snake.
+XIn need of a rest? Quaff a potion of sickness!
+XIn total, there are nine sorts of shops (sometimes).
+XIncrease mindpower: Tame your own ghost!
+XInside a shop you better take a look at the price tags before buying anything.
+XIt furthers one to see the great man.
+XIt is bad manners to use a wand in a shop.
+XIt is not always a good idea to whistle for your dog.
+XIt is rumored that the Wizard has hired some help.
+XIt is said that Giant Rabbits can be tamed with carrots only.
+XIt is said that purple worms and trappers fill the same niche.
+XIt might be a good idea to offer the unicorn a ruby.
+XIt seems you keep overlooking a sign reading "No trespassing"!
+XIt would be peculiarly sad were your dog turned to stone.
+XIt's all a matter of life and death, so beware of the undead.
+XIt's bad luck to drown a postman.
+XIt's bad luck, being punished.
+XIt's easy to overlook a monster in a wood.
+XIt's not safe to Save.
+XJackals are intrinsically rotten.
+XJust below any trapdoor there may be another one. Just keep falling!
+XKeep a clear mind: quaff clear potions.
+XKeep your armors away from rust.
+XKeep your weaponry away from acids.
+XKicking the terminal doesn't hurt the monsters.
+XKill a unicorn and you kill your luck.
+XKiller bees keep appearing till you kill their queen.
+XLarge dogs make larger turds than little ones.
+XLatest news? Put 'rec.games.hack' in your .newsrc !
+XLatest news? Put newsgroup 'netUNX.indoor.hackers-scroll' in your .newsrc!
+XLearn how to spell. Play Hack!
+XLeather armor cannot rust.
+XLeprechauns are the most skilled cutpurses in this dungeon.
+XLeprechauns hide their gold in a secret room.
+XLet your fingers do the walking on the yulkjhnb keys.
+XLet's face it: this time you're not going to win.
+XLet's have a party, drink a lot of booze.
+XLiquor sellers do not drink; they hate to see you twice.
+XLooking for a monster -- use a staff of monster summoning.
+XLooking pale? Quaff a red potion!
+XM.M.Vault cashiers teleport any amount of gold to the next local branch.
+XMany monsters make a murdering mob.
+XMeet yourself! Commit suicide and type "hack"
+XMeeting your own ghost decreases your luck considerably!
+XMemory flaw - core dumped.
+XMoney is the root of all evil.
+XMoney to invest? Take it to the local branch of the Magic Memory Vault!
+XMonsters come from nowhere to hit you everywhere.
+XMonsters sleep because you are boring, not because they ever get tired.
+XMost monsters can't swim.
+XMost monsters prefer minced meat. That's why they are hitting you!
+XMost rumors are just as misleading as this one.
+XMuch ado Nothing Happens.
+XMurder complaint? Mail to 'netnix!devil!gamble!freak!trap!lastwill!rip'.
+XNeed money? Sell your corpses to a tin factory.
+XNever ask a shopkeeper for a price list.
+XNever attack a guard.
+XNever drop a crysknife! No, never even unwield it, until...
+XNever eat with glowing hands!
+XNever fight a monster: you might get killed.
+XNever go into the dungeon at midnight.
+XNever kick a sleeping dog.
+XNever kiss an animal. It may cause kissing disease.
+XNever map the labyrinth.
+XNever mind the monsters hitting you: they just replace the charwomen.
+XNever ride a long worm.
+XNever step on a cursed engraving.
+XNever swim with a camera: there's nothing to take pictures of.
+XNever trust a random generator in magic fields.
+XNever use a wand of death.
+XNever use your best weapon to engrave a curse.
+XNever vomit on a door mat.
+XNo easy fighting with a heavy load!
+XNo level contains two shops. The maze is no level. So...
+XNo part of this fortune may be reproduced, stored in a retrieval system, ...
+XNo weapon is better than a crysknife.
+XNot all rumors are as misleading as this one.
+XNot even a spear will hit a Xorn.
+XNow what is it that cures digestion?
+XNurses are accustomed to touch naked persons: they don't harm them.
+XNurses prefer undressed hackers.
+XNymphs and nurses like beautiful rings.
+XNymphs are blondes. Are you a gentleman?
+XNymphs are very pleased when you call them by their real name: Lorelei.
+XOffering a unicorn a worthless piece of glass might prove to be fatal!
+XOld hackers never die: young ones do.
+XOld trees sometimes fall without a warning!
+XOnce your little dog will be a big dog, and you will be proud of it.
+XOne can even choke on a fortune cookie!
+XOne has to leave shops before closing time.
+XOne homunculus a day keeps the doctor away.
+XOne level further down somebody is getting killed, right now.
+XOne wand of concentration equals eight scrolls of create monster.
+XOnly Today! A dramatic price-cut on slightly used wands.
+XOnly a Nymph knows how to unlock chains.
+XOnly a dragon will never get a cold from a wand of cold.
+XOnly a real dummy would ever call his sword 'Elbereth'.
+XOnly a wizard can use a magic whistle.
+XOnly adventurers of evil alignment think of killing their dog.
+XOnly cave-women can catch a unicorn. And then only with a golden rope.
+XOnly chaotic evils kill sleeping monsters.
+XOnly david can find the zoo!
+XOnly real trappers escape traps.
+XOnly real wizards can write scrolls.
+XOnly wizards are able to zap a wand.
+XOpening a tin is difficult, especially when you are not so strong!
+XOpening a tin is difficult, especially when you attempt this bare handed!
+XOperation coded OVERKILL has started now.
+XOrcs and killer bees share their lifestyle.
+XOrcs do not procreate in dark rooms.
+XPLEASE ignore previous rumor.
+XPlain nymphs are harmless.
+XPlaying billiards pays when you are in a shop.
+XPolymorphing your dog probably makes you safer.
+XPraying will frighten Demons.
+XPunishment is a thing you call over yourself. So why complain?
+XPursue the monsters and you will be had indeed.
+XPut on a ring of teleportation: it will take you away from onslaught.
+XRays aren't boomerangs, of course, but still...
+XRead the manual before entering the cave - You might get killed otherwise.
+XReading Herbert will disgust you, but in one case it might be enlightening.
+XReading Tolkien might help you.
+XReading might change your vision.
+XReading might improve your scope.
+XRelying on a dog might turn you in a dog addict.
+XReward your doggie with a giant Bat.
+XRopes are made from the long, blond hairs of dead Nymphs.
+XRow (3x) that boat gently down the stream, Charon (4x), death is but a dream.
+XRunning is good for your legs.
+XRust monsters love water. There are potions they hate, however.
+XSavings do include amnesia.
+XScorpions often hide under tripe rations.
+XScrew up your courage!  You've screwed up everything else.
+XScrolls of fire are useful against fog clouds.
+XSecond Law of Hacking: first in, first out.
+XSelling and rebuying a wand will recharge it.
+XShopkeepers accept credit cards, as long as you pay cash.
+XShopkeepers are vegetarians: they only eat Swedes.
+XShopkeepers can't read, so what use is engraving in a shop?
+XShopkeepers can't swim.
+XShopkeepers have incredible patience.
+XShopkeepers often have strange names.
+XShopkeepers sometimes die from old age.
+XSleeping may increase your strength.
+XSnakes are often found under worthless objects.
+XSome Balrogs don't attack if you offer them a ring.
+XSome mazes (especially small ones) have no solutions, says man 6 maze.
+XSome monsters can be tamed. I once saw a hacker with a tame Dragon!
+XSome potions are quite mind-expanding.
+XSome questions Sphinxes ask just *don't* have any answers.
+XSometimes "mu" is the answer.
+XSometimes monsters are more likely to fight each other than attack you.
+XSorry, no fortune this time. Better luck next cookie!
+XSpare your scrolls of make-edible until it's really necessary!
+XSpeed Kills (The Doors)
+XSpinach, carrot, and a melon - a meal fit for a nurse!
+XStay clear of the level of no return.
+XSuddenly the dungeon will collapse ...
+XSurprise your dog with an acid blob!
+XTainted meat is even more sickening than poison!
+XTake a long worm from the rear, according to its mate it's a lot more fun.
+XTame a troll and it will learn you fighting.
+XTaming a postman may cause a system security violation.
+XTaming is a gradual process of exercising and rewarding.
+XTelepathy is just a trick: once you know how to do it, it's easy.
+XTeleportation lessens your orientation.
+XThe "pray" command is not yet implemented.
+XThe Gods are angry with you...
+XThe Gods seem to be pleased with you...
+XThe Jackal only eats bad food.
+XThe Leprechaun Gold Tru$t is no division of the Magic Memory Vault.
+XThe Leprechauns hide their treasure in a small hidden room.
+XThe air is positively magic in here. Better wear a negative armor.
+XThe best equipment for your work is, of course, the most expensive.
+XThe emptiness of a ghost is too heavy to bear.
+XThe key to this game is that there are no keys.
+XThe longer the wand the better.
+XThe moon is not the only heavenly body to influence this game.
+XThe postman always rings twice.
+XThe proof of the quivering blob is in the eating thereof.
+XThe secret of wands of Nothing Happens: try again!
+XThe use of dynamite is dangerous.
+XThere are better information sources than fortune cookies.
+XThere are monsters of softening penetration.
+XThere are monsters of striking charity.
+XThere have been people like you in here; their ghosts seek revenge on you.
+XThere is a VIP-lounge on this level. Only first-class travellers admitted.
+XThere is a big treasure hidden in the zoo!
+XThere is a message concealed in each fortune cookie.
+XThere is a trap on this level!
+XThere is more magic in this cave than meets the eye.
+XThere is no business like throw business.
+XThere is no harm in praising a large dog.
+XThere is nothing like eating a Mimic.
+XThere seem to be monsters of touching benevolence.
+XThey say a gelatinous cube can paralyze you...
+XThey say that Elven cloaks absorb enchantments.
+XThey say that a dagger hits.
+XThey say that a dog avoids traps.
+XThey say that a dog can be trained to fetch objects.
+XThey say that a dog never steps on a cursed object.
+XThey say that a spear will hit a Dragon.
+XThey say that a spear will hit a Xorn.
+XThey say that a spear will hit a neo-otyugh. (Do YOU know what that is?)
+XThey say that a spear will hit an ettin.
+XThey say that a two-handed sword misses.
+XThey say that a unicorn might bring you luck.
+XThey say that an elven cloak may be worn over your armor.
+XThey say that an elven cloak protects against magic.
+XThey say that cavemen seldom find tins in the dungeon.
+XThey say that dead lizards protect against a cockatrice.
+XThey say that killing a shopkeeper brings bad luck.
+XThey say that monsters never step on a scare monster scroll.
+XThey say that only david can find the zoo!
+XThey say that shopkeepers often have a large amount of money in their purse.
+XThey say that the owner of the dungeon might change it slightly.
+XThey say that the use of dynamite is dangerous.
+XThey say that the walls in shops are made of extra hard material.
+XThey say that there is a big treasure hidden in the zoo!
+XThey say that there is a message concealed in each fortune cookie.
+XThey say that there is a trap on this level!
+XThey say that throwing food at a wild dog might tame him.
+XThey say that you can meet old friends in the caves.
+XThey say that you can't take your pick-axe into a shop.
+XThey say that you cannot trust scrolls of rumor.
+XThey say that you need a key in order to open locked doors.
+XThey say the Gods don't listen if you pray too much.
+XThey say the Gods get angry if you kill your dog.
+XThey say the Gods get angry if you pray too much.
+XThird Law of Hacking: the last blow counts most.
+XThis dungeon is restroom equipped (for your convenience).
+XThis fortune cookie is property of Fortune Cookies, Inc.
+XThis is not a fortune.
+XThis is the Leprechaun Law: every purse has a price.
+XThrowing food at a wild dog might tame him.
+XTin openers are rare indeed.
+XTired of irritating bats? Try a scroll of silence.
+XTo hit or not to hit, that is the question.
+XTo reach heaven, escape the dungeon while wearing a ring of levitation.
+XTranquilizers might get you killed.
+XTravel fast, use some magic speed!
+XTripe on its own is revolting,  but with onions it's delicious!
+XTry hacking in the wee hours: you will have more room.
+XTry the fall back end run play against ghosts.
+XUlch, that meat was painted.
+XUnwanted mail? Sell it to the bookshop!
+XVampires hate garlic.
+XVault guards always make sure you aren't a shopkeeper.
+XVault guards never disturb their Lords.
+XVisitors are requested not to apply genocide to shopkeepers.
+XWARNING from H.M. Govt:  Quaffing may be dangerous to your health.
+XWanna fly? Eat a bat.
+XWant a hint? Zap a wand of make invisible on your weapon!
+XWant fun? Throw a potion in a pool and go swimming!
+XWant to conserve your dead corpses? Go to the tin factory!
+XWanted: shopkeepers. Send a scroll of mail to: Mage of Yendor/Level 35/Dungeon.
+XWarning: end of file 'fortunes' reached.
+XWarning: people who eat dragons can go to hell!!
+XWatch your steps on staircases.
+XWear armor, going naked seems to offend public decency in here.
+XWhat a pity, you cannot read it!
+XWhat do you think is the use of dead lizards?
+XWhat do you think would be the use of a two handed sword called "Orcrist" ?
+XWhen a piercer drops in on you, you will be tempted to hit the ceiling!
+XWhen in a maze follow the right wall and you will never get lost.
+XWhen in a shop, do as shopkeepers do.
+XWhen punished, watch your steps on the stairs!
+XWhen you have a key, you don't have to wait for the guard.
+XWhen you have seen one killer bee, you have seen them all.
+XWhen your dog follows you through a trap door, don't hit it!
+XWhere do you think all those demons come from? From Hell, of course.
+XWhere do you think the hell is located? It must be deep, deep down.
+XWho should ever have thought one could live from eating fog clouds?
+XWhy a "2" for the postman? Well, how many times does he ring?
+XWhy should one ever throw an egg to a cockatrice?
+XWhy would anybody in his sane mind engrave "Elbereth" ?
+XWish for a master key and open the Magic Memory Vault!
+XWish for a pass-key and pass all obstacles!
+XWish for a skeleton-key and open all doors!
+XWishing too much may bring you too little.
+XWizards do not sleep.
+XYou are heading for head-stone for sure.
+XYou are just the kind of bad food some monsters like to digest.
+XYou can always wear an elven cloak.
+XYou can eat what your dog can eat.
+XYou can get a genuine Amulet of Yendor by doing the following:  -- more --
+XYou can't get rid of a cursed plate mail with a can-opener.
+XYou can't leave a shop through the back door: there ain't one!
+XYou can't see your ugly face if you're blind.
+XYou cannot ride a long worm.
+XYou cannot trust scrolls of rumor.
+XYou die...
+XYou feel greedy and want more gold? Why don't you try digging?
+XYou feel like someone is pulling your leg.
+XYou have to outwit a Sphinx or pay her.
+XYou may get rich selling letters, but beware of being blackmailed!
+XYou may have a kick from kicking a little dog.
+XYou might choke on your food by eating fortune cookies.
+XYou might cut yourself on a long sword.
+XYou might trick a shopkeeper if you're invisible.
+XYou need a key in order to open locked doors.
+XYou offend Shai-Hulud by sheathing your crysknife without having drawn blood.
+XYou want to regain strength? Two levels ahead is a guesthouse!
+XYou'll need a spear if you want to attack a Dragon.
+XYou've got to know how to put out a yellow light.
+XYour dog can buy cheaper than you do.
+XZapping a wand of Nothing Happens doesn't harm you a bit.
+XZapping a wand of undead turning might bring your dog back to life.
+END_OF_rumors.base
+if test 25522 -ne `wc -c <rumors.base`; then
+    echo shar: \"rumors.base\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+if test -f termcap.uu -a "${1}" != "-c" ; then 
+  echo shar: Will not over-write existing file \"termcap.uu\"
+else
+echo shar: Extracting \"termcap.uu\" \(25830 characters\)
+sed "s/^X//" >termcap.uu <<'END_OF_termcap.uu'
+Xbegin 644 termcap.arc
+XM&@A&1T543%(N0P`E)24E,`8```P-F@'&>=0*```,+U1`0M)``0@5"2`E4%'P
+XM8(*'0][`R2,GS1DT=$"@&),"1(P<.&2P`&%$3ADR)-/,0?-P84.$#T'(!!&$
+XM#1L04BQBG(.SS)PR<NR<;.G2($*%#(TFH()&)8@Y;\S0N1/&)(@P;LB\>",'
+XM!)DW8^JT*>.&3A@Z:=ZX`>'4))LR87ZB-,,5!)PZ8MBD&5/4(1F5="J*J8-6
+XM+0BZ7>$`A>HF#)N1;M2V&/.FS5@Y8](X!E'G)PBU;/*X>)C4(9,T;=+0.0FB
+XMXD4Z/.F\X?QS9)LW?\WD&8D5I<F_<P*G&;SZJE4T0,N(R=,7X1DY6%?/K1O9
+XMS>3*ES-OOBL'SIN?<T;"D?/&3AHRK.F@.7O5)NF7"2A/=(T11&2T8WRV+M,F
+XM3)JU_YDU1D:]M7?3&.NY<89^594!PAAO515:<PE\%=9899WD@DQ,.1@&86C4
+XMU=\:^D4&`E5R0%=6'I^9<94;+*[Q'TIWJ,92:0B9-(=B`X(@FX]-\30>;G7T
+XM6&`9>,"A5V9TA.:52A#ZUP9/6+&(FI)I#(5C`BBJB)9^48&078)FB9&&7G2P
+XM6)<9JKGA$T^(O<@B'%7A5P<;55'(G7<_C0;)`5LB]=)`+[U04$$,%!302S(Q
+XMD8004@0A118D5>'$$%0D\803+\%GQH)-=C43J""P\<89>VUF$F5RS$5>&U<=
+XM=F89G1HETQ)%4'K%$U(0,46M#GU:1JCP!5>1@H?5X<:`:;DQ![`JR#1%%DX\
+XM`<442?QJ%'P(5G60L*&B(`8<+(P[1QIZE,&"&7"DP.UZ7:DP[@[P!0B"N>B6
+XM0:]21B3!1!'?PK'O08R"0$014PPA11)09+HIM`E(`1<9L2%G'Y(9F8KJ&*J6
+XMP:JKE3T5&%RPBL"N"&R5-=M@9I@!%`@BC"L"?,JB=9.;>&2DK$\<*X:2FW?H
+XMY>9(,<-Q;KHHI^9&9Y^Y^2"\80RX&'SK"75O&63M%P89(Y&%4IALOC52729M
+XM#0)0Y,GA`GP=EAI71MU")W579:/D%%TVO7$':\O%ZD053#"Q]K9*!5'JJ:G>
+XMM"I7*/7'XHY8/56&4-#=!`<:>9S+L>(>,\Y3WU7_=P9\<"%X<=#_.<AS&#Z?
+XM:".0#@;76U4H#7'V'#T[&'?4J\D!G[A1KS$'GBNE,#C!2C'EE%-TRF$GGG(X
+XMV5D99MQY6%WJB<Z37B3"[B-0;?3LZ:PCW8&<56$\)?I;9Y<EAY6QO3&;J<C&
+XMJ9:#EV>>.'Q"JPM"'L.ZV$GB=S4?E4TZ5Z&2^A3$OL6UZGA;DA@=ZB`'9[$%
+XM-K*20W",<P:QD$5G;GC+'*BT%J^U2%;L(]O$2)>BNH`E+!JT2T6P-YLJ/:TJ
+XMO%O,U42G-3)`L&!"J,(1M(4\A[0--"RB"HM^M(;(W($M+JK;B>+R/3DH[2RL
+XM(4,='/0CEKFL*T>CE5+TDAJS%`9`!%S-!N.4/J#U[VJ(X:+%>G=%M"@(/DNS
+XMR0^-8B@%%&0$_X%0'=`#`AX$YR]O<`$:?(`H1>%()M<J0A6(\`00#.$)!X.8
+XM$,J`JK6`BPV^4\I,0)"$*$[L,/YA0\7(`I^(#8N":_E;X""8@%$6095B=$@"
+XMC#"CSQ`&!"%Z8G]@=$.Y]8XG>[-*W6B9@"2X036:T4NZ[/*&`+WL1W3\SUEX
+XMF$<V,+.4;MM@W'HX19ZX,76P<T,K1PG.<SJ-*CQ97>O4PTJE/$1B2HJ:@\00
+XMO.'%!0VN4X_WW%D&9KHRG_DYW1MK)-!N&E1B9BL0ZQ23%3%QI:#KG$D1*IH&
+XM,[1RHW;SJ#TE",M[U:%E+_..-=4&'UMR5*0.`>EA0`5*:/6Q(.-4P2?E("YR
+XMX2M=ZVH73N%UD'D5Q%X_U5=!^O6O@.UK#PV9B;V6%CXT#&PF.1V#P`YE$*FZ
+XM"`7@FD-/RV6T?`6U(SWH`0ADR82.0%4!"3#)!"N(`K:FX*HRZ</9<`F"MR:`
+XMJJ93J['>XH:>WK4@\8$#"-1J@G%M`;!HZ,*^$M!1C:B@!9-1;%I!<`(NN.$$
+XM;D7L*"N+`LB"P`<>`8$)3'`0S&IUL6KM+!=`VU?$+D2K*UC!8CGKV1-,]K::
+XM72O@F/#;G6[$IV5-5PL@NX(8G'6RH^P#8J4+5[G"TK!X!0%UJ0L:"$E31$E'
+XM250N0P`E)24K`P``#`VF`=%N3`4```PO5$!"TD`!"!4)("504?!@@H=#WL#)
+XM(R?-&31T0*`8DP)$C!PX9+``841.&3(DT\Q!\W!A0X0/0<@$$80-&Q!2+&*<
+XM@[/,G#)R[)QLZ=(@0H4,C2:@@D8EB#EOS-"Y$\8DB#!NR+QX(P<$F3=CZK0I
+XMXX9.&#IIWK@!X=0DFS)A?J(TPQ4$G#IBV*094]0A&95T*HJI@U8M"+I=X0"%
+XMZB8,FY%NU+88\Z;-6#ECTC@&4><G"+5L\KAXF-0ADS1MTM`Y":+B13H\Z;SA
+XM_'-DFS=_S>09B16ER;]S`J<9O/JJ531`RXC)TQ?A&3E85\^M&]G-Y,J7,V^^
+XM*P?.FY]S1L*1\\9.&C*LZ:`Y>]4FZ9<)*$]TC1%$9+1C?+8NTR9,FK7_F35&
+XM1KVU=],8Z[EQAGY5E0'"&&]5%5IS"7P5UEAEG>2"3$PY&`9A:-35WQKZ108"
+XM57)`5U8>GYEQE1LLKO$?2G>HQE)I")DTAV(#@B";CTWQ-!YN=?188!EXP*%7
+XM9G2$YI5*$/K7!D]8L8B:DFD,A6,"**J(EGY1@9!=@F:)D89>=+!8EQFJN>$3
+XM3XB]R"(<5>%7!QM54<B==S^-!LD!6R+UTD`OO5!000P4%-!+,C&1A!!2!"%%
+XM%B15X<005"3QA!,OP:?27V>H-I.//F6$8%5A#`C48=2)!=1>=I&GF!QI=FJ4
+XM3%-DX<034$R1Q!2V.A0@6W.`JMI&:*0`WZE=(;A#L"K(1$014PPA11)09+HI
+XMM`E(408==<CA!D]42%%%$9]U94003$R!+GJ*9?7?&9QYM]8=R*FWJKY/\9@&
+XMFR<MNQYTJG;E5!CVN5K1&`\.G.IJ75'W!ATN0"N3$%4<`:Q1\#41!HMF^'>3
+XM8?TA^)]^_YW8%(+VG96&4`VC6O!3WQ)KW\0T59M$$A5S;)2A"A0TPG\0UH$>
+XM"#P$]]<;+J#APZ$*C(`>FVZ"4.ZY'@D]]<DDL>LN"#!`/>RG%AV+H+(*,-OP
+XMLPKLT=!,_VK$L@\@G)##"2#PP4?#2-<-PPD=N:U``B:!*RX*Z[9;1`ILC]H'
+XM"&6PX9G@A'\;KALH7+UXXS/U49#G"@`:"$U!2T5&24Q%`"4E)24"`0``#`_/
+XM`X4;:@$```PC&BAH\H1($28)>B1`(W"($29!CDQ)F*!%&Q(H"!IDD@)$"R)-
+XMIA!Y,L4C$2)'EGATTL*C%H]+6K9XXO%."SARWM1LX>8-&8$!%5"9\J2*E"%%
+XM2BJD4V8.'3ICX+@8`T(@$Z)&D2I-0.=,&:9NZ$P%T?6K&39ASHPM2\=-G39K
+XMO=)Q*B?N&SIOQG(1F(`KG#ISQZ:90R;-F31BJ9J1RZ;N&*`"J3P1HJ3(D*$@
+XMEC9]&M7%&S%JK$ZN?'DKVS)A/8,F*_=L6M5J6']U"_=S;+9T88/8JZ!OU[MY
+XM;9/]&UCXX,*'Q0I?_+4Q;,@*F,IIPR:-&!?5Q8#0D0`CD]&6AZ80"!H(5$=%
+XM5$5.5"Y#`"4E);,/```K#Z$Y$&">'P``#"]40$+20`$(%0D@)5!1\&""AT/>
+XMP,DC)\T9-'1`H!B3`D2,'#ADL`!A1$X9,B33S$'S<&%#A`]!R`01A`T;$%(L
+XM8IR#L\R<,G+LG&SITB!"A0R-)J""1B6(.6_,T+D3QB2(,&[(O'@C!P29-V/J
+XMM"GCADX8.FG>N`'AU"2;,F%^HC3#%02<.F+8I!E3U"$9E70JBJF#5BT(NEWA
+XM`(7J)@R;D6[4MACSILU8.6/2.`91YR<(M6SRN'B8U"&3-&W2T#D)HN)%.CSI
+XMO.'\<V2;-W_-Y!F)%:7)OW,"IQF\^JI5-$#+B,G3%^$9.5A7SZT;V<WDRI<S
+XM;[XK!\Z;GW-&PI'SQDX:,JSIH#E[U2;IEPDH3W2-$41DM&-\MB[3)DR:M?^9
+XM-49&O;5WTQCKN7&&?E65`<(8;U456G,)?!766&6=Y(),3#D8!F%HU-7?&OI%
+XM!@)5<D!75AZ?F7&5&RRN\1]*=ZC&4FD(F32'8@."()N/3?$T'FYU]%A@&7C`
+XMH5=F=(3FE4H0^M<&3UBQB)J2:0R%8P(HJHB6?E&!D%V"9HF1AEYTL%B7&:JY
+XMX1-/B+W((AQ5X5<'&U51R)UW/XT&R0%;(O720"^]4%!!#!04T$LR,9&$$%($
+XM(446)%7AQ!!4)/&$$R_!1\>"JY4U$QMOA('28&:8`=2)-H)`5F`LQKEC&9FQ
+XMF1Y0J37&1J=&R;1$$91>\8041$S!JT.KR='&&&'`<5@=;@R8EAMSP$?8F:JQ
+XM2-ZU;E9K%*,@3)&%$T]`,442QGZK5(`^@OHJ"F+`P4)C8Z4`'X)5'13O#O>N
+XMUY4*]);!K[H'R41$$5,,(4424&2ZZ;$(%8%'8&$,&!MRKI8E1ZQU)9OK9CP$
+XM[,-AY+4!I(,>,^LLFV_!5Z"2%>NG&EMKJ><@OM`-N"JJJG;%0[P^;"A3$ADY
+XM%5:*KX;F\AQSB)7>>AG%RQ:5&448G$<PR$##@_Y6G.P<0B?AHLT9PTJSIQBG
+XMW.QA9SKH%)YR+-B5>EAA+<,,7%?E]6(GNXI'?DSWJ[?.<O!4HTT@B.$@<,S*
+XM@1Y*!38[Y'B:%1?<69VQ:A-\BN]'1QURN$F&"Q`G4!-4]KU1'-T9S?%??HD[
+XMZU1GK"WWF<USXZHR?-NBU>U(9`?'51@+7L4T6)6S5J-Z?:OM[*L;WXO5?8D[
+XM:(9)K$&+UDV.W>3\@]U3:15E;2A9AG2D$XP0%>Z*RNQ:G?]EDLXH_4CJ&VO0
+XM?!7;;]V.W-P)0MOBRF"&#[$A(RAXP?G&\`+G=<1VZ&&3&_YSAA=ES#SD<0.&
+XMZ``?.U1%,WFY6?=80X4B2*$)0P@"%'PTF\Z1C4[J"5B+^H8>U_W&4[I;&\O*
+XM(#2F.&5V/S'#G0Y3%_0,Y@QGH*!]RG"'LE7$)^ES"+E*J(.^P1`-,FQ"%:9`
+XMA>HE<2W+0\/^3O""$^0M9\F*XI9.]X:1I&%L&`M.111D/->=070L!$$)3YC"
+XM%7ZE1*KSXG]8I1Z7@8",9BS0&_M&%@RJ98,@\&!%PA!"/9JP"6(Z"X+T$[(P
+XMC&5D-G.#`)\B'#K&Q8YX_-$>4:C"J3U((EFJ7POKD*I5_0P.(X//?X(#%Y2$
+XMR22F4F(8?)3#E;5-C0D`EQ2*0(4J2,$)Z3H(?%H0`YDLDFS?VR'XW$"]SDF$
+XM+">!#PA@8$T7F0AZ5JI9,?GGH/[089,\Z>0GQ5E-MK@(2123EF&<TK0Q`&X.
+XM0KQ)&%/GJA1QQ5L.`8$,RNFW?!8&0#SIYS\#FCC".)%%@8$6LZ0#,9E,H0A%
+XMH`D3IO"$TGWJ?&X0RTSPB4;[.*TB8_!1'A0#/CJ9"4UY\!2HS("G"A+S:F)X
+XMPQLB5+.9BM"FV$J33L\GQYF`BI1SK*`'V5`'!X5)991,:D[5)Y,@5($*2!A6
+XMZ4K"&B.H!`T0,Y0""C*"UU$5/2#@07#^\@87H,$';'5K'>`JUU*>P:YX7:L"
+XM1A#!_SB("E*H0DACP-;"NHDD01AI2&'06`(:%@1"J((1SJ6%Q6:-!BT)"$V8
+XMYC24N$X/5KWGQ("BJXK6\E]JK:P$'42N+Q@A"4PH0@)`0,W0JJ`GGPL=:Q;Y
+XMOA-DY)MKT:8*U$I8RSZVMD5P`F(I-4[?`A=T>"0N5HS+MJQ<]"#,=:R#IE"%
+XM(0P!85.820RL*X7S87>X]]08QZ#ER_PM5[:71:RE4EA"(BB4O>X5+DH6B4XB
+XMTK>B&<EHM,![J,':,X(@(,(1EL!6KSC700<S@E>90(4O2.$)3^BB")SG@C&X
+XMP0PB>(AH91C&-UCTBJ\LGUI>Q6"#D`2W(54!713C!CB@(`4#&T'&<E-A\4:X
+XM"!JN`H=MBV,0B$"![VQ@,5,LV@@:,,'KW*$,[RM8G!WD"^^$`ZIV0!310@%/
+XML/N12<;2!L5UA6>K\DZ`5L7E1"E@4;T"@;F*4`4B/`$$0WC"P4HGA#)\L5WG
+XM>Y4X9U($Z'BF2G8QB7E<S!,X=X4R&2H+V!8MD_:RV<U]L[1=WC!G.2!S)B`0
+XM&S&5I3)VNI)Z=#EP*.&3`%6+FBIP.M-;(`<CJF`4.:)4RFYGTM[@KH6\YD4O
+XM,A-0!#;\A-:H+C9V05#;V^9VV47P[ALY#8)F/UO85VA*_^;'%3+PY"U2R>.0
+XM_@GMF:A:/3_D28&=<@>HG<A!5!'5K(6=@"&0RC/8S/(Q:5WK^)H-USZ2@T;/
+XM\C2R$#S:`5Z+?B\5A/Z2$G,(A0FSG5V&AQ,[XN$J[WFGD-[+?6[3_,[V@,W0
+XM;IFHW)ZT?GF]VT9K:8>.VD_X0G2G>_&3GYK1VF:Y4EY^TE!QD-^%:C"[BOZN
+XM>,W+DV6PEP*\K()]E?FW4"!UAN8VR]=J)`:?/:.8_M,1+E,]8&2V;M9+G4>/
+XM_6<S!?Z1!%'"Y3TT9";6SK$9Y'60N7]AAS\>V-UE4G5G]8#:2F;"P%`-YC&(
+XMF98@./R^!F]/C:!@[Y'O+AG^WC9XP2$%'>G!X9V0^([870$)6"0*"@^"$(R^
+XM]"`X_;!E8A)CHP#9(Y\"D`N2@#ZXBN.QYSVJ:X]=%%0;Q[M'?1\H[_LR`%_V
+XM,^_?Y4'%!CEXG@69W6P2.LN"O8,^^*A'M>K/H#I\73]@WY=]`LP`H>^4X?*?
+XM']A#5!^O+<CQ+6[P?`JHV876'_X$7.`&)V!ZO#=[GE-\$\=?14`$R?<0S?=\
+XM!3A\$7=[(H=>#=A[PC<3RZ=\O$=\H6-\.;=SDY)\J+:!&VAG>%8PJ29=)N0$
+XMD54IE^(PG*(^ZS<CG-<_,S%WS2-P_5,@R,461>,B?.(Z(=11(/`KP3(LQ5(Z
+XMI=9:0A0M#Y5Q-9@5-]AQ7!4NXU(NYQ)-6V)R>W%CN=5W-@AX\2)U#D%UDW>%
+XM!Y,P"],PFC*#TJ0404`'JU$^L)%'I+)1'N)=/QAPK*9#Q]15SC8;"4(&;R&%
+XMG:%$9--(:9!!D+1*?015PG0Q'C(@=;`9E@8?*,`Z)V`X:,`B4K,>L=%">T@S
+XM=Y$1=`(=8Y$L*:!&\*%JD-A*3B%>O"9(U$)(8C1,B'1&>P-`#K<N11,;84`B
+XM-4.*5G066`1U,^2'RP*(/9@5+K,69U&'<!",F017/_*#JA$V<.04!70FE!AL
+XMR((Q5G8G6/:'QM0_0#1<U+(:IN**2@&+EQ2)LWAAIV)1?\03W61H@S10NEA&
+XM)R.."#$S3G%*I95'+H0Q7G.)-R%JF&9T0D(>YO$X:,,>\E0&(^-.\,1(;N!(
+XM&D1CD@1"_;-*\*B"F74$7`@?'6(51@,Z)E$63F(BOH:0#M(T5C%S"+)JS0@'
+XM\*%-"(=<K.$ZT8(RY$A`5Z8YW,,&OE9I5H@L3S0Z:84HBH(C,K%G??9G@39H
+XM-%AHA^9W.\1M[_8_;D,EEL1'K<2(CDAC<J2(P$9K85F3?O5J@912B+-O#F&`
+XM;RF)=%20=H&,,F27&A>6[*%-3@&4IE4D$W4G3@*8+0%QQ@:$0J)U:41P+[=M
+XMPH9JWM:4@0E'R>%*P[1*%]2(CZ26<<F8,>%N+@*:&HD<\20R`4EP_281+!*+
+XM*[26=/0CEK9L#V%S:T%Z3,`$1-05)K)#NHF904>9QWF90+=R,9><";6<,*<4
+XMJ/8$/&9A!62..MEJVE0@'K@6.F*.*.<0+^>5-*<^L:4`7AA3>2>&5$B&GU<0
+XM:`@'`W-ZJ+:>.L9W.H9<@4=Y5.=X(P$P_GD0[6,'^RE8XN<B*+`1A@<"`XH"
+XM(D";(O!]KH=XOTF`J*=Z*N!X_D>A3&"A!HBA&BIZAP20?,`'!Q&B_\<%7#"`
+XMX#=_"`I_F;=C9*&@+"`"<A"A'3&AOMFA+6J`W0E_%[B!!OB`GJ%^JH<"T;*@
+XM#?J@EX2C&[JC'OJA""I'8U`^-)JDH7=X,!"E"4"E$W%]CG>!"?"C*&"?*0"E
+XM\C>D!2BD)<A[&]BF#O9&$"9A%(9ZHD4%&_,@+DEC\D,KLK$QP`-L(`!E#.0\
+XM@4H6[:$6%?1"R"A\7)9Z"(IYAR>C^9=A&]9A'Q9B(V&C.%J`W7D8\LE[SN<9
+XMJB>I1,1C*&"I2M9A>;>I-PIZG@IR>R=_HVJ%#_&IE.ICJKIDF4H%KBH"(X&F
+XM%5:KE/>CE)JJ2':I3)9;-?JJR2=D9$%D"G""4PDN2<""S_2"1K!?,E@ZY/=.
+XMZS$3JW$U/_(3;F-P>>J-=3$KM1)+.OEVNW*%XD(NYH(NWEI^ZW%^4&>&"!&?
+XMB]>O_G(0:&>$:Z@P#-.M-$@%/G&'Y5H&Y\J19C-(HB8UJZD?S`BO\,&N;^2N
+XMMA,P0L.;/*%?(;5(J^E*Z+$:]#,2&B99\*$Z_U,C?1*5"H""5*EG'W65@"9H
+XM14!H_+@6WXHO8.DB#MDUA.-*Y`-).-.+KRELO`E9DO44K^,@:^8?6;$J1H,=
+XMBB:=C,9Q;CE!:.$8:8!:]J&,<_`^HU9JRQ81Y=,@8SL6+W*/7J<]9S)DG]$5
+XMJ3$'J[ELJC95Y_&NC?&G<%(70<4\,E0@HF:;9R"%!MBT(@NU0[D_)8MPL985
+XMV,:URBD39N5=;C(QJ6,=,I2T12NQM-0SRX9JJD8]=>,8R?*W#B)#/Y&*#'=I
+XM1)LL!->T*_M1C@L[)G(;5A$PH\@UM+(&I;NUWW:72[&P2\2YA>M=G_J=!Q2>
+XM,&&<S"ELE2ETS^ERSADQWO6SZR&S!<&]8:"O]0*?`5MX`W-V4#>?_%F^/;9X
+XME(>A4B.B)S`"+"I[/WJ[14""&OA[1<I[/99Y`XMZT><@J_>_(LIZ)F`"`NLL
+XM.@I[>]!C*[`".Q`[$;P#0HJA!OQZOPD"":P1K">B.PH"):HOAO=_?&!&(_S!
+XM_Z<#`^BA$FA[(MN`1.H@LH=J`^S!4M/`&]S!K#>A)\#"'*S`/6S"]1LO%<RF
+XM,P&_#$S$47J_D?51#5B"_$O#L6I[X(L"$>QTZ!?%&NBFS%<0&P@:"%1'151&
+XM3$%'+D,`)26S!```%0^2N_30_P<```PO5$!"TD`!"!4)("504?!@@H=#WL#)
+XM(R?-&31T0*`8DP)$C!PX9+``841.&3(DT\Q!\W!A0X0/0<@$$80-&Q!2+&*<
+XM@[/,G#)R[)QLZ=(@0H4,C2:@@D8EB#EOS-"Y$\8DB#!NR+QX(P<$F3=CZK0I
+XMXX9.&#IIWK@!X=0DFS)A?J(TPQ4$G#IBV*094]0A&95T*HJI@U8M"+I=X0"%
+XMZB8,FY%NU+88\Z;-6#ECTC@&4><G"+5L\KAXF-0ADS1MTM`Y":+B13H\Z;SA
+XM_'-DFS=_S>09B16ER;]S`J<9O/JJ531`RXC)TQ?A&3E85\^M&]G-Y,J7,V^^
+XM*P?.FY]S1L*1\\9.&C*LZ:`Y>]4FZ9<)*$]TC1%$9+1C?+8NTR9,FK7_F35&
+XM1KVU=],8Z[EQAGY5E0'"&&]5%5IS"7P5UEAEG>2"3$PY&`9A:-35WQKZ108"
+XM57)`5U8>GYEQE1LLKO$?2G>HQE)I")DTAV(#@B";CTWQ-!YN=?188!EXP*%7
+XM9G2$YI5*$/K7!D]8L8B:DFD,A6,"**J(EGY1@9!=@F:)D89>=+!8EQFJN>$3
+XM3XB]R"(<5>%7!QM54<B==S^-!LD!6R+UTD`OO5!000P4%-!+,C&1A!!2!"%%
+XM%B15X<005"3QA!,OP4?'@G28@><9,R$96!@]BO'&&Q&NM9H<;8P1!AP/SAJ&
+XMF6CFT:E1,BU1!*57/"$%$5/LZM"KL<YJK`HR39&%$T]`,442Q1KE*:BBAG$&
+XM"N>E`!^"51UTW@[+RD1$$5,,(4424&2ZZ;()2%$&'77(X09/5$A111%LN;AC
+XM&9FQR=IY;`FI(UD9_><C4*DUQ@9\",NQ&TE!,#$%OV^H!U2-?2YKJ`(%C?`?
+XMA'6@!P(/P?WUA@MH^!#RR&R4["#*PBG(LLL@*S`">FRZ"4*^^WH4,L__.6A$
+XMQ1>#`$/(_?(,0A-3$/%$M2-X54;/#LZ(Y%.!(2@'TV3E=J@"I@*U%KA=J?`%
+XM'6/`,9@9.SP4T,\,RTIKQ"R^;090=KT1(-\J?)RH`HOR"H*T150A-0A#/'$N
+XMO$*4<8;"G\Z;[1GPS01"$FZHIIE>>CCHW=]=_:CQPK#:#0+>(.@-E`N9SW1%
+XM4V\!F5S!5QV6)1LH_3AD?G/,`5\"4\A(:WE\GRXP[T^502=TLG6%-JJOPJY4
+XM`DFXJ)Y33IW.^AT.4E66[6X,KWGVJY<E,>[G(9R&P%V!QJ+&Y5\?[[SUK@5T
+XM$>;/5`0;/QG>_>AE+XI9C'_7TUP1LM*OX2T0)>^+G4P>>"+:E4&"/2'@6HYV
+XMP*OPA&<?8@,=K.<0"E8N5*/RV-A.>#END<%;"D";N,A`+@7LH2$SD:$*Q`"'
+XM&FJN;`74H=;P@((4U!"',N$A"'H`@K6U[6T^G,D=+*@1%"B1B4.T(AQ8<`(=
+XMG"`%'0D!$YU0!28PH2,W5$`">+B"%=0P`>_3R`[AT,8E8I$,6X!!%T!@`A,<
+XM1(EB!`$9S<A'/\ZQCCVXXQ9BT`4T%B0!FHLC"N9H1T&6D0D@X`,?_DC'%52R
+XMBU\$01H?8A(-HF!_1GRDYOJP.@`Z:)0)*&7^4,#!BZ52C:M\9!^0"()=&F0F
+XMLK07+9%6A%OZ$AH(5$=%5$Y532Y#`"4E):8%```5#Z.[O7GH"0``#"]40$+2
+XM0`$(%0D@)5!1\&""AT/>P,DC)\T9-'1`H!B3`D2,'#ADL`!A1$X9,B33S$'S
+XM<&%#A`]!R`01A`T;$%(L8IR#L\R<,G+LG&SITB!"A0R-)J""1B6(.6_,T+D3
+XMQB2(,&[(O'@C!P29-V/JM"GCADX8.FG>N`'AU"2;,F%^HC3#%02<.F+8I!E3
+XMU"$9E70JBJF#5BT(NEWA`(7J)@R;D6[4MACSILU8.6/2.`91YR<(M6SRN'B8
+XMU"&3-&W2T#D)HN)%.CSIO.'\<V2;-W_-Y!F)%:7)OW,"IQF\^JI5-$#+B,G3
+XM%^$9.5A7SZT;V<WDRI<S;[XK!\Z;GW-&PI'SQDX:,JSIH#E[U2;IEPDH3W2-
+XM$41DM&-\MB[3)DR:M?^9-49&O;5WTQCKN7&&?E65`<(8;U456G,)?!766&6=
+XMY(),3#D8!F%HU-7?&OI%!@)5<D!75AZ?F7&5&RRN\1]*=ZC&4FD(F32'8@."
+XM()N/3?$T'FYU]%A@&7C`H5=F=(3FE4H0^M<&3UBQB)J2:0R%8P(HJHB6?E&!
+XMD%V"9HF1AEYTL%B7&:JYX1-/B+W((AQ5X5<'&U51R)UW/XT&R0%;(O720"^]
+XM4%!!#!04T$LR,9&$$%($(446)%7AQ!!4)/&$$R_!1\>"=+@AUDQ(!A9&CZ)>
+XMMM=G<!2VEAGDM>$C4&V,$08<()`56!Z=&B73$D50>L434A`Q1:\.K29'K;?"
+XME]]A=;@Q8%INS(&L"C)-D8433T`Q11+'&N4IJ*FB<%X*SJ[7E0KG[7"M3$04
+XM,<404B0!1::;7IN`%&7048<<U=HG%E"KVN%8'0Z&:2N=9J+)(@_G^3!272W$
+XMP):+$)/A`WQ.W7?8&]&2L>&OD=U!I1@@9P2663>E*L9B(]W1%(+PO7S&?R?:
+XM"`(,+EQKJ`(%C?`?A'6@!P(/P?WUA@MH;*R`T-*R4;2#2`NG(--.CW`Q>BXV
+XM,0413X2K-=?_.3@CDD\%AJ`<0>>:51IF'*I`J4"MA6!5!WU!QQAP#&;&#@\%
+XM!`(5M"[L]JX@^&T&4':]$2#C*OR<J`*+^@J"MT54`38(0SP1K[Y"E''S6I_V
+XMFRI\,X&0A!NJ:::7'@YZ]WA7/ZKGH++,XJJK'"PJ#E3/2J5^15-O`9D<6U0>
+XMEB4;*/TX9'YS6*M4`E/(B&MYC-NN?!G,/U4&G=#)UM7=T`WX.WP)).&B>DXY
+XMI?WN+-[A(%5E&>\&^JFK;_SAO"-OWQL$$IBJQF`_].VK7_]ZE7^D9A6#2:T,
+XMP'-(`E)7!#;\Q("K:YUCT@`[$#@083Z:#>S($T&8I,]%+F.<S?[#DQJI!P0C
+XMG(WM[C>]"<YD"OVZRA@N=*>S4"MQ<;G=;'!0PI94\((U3!T.";1#L?3054#T
+XMS(]BP#,#%B$K%S/@\,YT.^18Q2EA$"#!"$B^4RG+@*D+0A/;\,0N.NB#$+0B
+XM%F7&10/RRU\`\^#!XC@]"F(1;NB[(DH`&;R9"/)$Q"L#ZF9RQP0>9H'_>N,>
+XMBWC(TH5*+#Z3FR7+=:Z"D.\@[2K('AHRDP#I\8$C$4,0W660F7Q2!6*``RM3
+XM1[<\OO)L>$!!"EA)2IG$$@0]`('>^.:W6<Z$CL5#`0I^&4Q<+A,.+#B!#DZ0
+XM@HZ$()A.J`(3F-"142H@`;%<P0I8F0"X:026<!`G,)M)ABW`H`L@,($)#O++
+XM:X(@F]N,YSS1J<X>L',+,>A"-PMB0YF8$P7H!($]\<D$?=(SG2M0:#!/,`)J
+XM@L";#S$)'MV`@HKMDJ"IZT.N+.@@C"8`CL#<&3G+Z2*$,G.B,+"H25.G2L\$
+XM$P<K%2GW/#/3F=340<&D8DX)RJ5$:D0E?[D9'5P*AVI>E*BI0ZD*@OG3E49U
+XMCR!803"9JLX6@.`$,?WH-Q/0!Z)J-($H@*-8"PJ"LG[3K2'MY7XVVM$8B-6M
+XM&@A41T544U12+D,`)24E&@T``!4/KKM7,\,9```,+U1`0M)``0@5"2`E4%'P
+XM8(*'0][`R2,GS1DT=$"@&),"1(P<.&2P`&%$3ADR)-/,0?-P84.$#T'(!!&$
+XM#1L04BQBG(.SS)PR<NR<;.G2($*%#(TFH()&)8@Y;\S0N1/&)(@P;LB\>",'
+XM!)DW8^JT*>.&3A@Z:=ZX`>'4))LR87ZB-,,5!)PZ8MBD&5/4(1F5="J*J8-6
+XM+0BZ7>$`A>HF#)N1;M2V&/.FS5@Y8](X!E'G)PBU;/*X>)C4(9,T;=+0.0FB
+XMXD4Z/.F\X?QS9)LW?\WD&8D5I<F_<P*G&;SZJE4T0,N(R=,7X1DY6%?/K1O9
+XMS>3*ES-OOBL'SIN?<T;"D?/&3AHRK.F@.7O5)NF7"2A/=(T11&2T8WRV+M,F
+XM3)JU_YDU1D:]M7?3&.NY<89^594!PAAO515:<PE\%=9899WD@DQ,.1@&86C4
+XMU=\:^D4&`E5R0%=6'I^9<94;+*[Q'TIWJ,92:0B9-(=B`X(@FX]-\30>;G7T
+XM6&`9>,"A5V9TA.:52A#ZUP9/6+&(FI)I#(5C`BBJB)9^48&078)FB9&&7G2P
+XM6)<9JKGA$T^(O<@B'%7A5P<;55'(G7<_C0;)`5LB]=)`+[U04$$,%!302S(Q
+XMD8004@0A118D5>'$$%0D\803+\%'QX*P!383DH&%T6-P%2GX8!ATFHDFBV:0
+XMUX:/0+4Q!JL@D!58'IT:)=,215!ZQ1-2$#%%KPZM)H>MK"*K@DQ39.'$$U!,
+XMD<2Q1L&'8%4'?5I&J'*@<!X+#8:1@K;K=:7">3N@RZT**I3;;K:^@D!$$5,,
+XM(4424&2ZJ;,)'/%M;,@])9RJM[9ZIFJPUL7#>3Z(AV=FJJK&EAN>%CR8&68`
+XM=55&\9H4!F]9746&'5A1?,9!Y?HXFW<!>CJ;FW@0B/*98>3E8'!<A;&@"P`;
+XM41>28;2A9!DCI>&B>@[29=,;-2+,:LX+?TFE2?#]!Z2#RC(+QV%GEJ$#P`EH
+XMH44/>J2M!WP)9)%%#WE`8@#;5US1PQUX`\ST6G,4F=\<<Z0AU*HV\=39?RN[
+XM/9+9)*-4]XEGL@'?8&>BQ/1A;SP=]<H;=RS'V/0ZE$#<!L"@MAXPX'T'#`!W
+XM"+8<P1%^4XTV[4=''7*L%89=;P3H\8^DC\0T?#]15C+M-YET>^Y7\>Y[5S^>
+XM_J+E!:N7AAQDP(>\[;CK[GR&T,^F^H8@./%&<>JQ!Q>"Q!^\LE-NW'E3U_^=
+XM=1)O5WM8^Q`&IWK&'$`+'4*&D"Y3*4M()LD/>E"RG*VMBCP9V19T!N0Q%'`A
+XM!C.PP;F4TB`QL4HQ*`G0;"Y'F13YQ#M90=R#U!*8S#VH@!240P`=(K2N$,UH
+XM;Q%>]>XP&PD:T&,_B4,=R)(?$'@A""`00QDH,Y8YP&=W@5/06U98%O*PH05(
+XMM"`,8!"#CO@PAC/<DNM\DC`'?5%9;"&8@R*SK,WP3PRF6L,<\+22Z65LC5SI
+XMSTWX1T96[:P,0B0B@ZR2P#><P0UIT,/]VJ.6,VC/1LW;T1(U<Y,@#M$-18S3
+XMY8*0KR0D(5=S*.,+J_)#.<!'BS.800K(Y[I"'C*1K+&D(/,'NH.PC0M%F$D/
+XM?""3$W`!!JD\@4Q0P,DA>!*4HCPC4#8H.BZ(09>\!($ON0@#86JDF,>$XQCD
+XM2*<B*E,.S(0)%UPDDUWV\I<QH($UB=G)3R)F5AUCS3?#^1`NK*6<T9QF#&2P
+XM3FQ^TDUWT(N;7B#0,L03)1*D9P*XT!5\GI.+->AG.Q]8$9\Y2'G=&R4X;YD1
+XMATH3G3&0J#$_62:-EE*A7""#2D%@SH^JE`SKK(J92B4'%OGS26=0#4KQ`,U>
+XMXL&:,T$!5_[2F)K29*+S=):A%%"0$?P'0G5`#PAX$)R_O,$%:/!!4Y_*AJ@Z
+XMB*KNPZI6%3`"MI@!/2YJPA2(\`1LE16M_W'0C)#4/P29DJRY2J$9#J4`4@%E
+XM+1(\R!?H,`8X;&P'#PD("*A0JX3E=5=)K`/'/`8S\!UDJ8E2P*+J5:TB5(&M
+XM(!C"$^X%,"&4(:=K\1:XX#,3$"0!D6AQ#"R_A\8?7:YKCM6543L'E#`FH+57
+XM:,H4F685I^R.365@@^5>1IZ_.5$I"9B"C+Y6GM\5#+G*?4H9Z`0=V73EF[Y-
+XM0!*6%J0T.E"W++J#@ZA2EJUA#+JM'>]YJV@EGMPGDNYS+]L2((5O9=0)56`"
+XM$\+;VB*PX2?[I8**YN"Y_JFP0'*@PUHJJRP"SZ0()5,:VS`<PKTJI<#'$VX9
+XM6#N3_BYO+0`6,'PX["-0H4JI?`VL"E2+*G&1@5PBVZ",V540&8<,+O/:0T-F
+XM(F,QP&%>K?4K\W:<%22A(`5()G*Z#H(>RJ#GR?,:LDR,S%(0#+:PA]7RB42L
+XM$11PN0<70P\>S`P'%IQ`!R=(04="@.84,Z$C0E9``HR\@A7,*P%*TX@*^+P"
+XMEJ+Y/%N`01=`8`(3'(3+="Y?@)G`:$</&@Y]-C1;R+"%&'0!SP7Y[4P"C8)+
+XM@R#2=J[THS%=Z$B?H`=Q!D&>'X+1W*'`SE`.=6O[D*L#.VC6":BU&U!09=R4
+XM@<TXAHN<_[SK4/=!S,\VR$R$?>M)YUH!T<[L9@\BDR0X@0I%D((3@D!I(U@*
+XM4YKBE``KM$1CSZ14;F`P$/.;,*J]:B3%)NK*^JB8Y]JR7M&:5K6N!;#@G&4O
+XM&J5RNZ]LY&2;RUWJ,C*2$>)C>3E+)O?*U[[ZE>[6+=AS:G2PU!1V;\Y\S;8%
+XMHUE&WGP"B)=R)-21G_!&J#')-IC"Z9G-<NY(6X]I[<=A()_YT+>>C%SN/ZJA
+XM)'Q0UE4'A0GHTV.9R,Q;!SB0P7[+I:W,'*CRJ]P,3SH#`1O`<G##A$$JUEVC
+XM_#Q5J_JA156W_7AR4((JQ(6142`00A6.@*U_.Z1#Q;7O;*HK!S.,_0XO7**,
+XM5/45-WTFM05#3W#<GI;W.H2W<A@)5-B2$272`8U*%'M5%I37-]3A(BX#08B4
+XM^\3:(8E'TA'Y_^YN%,PJ"D<RZ>QGGQ#:T1:AM*?56KY'_.&9O#;ILE6D`^$M
+XM[\3T#GR^!2Z9B2M7*@'(#7>)(`S1^!:II'Y(SF7;%&I$6#0\_F+9-VD,V3:$
+XMN#@(7T,(`A2*4$N8M)8("_=0R?#0X,OQ.Y:`=$GY86$R(00BLP;LYWZ]]VU2
+XM\`2.8@194'\Q,1,14469HS0L4B#\EW;V02KJ5V%LTUI!<#(IPS4U-UG.]SP$
+XMF'<'R#;X9P8?P@9T((&B)A-8T&"[PT9Z](&]M6$E,P?DQS[%)Q,L=@<B1F(R
+XMX03R0RO+XG8FZ'2$D7YUIR#15V+\P1]*U!5&F!P.9'IT((7Y97`1!D!("`)5
+XM8'7VTX512!B1A8(])T-E:&(9A7/AHX9?R(93>`:^Q6+#!V-,I0`&AQ\)IP+#
+XMAVSEHF-3=FGS4G$B$V1B)F.%-1*#=DA1)A,R]A5?0$98QE>M55A=!G25.&9A
+XM(VB05F>3IFJFYFIP!FIZ!H2J@2"E9F2L&!\*Z$M<\&:Z-A-GYA5OD(FAM!&L
+XMQ@)])HO,IHL'^&>WXADGX`6XJ&>MI0*%E6EHI@+#^#6.!DPW4(Q;QFK:F$3'
+XM&&IH%8,SF(LR`8VL]HF$UHUB\(UZ%FW-)FWE&(V%9HH"%HIB<$B?:''P*'5P
+XMT66%%8K4=H]N<&W9=GMXYVW@)F[D5BF7XB_JYG<(@8EDU%K@]R8O@DQ^1'<!
+XM*$@7!P(!1RW6TG=;<HF]J(E>R`+_<6T.(6->.''QD8C_,7%XEW'ZPB\."3!0
+XMT%QOPB!K\7_:%4B8Y"`XEW4[IQ3_(3QRYS^<EWIC=RN%,6'/%WNR,3EJ0AB-
+XM8W)7]W8K<SETF'K_07N7A2@&R5E3X%F@)5JDM6ZFA5J\Z(MC4(;R=3EL`CO:
+XM1THQ9%[WM3NIMC=L(U_&A5,6PY?P-1-3\"T@P'1#E'J*1!XK6$,FEWHS`)BP
+XM$8*0@`!!,`87<B=I>#E]TP8KR&*($8(SH6!8T7P.U)G15YD&YAF!]DWFI34F
+XMT1]?HQ>Q(YBBTUJD&6_]5S"Q^4'RM'T].)@R,8(H$Y0.]!_IUY5J,8"LI9J^
+XM)IK0<B5.PGR[:4;`"8<?IIH9YF$.`6(=%H?^Q3Q5EY6L@9QL2(=[6#(2&4I^
+XM6!"!B'`R)INTF1%HEF>M)0)%\$NI)`;.9`;CY`;V)`<,10=<0`<B4!!]D&4*
+XM0))N*516F9(]EH@M&:'O$I,%89^CUEZ440=E$8J!A2`>FHC_*&9*!E@PV61K
+XMII*C4C-_=3$9H1)_D5-TL(E_V%JDMBYK@6K6)FNA1FHP:A&J46HI.8N=:'YH
+XM!@/=&"<;87KM=:0[L$(<FA$\``*1V6AI%*-!BJ-0=C%]-HN_A2!3Q0-H-@-_
+XM]J7FQP=H)J1KT0+25$W75H,@$&UPJ@)>*(TO]&>\EERLZ2(H`(Q=-E=K)I^`
+XMP0):.F?T>&<\ZHPS0:>$8:?4N`(CJJ@R\1]]AJ>]YAFS]HQU.H\'0:E^YFS0
+XM)F;4EI+S$FT:"%1'3U1/+D,`)24E)27`"P``%0_CN[A9(Q<```PO5$!"TD`!
+XM"!4)("504?!@@H=#WL#)(R?-&31T0*`8DP)$C!PX9+``841.&3(DT\Q!\W!A
+XM0X0/0<@$$80-&Q!2+&*<@[/,G#)R[)QLZ=(@0H4,C2:@@D8EB#EOS-"Y$\8D
+XMB#!NR+QX(P<$F3=CZK0IXX9.&#IIWK@!X=0DFS)A?J(TPQ4$G#IBV*094]0A
+XM&95T*HJI@U8M"+I=X0"%ZB8,FY%NU+88\Z;-6#ECTC@&4><G"+5L\KAXF-0A
+XMDS1MTM`Y":+B13H\Z;SA_'-DFS=_S>09B16ER;]S`J<9O/JJ531`RXC)TQ?A
+XM&3E85\^M&]G-Y,J7,V^^*P?.FY]S1L*1\\9.&C*LZ:`Y>]4FZ9<)*$]TC1%$
+XM9+1C?+8NTR9,FK7_F35&1KVU=],8Z[EQAGY5E0'"&&]5%5IS"7P5UEAEG>2"
+XM3$PY&`9A:-35WQKZ108"57)`5U8>GYEQE1LLKO$?2G>HQE)I")DTAV(#@B";
+XMCTWQ-!YN=?188!EXP*%79G2$YI5*$/K7!D]8L8B:DFD,A6,"**J(EGY1@9!=
+XM@F:)D89>=+!8EQFJN>$33XB]R"(<5>%7!QM54<B==S^-!LD!6R+UTD`OO5!0
+XM00P4%-!+,C&1A!!2!"%%%B15X<005"3QA!,OP4?'&6_\*!.2=&;U8!UR0-55
+XM&&20H>,<_YWQE'`*'D9>&P_B.D88=)J)9AZ=&B73$D50>L434A`Q1;`.K29'
+XM&[O"P:P*,DV1A1-/0#%%$LL:!1^"51WT::AO;-0&"^@%1]ECZ3;Y7QDI?+M>
+XM5RJ,T<8.\`7HE4]TK(NO4OJVJY>;_Q[$*`A$%#'%$%(D`46FFTZ;@!1ET(&J
+XM&SR%E6I=K+KZ9JRS5J3@2.A1AMY<MP+IH+W?\AJ&KZJQ&)S(9XSTXVU"G;IQ
+XM5S^N*]9:[:[[F1OP#>R@P.^Z('&'A[UATQLUUOI3''60E1]/G8'I)EMNW$6@
+XM'&>(118=(Y5A(U!%O_M95SZWX09OIBH91GXJ7P7'D.-I5MP<>`6G&F%I$0WP
+XM6NHY^`9A7H<<JPX2)U`"&0GP+8;?%A=7,FJ;V>%8U1K]1]/"2201KU*.RY"`
+XM7B2"\#@(Q#6-F7YLEL$&C>>IY^-L,L#G^`RGIY'ZZJTC=O5A6<Y^8NUHW`["
+XM#+J7,!KJ#I8P1O,KX-'[[V.P3MA5K?(4!.A)@*`Y&YR'B<?2R#7]=-2R3EVU
+XM&\/OFK5=Y%T-:ZVWY;;768'/`5_K7[%/J$`@@OG5`0XB&)KA7%0XXX0-0[#9
+XM$`B2P$#D`$LI<\N(8;#B0+&5164LRN#0ZN8F/&AP:[+YW\K4(A0Y2$=IWB)=
+XM"7R`!^:DP44ES,CX./<C,:S0#2V4#EO\1[H$/`<NS@(2!W>XP,\-(70/FA<(
+XMSE?$PJVE8^+;7!._]\3P@:LKHFF>'!)@DA9Z1G*4`YQAPF0TW26@0&U;"PJ,
+XM-L2G]`TME3N)&]F4JHPL9U]F^!`;Z)`"&#K$<6F(SX?`P[7$,9$G07/:B\C@
+XM1J2A<#8^Y-H83`)!#36O!$9,@U!X<K\SO$5U4:Q*!H'"M<\@CC"&Q)%,A%"%
+XM(W3+8$HAPAM*-,`KO06"3ZE,$QMX&ZM495=;<Y_58,<5^$#G+[NR"8ON8#8Y
+XMH,19J6D,&WB"@AV5(3-LBJ:32O`VU0EA)"90'1$*"1\*@B`/AP/!>G*FEF$B
+XMQS/PK,.^?A(4!]UA/:MIH3QYI1B,Q;)0B%+4EIH`)=GAR4V'(Z7%S&`&A"J@
+XM("/X#X3J@!X0\"`X?WF#"]#@`XQJE'P=_2BMSC#2DEY4`2-`#YNVUH0@8$%2
+XMM@1![EX:'/YE[XL'^<\.'A*0"69(#MI\D$34Y*+_)&YF(/-.@%BI`D,IH*?X
+XM226]#D>'H2:@J%!XPU1Y-ANN)JXJT&%150N"U;UP[6MGF,,6:GI3*=BR"T,M
+XM:A/"@`?4B,4^8O%A5\)4E;@JCS)`!$I&UGI5LV157W"@3!W*XM6B1F2R&G11
+XM8854OS>QAK%M_:D4S4J8+=B`!G@E*K4BDE@7L@:JM6)L0A6P*&&!0%M%J`(1
+XMG@""(3PA81(30AG.X+EQI5`I,YD@#F<#6UG]:$CV4YG@#DDQBR'5+F(]JO*`
+XM0IZN-#>6"4AN$;99!MTEP0VJT8Q>].`@J6KW1T[=WG?-BUZT."8-[,7N6)6G
+XMHSME9+ZD,T(:^NC`.M+1#8%EY1]E*D@Z@#<!4_BF6E!2V#H*#<%M$"SK6,1@
+XM_S[8";,IK`=A0S^P>!8E>:C8@Z_0E%,6SBI.P4JHD,.V>:V2K"6VG^Z2Z\XO
+XMWKB.81`@@5#IXP&QTHING((O620?%OV(M`[>\4S&^Q,W0J&S<XA-^A`;&$DJ
+XM$WYE>+!X375#W17!5/\\4WE)5]V+Z?>]S'6L6Z&L.`6!=\PH*;-2SGQ-4!T7
+XMEP>Q:D&`J@+CELM>Z.+7NA(='*.-CM#V^E?`%.TT27_0DF7XUQX:,I,;:L1>
+XM(.A!#T#@A"HP@0D=V;0"R%BQBZ%`!$_(UA1$D(*"S:0/()"=9U2=`,^-.M(%
+XM20!70^U*.GCM7V\$FUQAT`5B8QK9F]U"#)H]ZDBR`=F1/=P'1PT#9*?YE"A0
+XM@>=",.I2GSK5P4ZNI\,][E&?H`0G0/>J%\+5%:R`V.)V@[V1G5Q<Z]I!O$X`
+XM=-^$@EJG^];![D.P36)=-Z``R@8W",(5H'`%)(JVLIR@$ZA0!"DX(0A,J-2E
+XM(,:I&#IDX%F>"<JU_$,S!NX%E+%,@;Z<GVE5ZUJRYI;$0IMC@H\.T-1"F,(8
+XMYC"22^S*)LZR?AI(<P?YD+AN0&^M:F2[!I9`JS<&+Q$&_,TFL:@_Z+T+GE;#
+XM\D;*=Z5O=I;-D`,?.C<W[4"!VS73)V((SD&"3(#+*#V5OOC^%^WN36+@0?:C
+XM!N80ZT:6@Z<PV5XLRT7N=7,[X+,K>,K':O$D1)(&7YD1-H"%?VJ18(]9N)C`
+XMM:CM6PN3X<56D>S5?6P\`8O&PB/=NF4;L_GBB48Y.39/FIRQ%Z_M062"6]WR
+XMUK?`_7T"A`OUGF<9/LF=@HS@\!F!6AWQSKKS3*9`=02-\/!%3F(8I,+*$D!_
+XM)D.(BX-.0(83,(YT2(_NZM*D&*6V%E:&08'F*O*R4]:(#.K!3FQF-O6E7OAE
+XM.)P'=W+P8$)@$F&P!@6#$,F5?IYQ`C+@?KH3?V^B.M>4!_6'6"Z7?_]G.S(@
+XM@-1%@.EU7_E%9X$'%`SH@!!X?C)!@>LW`Q@(?X['@3[B@2U7>B*(/,MC@C!!
+XM,?^1@NN%@,:V/2VX@+K3@'`1@\B%?NH'`B?@`B>0@3DH/3OX@:27*H'S@D\8
+XM@>$EA16X`C=X2!J8<EI(?SWHA89!=<D3%6;P$U%&.D[X@&(X@5-X`CYPAC"1
+XMAE0"-B,F)KAQ0_M3&&X`AG@H@[VUAW+@AP\!B!T$3&6T&(ZAB%#H$'I8@6D`
+XMB0EP7IO$'V,SB:/X2)B8AV2X?O#V?H<4$1.A/%`V$KLGBF41592W&*?(B'SV
+XM%-V'!O"QBRLW+8)F<6PE9]FS<@57$*JF;A^T&FT`!__":3+Q'_LFC;RH&@C"
+XM;OJV`O*67+M2@>WW?I&3-V5A!@]'&"P@`H\C`BP0;;=7%O;6!1$G;-LS:B8`
+XM95LP,V_A<!"76L$F!C!H:S+QC>MW@>*X(R)#!^;(5>E8`C`@`V3`CNXH6?"X
+XM`O*(;,-FC_BHCV1QCDE(2'CUCP%IC01)A39XD.2HD![9D#`P`Q'9CLJV!>](
+XM!_$XCQD)`O?(>?D8&/OHD5Z3`B&Y:@`9AB2YAU8HCBI0;_<V:A.I;31ID<@V
+XME(LH<0.YAV:(E$I);$V)6?$(`O>6;]4HE"-)E0^RAWTHCNNVE671;#X05-LH
+XM;V,H$VI)!\VV`J,&EBN`;/Y&7B#`:\P8E@E0<0D@E9DX$R5Y`H\HCLY(?4P9
+XMDS,9E,D65S))D72IE8Y)F2LP;=!VF4Z9F=3F(_P!C2))E&1YF)THCG/9!8`Y
+XMEYX)F(0ID&59@:L8;$E)&/9&;.]V`E$YEOU6$!4'&@A44%544RY#`"4E)24E
+XMW`H```P-2$ZAICX5```,+U1`0M)``0@5"2`E4%'P8(*'0][`R2,GS1DT=$"@
+XM&),"1(P<.&2P`&%$3ADR)-/,0?-P84.$#T'(!!&$#1L04BQBG(.SS)PR<NR<
+XM;.G2($*%#(TFH()&)8@Y;\S0N1/&)(@P;LB\>",'!)DW8^JT*>.&3A@Z:=ZX
+XM`>'4))LR87ZB-,,5!)PZ8MBD&5/4(1F5="J*J8-6+0BZ7>$`A>HF#)N1;M2V
+XM&/.FS5@Y8](X!E'G)PBU;/*X>)C4(9,T;=+0.0FBXD4Z/.F\X?QS9)LW?\WD
+XM&8D5I<F_<P*G&;SZJE4T0,N(R=,7X1DY6%?/K1O9S>3*ES-OOBL'SIN?<T;"
+XMD?/&3AHRK.F@.7O5)NF7"2A/=(T11&2T8WRV+M,F3)JU_YDU1D:]M7?3&.NY
+XM<89^594!PAAO515:<PE\%=9899WD@DQ,.1@&86C4U=\:^D4&`E5R0%=6'I^9
+XM<94;+*[Q'TIWJ,92:0B9-(=B`X(@FX]-\30>;G7T6&`9>,"A5V9TA.:52A#Z
+XMUP9/6+&(FI)I#(5C`BBJB)9^48&078)FB9&&7G2P6)<9JKGA$T^(O<@B'%7A
+XM5P<;55'(G7<_C0;)`5LB]=)`+[U04$$,%!302S(QD8004@0A118D5>'$$%0D
+XM\803+\%'QUVPS233&X2!^I1P"IYHXU5P##F>9L712<9?"G9JE$Q+%$'I%4](
+XM0<04MCJTFAQMC!$&',&J(-,463CQ!!13)`&L49Z".L=&<+`0AAEFC%$6"Z32
+XMP1%\"%9UT!AP[`!?@%=QZRT=ZBK%+@HJA,L1"BG$>Q"C(!!1Q!1#2)$$%)EN
+XMFFP"3Y1*&$_!592J=P&F-]MR#V9+VW]G'%:'&P.FM9:]O&4%'UTVO5%CJJJI
+XMJAZ0'K9*WJMG.>B&6&(`U:)=8<R*\8/K03?@8B[`%X2[93VHEEG_Q8:<?33;
+XM'*9>;E+);1D_DS'2'4TAR!9/G9T$7UQ7B7DG6EC:'*=Z#NY(=1ILLJ985U`[
+XM**N/J)6Q(0A)F`'?VR#$C3-*E&V<D5/WL8JEL7F5P1O1&:U$*ALHU>P1"_`Y
+XM2P4(>@#U1M#4*M7A85SUEU&8:)_J<,809XC2CQ2CN[4.!R>PQ=QHC=7%%BIT
+XMP4/#.__X4U8^Q(YU<CHD0'O=(/3@`]UC^3@;>GA:N59J-JE$M5IDS`$?:<DO
+XMKW9F;2O-7NT..L5WW-LG`-_G<Y?K\[!;7S7''&))O-\<YY6_5NE(#ML8&_"Q
+XM0U4TDS@0B``*0Q#!W6H"E9'P#P_^VXP`*Q*&`HK@.XHYB0C@X[@[`>YH_MG?
+XMTL)E*K6QAG1+&U9J_B<_^)"%,NA!R7]`\(+.R.$%_X%0'=#S@CF<@0YI<@$:
+XM9(("(<"@!4+(@0U@`(,4<&Y?MP*!$*IPA&E!T2%$L$C**.,&H<@!?X9QBACB
+XM<L*U-`8M0N%95<+PLZ[\A`[PJ=G.@@"P)"3AB3@RE`(2I8!%*:4)4"J#3;!2
+XM!E(QC`YUX%:A#J6`$>20#3MTT.[H\)?-H2%X"BC("-ABAJR4P45-F`(1GC"M
+XM_@%E+>X#`0)WT)*`J#)G:GR?S7[4M8/HT91R0&7//F-",K`R`:XL`L=PL[,P
+XMD9`P3\D@2E2@QX($YRQ[84O1R#>'+70A>2#80T-F`@,6$,655""+>G@2IBG9
+XMQ6:IA`$(QKA#6VY3)C)@8C=;J:QPE@4-Y'21.?F6RAJHDYW+U*.H8C"#@GKS
+XM(>`4)SYOMD]T[O(&-5CGAP+Z3A#D``8Y."@PZZG0?(I)2`XU5PQB\,^)NM,@
+XM,[D!#6:@T83>TZ,-[4HJ"4H#B;:3F16U@4Y;RM&7,A2D,MUE#/QI4XJB5";^
+XMG"=">SK.GYXSJ.:*9TEO*M"9%)2E]`2!/9M:3J#&$@0S8&)13SK0G69UJPOM
+XMZE._NL2I&E54.,#J63OJ5'X*5:ICQ>E105"#&FATHUJEJUKM*E(<B!6@9)T)
+XM#6+P5Y=R59]>3:4,:'!8D^I55/%L+%/3"MFUII(&AG5K8F5"TF]N%J:1W:42
+XM*TO5@O0A7ILD2VX8R4<_'D0FT"I"%48)@B$\P5\'$T(9SC!#.ISA#;*!CZCR
+XM9KJ=I0Y^3OF/`/6R.N2X87M2*`,B<ZFR$"'S*SNKDGHPAL<$B*H(;/C)]HQ0
+XM%[AH;6Y_(6Y&4,`V.:5@>Z(BPO/6UI^;O$4J3VF*5,IKWID$80P7NE/,6-8W
+XMD]DLOJHAL#"G(X?M!8$,:NA,XXSU%N?Y2+#Z/)->?L+%[&V/N6BSBE/"<)CW
+XM>6PS;8,<?F<R!1G!@<'HR4Q_[?*&`!%XN2Y*<?FH!(+IGN?#/H4P')7RD`,G
+XM&$_%*=UJ7OKCF4R8DS.621;G8"PY^(8_(=R9DN<@X:Q@F<G,/=]_AIS,M;6M
+XMNF3),DTPK&$&'V\L5=8RE*H"Y[7ZS0QXRIC[RBQ#O3'Y"DWIL)"-XR$8Q9*-
+XMP^+)?Y?LD`(O2[8L:\-GD&D>%A\S(V;86,?40N@3);H,VZ."BN:0&@(Y6E:T
+XMRIA)XE"'-/RFO.<U,]O@<V7C(O<-R6JF`CZU,&QIBW'@(LRX%)!*%:`K7NS:
+XM5K?*`NVBT<M>*<!7O+2Y5W;!@7R_!"P48$D^:2+YL6(2L?5*S)/+S@27`"J:
+XM2I2L;4:*JK[82EX/0."$*C"!"2#@`Q_.=>,>[+O?_^X(MQ-@DNVZ05\SZ0,(
+XM!.F9A<<)!=]&WKYAL(.MT=O9<,A7Q5:P`H47Q-)V*;<*]DW2>*$\X\U;P;[I
+XMY;H6@.`$,#A!OD[>AY/#W$$K]PC'3XYOD.O[YB[0>39/+BITD=SE]W81?>?P
+XM<72EP.0*>,C/02!SC8"<Y""P.<YU#O6(,WTF6#N3@Z9>]9`KW.DKV$'/LS[W
+XM!!3==0:_N0J4OG!1;3WHTGY7V64"=Y?7/>T=IOF-0W!P?S,!ZRB_MK*S_?62
+XM&UZ3G/0D*$5)RI-_Y0NPQAC&R9=L<>V\D1//RJ[W.O>Y\W&3;-,\"$(YRFG9
+XM5EF5NE3!.-4YO[P!]#F+M:@"@Q56IZQ*?WMT&WDRZUK_)EG+:M:SHF7%+3T3
+XM/U[Y?>@5-/JZE7[9#O$VN-=E[7I-OMZ]Q[V_`"8P@FF*]U=$B'X9].K@[ZSY
+XMMF8-V+['MBQ%;D[E1E_[TU'P44[J1F+8,P<IX$`CI#"-HTP@0%Q"$6\,!F^.
+XM$4`#5$$=AD%E<!(ATV?MTS.09C,22!;FAC8N!$&G)$$96$`(A$>+M$>*@B.X
+XM-06ZQ5N^!5SIEP#"15QK\7G;=P;*-1,HAAPJ1F35T0*90Q[)5VYH<UUH%F1+
+XM8X$WT4OQ,T,JLB`L`X65)BI,\`9OL`:<<6.E`SUA,"<V$X)KU$9YAA.D8F9W
+XMYB!U<&,4LQYLX"(LYCXC*`=M&!%M`"HRTS1=$29ZN'P>]CMDT(;LU17N-41J
+XM*$M=X3NRE3ZJ5GRM9F>P5(C#TH97AAC;<V6KYQ"Y5FB\9F9`:'^UDG["=GW1
+XM=(HZPWT_]WWWI0#B5S?5-E_F9WKHQVVB8A+$%1PVPRX<TS-S`'$RX8N`$8S3
+XM!`=C$"\5A6];QW@@T$1+EW7XQH&LX0,;!P(F8`*\!($\,'/XDSE1@0+4E`(O
+XM\!1I0(YF((!T<'60-WS,B$W4M`782`9=,'@IASQ=9X[SF(XR<'HH-XQ5P1/[
+XMMG7I^"G->'8R<7$@T'$$^44@L#P<%W8M$)$*6(T/(7FZB$`"*2IU-W<@Z5J8
+X&)UNK!QH`
+X`
+Xend
+END_OF_termcap.uu
+if test 25830 -ne `wc -c <termcap.uu`; then
+    echo shar: \"termcap.uu\" unpacked with wrong size!
+fi
+# end of overwriting check
+fi
+echo shar: End of archive 5 \(of 13\).
+cp /dev/null ark5isdone
+MISSING=""
+for I in 1 2 3 4 5 6 7 8 9 10 11 12 13 ; do
+    if test ! -f ark${I}isdone ; then
+	MISSING="${MISSING} ${I}"
+    fi
+done
+if test "${MISSING}" = "" ; then
+    echo You have unpacked all 13 archives.
+    rm -f ark[1-9]isdone ark[1-9][0-9]isdone
+else
+    echo You still need to unpack the following archives:
+    echo "        " ${MISSING}
+fi
+##  End of shell archive.
+exit 0
