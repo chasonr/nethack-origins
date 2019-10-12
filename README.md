@@ -9,3 +9,9 @@ Sources of these files are as follows:
 
 * For NetHack 3.1.0 through 3.1.3: These are files saved from the UUNet FTP site while
   that site still operated.
+
+These posts contain "shar" archives, which when run by a POSIX-compatible shell, generate
+the archived files in the current directory. I have run these shar archives on my own
+computer and have no reason to believe they contain any harmful commands; but I assume no
+liability for any damages. Use these files at your own risk. Run them on a virtual machine
+if you're paranoid.
