@@ -1,0 +1,1901 @@
+Subject:  v17i054:  nethack31 - display oriented dungeons & dragons (Ver. 3.1), Patch1m/31
+Newsgroups: comp.sources.games
+Approved: billr@saab.CNA.TEK.COM
+
+Submitted-by: izchak@linc.cis.upenn.edu (Izchak Miller)
+Posting-number: Volume 17, Issue 54
+Archive-name: nethack31/Patch1m
+Patch-To: nethack31: Volume 16, Issue 1-116
+Environment: Amiga, Atari, Mac, MS-DOS, Windows-NT, OS2, Unix, VMS, X11
+
+
+
+#! /bin/sh
+# This is a shell archive.  Remove anything before this line, then unpack
+# it by saving it into a file and typing "sh file".  To overwrite existing
+# files, type "sh file -c".  You can also feed this as standard input via
+# unshar, or by typing "sh <file", e.g..  If this archive is complete, you
+# will see the following message at the end:
+#		"End of archive 13 (of 31)."
+# Contents:  patches01o sys/winnt/setup.bat
+# Wrapped by billr@saab on Fri Mar  5 10:50:44 1993
+PATH=/bin:/usr/bin:/usr/ucb ; export PATH
+if test -f 'patches01o' -a "${1}" != "-c" ; then 
+  echo shar: Renaming existing file \"'patches01o'\" to \"'patches01o.orig'\"
+  mv -f 'patches01o' 'patches01o.orig'
+fi
+echo shar: Extracting \"'patches01o'\" \(53271 characters\)
+sed "s/^X//" >'patches01o' <<'END_OF_FILE'
+X*** /tmp/da10318	Thu Feb 25 10:33:13 1993
+X--- win/X11/winmesg.c	Wed Feb 24 16:11:45 1993
+X***************
+X*** 1,4 ****
+X! /*	SCCS Id: @(#)winmesg.c	3.1	92/05/19		  */
+X  /* Copyright (c) Dean Luick, 1992				  */
+X  /* NetHack may be freely redistributed.  See license for details. */
+X  
+X--- 1,4 ----
+X! /*	SCCS Id: @(#)winmesg.c	3.1	93/02/02		  */
+X  /* Copyright (c) Dean Luick, 1992				  */
+X  /* NetHack may be freely redistributed.  See license for details. */
+X  
+X***************
+X*** 6,55 ****
+X   * Message window routines.
+X   *
+X   * Global functions:
+X-  *	set_message_height()
+X   *	create_message_window()
+X   *	destroy_message_window()
+X   *	display_message_window()
+X   *	append_message()
+X   */
+X  #include <X11/Intrinsic.h>
+X  #include <X11/StringDefs.h>
+X  #include <X11/Shell.h>
+X  #include <X11/Xaw/Cardinals.h>
+X  #include <X11/Xaw/Viewport.h>
+X  #include "Window.h"	/* Window widget declarations */
+X  
+X  #include "hack.h"
+X  #include "winX.h"
+X  
+X! static const char message_translations[] =
+X!     "#override\n\
+X!     <Key>: no-op()";
+X  
+X- static struct line_element *get_previous();
+X- static void set_circle_buf();
+X- static char *split();
+X- static void add_line();
+X- static void redraw_message_window();
+X- static void mesg_check_size_change();
+X- static void mesg_exposed();
+X- static void get_gc();
+X- static void mesg_resized();
+X- 
+X- /* Adjust the number of rows on the given message window. */
+X- void
+X- set_message_height(wp, rows)
+X-     struct xwindow *wp;
+X-     Dimension rows;
+X- {
+X-     Arg args[1];
+X- 
+X-     wp->pixel_height = wp->mesg_information->char_height * rows;
+X- 
+X-     XtSetArg(args[0], XtNheight, wp->pixel_height);
+X-     XtSetValues(wp->w, args, ONE);
+X- }
+X- 
+X  /* Move the message window's vertical scrollbar's slider to the bottom. */
+X  void
+X  set_message_slider(wp)
+X--- 6,50 ----
+X   * Message window routines.
+X   *
+X   * Global functions:
+X   *	create_message_window()
+X   *	destroy_message_window()
+X   *	display_message_window()
+X   *	append_message()
+X   */
+X+ 
+X+ #ifndef SYSV
+X+ #define PRESERVE_NO_SYSV	/* X11 include files may define SYSV */
+X+ #endif
+X+ 
+X  #include <X11/Intrinsic.h>
+X  #include <X11/StringDefs.h>
+X  #include <X11/Shell.h>
+X  #include <X11/Xaw/Cardinals.h>
+X  #include <X11/Xaw/Viewport.h>
+X+ #include <X11/Xatom.h>
+X+ 
+X+ #ifdef PRESERVE_NO_SYSV
+X+ # ifdef SYSV
+X+ #  undef SYSV
+X+ # endif
+X+ # undef PRESERVE_NO_SYSV
+X+ #endif
+X+ 
+X  #include "Window.h"	/* Window widget declarations */
+X  
+X  #include "hack.h"
+X  #include "winX.h"
+X  
+X! static struct line_element *FDECL(get_previous, (struct line_element *));
+X! static void FDECL(set_circle_buf, (struct mesg_info_t *,int));
+X! static char *FDECL(split, (char *,XFontStruct *,DIMENSION_P));
+X! static void FDECL(add_line, (struct mesg_info_t *,const char *));
+X! static void FDECL(redraw_message_window, (struct xwindow *));
+X! static void FDECL(mesg_check_size_change, (struct xwindow *));
+X! static void FDECL(mesg_exposed, (Widget,XtPointer,XtPointer));
+X! static void FDECL(get_gc, (Widget,struct mesg_info_t *));
+X! static void FDECL(mesg_resized, (Widget,XtPointer,XtPointer));
+X  
+X  /* Move the message window's vertical scrollbar's slider to the bottom. */
+X  void
+X  set_message_slider(wp)
+X***************
+X*** 115,120 ****
+X--- 110,119 ----
+X  	wp->popup = parent = XtCreatePopupShell("message_popup",
+X  					topLevelShellWidgetClass,
+X  					toplevel, args, num_args);
+X+ 	/*
+X+ 	 * If we're here, then this is an auxiliary message window.  If we're
+X+ 	 * cancelled via a delete window message, we should just pop down.
+X+ 	 */
+X      }
+X  
+X      /*
+X***************
+X*** 125,135 ****
+X      num_args = 0;
+X      XtSetArg(args[num_args], XtNallowVert,  True);      num_args++;
+X      viewport = XtCreateManagedWidget(
+X!                         "mesg_viewport",         /* name */
+X!                         viewportWidgetClass,    /* widget class from Window.h */
+X!                         parent,                 /* parent widget */
+X!                         args,                   /* set some values */
+X!                         num_args);              /* number of values to set */
+X  
+X      /*
+X       * Create a message window.  We will change the width and height once
+X--- 124,134 ----
+X      num_args = 0;
+X      XtSetArg(args[num_args], XtNallowVert,  True);      num_args++;
+X      viewport = XtCreateManagedWidget(
+X! 			"mesg_viewport",	/* name */
+X! 			viewportWidgetClass,	/* widget class from Window.h */
+X! 			parent,			/* parent widget */
+X! 			args,			/* set some values */
+X! 			num_args);		/* number of values to set */
+X  
+X      /*
+X       * Create a message window.  We will change the width and height once
+X***************
+X*** 136,143 ****
+X       * we know what font we are using.
+X       */
+X      num_args = 0;
+X-     XtSetArg(args[num_args], XtNtranslations,
+X- 	XtParseTranslationTable(message_translations));	num_args++;
+X      wp->w = XtCreateManagedWidget(
+X  		"message",		/* name */
+X  		windowWidgetClass,	/* widget class from Window.h */
+X--- 135,140 ----
+X***************
+X*** 166,172 ****
+X  
+X      get_gc(wp->w, mesg_info);
+X  
+X!     wp->pixel_height = DEFAULT_LINES_DISPLAYED * mesg_info->char_height;
+X  
+X      /* If a variable spaced font, only use 2/3 of the default size */
+X      if (mesg_info->fs->min_bounds.width != mesg_info->fs->max_bounds.width) {
+X--- 163,169 ----
+X  
+X      get_gc(wp->w, mesg_info);
+X  
+X!     wp->pixel_height = ((int)flags.msg_history) * mesg_info->char_height;
+X  
+X      /* If a variable spaced font, only use 2/3 of the default size */
+X      if (mesg_info->fs->min_bounds.width != mesg_info->fs->max_bounds.width) {
+X***************
+X*** 182,198 ****
+X      XtSetArg(args[num_args], XtNheight,       wp->pixel_height); num_args++;
+X      XtSetValues(wp->w, args, num_args);
+X  
+X!     XtAddEventHandler(wp->w, KeyPressMask, False,
+X! 		      (XtEventHandler) msgkey, (XtPointer) 0);
+X      XtAddCallback(wp->w, XtNresizeCallback, mesg_resized, (XtPointer) 0);
+X  
+X      /*
+X       * If we have created our own popup, then realize it so that the
+X!      * viewport is also realized.  Then resize the mesg window.
+X       */
+X      if (create_popup) {
+X  	XtRealizeWidget(wp->popup);
+X! 	set_message_height(wp, (int) flags.msg_history);
+X      }
+X  }
+X  
+X--- 179,201 ----
+X      XtSetArg(args[num_args], XtNheight,       wp->pixel_height); num_args++;
+X      XtSetValues(wp->w, args, num_args);
+X  
+X!     /* make sure viewport height makes sense before realizing it */
+X!     num_args = 0;
+X!     mesg_info->viewport_height =
+X! 	DEFAULT_LINES_DISPLAYED * mesg_info->char_height;
+X!     XtSetArg(args[num_args], XtNheight, mesg_info->viewport_height);num_args++;
+X!     XtSetValues(viewport, args, num_args);
+X! 
+X      XtAddCallback(wp->w, XtNresizeCallback, mesg_resized, (XtPointer) 0);
+X  
+X      /*
+X       * If we have created our own popup, then realize it so that the
+X!      * viewport is also realized.
+X       */
+X      if (create_popup) {
+X  	XtRealizeWidget(wp->popup);
+X! 	XSetWMProtocols(XtDisplay(wp->popup), XtWindow(wp->popup),
+X! 			&wm_delete_window, 1);
+X      }
+X  }
+X  
+X***************
+X*** 450,457 ****
+X       *
+X       * This could be done more effecently with one call to XDrawText() instead
+X       * of many calls to XDrawString().  Maybe later.
+X       */
+X!     XClearWindow(XtDisplay(wp->w), XtWindow(wp->w));
+X  
+X      /* For now, just update the whole shootn' match. */
+X      for (row = 0, curr = mesg_info->head;
+X--- 453,462 ----
+X       *
+X       * This could be done more effecently with one call to XDrawText() instead
+X       * of many calls to XDrawString().  Maybe later.
+X+      *
+X+      * Only need to clear if window has new text.
+X       */
+X!     if (mesg_info->dirty) XClearWindow(XtDisplay(wp->w), XtWindow(wp->w));
+X  
+X      /* For now, just update the whole shootn' match. */
+X      for (row = 0, curr = mesg_info->head;
+X***************
+X*** 460,468 ****
+X  	register int y_base = row * mesg_info->char_height;
+X  
+X  	XDrawString(XtDisplay(wp->w), XtWindow(wp->w),
+X!                 mesg_info->gc,
+X  		mesg_info->char_lbearing,
+X!                 mesg_info->char_ascent + y_base,
+X  		curr->line,
+X  		curr->str_length);
+X  
+X--- 465,473 ----
+X  	register int y_base = row * mesg_info->char_height;
+X  
+X  	XDrawString(XtDisplay(wp->w), XtWindow(wp->w),
+X! 		mesg_info->gc,
+X  		mesg_info->char_lbearing,
+X! 		mesg_info->char_ascent + y_base,
+X  		curr->line,
+X  		curr->str_length);
+X  
+X***************
+X*** 472,478 ****
+X  	 */
+X  	if (appResources.message_line && curr == mesg_info->last_pause) {
+X  	    XDrawLine(XtDisplay(wp->w), XtWindow(wp->w),
+X!                 mesg_info->gc,
+X  		0, y_base, wp->pixel_width, y_base);
+X  	}
+X      }
+X--- 477,483 ----
+X  	 */
+X  	if (appResources.message_line && curr == mesg_info->last_pause) {
+X  	    XDrawLine(XtDisplay(wp->w), XtWindow(wp->w),
+X! 		mesg_info->gc,
+X  		0, y_base, wp->pixel_width, y_base);
+X  	}
+X      }
+X***************
+X*** 514,529 ****
+X  /* Event handler for message window expose events. */
+X  /*ARGSUSED*/
+X  static void
+X! mesg_exposed(w, event)
+X      Widget w;
+X!     XExposeEvent *event;	/* unused */
+X  {
+X!     struct xwindow *wp;
+X  
+X!     if (!XtIsRealized(w)) return;
+X!     wp = find_widget(w);
+X!     mesg_check_size_change(wp);
+X!     redraw_message_window(wp);
+X  }
+X  
+X  
+X--- 519,549 ----
+X  /* Event handler for message window expose events. */
+X  /*ARGSUSED*/
+X  static void
+X! mesg_exposed(w, client_data, widget_data)
+X      Widget w;
+X!     XtPointer client_data;	/* unused */
+X!     XtPointer widget_data;	/* expose event from Window widget */
+X  {
+X!     XExposeEvent *event = (XExposeEvent *) widget_data;
+X  
+X!     if (XtIsRealized(w) && event->count == 0) {
+X! 	struct xwindow *wp;
+X! 	Display *dpy;
+X! 	Window   win;
+X! 	XEvent   evt;
+X! 
+X! 	/*
+X! 	 * Drain all pending expose events for the message window;
+X! 	 * we'll redraw the whole thing at once.
+X! 	 */
+X! 	dpy = XtDisplay(w);
+X! 	win = XtWindow(w);
+X! 	while (XCheckTypedWindowEvent(dpy, win, Expose, &evt)) continue;
+X! 
+X! 	wp = find_widget(w);
+X! 	mesg_check_size_change(wp);
+X! 	redraw_message_window(wp);
+X!     }
+X  }
+X  
+X  
+X*** /tmp/da10326	Thu Feb 25 10:33:16 1993
+X--- win/X11/winmisc.c	Wed Feb 24 16:11:51 1993
+X***************
+X*** 1,4 ****
+X! /*	SCCS Id: @(#)winmisc.c	3.1	92/10/21	*/
+X  /* Copyright (c) Dean Luick, 1992				  */
+X  /* NetHack may be freely redistributed.  See license for details. */
+X  
+X--- 1,4 ----
+X! /*	SCCS Id: @(#)winmisc.c	3.1	93/02/04	*/
+X  /* Copyright (c) Dean Luick, 1992				  */
+X  /* NetHack may be freely redistributed.  See license for details. */
+X  
+X***************
+X*** 7,12 ****
+X--- 7,17 ----
+X   * 
+X   * 	+ Global functions: player_selection() and get_ext_cmd().
+X   */
+X+ 
+X+ #ifndef SYSV
+X+ #define PRESERVE_NO_SYSV	/* X11 include files may define SYSV */
+X+ #endif
+X+ 
+X  #include <X11/Intrinsic.h>
+X  #include <X11/StringDefs.h>
+X  #include <X11/Shell.h>
+X***************
+X*** 15,21 ****
+X--- 20,34 ----
+X  #include <X11/Xaw/Label.h>
+X  #include <X11/Xaw/Cardinals.h>
+X  #include <X11/Xos.h>	/* for index() */
+X+ #include <X11/Xatom.h>
+X  
+X+ #ifdef PRESERVE_NO_SYSV
+X+ # ifdef SYSV
+X+ #  undef SYSV
+X+ # endif
+X+ # undef PRESERVE_NO_SYSV
+X+ #endif
+X+ 
+X  #include "hack.h"
+X  #include "func_tab.h"
+X  #include "winX.h"
+X***************
+X*** 38,44 ****
+X       <Key>: ps_key()";
+X  
+X  
+X! static Widget make_menu();
+X  
+X  
+X  /* Player Selection -------------------------------------------------------- */
+X--- 51,60 ----
+X       <Key>: ps_key()";
+X  
+X  
+X! static Widget FDECL(make_menu, (const char *,const char *,String,
+X! 				const char *,XtCallbackProc,
+X! 				const char *,XtCallbackProc,
+X! 				int,char **,XtCallbackProc,Widget *));
+X  
+X  
+X  /* Player Selection -------------------------------------------------------- */
+X***************
+X*** 121,128 ****
+X  		num_roles, roles, ps_select, &player_form);
+X  
+X      ps_selected = 0;
+X!     positionpopup(popup);
+X!     nh_XtPopup(popup, XtGrabExclusive, player_form);
+X  
+X      /* The callbacks will enable the event loop exit. */
+X      (void) x_event(EXIT_ON_EXIT);
+X--- 137,144 ----
+X  		num_roles, roles, ps_select, &player_form);
+X  
+X      ps_selected = 0;
+X!     positionpopup(popup, FALSE);
+X!     nh_XtPopup(popup, (int)XtGrabExclusive, player_form);
+X  
+X      /* The callbacks will enable the event loop exit. */
+X      (void) x_event(EXIT_ON_EXIT);
+X***************
+X*** 167,174 ****
+X  {
+X      extended_command_selected = -1;		/* reset selected value */
+X  
+X!     positionpopup(extended_command_popup);	/* center on cursor */
+X!     nh_XtPopup(extended_command_popup, XtGrabExclusive, extended_command_form);
+X  
+X      /* The callbacks will enable the event loop exit. */
+X      (void) x_event(EXIT_ON_EXIT);
+X--- 183,191 ----
+X  {
+X      extended_command_selected = -1;		/* reset selected value */
+X  
+X!     positionpopup(extended_command_popup, FALSE); /* center on cursor */
+X!     nh_XtPopup(extended_command_popup, (int)XtGrabExclusive,
+X! 					extended_command_form);
+X  
+X      /* The callbacks will enable the event loop exit. */
+X      (void) x_event(EXIT_ON_EXIT);
+X***************
+X*** 216,221 ****
+X--- 233,251 ----
+X  
+X  /* ARGSUSED */
+X  void
+X+ ec_delete(w, event, params, num_params)
+X+     Widget w;
+X+     XEvent *event;
+X+     String *params;
+X+     Cardinal *num_params;
+X+ {
+X+     extended_command_selected = -1;	/* dismiss */
+X+     nh_XtPopdown(extended_command_popup);
+X+     exit_x_event = TRUE;		/* leave event loop */
+X+ }
+X+ 
+X+ /* ARGSUSED */
+X+ void
+X  ec_key(w, event, params, num_params)
+X      Widget w;
+X      XEvent *event;
+X***************
+X*** 327,338 ****
+X  		left_name, left_callback,
+X  		right_name, right_callback,
+X  		num_names, widget_names, name_callback, formp)
+X!     char	   *popup_name;
+X!     char	   *popup_label;
+X      String	   popup_translations;
+X!     char	   *left_name;
+X      XtCallbackProc left_callback;
+X!     char	   *right_name;
+X      XtCallbackProc right_callback;
+X      int		   num_names;
+X      char	   **widget_names;
+X--- 357,368 ----
+X  		left_name, left_callback,
+X  		right_name, right_callback,
+X  		num_names, widget_names, name_callback, formp)
+X!     const char	   *popup_name;
+X!     const char	   *popup_label;
+X      String	   popup_translations;
+X!     const char	   *left_name;
+X      XtCallbackProc left_callback;
+X!     const char	   *right_name;
+X      XtCallbackProc right_callback;
+X      int		   num_names;
+X      char	   **widget_names;
+X***************
+X*** 357,362 ****
+X--- 387,394 ----
+X      popup = XtCreatePopupShell(popup_name,
+X  				transientShellWidgetClass,
+X  				toplevel, args, num_args);
+X+     XtOverrideTranslations(popup,
+X+ 	XtParseTranslationTable("<Message>WM_PROTOCOLS: ec_delete()"));
+X  
+X      num_args = 0;
+X      XtSetArg(args[num_args], XtNtranslations,
+X***************
+X*** 414,419 ****
+X--- 446,453 ----
+X  		    args, num_args);
+X      XtAddCallback(right, XtNcallback, right_callback, (XtPointer) 0);
+X  
+X+     XtInstallAccelerators(form, left);
+X+     XtInstallAccelerators(form, right);
+X  
+X      /*
+X       * Create and place the command widgets.
+X***************
+X*** 470,475 ****
+X--- 504,510 ----
+X      free((char *) commands);
+X  
+X      XtRealizeWidget(popup);
+X+     XSetWMProtocols(XtDisplay(popup), XtWindow(popup), &wm_delete_window, 1);
+X  
+X      return popup;
+X  }
+X*** /tmp/da10334	Thu Feb 25 10:33:18 1993
+X--- win/X11/winstat.c	Wed Feb 24 16:11:57 1993
+X***************
+X*** 1,4 ****
+X! /*	SCCS Id: @(#)winstat.c	3.1	92/3/7
+X  /* Copyright (c) Dean Luick, 1992				  */
+X  /* NetHack may be freely redistributed.  See license for details. */
+X  
+X--- 1,4 ----
+X! /*	SCCS Id: @(#)winstat.c	3.1	93/02/04	*/
+X  /* Copyright (c) Dean Luick, 1992				  */
+X  /* NetHack may be freely redistributed.  See license for details. */
+X  
+X***************
+X*** 9,14 ****
+X--- 9,19 ----
+X   * made.  This code assumes that only one fancy status will ever be made.
+X   * Currently, only one status window (of any type) is _ever_ made.
+X   */
+X+ 
+X+ #ifndef SYSV
+X+ #define PRESERVE_NO_SYSV	/* X11 include files may define SYSV */
+X+ #endif
+X+ 
+X  #include <X11/Intrinsic.h>
+X  #include <X11/StringDefs.h>
+X  #include <X11/Shell.h>
+X***************
+X*** 16,22 ****
+X--- 21,35 ----
+X  #include <X11/Xaw/Cardinals.h>
+X  #include <X11/Xaw/Form.h>
+X  #include <X11/Xaw/Label.h>
+X+ #include <X11/Xatom.h>
+X  
+X+ #ifdef PRESERVE_NO_SYSV
+X+ # ifdef SYSV
+X+ #  undef SYSV
+X+ # endif
+X+ # undef PRESERVE_NO_SYSV
+X+ #endif
+X+ 
+X  #include "hack.h"
+X  #include "winX.h"
+X  
+X***************
+X*** 23,30 ****
+X  extern const char *hu_stat[]; /* from eat.c */
+X  extern const char *enc_stat[]; /* from botl.c */
+X  
+X! static void update_fancy_status();
+X! static Widget create_fancy_status();
+X  
+X  void
+X  create_status_window(wp, create_popup, parent)
+X--- 36,43 ----
+X  extern const char *hu_stat[]; /* from eat.c */
+X  extern const char *enc_stat[]; /* from botl.c */
+X  
+X! static void FDECL(update_fancy_status, (struct xwindow *));
+X! static Widget FDECL(create_fancy_status, (Widget,Widget));
+X  
+X  void
+X  create_status_window(wp, create_popup, parent)
+X***************
+X*** 63,68 ****
+X--- 76,85 ----
+X      wp->popup = parent = XtCreatePopupShell("status_popup",
+X  					topLevelShellWidgetClass,
+X  					toplevel, args, num_args);
+X+     /*
+X+      * If we're here, then this is an auxiliary status window.  If we're
+X+      * cancelled via a delete window message, we should just pop down.
+X+      */
+X  
+X      num_args = 0;
+X      XtSetArg(args[num_args], XtNdisplayCaret, False); num_args++;
+X***************
+X*** 202,217 ****
+X  #define F_EXP      15
+X  #define F_ALIGN	   16
+X  #define F_TIME     17
+X  
+X! #define F_HUNGER   18
+X! #define F_CONFUSED 19
+X! #define F_SICK	   20
+X! #define F_BLIND	   21
+X! #define F_STUNNED  22
+X! #define F_HALLU    23
+X! #define F_ENCUMBER 24
+X  
+X! #define NUM_STATS  25
+X  
+X  /*
+X   * Notes:
+X--- 219,235 ----
+X  #define F_EXP      15
+X  #define F_ALIGN	   16
+X  #define F_TIME     17
+X+ #define F_SCORE	   18
+X  
+X! #define F_HUNGER   19
+X! #define F_CONFUSED 20
+X! #define F_SICK	   21
+X! #define F_BLIND	   22
+X! #define F_STUNNED  23
+X! #define F_HALLU    24
+X! #define F_ENCUMBER 25
+X  
+X! #define NUM_STATS  26
+X  
+X  /*
+X   * Notes:
+X***************
+X*** 220,226 ****
+X   */
+X  static struct X_status_value shown_stats[NUM_STATS] = {
+X      { "Strength",	SV_VALUE, (Widget) 0, -1, 0, FALSE, FALSE },	/* 0*/
+X!     { "Dexerity",	SV_VALUE, (Widget) 0, -1, 0, FALSE, FALSE },
+X      { "Constitution",	SV_VALUE, (Widget) 0, -1, 0, FALSE, FALSE },
+X      { "Intelligence",	SV_VALUE, (Widget) 0, -1, 0, FALSE, FALSE },
+X      { "Wisdom",		SV_VALUE, (Widget) 0, -1, 0, FALSE, FALSE },
+X--- 238,244 ----
+X   */
+X  static struct X_status_value shown_stats[NUM_STATS] = {
+X      { "Strength",	SV_VALUE, (Widget) 0, -1, 0, FALSE, FALSE },	/* 0*/
+X!     { "Dexterity",	SV_VALUE, (Widget) 0, -1, 0, FALSE, FALSE },
+X      { "Constitution",	SV_VALUE, (Widget) 0, -1, 0, FALSE, FALSE },
+X      { "Intelligence",	SV_VALUE, (Widget) 0, -1, 0, FALSE, FALSE },
+X      { "Wisdom",		SV_VALUE, (Widget) 0, -1, 0, FALSE, FALSE },
+X***************
+X*** 238,252 ****
+X      { "Experience",	SV_VALUE, (Widget) 0, -1, 0, FALSE, FALSE },	/*15*/
+X      { "Alignment",	SV_VALUE, (Widget) 0, -2, 0, FALSE, FALSE },
+X      { "Time",		SV_VALUE, (Widget) 0, -2, 0, FALSE, FALSE },
+X  
+X      { "",		SV_NAME,  (Widget) 0,  0, 0, FALSE, TRUE }, /* hunger*/
+X!     { "Confused",	SV_NAME,  (Widget) 0,  1, 0, FALSE, TRUE },
+X!     { "Sick",		SV_NAME,  (Widget) 0,  0, 0, FALSE, TRUE },	/*20*/
+X      { "Blind",		SV_NAME,  (Widget) 0,  0, 0, FALSE, TRUE },
+X      { "Stunned",	SV_NAME,  (Widget) 0,  0, 0, FALSE, TRUE },
+X      { "Hallucinating",	SV_NAME,  (Widget) 0,  0, 0, FALSE, TRUE },
+X      { "",		SV_NAME,  (Widget) 0,  0, 0, FALSE, TRUE }, /*encumbr*/
+X- 
+X  };
+X  
+X  
+X--- 256,270 ----
+X      { "Experience",	SV_VALUE, (Widget) 0, -1, 0, FALSE, FALSE },	/*15*/
+X      { "Alignment",	SV_VALUE, (Widget) 0, -2, 0, FALSE, FALSE },
+X      { "Time",		SV_VALUE, (Widget) 0, -2, 0, FALSE, FALSE },
+X+     { "Score",		SV_VALUE, (Widget) 0, -2, 0, FALSE, FALSE },
+X  
+X      { "",		SV_NAME,  (Widget) 0,  0, 0, FALSE, TRUE }, /* hunger*/
+X!     { "Confused",	SV_NAME,  (Widget) 0,  1, 0, FALSE, TRUE },	/*20*/
+X!     { "Sick",		SV_NAME,  (Widget) 0,  0, 0, FALSE, TRUE },
+X      { "Blind",		SV_NAME,  (Widget) 0,  0, 0, FALSE, TRUE },
+X      { "Stunned",	SV_NAME,  (Widget) 0,  0, 0, FALSE, TRUE },
+X      { "Hallucinating",	SV_NAME,  (Widget) 0,  0, 0, FALSE, TRUE },
+X      { "",		SV_NAME,  (Widget) 0,  0, 0, FALSE, TRUE }, /*encumbr*/
+X  };
+X  
+X  
+X***************
+X*** 387,392 ****
+X--- 405,461 ----
+X  	    }
+X  	    if(!flagtime) return;
+X  	}
+X+ 
+X+ 	/* special case: exp can be enabled & disabled */
+X+ 	else if (attr_rec == &shown_stats[F_EXP]) {
+X+ 	    static boolean flagexp = TRUE;
+X+ #ifdef EXP_ON_BOTL
+X+ 
+X+ 	    if (flags.showexp && !flagexp) {
+X+ 		set_name(attr_rec->w, shown_stats[F_EXP].name);
+X+ 		force_update = TRUE;
+X+ 		flagexp = flags.showexp;
+X+ 	    } else if(!flags.showexp && flagexp) {
+X+ 		set_name(attr_rec->w, "");
+X+ 		set_value(attr_rec->w, "");
+X+ 		flagexp = flags.showexp;
+X+ 	    }
+X+ 	    if (!flagexp) return;
+X+ #else
+X+ 	    if (flagexp) {
+X+ 		set_name(attr_rec->w, "");
+X+ 		set_value(attr_rec->w, "");
+X+ 		flagexp = FALSE;
+X+ 	    }
+X+ 	    return;	/* don't show it at all */
+X+ #endif
+X+ 	}
+X+ 
+X+ 	/* special case: score can be enabled & disabled */
+X+ 	else if (attr_rec == &shown_stats[F_SCORE]) {
+X+ 	    static boolean flagscore = TRUE;
+X+ #ifdef SCORE_ON_BOTL
+X+ 
+X+ 	    if(flags.showscore && !flagscore) {
+X+ 		set_name(attr_rec->w, shown_stats[F_SCORE].name);
+X+ 		force_update = TRUE;
+X+ 		flagscore = flags.showscore;
+X+ 	    } else if(!flags.showscore && flagscore) {
+X+ 		set_name(attr_rec->w, "");
+X+ 		set_value(attr_rec->w, "");
+X+ 		flagscore = flags.showscore;
+X+ 	    }
+X+ 	    if(!flagscore) return;
+X+ #else
+X+ 	    if (flagscore) {
+X+ 		set_name(attr_rec->w, "");
+X+ 		set_value(attr_rec->w, "");
+X+ 		flagscore = FALSE;
+X+ 	    }
+X+ 	    return;
+X+ #endif
+X+ 	}
+X+ 
+X  #ifdef POLYSELF
+X  	/* special case: when polymorphed, show "HD", disable exp */
+X  	else if (attr_rec == &shown_stats[F_LEVEL]) {
+X***************
+X*** 475,482 ****
+X   * Information on the first line:
+X   *	name, attributes, alignment, score
+X   *
+X-  * Not done: score
+X-  *
+X   * Information on the second line:
+X   * 	dlvl, gold, hp, power, ac, {level & exp or HD **}
+X   * 	status (hunger, conf, halu, stun, sick, blind), time, encumbrance
+X--- 544,549 ----
+X***************
+X*** 542,550 ****
+X  #else
+X  	    case F_LEVEL:	val = (long) u.ulevel;	break;
+X  #endif
+X! 	    case F_EXP:		val = (long) u.uexp;	break;
+X  	    case F_ALIGN:	val = (long) u.ualign.type; break;
+X  	    case F_TIME:	val = flags.time ? (long) moves : 0L;	break;
+X  	    default:
+X  	    {
+X  		/*
+X--- 609,626 ----
+X  #else
+X  	    case F_LEVEL:	val = (long) u.ulevel;	break;
+X  #endif
+X! #ifdef EXP_ON_BOTL
+X! 	    case F_EXP:		val = flags.showexp ? u.uexp : 0L; break;
+X! #else
+X! 	    case F_EXP:		val = 0L; break;
+X! #endif
+X  	    case F_ALIGN:	val = (long) u.ualign.type; break;
+X  	    case F_TIME:	val = flags.time ? (long) moves : 0L;	break;
+X+ #ifdef SCORE_ON_BOTL
+X+ 	    case F_SCORE:	val = flags.showscore ? botl_score():0L; break;
+X+ #else
+X+ 	    case F_SCORE:	val = 0L; break;
+X+ #endif
+X  	    default:
+X  	    {
+X  		/*
+X***************
+X*** 625,630 ****
+X--- 701,707 ----
+X  	case F_EXP:	return "4294967295";	/* max ulong */
+X  	case F_ALIGN:	return "Neutral";
+X  	case F_TIME:	return "4294967295";	/* max ulong */
+X+ 	case F_SCORE:	return "4294967295";	/* max ulong */
+X      }
+X      impossible("width_string: unknown index %d\n", sv_index);
+X      return "";
+X***************
+X*** 781,788 ****
+X  static int status_indices[] = { F_HUNGER, F_CONFUSED, F_SICK, F_BLIND,
+X  				F_STUNNED, F_HALLU, F_ENCUMBER, -1,0,0 };
+X  
+X! static int col2_indices[] = { F_MAXHP,F_ALIGN,F_TIME,F_EXP,F_MAXPOWER,-1,0,0 };
+X! static int col1_indices[] = { F_HP, F_AC, F_GOLD, F_LEVEL, F_POWER,   -1,0,0 };
+X  
+X  
+X  /*
+X--- 858,867 ----
+X  static int status_indices[] = { F_HUNGER, F_CONFUSED, F_SICK, F_BLIND,
+X  				F_STUNNED, F_HALLU, F_ENCUMBER, -1,0,0 };
+X  
+X! static int col2_indices[] = { F_MAXHP,    F_ALIGN, F_TIME, F_EXP,
+X! 			      F_MAXPOWER, -1,0,0 };
+X! static int col1_indices[] = { F_HP,       F_AC,    F_GOLD, F_LEVEL,
+X! 			      F_POWER,    F_SCORE, -1,0,0 };
+X  
+X  
+X  /*
+X*** /tmp/da10358	Thu Feb 25 10:33:24 1993
+X--- win/tty/getline.c	Mon Feb  8 14:04:32 1993
+X***************
+X*** 48,53 ****
+X--- 48,58 ----
+X  			obufp[1] = 0;
+X  			break;
+X  		}
+X+ 		if (ttyDisplay->intr) {
+X+ 		    ttyDisplay->intr--;
+X+ 		    *bufp = 0;
+X+ 		    putsyms(obufp);
+X+ 		}
+X  		if(c == '\020') { /* ctrl-P */
+X  		    if(!doprev)
+X  			(void) tty_doprev_message(); /* need two initially */
+X***************
+X*** 76,82 ****
+X  			*bufp = 0;
+X  			break;
+X  		} else if(' ' <= c && c < '\177' && 
+X! 			    (bufp-obufp < BUFSZ-1 || bufp-obufp < COLNO)) {
+X  				/* avoid isprint() - some people don't have it
+X  				   ' ' is not always a printing char */
+X  			*bufp = c;
+X--- 81,87 ----
+X  			*bufp = 0;
+X  			break;
+X  		} else if(' ' <= c && c < '\177' && 
+X! 			    (bufp-obufp < BUFSZ-1 && bufp-obufp < COLNO)) {
+X  				/* avoid isprint() - some people don't have it
+X  				   ' ' is not always a printing char */
+X  			*bufp = c;
+X***************
+X*** 94,99 ****
+X--- 99,105 ----
+X  	}
+X  	ttyDisplay->toplin = 2;		/* nonempty, no --More-- required */
+X  	ttyDisplay->inread--;
+X+ 	clear_nhwindow(WIN_MESSAGE);	/* clean up after ourselves */
+X  }
+X  
+X  void
+X***************
+X*** 133,152 ****
+X  	register int c;
+X  	int com_index, oindex;
+X  
+X  	pline("# ");
+X- 	ttyDisplay->toplin = 2;		/* nonempty, no --More-- required */
+X  
+X  	for(;;) {
+X  		(void) fflush(stdout);
+X  		if((c = readchar()) == EOF) {
+X  			*bufp = 0;
+X! 			return;
+X  		}
+X  		if(c == '\033') {
+X  			*obufp = c;
+X  			obufp[1] = 0;
+X! 			return;
+X  		}
+X  		if(c == erase_char || c == '\b') {
+X  			if(bufp != obufp) {
+X  				bufp--;
+X--- 139,164 ----
+X  	register int c;
+X  	int com_index, oindex;
+X  
+X+ 	ttyDisplay->toplin = 3; /* special prompt state */
+X+ 	ttyDisplay->inread++;
+X  	pline("# ");
+X  
+X  	for(;;) {
+X  		(void) fflush(stdout);
+X  		if((c = readchar()) == EOF) {
+X  			*bufp = 0;
+X! 			break;
+X  		}
+X  		if(c == '\033') {
+X  			*obufp = c;
+X  			obufp[1] = 0;
+X! 			break;
+X  		}
+X+ 		if (ttyDisplay->intr) {
+X+ 		    ttyDisplay->intr--;
+X+ 		    *bufp = 0;
+X+ 		    putsyms(obufp);
+X+ 		}
+X  		if(c == erase_char || c == '\b') {
+X  			if(bufp != obufp) {
+X  				bufp--;
+X***************
+X*** 158,165 ****
+X  		} else if(c == '\n') {
+X  #endif
+X  			*bufp = 0;
+X! 			return;
+X! 		} else if(' ' <= c && c < '\177') {
+X  				/* avoid isprint() - some people don't have it
+X  				   ' ' is not always a printing char */
+X  			*bufp = c;
+X--- 170,178 ----
+X  		} else if(c == '\n') {
+X  #endif
+X  			*bufp = 0;
+X! 			break;
+X! 		} else if(' ' <= c && c < '\177' &&
+X! 			    (bufp-obufp < BUFSZ-1 && bufp-obufp < COLNO)) {
+X  				/* avoid isprint() - some people don't have it
+X  				   ' ' is not always a printing char */
+X  			*bufp = c;
+X***************
+X*** 199,205 ****
+X  		} else
+X  			tty_nhbell();
+X  	}
+X! 
+X  }
+X  #endif /* COM_COMPL */
+X  
+X--- 212,220 ----
+X  		} else
+X  			tty_nhbell();
+X  	}
+X! 	ttyDisplay->toplin = 2;		/* nonempty, no --More-- required */
+X! 	ttyDisplay->inread--;
+X! 	clear_nhwindow(WIN_MESSAGE);	/* clean up after ourselves */
+X  }
+X  #endif /* COM_COMPL */
+X  
+X*** /tmp/da10366	Thu Feb 25 10:33:26 1993
+X--- win/tty/termcap.c	Fri Feb 12 10:23:46 1993
+X***************
+X*** 308,314 ****
+X  	free((genericptr_t)tptr);
+X  # ifdef TEXTCOLOR
+X  #  if defined(TOS) && defined(__GNUC__)
+X! 	if (!strcmp(term, "builtin") || !strcmp(term, "tw52")) {
+X  		init_hilite();
+X  	}
+X  #  else
+X--- 308,315 ----
+X  	free((genericptr_t)tptr);
+X  # ifdef TEXTCOLOR
+X  #  if defined(TOS) && defined(__GNUC__)
+X! 	if (!strcmp(term, "builtin") || !strcmp(term, "tw52") ||
+X! 	    !strcmp(term, "st52")) {
+X  		init_hilite();
+X  	}
+X  #  else
+X***************
+X*** 811,828 ****
+X  	register int c;
+X  #  ifdef TOS
+X  	extern unsigned long tos_numcolors;	/* in tos.c */
+X! 	static const char NOCOL[] = "\033b0", COLHE[] = "\033q\033b0";
+X  
+X- 	HI = "\033p";
+X- #  else
+X- 	int backg, foreg, hi_backg, hi_foreg;
+X- #  endif
+X- 
+X- 	for (c = 0; c < SIZE(hilites); c++)
+X- 	    hilites[c] = HI;
+X- 	hilites[GRAY] = hilites[NO_COLOR] = NULL;
+X- 
+X- #  ifdef TOS
+X  	if (tos_numcolors <= 2) {
+X  		return;
+X  	}
+X--- 812,819 ----
+X  	register int c;
+X  #  ifdef TOS
+X  	extern unsigned long tos_numcolors;	/* in tos.c */
+X! 	static char NOCOL[] = "\033b0", COLHE[] = "\033q\033b0";
+X  
+X  	if (tos_numcolors <= 2) {
+X  		return;
+X  	}
+X***************
+X*** 833,843 ****
+X   */
+X  	hilites[0] = NOCOL;
+X  	for (c = 1; c < SIZE(hilites); c++) {
+X! 		hilites[c] = (char *) alloc(sizeof("\033b0"));
+X  		if (tos_numcolors > 4)
+X! 			Sprintf(hilites[c], "\033b%c", (c&~BRIGHT)+'0');
+X  		else
+X! 			Strcpy(hilites[c], HI);
+X  	}
+X  
+X  	if (tos_numcolors == 4) {
+X--- 824,836 ----
+X   */
+X  	hilites[0] = NOCOL;
+X  	for (c = 1; c < SIZE(hilites); c++) {
+X! 		char *foo;
+X! 		foo = (char *) alloc(sizeof("\033b0"));
+X  		if (tos_numcolors > 4)
+X! 			Sprintf(foo, "\033b%c", (c&~BRIGHT)+'0');
+X  		else
+X! 			Strcpy(foo, "\033b0");
+X! 		hilites[c] = foo;
+X  	}
+X  
+X  	if (tos_numcolors == 4) {
+X***************
+X*** 858,863 ****
+X--- 851,863 ----
+X  	}
+X  
+X  #  else /* TOS */
+X+ 
+X+ 	int backg, foreg, hi_backg, hi_foreg;
+X+ 
+X+  	for (c = 0; c < SIZE(hilites); c++)
+X+ 	    hilites[c] = HI;
+X+ 	hilites[GRAY] = hilites[NO_COLOR] = NULL;
+X+ 
+X  	analyze_seq(HI, &hi_foreg, &hi_backg);
+X  	analyze_seq(HE, &foreg, &backg);
+X  
+X*** /tmp/da10374	Thu Feb 25 10:33:28 1993
+X--- win/tty/topl.c	Mon Feb  8 14:40:10 1993
+X***************
+X*** 331,336 ****
+X--- 331,337 ----
+X      clean_up:
+X  	ttyDisplay->inread--;
+X  	ttyDisplay->toplin = 2;
+X+ 	if (ttyDisplay->intr) ttyDisplay->intr--;
+X  	if(wins[WIN_MESSAGE]->cury)
+X  	    tty_clear_nhwindow(WIN_MESSAGE);
+X  
+X*** /tmp/da10382	Thu Feb 25 10:33:30 1993
+X--- win/tty/wintty.c	Mon Feb 22 12:24:36 1993
+X***************
+X*** 1,4 ****
+X! /*	SCCS Id: @(#)wintty.c	3.1	92/10/21	*/
+X  /* Copyright (c) David Cohrs, 1991				  */
+X  /* NetHack may be freely redistributed.  See license for details. */
+X  
+X--- 1,4 ----
+X! /*	SCCS Id: @(#)wintty.c	3.1	93/02/21	*/
+X  /* Copyright (c) David Cohrs, 1991				  */
+X  /* NetHack may be freely redistributed.  See license for details. */
+X  
+X***************
+X*** 177,183 ****
+X      ttyDisplay->rows = hgt;
+X      ttyDisplay->cols = wid;
+X      ttyDisplay->curx = ttyDisplay->cury = 0;
+X!     ttyDisplay->inmore = ttyDisplay->inread = 0;
+X  #ifdef TEXTCOLOR
+X      ttyDisplay->color = NO_COLOR;
+X  #endif
+X--- 177,183 ----
+X      ttyDisplay->rows = hgt;
+X      ttyDisplay->cols = wid;
+X      ttyDisplay->curx = ttyDisplay->cury = 0;
+X!     ttyDisplay->inmore = ttyDisplay->inread = ttyDisplay->intr = 0;
+X  #ifdef TEXTCOLOR
+X      ttyDisplay->color = NO_COLOR;
+X  #endif
+X***************
+X*** 323,346 ****
+X  	ct = 0;
+X  	while((c = tty_nhgetch()) != '\n') {
+X  		if(c == EOF) error("End of input\n");
+X- #ifndef VMS
+X  		/* some people get confused when their erase char is not ^H */
+X! 		if(c == '\b') {
+X  			if(ct) {
+X  				ct--;
+X! # ifdef MICRO
+X! 				msmsg("\b \b");
+X  # else
+X  				(void) putchar('\b');
+X  				(void) putchar(' ');
+X  				(void) putchar('\b');
+X! # endif
+X  			}
+X  			continue;
+X  		}
+X- #endif
+X  #if defined(UNIX) || defined(VMS)
+X! 		if(c != '-')
+X  		if(c < 'A' || (c > 'Z' && c < 'a') || c > 'z') c = '_';
+X  #endif
+X  		if(ct < sizeof(plname)-1) {
+X--- 323,348 ----
+X  	ct = 0;
+X  	while((c = tty_nhgetch()) != '\n') {
+X  		if(c == EOF) error("End of input\n");
+X  		/* some people get confused when their erase char is not ^H */
+X! 		if (c == '\b' || c == '\177') {
+X  			if(ct) {
+X  				ct--;
+X! #ifdef MICRO
+X! # if defined(WIN32CON)
+X! 				nttty_rubout();  /* \b is visible on NT */
+X  # else
+X+ 				msmsg("\b \b");
+X+ # endif 
+X+ #else
+X  				(void) putchar('\b');
+X  				(void) putchar(' ');
+X  				(void) putchar('\b');
+X! #endif
+X  			}
+X  			continue;
+X  		}
+X  #if defined(UNIX) || defined(VMS)
+X! 		if(c != '-' && c != '@')
+X  		if(c < 'A' || (c > 'Z' && c < 'a') || c > 'z') c = '_';
+X  #endif
+X  		if(ct < sizeof(plname)-1) {
+X***************
+X*** 1244,1253 ****
+X--- 1246,1257 ----
+X  	    addtopl("--More--");
+X  	    (void) fflush(stdout);
+X  	} else if(ttyDisplay->inread) {
+X+ 	    /* this can only happen if we were reading and got interrupted */
+X  	    ttyDisplay->toplin = 3;
+X  	    /* do this twice; 1st time gets the Quit? message again */
+X  	    (void) tty_doprev_message();
+X  	    (void) tty_doprev_message();
+X+ 	    ttyDisplay->intr++;
+X  	    (void) fflush(stdout);
+X  	}
+X      }
+X***************
+X*** 1576,1581 ****
+X--- 1580,1588 ----
+X  void
+X  win_tty_init()
+X  {
+X+ # if defined(WIN32CON)
+X+     nttty_open();
+X+ # endif
+X      return;
+X  }
+X  
+X*** /tmp/da09854	Thu Feb 25 10:31:15 1993
+X--- sys/unix/Install.unx	Tue Feb  2 15:57:53 1993
+X***************
+X*** 3,9 ****
+X                  =======================================
+X  
+X  0.  Read this entire file before starting, and come back to the Notes
+X!     below if you have any problems.
+X  
+X  1.  Make sure all the NetHack files are in the appropriate directory
+X      structure.  You should have a main directory with subdirectories dat,
+X--- 3,13 ----
+X                  =======================================
+X  
+X  0.  Read this entire file before starting, and come back to the Notes
+X!     below if you have any problems.  If you are trying to use X11,
+X!     also read all of win/X11/Install.X11.  For help in controlling
+X!     and running the game after it is installed, see the '?' command
+X!     within the game and doc/Guidebook (non-installers want to know
+X!     about those things too).
+X  
+X  1.  Make sure all the NetHack files are in the appropriate directory
+X      structure.  You should have a main directory with subdirectories dat,
+X***************
+X*** 56,63 ****
+X      that if you don't want to run NetHack either setuid or setgid, and
+X      people in more than one group will be playing it, you'll need to go back
+X      and set FCMASK to 0666 in unixconf.h and let everybody fiddle with the
+X!     files NetHack creates.)  Type 'make spec_levs' and 'make dungeon' from
+X!     the top directory to set up files for some of the special levels.
+X      Then become root if necessary and type 'make install'.  Everything
+X      should now be set.
+X  
+X--- 60,67 ----
+X      that if you don't want to run NetHack either setuid or setgid, and
+X      people in more than one group will be playing it, you'll need to go back
+X      and set FCMASK to 0666 in unixconf.h and let everybody fiddle with the
+X!     files NetHack creates.)  Type 'make all' from the top directory to
+X!     set up all the auxiliary files the main executable will use.
+X      Then become root if necessary and type 'make install'.  Everything
+X      should now be set.
+X  
+X*** /tmp/da09878	Thu Feb 25 10:31:20 1993
+X--- sys/unix/Makefile.src	Sun Feb 21 16:57:53 1993
+X***************
+X*** 1,6 ****
+X--- 1,18 ----
+X  #	NetHack Makefile.
+X  #	SCCS Id: @(#)Makefile.src	3.1	93/01/25
+X  
+X+ # newer makes predefine $(MAKE) to 'make' and do smarter processing of
+X+ # recursive make calls if $(MAKE) is used
+X+ # these makes allow $(MAKE) to be overridden by the environment if someone
+X+ # wants to (or has to) use something other than the standard make, so we do
+X+ # not want to unconditionally set $(MAKE) here
+X+ #
+X+ # unfortunately, some older makes do not predefine $(MAKE); if you have one of
+X+ # these, uncomment the following line
+X+ # (you will know that you have one if you get complaints about being unable
+X+ # to find 'makedefs')
+X+ # MAKE = make
+X+ 
+X  # This makefile replaces the previous Makefile.unix, Makefile.xenix,
+X  # Makefile.3B2, Makefile.att, and Makefile.tos.
+X  # Set SYSTEM to one of:
+X***************
+X*** 430,436 ****
+X  	$(CC) $(CFLAGS) -c ../sys/unix/ioctl.c
+X  unixmain.o: ../sys/unix/unixmain.c  ../include/hack.h
+X  	$(CC) $(CFLAGS) -c ../sys/unix/unixmain.c
+X! unixtty.o: ../sys/unix/unixtty.c  ../include/hack.h ../include/wintty.h
+X  	$(CC) $(CFLAGS) -c ../sys/unix/unixtty.c
+X  unixunix.o: ../sys/unix/unixunix.c  ../include/hack.h
+X  	$(CC) $(CFLAGS) -c ../sys/unix/unixunix.c
+X--- 442,448 ----
+X  	$(CC) $(CFLAGS) -c ../sys/unix/ioctl.c
+X  unixmain.o: ../sys/unix/unixmain.c  ../include/hack.h
+X  	$(CC) $(CFLAGS) -c ../sys/unix/unixmain.c
+X! unixtty.o: ../sys/unix/unixtty.c  ../include/hack.h
+X  	$(CC) $(CFLAGS) -c ../sys/unix/unixtty.c
+X  unixunix.o: ../sys/unix/unixunix.c  ../include/hack.h
+X  	$(CC) $(CFLAGS) -c ../sys/unix/unixunix.c
+X***************
+X*** 442,448 ****
+X  	$(CC) $(CFLAGS) -c ../win/tty/topl.c
+X  wintty.o: ../win/tty/wintty.c  ../include/hack.h ../include/termcap.h ../include/wintty.h
+X  	$(CC) $(CFLAGS) -c ../win/tty/wintty.c
+X! Window.o: ../win/X11/Window.c  ../include/WindowP.h
+X  	$(CC) $(CFLAGS) -c ../win/X11/Window.c
+X  dialogs.o: ../win/X11/dialogs.c  ../include/config.h
+X  	$(CC) $(CFLAGS) -c ../win/X11/dialogs.c
+X--- 454,460 ----
+X  	$(CC) $(CFLAGS) -c ../win/tty/topl.c
+X  wintty.o: ../win/tty/wintty.c  ../include/hack.h ../include/termcap.h ../include/wintty.h
+X  	$(CC) $(CFLAGS) -c ../win/tty/wintty.c
+X! Window.o: ../win/X11/Window.c  ../include/WindowP.h ../include/config.h
+X  	$(CC) $(CFLAGS) -c ../win/X11/Window.c
+X  dialogs.o: ../win/X11/dialogs.c  ../include/config.h
+X  	$(CC) $(CFLAGS) -c ../win/X11/dialogs.c
+X***************
+X*** 581,587 ****
+X  	touch ../include/eshk.h
+X  ../include/global.h:  ../include/coord.h ../include/vmsconf.h ../include/unixconf.h \
+X  		../include/os2conf.h ../include/pcconf.h ../include/tosconf.h \
+X! 		../include/amiconf.h ../include/macconf.h
+X  	touch ../include/global.h
+X  ../include/hack.h:  ../include/config.h ../include/dungeon.h ../include/monsym.h \
+X  		../include/mkroom.h ../include/objclass.h ../include/decl.h \
+X--- 593,599 ----
+X  	touch ../include/eshk.h
+X  ../include/global.h:  ../include/coord.h ../include/vmsconf.h ../include/unixconf.h \
+X  		../include/os2conf.h ../include/pcconf.h ../include/tosconf.h \
+X! 		../include/amiconf.h ../include/macconf.h ../include/ntconf.h
+X  	touch ../include/global.h
+X  ../include/hack.h:  ../include/config.h ../include/dungeon.h ../include/monsym.h \
+X  		../include/mkroom.h ../include/objclass.h ../include/decl.h \
+X*** /tmp/da09894	Thu Feb 25 10:31:25 1993
+X--- sys/unix/Makefile.utl	Tue Feb  9 16:27:32 1993
+X***************
+X*** 1,6 ****
+X--- 1,18 ----
+X  #	Makefile for NetHack's utility programs.
+X  #	SCCS Id: @(#)Makefile.utl	3.1	92/11/01
+X  
+X+ # newer makes predefine $(MAKE) to 'make' and do smarter processing of
+X+ # recursive make calls if $(MAKE) is used
+X+ # these makes allow $(MAKE) to be overridden by the environment if someone
+X+ # wants to (or has to) use something other than the standard make, so we do
+X+ # not want to unconditionally set $(MAKE) here
+X+ #
+X+ # unfortunately, some older makes do not predefine $(MAKE); if you have one of
+X+ # these, uncomment the following line
+X+ # (you will know that you have one if you get complaints about unable to
+X+ # execute things like 'foo.o')
+X+ # MAKE = make
+X+ 
+X  # if you are using gcc as your compiler,
+X  #	uncomment the CC definition below if it's not in your environment
+X  # CC = gcc
+X***************
+X*** 129,141 ****
+X  panic.o:     ../include/config.h
+X  
+X  # see lev_comp.l for WEIRD_LEX discussion
+X! # egrep returns failure if it doesn't find anything, so we have to go to
+X! # some trouble to check for $(CC) failures
+X! lev_lex.o:   ../include/hack.h ../include/lev_comp.h ../include/sp_lev.h
+X! 	-@rm lev_lex.o 2>/dev/null
+X  	@echo $(CC) -c $(CFLAGS) lev_lex.c
+X! 	-@$(CC) -c $(CFLAGS) -DWEIRD_LEX=`egrep -c _cplusplus lev_lex.c` lev_lex.c
+X! 	@test -r lev_lex.o
+X  
+X  ../include/lev_comp.h: lev_yacc.c
+X  
+X--- 141,151 ----
+X  panic.o:     ../include/config.h
+X  
+X  # see lev_comp.l for WEIRD_LEX discussion
+X! # egrep will return failure if it doesn't find anything, but we know there
+X! # is one "_cplusplus" inside a comment
+X! lev_lex.o:   ../include/hack.h ../include/lev_comp.h ../include/sp_lev.h lev_lex.c
+X  	@echo $(CC) -c $(CFLAGS) lev_lex.c
+X! 	@$(CC) -c $(CFLAGS) -DWEIRD_LEX=`egrep -c _cplusplus lev_lex.c` lev_lex.c
+X  
+X  ../include/lev_comp.h: lev_yacc.c
+X  
+X***************
+X*** 163,175 ****
+X  dgn_main.o:  ../include/config.h
+X  
+X  # see dgn_comp.l for WEIRD_LEX discussion
+X! # egrep returns failure if it doesn't find anything, so we have to go to
+X! # some trouble to check for $(CC) failures
+X! dgn_lex.o:   ../include/config.h ../include/dgn_comp.h ../include/dgn_file.h
+X! 	-@rm dgn_lex.o 2>/dev/null
+X  	@echo $(CC) -c $(CFLAGS) dgn_lex.c
+X! 	-@$(CC) -c $(CFLAGS) -DWEIRD_LEX=`egrep -c _cplusplus dgn_lex.c` dgn_lex.c
+X! 	@test -r dgn_lex.o
+X  
+X  
+X  ../include/dgn_comp.h: dgn_yacc.c
+X--- 173,181 ----
+X  dgn_main.o:  ../include/config.h
+X  
+X  # see dgn_comp.l for WEIRD_LEX discussion
+X! dgn_lex.o:   ../include/config.h ../include/dgn_comp.h ../include/dgn_file.h dgn_lex.c
+X  	@echo $(CC) -c $(CFLAGS) dgn_lex.c
+X! 	@$(CC) -c $(CFLAGS) -DWEIRD_LEX=`egrep -c _cplusplus dgn_lex.c` dgn_lex.c
+X  
+X  
+X  ../include/dgn_comp.h: dgn_yacc.c
+X*** /tmp/da09958	Thu Feb 25 10:31:42 1993
+X--- sys/unix/unixmain.c	Mon Feb 22 12:24:33 1993
+X***************
+X*** 13,19 ****
+X  #endif
+X  
+X  #if !defined(_BULL_SOURCE) && !defined(sgi)
+X! # if defined(POSIX_TYPES) || defined(SVR4)
+X  extern struct passwd *FDECL(getpwuid,(uid_t));
+X  # else
+X  extern struct passwd *FDECL(getpwuid,(int));
+X--- 13,19 ----
+X  #endif
+X  
+X  #if !defined(_BULL_SOURCE) && !defined(sgi)
+X! # if defined(POSIX_TYPES) || defined(SVR4) || defined(HPUX)
+X  extern struct passwd *FDECL(getpwuid,(uid_t));
+X  # else
+X  extern struct passwd *FDECL(getpwuid,(int));
+X***************
+X*** 130,140 ****
+X  #endif
+X  	if(!*plname || !strncmp(plname, "player", 4)
+X  		    || !strncmp(plname, "games", 4)) {
+X- 		exact_username = FALSE;
+X  		askname();
+X  	}
+X! 	if (!exact_username) /* what if their LOGNAME looks suffixed-like? */
+X! 		plnamesuffix();	/* strip suffix from name; calls askname() */
+X  				/* again if suffix was whole name */
+X  				/* accepts any suffix */
+X  #ifdef WIZARD
+X--- 130,145 ----
+X  #endif
+X  	if(!*plname || !strncmp(plname, "player", 4)
+X  		    || !strncmp(plname, "games", 4)) {
+X  		askname();
+X+ 	} else if (exact_username) {
+X+ 		/* guard against user names with hyphens in them */
+X+ 		int len = strlen(plname);
+X+ 		/* append the current role, if any, so that last dash is ours */
+X+ 		if (++len < sizeof plname)
+X+ 			(void)strncat(strcat(plname, "-"),
+X+ 				      pl_character, sizeof plname - len - 1);
+X  	}
+X! 	plnamesuffix();		/* strip suffix from name; calls askname() */
+X  				/* again if suffix was whole name */
+X  				/* accepts any suffix */
+X  #ifdef WIZARD
+X***************
+X*** 191,197 ****
+X  		(void) chmod(SAVEF,0);	/* disallow parallel restores */
+X  		(void) signal(SIGINT, (SIG_RET_TYPE) done1);
+X  #ifdef NEWS
+X! 		if(flags.news) display_file(NEWS, FALSE);
+X  #endif
+X  		pline("Restoring save file...");
+X  		mark_synch();	/* flush output */
+X--- 196,205 ----
+X  		(void) chmod(SAVEF,0);	/* disallow parallel restores */
+X  		(void) signal(SIGINT, (SIG_RET_TYPE) done1);
+X  #ifdef NEWS
+X! 		if(flags.news) {
+X! 		    display_file(NEWS, FALSE);
+X! 		    flags.news = FALSE; /* in case dorecover() fails */
+X! 		}
+X  #endif
+X  		pline("Restoring save file...");
+X  		mark_synch();	/* flush output */
+X***************
+X*** 316,322 ****
+X  			  (void) strncpy(plname, argv[0], sizeof(plname)-1);
+X  			} else
+X  				raw_print("Player name expected after -u");
+X- 			plnamesuffix();
+X  			break;
+X  		case 'I':
+X  		case 'i':
+X--- 324,329 ----
+X*** /tmp/da09966	Thu Feb 25 10:31:44 1993
+X--- sys/unix/unixtty.c	Thu Feb  4 12:04:24 1993
+X***************
+X*** 11,20 ****
+X  #define NEED_VARARGS
+X  #include "hack.h"
+X  
+X- #ifdef TTY_GRAPHICS
+X- #include "wintty.h"
+X- #endif
+X- 
+X  /*
+X   * The distinctions here are not BSD - rest but rather USG - rest, as
+X   * BSD still has the old sgttyb structure, but SYSV has termio. Thus:
+X--- 11,16 ----
+X***************
+X*** 286,292 ****
+X  {
+X  #ifdef TTY_GRAPHICS
+X  	/* Ugly hack to keep from changing tty modes for non-tty games -dlc */
+X! 	if (windowprocs.win_init_nhwindows == tty_init_nhwindows &&
+X  	    intr_char != nonesuch && curttyb2.intr_sym != '\003') {
+X  	    curttyb2.intr_sym = '\003';
+X  	    setctty();
+X--- 282,288 ----
+X  {
+X  #ifdef TTY_GRAPHICS
+X  	/* Ugly hack to keep from changing tty modes for non-tty games -dlc */
+X! 	if (!strcmp(windowprocs.name, "tty") &&
+X  	    intr_char != nonesuch && curttyb2.intr_sym != '\003') {
+X  	    curttyb2.intr_sym = '\003';
+X  	    setctty();
+X***************
+X*** 299,305 ****
+X  {
+X  #ifdef TTY_GRAPHICS
+X  	/* Ugly hack to keep from changing tty modes for non-tty games -dlc */
+X! 	if (windowprocs.win_init_nhwindows == tty_init_nhwindows &&
+X  	   curttyb2.intr_sym != nonesuch) {
+X  	    curttyb2.intr_sym = nonesuch;
+X  	    setctty();
+X--- 295,301 ----
+X  {
+X  #ifdef TTY_GRAPHICS
+X  	/* Ugly hack to keep from changing tty modes for non-tty games -dlc */
+X! 	if (!strcmp(windowprocs.name, "tty") &&
+X  	   curttyb2.intr_sym != nonesuch) {
+X  	    curttyb2.intr_sym = nonesuch;
+X  	    setctty();
+X*** /tmp/da09974	Thu Feb 25 10:31:46 1993
+X--- sys/unix/unixunix.c	Thu Feb  4 12:04:28 1993
+X***************
+X*** 155,160 ****
+X--- 155,161 ----
+X  	extern int errno;
+X  	register int i = 0, fd, c;
+X  
+X+ #ifdef TTY_GRAPHICS
+X  	/* idea from rpick%ucqais@uccba.uc.edu
+X  	 * prevent automated rerolling of characters
+X  	 * test input (fd0) so that tee'ing output to get a screen dump still
+X***************
+X*** 161,168 ****
+X  	 * works
+X  	 * also incidentally prevents development of any hack-o-matic programs
+X  	 */
+X! 	if (!isatty(0))
+X  		error("You must play from a terminal.");
+X  
+X  	/* we ignore QUIT and INT at this point */
+X  	if (!lock_file(HLOCK, 10)) {
+X--- 162,172 ----
+X  	 * works
+X  	 * also incidentally prevents development of any hack-o-matic programs
+X  	 */
+X! 	/* added check for window-system type -dlc */
+X! 	if (!strcmp(windowprocs.name, "tty"))
+X! 	    if (!isatty(0))
+X  		error("You must play from a terminal.");
+X+ #endif
+X  
+X  	/* we ignore QUIT and INT at this point */
+X  	if (!lock_file(HLOCK, 10)) {
+X*** /tmp/da08782	Thu Feb 25 10:26:18 1993
+X--- util/dgn_comp.l	Tue Feb  9 16:24:08 1993
+X***************
+X*** 39,45 ****
+X  #  endif
+X  # endif
+X  # if !defined(VOIDYYPUT) && defined(WEIRD_LEX)
+X! #  if defined(SUNOS4) && defined(__STDC__) && (WEIRD_LEX != 0) 
+X  #   define VOIDYYPUT
+X  #  endif
+X  # endif
+X--- 39,45 ----
+X  #  endif
+X  # endif
+X  # if !defined(VOIDYYPUT) && defined(WEIRD_LEX)
+X! #  if defined(SUNOS4) && defined(__STDC__) && (WEIRD_LEX > 1) 
+X  #   define VOIDYYPUT
+X  #  endif
+X  # endif
+X*** /tmp/da08806	Thu Feb 25 10:26:23 1993
+X--- util/lev_comp.l	Wed Feb 17 09:53:01 1993
+X***************
+X*** 36,42 ****
+X  #  endif
+X  # endif
+X  # if !defined(VOIDYYPUT) && defined(WEIRD_LEX)
+X! #  if defined(SUNOS4) && defined(__STDC__) && (WEIRD_LEX != 0) 
+X  #   define VOIDYYPUT
+X  #  endif
+X  # endif
+X--- 36,42 ----
+X  #  endif
+X  # endif
+X  # if !defined(VOIDYYPUT) && defined(WEIRD_LEX)
+X! #  if defined(SUNOS4) && defined(__STDC__) && (WEIRD_LEX > 1) 
+X  #   define VOIDYYPUT
+X  #  endif
+X  # endif
+X***************
+X*** 125,131 ****
+X  		  yylval.map[yyleng-6] = 0;
+X  		  return MAP_ID;
+X  		}
+X! <MAPC>[-|}{+ABCISKPLW\\#. ]*\n	{ line_number++; yymore(); }
+X  ^#.*\n		{ line_number++; }
+X  :		{ colon_line_number = line_number; return ':'; }
+X  MESSAGE		return MESSAGE_ID;
+X--- 125,131 ----
+X  		  yylval.map[yyleng-6] = 0;
+X  		  return MAP_ID;
+X  		}
+X! <MAPC>[-|}{+ABCISHKPLW\\#. ]*\n	{ line_number++; yymore(); }
+X  ^#.*\n		{ line_number++; }
+X  :		{ colon_line_number = line_number; return ':'; }
+X  MESSAGE		return MESSAGE_ID;
+X***************
+X*** 157,162 ****
+X--- 157,163 ----
+X  SINK		return SINK_ID;
+X  POOL		return POOL_ID;
+X  NON_DIGGABLE	return NON_DIGGABLE_ID;
+X+ NON_PASSWALL	return NON_PASSWALL_ID;
+X  ROOM		return ROOM_ID;
+X  SUBROOM		return SUBROOM_ID;
+X  RANDOM_CORRIDORS	return RAND_CORRIDOR_ID;
+X*** /tmp/da08814	Thu Feb 25 10:26:25 1993
+X--- util/lev_comp.y	Wed Feb 17 09:53:05 1993
+X***************
+X*** 1,5 ****
+X  %{
+X! /*	SCCS Id: @(#)lev_comp.c	3.1	92/07/12	*/
+X  /*	Copyright (c) 1989 by Jean-Christophe Collet */
+X  /* NetHack may be freely redistributed.  See license for details. */
+X  
+X--- 1,5 ----
+X  %{
+X! /*	SCCS Id: @(#)lev_comp.c	3.1	93/02/13	*/
+X  /*	Copyright (c) 1989 by Jean-Christophe Collet */
+X  /* NetHack may be freely redistributed.  See license for details. */
+X  
+X***************
+X*** 95,100 ****
+X--- 95,101 ----
+X  lad *tmplad[256];
+X  stair *tmpstair[256];
+X  digpos *tmpdig[256];
+X+ digpos *tmppass[32];
+X  char *tmpmap[ROWNO];
+X  region *tmpreg[256];
+X  lev_region *tmplreg[32];
+X***************
+X*** 126,132 ****
+X  unsigned int nlreg = 0, nreg = 0, ndoor = 0, ntrap = 0, nmons = 0, nobj = 0;
+X  unsigned int ndb = 0, nwalk = 0, npart = 0, ndig = 0, nlad = 0, nstair = 0;
+X  unsigned int naltar = 0, ncorridor = 0, nrooms = 0, ngold = 0, nengraving = 0;
+X! unsigned int nfountain = 0, npool = 0, nsink = 0;
+X  
+X  static unsigned long lev_flags = 0;
+X  
+X--- 127,133 ----
+X  unsigned int nlreg = 0, nreg = 0, ndoor = 0, ntrap = 0, nmons = 0, nobj = 0;
+X  unsigned int ndb = 0, nwalk = 0, npart = 0, ndig = 0, nlad = 0, nstair = 0;
+X  unsigned int naltar = 0, ncorridor = 0, nrooms = 0, ngold = 0, nengraving = 0;
+X! unsigned int nfountain = 0, npool = 0, nsink = 0, npass = 0;
+X  
+X  static unsigned long lev_flags = 0;
+X  
+X***************
+X*** 157,163 ****
+X  %token	<i> OBJECT_ID MONSTER_ID TRAP_ID DOOR_ID DRAWBRIDGE_ID
+X  %token	<i> MAZEWALK_ID WALLIFY_ID REGION_ID FILLING
+X  %token	<i> RANDOM_OBJECTS_ID RANDOM_MONSTERS_ID RANDOM_PLACES_ID
+X! %token	<i> ALTAR_ID LADDER_ID STAIR_ID NON_DIGGABLE_ID ROOM_ID
+X  %token	<i> PORTAL_ID TELEPRT_ID BRANCH_ID LEV CHANCE_ID
+X  %token	<i> CORRIDOR_ID GOLD_ID ENGRAVING_ID FOUNTAIN_ID POOL_ID SINK_ID NONE
+X  %token	<i> RAND_CORRIDOR_ID DOOR_STATE LIGHT_STATE CURSE_TYPE ENGRAVING_TYPE
+X--- 158,164 ----
+X  %token	<i> OBJECT_ID MONSTER_ID TRAP_ID DOOR_ID DRAWBRIDGE_ID
+X  %token	<i> MAZEWALK_ID WALLIFY_ID REGION_ID FILLING
+X  %token	<i> RANDOM_OBJECTS_ID RANDOM_MONSTERS_ID RANDOM_PLACES_ID
+X! %token	<i> ALTAR_ID LADDER_ID STAIR_ID NON_DIGGABLE_ID NON_PASSWALL_ID ROOM_ID
+X  %token	<i> PORTAL_ID TELEPRT_ID BRANCH_ID LEV CHANCE_ID
+X  %token	<i> CORRIDOR_ID GOLD_ID ENGRAVING_ID FOUNTAIN_ID POOL_ID SINK_ID NONE
+X  %token	<i> RAND_CORRIDOR_ID DOOR_STATE LIGHT_STATE CURSE_TYPE ENGRAVING_TYPE
+X***************
+X*** 309,324 ****
+X  		| FLAGS_ID ':' flag_list
+X  		  {
+X  			$$ = lev_flags;
+X  		  }
+X  		;
+X  
+X! flag_list	: FLAG_TYPE
+X  		  {
+X  			lev_flags |= $1;
+X  		  }
+X! 		| FLAG_TYPE ',' flag_list
+X  		  {
+X! 			lev_flags |= $3;
+X  		  }
+X  		;
+X  
+X--- 310,326 ----
+X  		| FLAGS_ID ':' flag_list
+X  		  {
+X  			$$ = lev_flags;
+X+ 			lev_flags = 0;	/* clear for next user */
+X  		  }
+X  		;
+X  
+X! flag_list	: FLAG_TYPE ',' flag_list
+X  		  {
+X  			lev_flags |= $1;
+X  		  }
+X! 		| FLAG_TYPE
+X  		  {
+X! 			lev_flags |= $1;
+X  		  }
+X  		;
+X  
+X***************
+X*** 813,818 ****
+X--- 815,821 ----
+X  		| gold_detail
+X  		| engraving_detail
+X  		| diggable_detail
+X+ 		| passwall_detail
+X  		;
+X  
+X  monster_detail	: MONSTER_ID ':' monster_c ',' m_name ',' coordinate
+X***************
+X*** 1215,1220 ****
+X--- 1218,1234 ----
+X  			tmpdig[ndig]->x2 = current_region.x2;
+X  			tmpdig[ndig]->y2 = current_region.y2;
+X  			ndig++;
+X+ 		  }
+X+ 		;
+X+ 
+X+ passwall_detail : NON_PASSWALL_ID ':' region
+X+ 		  {
+X+ 			tmppass[npass] = New(digpos);
+X+ 			tmppass[npass]->x1 = current_region.x1;
+X+ 			tmppass[npass]->y1 = current_region.y1;
+X+ 			tmppass[npass]->x2 = current_region.x2;
+X+ 			tmppass[npass]->y2 = current_region.y2;
+X+ 			npass++;
+X  		  }
+X  		;
+X  
+X*** /tmp/da08822	Thu Feb 25 10:26:28 1993
+X--- util/lev_main.c	Wed Feb 17 09:53:09 1993
+X***************
+X*** 152,157 ****
+X--- 152,158 ----
+X  extern lad *tmplad[];
+X  extern stair *tmpstair[];
+X  extern digpos *tmpdig[];
+X+ extern digpos *tmppass[];
+X  extern char *tmpmap[];
+X  extern region *tmpreg[];
+X  extern lev_region *tmplreg[];
+X***************
+X*** 174,180 ****
+X  extern int n_olist, n_mlist, n_plist;
+X  
+X  extern unsigned int nlreg, nreg, ndoor, ntrap, nmons, nobj;
+X! extern unsigned int ndb, nwalk, npart, ndig, nlad, nstair;
+X  extern unsigned int naltar, ncorridor, nrooms, ngold, nengraving;
+X  extern unsigned int nfountain, npool, nsink;
+X  
+X--- 175,181 ----
+X  extern int n_olist, n_mlist, n_plist;
+X  
+X  extern unsigned int nlreg, nreg, ndoor, ntrap, nmons, nobj;
+X! extern unsigned int ndb, nwalk, npart, ndig, npass, nlad, nstair;
+X  extern unsigned int naltar, ncorridor, nrooms, ngold, nengraving;
+X  extern unsigned int nfountain, npool, nsink;
+X  
+X***************
+X*** 441,446 ****
+X--- 442,448 ----
+X  		  case 'B'  : return(CROSSWALL); /* hack: boundary location */
+X  		  case 'C'  : return(CLOUD);
+X  		  case 'S'  : return(SDOOR);
+X+ 		  case 'H'  : return(SCORR);
+X  		  case '{'  : return(FOUNTAIN);
+X  		  case '\\' : return(THRONE);
+X  		  case 'K'  :
+X***************
+X*** 708,713 ****
+X--- 710,724 ----
+X  	}
+X  	ndig = 0;
+X  
+X+ 	/* The non_passwall directives */
+X+ 
+X+ 	if ((tmppart[npart]->npass = npass) != 0) {
+X+ 		tmppart[npart]->passs = NewTab(digpos, npass);
+X+ 		for(i=0;i<npass;i++)
+X+ 		    tmppart[npart]->passs[i] = tmppass[i];
+X+ 	}
+X+ 	npass = 0;
+X+ 
+X  	/* The ladders */
+X  
+X  	if ((tmppart[npart]->nlad = nlad) != 0) {
+X***************
+X*** 1059,1064 ****
+X--- 1070,1084 ----
+X  	    }
+X  	    if (pt->ndig > 0)
+X  		    Free(pt->digs);
+X+ 
+X+ 	    /* The non_passwall directives */
+X+ 	    Write(fd, &(pt->npass), sizeof(pt->npass));
+X+ 	    for(j=0;j<pt->npass;j++) {
+X+ 		    Write(fd, pt->passs[j], sizeof(digpos));
+X+ 		    Free(pt->passs[j]);
+X+ 	    }
+X+ 	    if (pt->npass > 0)
+X+ 		    Free(pt->passs);
+X  
+X  	    /* The ladders */
+X  	    Write(fd, &(pt->nlad), sizeof(pt->nlad));
+X*** /tmp/da08830	Thu Feb 25 10:26:31 1993
+X--- util/makedefs.c	Thu Feb  4 10:39:25 1993
+X***************
+X*** 660,666 ****
+X  	Sprintf(tempfile, DATA_TEMPLATE, "database.tmp");
+X  	Sprintf(filename, DATA_TEMPLATE, DATA_FILE);
+X  	Strcat(strcpy(infile, filename),
+X! #ifdef OS2
+X  		".bas"
+X  #else
+X  		".base"
+X--- 660,666 ----
+X  	Sprintf(tempfile, DATA_TEMPLATE, "database.tmp");
+X  	Sprintf(filename, DATA_TEMPLATE, DATA_FILE);
+X  	Strcat(strcpy(infile, filename),
+X! #if (defined(OS2) && !defined(OS2_HPFS)) || defined(WIN32)
+X  		".bas"
+X  #else
+X  		".base"
+X
+END_OF_FILE
+if test 53271 -ne `wc -c <'patches01o'`; then
+    echo shar: \"'patches01o'\" unpacked with wrong size!
+fi
+# end of 'patches01o'
+if test -f 'sys/winnt/setup.bat' -a "${1}" != "-c" ; then 
+  echo shar: Renaming existing file \"'sys/winnt/setup.bat'\" to \"'sys/winnt/setup.bat.orig'\"
+  mv -f 'sys/winnt/setup.bat' 'sys/winnt/setup.bat.orig'
+fi
+echo shar: Extracting \"'sys/winnt/setup.bat'\" \(1821 characters\)
+sed "s/^X//" >'sys/winnt/setup.bat' <<'END_OF_FILE'
+X@echo off
+XREM  SCCS Id: @(#)setup.bat	 93/02/23		 
+XREM  Copyright (c) NetHack PC Development Team 1993
+XREM  NetHack may be freely redistributed.  See license for details. 
+XREM  Windows NT setup batch file, see Install.nt for details
+XREM
+Xecho Checking to see if directories are set up properly
+Xif not exist ..\..\include\hack.h goto err_dir
+Xif not exist ..\..\src\hack.c goto err_dir
+Xif not exist ..\..\dat\wizard.des goto err_dir
+Xif not exist ..\..\util\makedefs.c goto err_dir
+Xecho Directories look ok.
+Xif exist ..\..\dat\data.bas goto do_rest
+Xif NOT exist ..\..\dat\data.base goto err_data
+Xcopy ..\..\dat\data.base ..\..\dat\data.bas >nul
+X:do_rest
+Xecho Copying Make files
+Xcopy makefile.src ..\..\src\makefile >nul
+Xcopy makefile.utl ..\..\util\makefile >nul
+Xcopy makefile.dat ..\..\dat\makefile >nul
+Xecho Copied ok.
+XREM blending with empty. ensures that timestamp will be new
+Xprompt %prompt% >_empty.
+Xecho Copying level and dungeon compiler sources to util.
+Xcopy _empty.+..\share\lev_lex.c ..\..\util\lev_lex.c >nul
+Xcopy _empty.+..\share\dgn_lex.c ..\..\util\dgn_lex.c >nul
+Xcopy _empty.+..\share\lev_yacc.c ..\..\util\lev_yacc.c >nul
+Xcopy _empty.+..\share\dgn_yacc.c ..\..\util\dgn_yacc.c >nul
+Xecho Copied ok.
+Xecho Copying level and dungeon compiler header files to include.
+Xcopy _empty.+..\share\lev_comp.h ..\..\include\lev_comp.h >nul
+Xcopy _empty.+..\share\dgn_comp.h ..\..\include\dgn_comp.h >nul
+Xecho Copied ok.
+Xdel _empty. >nul
+Xecho done!
+Xecho.
+Xecho Proceed with the next step documented in Install.nt
+Xgoto done
+X:err_data
+Xecho A required file ..\..\dat\data.bas seems to be missing.
+Xecho Check Files. in the root directory for your NetHack distribution
+Xecho and make sure that all required files exist.
+Xgoto done
+X:err_dir
+Xecho Your directories are not set up properly, please re-read the
+Xecho documentation.
+X:done
+END_OF_FILE
+if test 1821 -ne `wc -c <'sys/winnt/setup.bat'`; then
+    echo shar: \"'sys/winnt/setup.bat'\" unpacked with wrong size!
+fi
+# end of 'sys/winnt/setup.bat'
+echo shar: End of archive 13 \(of 31\).
+cp /dev/null ark13isdone
+MISSING=""
+for I in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 ; do
+    if test ! -f ark${I}isdone ; then
+	MISSING="${MISSING} ${I}"
+    fi
+done
+if test "${MISSING}" = "" ; then
+    echo You have unpacked all 31 archives.
+    echo "Now execute 'patchit.sh'"
+    rm -f ark[1-9]isdone ark[1-9][0-9]isdone
+else
+    echo You still need to unpack the following archives:
+    echo "        " ${MISSING}
+fi
+##  End of shell archive.
+exit 0

@@ -1,0 +1,1826 @@
+Subject:  v17i071:  nethack31 - display oriented dungeons & dragons (Ver. 3.1), Patch1dd/31
+Newsgroups: comp.sources.games
+Approved: billr@saab.CNA.TEK.COM
+
+Submitted-by: izchak@linc.cis.upenn.edu (Izchak Miller)
+Posting-number: Volume 17, Issue 71
+Archive-name: nethack31/Patch1dd
+Patch-To: nethack31: Volume 16, Issue 1-116
+Environment: Amiga, Atari, Mac, MS-DOS, Windows-NT, OS2, Unix, VMS, X11
+
+
+
+#! /bin/sh
+# This is a shell archive.  Remove anything before this line, then unpack
+# it by saving it into a file and typing "sh file".  To overwrite existing
+# files, type "sh file -c".  You can also feed this as standard input via
+# unshar, or by typing "sh <file", e.g..  If this archive is complete, you
+# will see the following message at the end:
+#		"End of archive 30 (of 31)."
+# Contents:  patches01m sys/amiga/amisnd.c sys/winnt/Install.nt
+#   sys/winnt/Makefile.src sys/winnt/nttty.c
+# Wrapped by billr@saab on Fri Mar  5 10:50:49 1993
+PATH=/bin:/usr/bin:/usr/ucb ; export PATH
+if test -f 'patches01m' -a "${1}" != "-c" ; then 
+  echo shar: Renaming existing file \"'patches01m'\" to \"'patches01m.orig'\"
+  mv -f 'patches01m' 'patches01m.orig'
+fi
+echo shar: Extracting \"'patches01m'\" \(6957 characters\)
+sed "s/^X//" >'patches01m' <<'END_OF_FILE'
+X*** /tmp/da07389	Thu Feb 25 10:19:33 1993
+X--- doc/Guidebook.mn	Fri Feb 12 14:58:38 1993
+X***************
+X*** 4,12 ****
+X  .ds vr "NetHack 3.1
+X  .ds f0 "\*(vr
+X  .ds f1
+X! .ds f2 "May 28, 1990
+X  .mt
+X  A Guide to the Mazes of Menace
+X  .au
+X  Eric S. Raymond
+X  (Extensively edited and expanded for 3.0 by Mike Threepoint)
+X--- 4,13 ----
+X  .ds vr "NetHack 3.1
+X  .ds f0 "\*(vr
+X  .ds f1
+X! .ds f2 "January 25, 1993
+X  .mt
+X  A Guide to the Mazes of Menace
+X+ (Guidebook for NetHack 3.1)
+X  .au
+X  Eric S. Raymond
+X  (Extensively edited and expanded for 3.0 by Mike Threepoint)
+X***************
+X*** 20,26 ****
+X  guild.  After much practice and sweat you have finally completed your
+X  training and are ready to embark upon a perilous adventure.  To prove
+X  your worthiness, the local guildmasters have sent you into the Mazes of
+X! Menace.  Your quest is to return with the Amulet of Yendor.  According
+X  to legend, the gods will grant immortality to the one who recovers this
+X  artifact; true or not, its recovery will bring honor and full guild
+X  membership (not to mention the attentions of certain wealthy wizards).
+X--- 21,27 ----
+X  guild.  After much practice and sweat you have finally completed your
+X  training and are ready to embark upon a perilous adventure.  To prove
+X  your worthiness, the local guildmasters have sent you into the Mazes of
+X! Menace.  Your quest is to retrieve the Amulet of Yendor.  According
+X  to legend, the gods will grant immortality to the one who recovers this
+X  artifact; true or not, its recovery will bring honor and full guild
+X  membership (not to mention the attentions of certain wealthy wizards).
+X***************
+X*** 436,442 ****
+X  .lp p
+X  Pay your shopping bill.
+X  .lp P
+X! Put on a ring.
+X  .lp ^P
+X  Repeat previous message (subsequent ^P's repeat earlier messages).
+X  .lp q
+X--- 437,443 ----
+X  .lp p
+X  Pay your shopping bill.
+X  .lp P
+X! Put on a ring or other accessory (amulet, blindfold).
+X  .lp ^P
+X  Repeat previous message (subsequent ^P's repeat earlier messages).
+X  .lp q
+X***************
+X*** 446,452 ****
+X  .lp r
+X  Read a scroll or spell book.
+X  .lp R
+X! Remove a ring.
+X  .lp ^R
+X  Redraw the screen.
+X  .lp s
+X--- 447,453 ----
+X  .lp r
+X  Read a scroll or spell book.
+X  .lp R
+X! Remove an accessory (ring, amulet, etc).
+X  .lp ^R
+X  Redraw the screen.
+X  .lp s
+X***************
+X*** 482,487 ****
+X--- 483,490 ----
+X  .ux " versions with job control only)." (
+X  .lp :
+X  Look at what is here.
+X+ .lp ;
+X+ Show what type of thing a visible symbol corresponds to.
+X  .lp ,
+X  Pick up some things.
+X  .lp @
+X***************
+X*** 1164,1169 ****
+X--- 1167,1175 ----
+X  set your character class by appending a dash and the first letter of
+X  the character class (that is, by suffixing one of
+X  .op "-A -B -C -E -H -K -P -R -S -T -V -W" ).
+X+ If
+X+ .op "-@"
+X+ is used for the class, then a random one will be automatically chosen.
+X  Cannot be set with the `O' command.
+X  .lp news\ \ \ \ 
+X  Read the NetHack news file, if present (default on).
+X*** /tmp/da07397	Thu Feb 25 10:19:36 1993
+X--- doc/Guidebook.tex	Fri Feb 12 14:58:42 1993
+X***************
+X*** 55,61 ****
+X  guild.  After much practice and sweat you have finally completed your
+X  training and are ready to embark upon a perilous adventure.  To prove
+X  your worthiness, the local guildmasters have sent you into the Mazes of
+X! Menace.  Your quest is to return with the Amulet of Yendor.  According
+X  to legend, the gods will grant immortality to the one who recovers this
+X  artifact; true or not, its recovery will bring honor and full guild
+X  membership (not to mention the attentions of certain wealthy wizards).
+X--- 55,61 ----
+X  guild.  After much practice and sweat you have finally completed your
+X  training and are ready to embark upon a perilous adventure.  To prove
+X  your worthiness, the local guildmasters have sent you into the Mazes of
+X! Menace.  Your quest is to retrieve the Amulet of Yendor.  According
+X  to legend, the gods will grant immortality to the one who recovers this
+X  artifact; true or not, its recovery will bring honor and full guild
+X  membership (not to mention the attentions of certain wealthy wizards).
+X***************
+X*** 595,601 ****
+X  Pay your shopping bill.
+X  %.lp
+X  \item[\tb{P}]
+X! Put on a ring.
+X  %.lp
+X  \item[\tb{\^{}P}]
+X  Repeat previous message (subsequent {\tt \^{}P}'s repeat earlier messages).
+X--- 595,601 ----
+X  Pay your shopping bill.
+X  %.lp
+X  \item[\tb{P}]
+X! Put on a ring or other accessory (amulet, blindfold).
+X  %.lp
+X  \item[\tb{\^{}P}]
+X  Repeat previous message (subsequent {\tt \^{}P}'s repeat earlier messages).
+X***************
+X*** 610,616 ****
+X  Read a scroll or spell book.
+X  %.lp
+X  \item[\tb{R}]
+X! Remove a ring.
+X  %.lp
+X  \item[\tb{\^{}R}]
+X  Redraw the screen.
+X--- 610,616 ----
+X  Read a scroll or spell book.
+X  %.lp
+X  \item[\tb{R}]
+X! Remove an accessory (ring, amulet, etc).
+X  %.lp
+X  \item[\tb{\^{}R}]
+X  Redraw the screen.
+X***************
+X*** 663,668 ****
+X--- 663,671 ----
+X  \item[\tb{:}]
+X  Look at what is here.
+X  %.lp
+X+ \item[\tb{;}]
+X+ Show what type of thing a visible symbol corresponds to.
+X+ %.lp
+X  \item[\tb{,}]
+X  Pick up some things.
+X  %.lp
+X***************
+X*** 1481,1486 ****
+X--- 1484,1491 ----
+X  set your character class by appending a dash and the first letter of
+X  the character class (that is, by suffixing one of
+X  ``{\tt -A -B -C -E -H -K -P -R -S -T -V -W}'').
+X+ If ``{\tt -@}'' is used for the class, then a random one will be
+X+ automatically chosen.
+X  Cannot be set with the `{\tt O}' command.
+X  %.lp
+X  \item[\ib{news}]
+X*** /tmp/da07421	Thu Feb 25 10:19:49 1993
+X--- doc/lev_comp.6	Wed Feb 24 15:34:38 1993
+X***************
+X*** 223,228 ****
+X--- 223,229 ----
+X  		| gold_detail
+X  		| engraving_detail
+X  		| diggable_detail
+X+ 		| passwall_detail
+X  
+X  monster_detail	: "MONSTER" ':' monster_c ',' m_name ',' coordinate
+X  		  monster_infos
+X***************
+X*** 296,301 ****
+X--- 297,304 ----
+X  
+X  diggable_detail	: "NON_DIGGABLE" ':' region
+X  
+X+ passwall_detail	: "NON_PASSWALL" ':' region
+X+ 
+X  region_detail	: "REGION" ':' region ',' light_state ','
+X  		  room_type prefilled
+X  
+X***************
+X*** 403,408 ****
+X--- 406,412 ----
+X  \&'C'	cloudy air
+X  \&'I'	ice
+X  \&'S'	a secret door
+X+ \&'H'	a secret corridor
+X  \&'{'	a fountain
+X  \&'\\'	a throne
+X  \&'K'	a sink (if SINKS is defined, else a room location)
+X*** /tmp/da07429	Thu Feb 25 10:19:51 1993
+X--- doc/nethack.6	Mon Feb 22 12:24:26 1993
+X***************
+X*** 12,18 ****
+X  .B \-n
+X  ]
+X  [
+X! .B \-[ABCEHKPRSTVW]
+X  ]
+X  [
+X  .B \-[DX]
+X--- 12,18 ----
+X  .B \-n
+X  ]
+X  [
+X! .B \-[ABCEHKPRSTVW@]
+X  ]
+X  [
+X  .B \-[DX]
+X***************
+X*** 100,105 ****
+X--- 100,111 ----
+X  suffix or a separate option consisting of one of
+X  .B "\-A \-B \-C \-E \-H \-K \-P \-R \-S \-T \-V \-W"
+X  can be used to determine the character role.
+X+ Likewise,
+X+ .B "\-@"
+X+ can be used to explicitly request that a random role be chosen.
+X+ It may need to be quoted with a backslash (-\\@) if @
+X+ is the "kill" character (see "stty") for the terminal, in order
+X+ to prevent the current input line from being cleared.
+X  .PP
+X  The
+X  .B \-s
+X
+END_OF_FILE
+if test 6957 -ne `wc -c <'patches01m'`; then
+    echo shar: \"'patches01m'\" unpacked with wrong size!
+fi
+# end of 'patches01m'
+if test -f 'sys/amiga/amisnd.c' -a "${1}" != "-c" ; then 
+  echo shar: Renaming existing file \"'sys/amiga/amisnd.c'\" to \"'sys/amiga/amisnd.c.orig'\"
+  mv -f 'sys/amiga/amisnd.c' 'sys/amiga/amisnd.c.orig'
+fi
+echo shar: Extracting \"'sys/amiga/amisnd.c'\" \(7303 characters\)
+sed "s/^X//" >'sys/amiga/amisnd.c' <<'END_OF_FILE'
+X/*	SCCS Id: @(#)amisnd.c	3.1	92/11/28	*/
+X/* 	Copyright (c) 1992, 1993 by Gregg Wonderly */
+X/* NetHack may be freely redistributed.  See license for details. */
+X
+X/*
+X * This file contains music playing code.
+X *
+X * If we were REALLY determined, we would make the sound play
+X * asynchronously, but I'll save that one for a rainy day...
+X */
+X
+X#include "hack.h"
+X
+X#undef red
+X#undef blue
+X#undef green
+X#include <exec/types.h>
+X#include <exec/memory.h>
+X#include <exec/io.h>
+X#include <devices/audio.h>
+X#include <dos/dos.h>
+X#include <dos/dosextens.h>
+X#include <graphics/gfxbase.h>
+X
+X#include <clib/exec_protos.h>
+X#include <clib/alib_protos.h>
+X#include <clib/dos_protos.h>
+X#include <clib/graphics_protos.h>
+X
+X#include <stdio.h>
+X#include <stdlib.h>
+X
+X#define	AMII_AVERAGE_VOLUME	60
+X
+Xint amii_volume = AMII_AVERAGE_VOLUME;
+X
+Xtypedef struct VHDR
+X{
+X	char name[4];
+X	long len;
+X	unsigned long oneshot, repeat, samples;
+X	UWORD freq;
+X	UBYTE n_octaves, compress;
+X	LONG volume;
+X} VHDR;
+X
+Xtypedef struct IFFHEAD
+X{
+X	char FORM[4];
+X	long flen;
+X	char _8SVX[4];
+X	VHDR vhdr;
+X	char NAME[4];
+X	long namelen;
+X} IFFHEAD;
+X
+Xextern struct GfxBase *GfxBase;
+X
+XUBYTE whichannel[] = { 1, 2, 4, 8 };
+Xvoid makesound( char *, char *, int vol);
+Xvoid amii_speaker( struct obj *instr, char *melody, int vol );
+X
+X/* A major scale in indexs to freqtab... */
+Xint notetab[] = { 0, 2, 4, 5, 7, 9, 11, 12 };
+X
+X/* Frequencies for a scale starting at one octave below 'middle C' */
+Xlong freqtab[] = {
+X	220,	/*A */
+X	233,	/*Bb*/
+X	246,	/*B */
+X	261,	/*C */
+X	277,	/*Db*/
+X	293,	/*D */
+X	311,	/*Eb*/
+X	329,	/*E */
+X	349,	/*F */
+X	370,	/*Gb*/
+X	392,	/*G */
+X	415,	/*Ab*/
+X	440,	/*A */
+X};
+X
+X#ifdef	TESTING
+Xmain( argc, argv )
+X	int argc;
+X	char **argv;
+X{
+X	makesound( "wooden_flute", "AwBwCwDwEwFwGwawbwcwdwewfwgw", 60 );
+X	makesound( "wooden_flute", "AhBhChDhEhFhGhahbhchdhehfhgh", 60 );
+X	makesound( "wooden_flute", "AqBqCqDqEqFqGqaqbqcqdqeqfqgq", 60 );
+X	makesound( "wooden_flute", "AeBeCeDeEeFeGeaebecedeeefege", 60 );
+X	makesound( "wooden_flute", "AxBxCxDxExFxGxaxbxcxdxexfxgx", 60 );
+X	makesound( "wooden_flute", "AtBtCtDtEtFtGtatbtctdtetftgt", 60 );
+X	makesound( "wooden_flute", "AtBtCtDtEtFtGtatbtctdtetftgt", 60 );
+X	makesound( "wooden_flute", "AtBtCtDtEtFtGtatbtctdtetftgt", 60 );
+X	makesound( "wooden_flute", "AtBtCtDtEtFtGtatbtctdtetftgt", 60 );
+X	makesound( "wooden_flute", "AtBtCtDtEtFtGtatbtctdtetftgt", 60 );
+X	makesound( "wooden_flute", "AtBtCtDtEtFtGtatbtctdtetftgt", 60 );
+X	makesound( "wooden_flute", "AtBtCtDtEtFtGtatbtctdtetftgt", 60 );
+X	makesound( "wooden_flute", "AtBtCtDtEtFtGtatbtctdtetftgt", 60 );
+X	makesound( "wooden_flute", "AtBtCtDtEtFtGtatbtctdtetftgt", 60 );
+X}
+X#else
+Xvoid
+Xamii_speaker( struct obj *instr, char *melody, int vol )
+X{
+X	int typ = instr->otyp;
+X	const char * actualn = OBJ_NAME( objects[typ] ) ;
+X
+X	/* Make volume be relative to users volume level, with 60 being the
+X	 * average level that will be passed to us.
+X	 */
+X	vol = vol * amii_volume / AMII_AVERAGE_VOLUME;
+X
+X	makesound( actualn, melody, vol );
+X}
+X#endif
+X
+Xvoid
+Xmakesound ( char *actualn , char * melody, int vol )
+X{
+X	char *t;
+X	int c, cycles, dot, dlay;
+X	FILE *fp = 0;
+X	IFFHEAD iffhead;
+X	struct IOAudio *AudioIO = 0;
+X	struct MsgPort *AudioMP = 0;
+X	struct Message *AudioMSG = 0;
+X	ULONG device = -1;
+X	BYTE *waveptr = 0;
+X	LONG frequency=440, duration=1, clock, samp, samples, samcyc=1;
+X	unsigned char name [ 100 ] ;
+X
+X	if ( flags.silent )
+X		return;
+X
+X	if( GfxBase->DisplayFlags & PAL )
+X		clock = 3546895;
+X	else
+X		clock = 3579545;
+X
+X	/*
+X	 * Is this a known instrument ?
+X	 *
+X	 */
+X	sprintf ( name, "NetHack:sounds/%s", actualn ) ;
+X	for( t = strchr( name, ' ' ); t; t = strchr( name, ' ' ) )
+X		*t = '_';
+X	if( (fp = fopen( name, "r" )) == NULL )
+X	{
+X		perror( name );
+X		return;
+X	}
+X
+X	AudioIO = (struct IOAudio *)
+X		AllocMem( sizeof( struct IOAudio ), MEMF_PUBLIC|MEMF_CLEAR );
+X	if( AudioIO == 0 )
+X		goto killaudio;
+X
+X	AudioMP = CreatePort( NULL, 0 );
+X	if( AudioMP == 0 )
+X		goto killaudio;
+X
+X	AudioIO->ioa_Request.io_Message.mn_ReplyPort = AudioMP;
+X	AudioIO->ioa_Request.io_Message.mn_Node.ln_Pri = 0;
+X	AudioIO->ioa_Request.io_Command = ADCMD_ALLOCATE;
+X	AudioIO->ioa_Request.io_Flags = ADIOF_NOWAIT;
+X	AudioIO->ioa_AllocKey = 0;
+X	AudioIO->ioa_Data = whichannel;
+X	AudioIO->ioa_Length = sizeof( whichannel );
+X
+X	device = OpenDevice( AUDIONAME, 0L, (struct IORequest *)AudioIO, 0L );
+X	if( device != 0 )
+X		goto killaudio;
+X
+X	if( fread( &iffhead, sizeof( iffhead ), 1, fp ) != 1 )
+X		goto killaudio;
+X
+X	/* This is an even number of bytes long */
+X	if( fread( name, (iffhead.namelen+1) & ~1, 1, fp ) != 1 )
+X		goto killaudio;
+X
+X	if( fread( &samples, 4, 1, fp ) != 1 )
+X		goto killaudio;
+X
+X	if( fread( &samples, 4, 1, fp ) != 1 )
+X		goto killaudio;
+X
+X	waveptr = AllocMem( samples, MEMF_CHIP|MEMF_PUBLIC );
+X	if( !waveptr )
+X		goto killaudio;
+X
+X	if( fread( waveptr, samples, 1, fp ) != 1 )
+X		goto killaudio;
+X
+X	while( melody[0] && melody[1] )
+X	{
+X		c = *melody++;
+X		duration = *melody++;
+X		dot = 0;
+X		if( *melody == '.' )
+X		{
+X			dot = 1;
+X			++melody;
+X		}
+X		switch( duration )
+X		{
+X			case 'w': dlay = 3; duration = 1; cycles = 1; break;
+X			case 'h': dlay = 3; duration = 2; cycles = 1; break;
+X			case 'q': dlay = 2; duration = 4; cycles = 1; break;
+X			case 'e': dlay = 1; duration = 8; cycles = 1; break;
+X			case 'x': dlay = 0; duration = 16; cycles = 1; break;
+X			case 't': dlay = 0; duration = 32; cycles = 1; break;
+X			default: goto killaudio;  /* unrecognized duration */
+X		}
+X
+X		/* Lower case characters are one octave above upper case */
+X		switch( c )
+X		{
+X			case 'a': case 'b': case 'c':
+X			case 'd': case 'e': case 'f': case 'g':
+X				c -= 'a' - 7;
+X				break;
+X
+X			case 'A': case 'B': case 'C':
+X			case 'D': case 'E': case 'F': case 'G':
+X				c -= 'A';
+X				break;
+X
+X			default:
+X				continue;
+X		}
+X
+X		samcyc = samples;
+X
+X		/* lowercase start at middle 'C', upper case are one octave below */
+X		frequency = c > 7 ? freqtab[notetab[c%7]]*2 : freqtab[notetab[c]];
+X
+X		/* We can't actually do a dotted whole note unless we add code for a real
+X		 * 8SVX sample which includes sustain sample information to tell us how
+X		 * to hold the note steady...  So when duration == 1, ignore 'dot'...
+X		 */
+X		if( dot && duration > 1 )
+X			samp = ((samples / duration) * 3) / 2;
+X		else
+X			samp = samples / duration;
+X
+X		/* Only use some of the samples based on frequency */
+X		samp = frequency * samp / 880;
+X
+X		/* The 22khz samples are middle C samples, so adjust the play
+X		 * back frequency accordingly
+X		 */
+X		frequency = (frequency * (iffhead.vhdr.freq*2)/3) / 440L;
+X
+X		AudioIO->ioa_Request.io_Message.mn_ReplyPort = AudioMP;
+X		AudioIO->ioa_Request.io_Command = CMD_WRITE;
+X		AudioIO->ioa_Request.io_Flags = ADIOF_PERVOL;
+X		AudioIO->ioa_Data = (BYTE *)waveptr;
+X		AudioIO->ioa_Length = samp;
+X
+X		/* The clock rate represents the unity rate, so dividing by
+X		 * the frequency gives us a period ratio...
+X		 */
+X/*printf( "clock: %ld, freq: %ld, div: %ld\n", clock, frequency, clock/frequency );*/
+X		AudioIO->ioa_Period = clock/frequency;
+X		AudioIO->ioa_Volume = vol;
+X		AudioIO->ioa_Cycles = cycles;
+X
+X		BeginIO( (struct IORequest *)AudioIO );
+X		WaitPort( AudioMP );
+X		AudioMSG = GetMsg( AudioMP );
+X		if( dlay )
+X			Delay( dlay );
+X	}
+X
+X	killaudio:
+X	if( fp ) fclose( fp );
+X	if( waveptr ) FreeMem( waveptr, samples );
+X	if( device == 0 ) CloseDevice( (struct IORequest *)AudioIO );
+X	if( AudioMP ) DeletePort( AudioMP );
+X	if( AudioIO ) FreeMem( AudioIO, sizeof( *AudioIO ) );
+X}
+END_OF_FILE
+if test 7303 -ne `wc -c <'sys/amiga/amisnd.c'`; then
+    echo shar: \"'sys/amiga/amisnd.c'\" unpacked with wrong size!
+fi
+# end of 'sys/amiga/amisnd.c'
+if test -f 'sys/winnt/Install.nt' -a "${1}" != "-c" ; then 
+  echo shar: Renaming existing file \"'sys/winnt/Install.nt'\" to \"'sys/winnt/Install.nt.orig'\"
+  mv -f 'sys/winnt/Install.nt' 'sys/winnt/Install.nt.orig'
+fi
+echo shar: Extracting \"'sys/winnt/Install.nt'\" \(10400 characters\)
+sed "s/^X//" >'sys/winnt/Install.nt' <<'END_OF_FILE'
+X	Copyright (c) NetHack PC Development Team 1990 - 1993.
+X	NetHack may be freely redistributed.  See license for details.
+X	    ======================================================
+X	    Instructions for compiling and installing
+X		 NetHack 3.1 on a Windows NT system
+X	    ======================================================
+X		 (or, How to make NT NetHack 3.1.1)
+X		    Last revision: Feb 24, 1993
+X
+XCredit for the PC versions of NetHack goes to the PC Development team 
+Xconsisting of Norm Meluch, Kevin Smolkowski, Paul Winner and Steve 
+XVanDevender who built on the work of Pierre Martineau, Stephen Spackman, 
+XSteve Creps, Mike Threepoint and Don Kneller.  
+X
+XCredit for the porting of NetHack to Windows NT goes to the NT Porting 
+XTeam started by Michael Allison.
+X
+XThe NT porting team also wishes to thank the following people for
+Xtheir help, testing effort, and suggestions which contributed to the 
+Xcompletion of the first Windows NT port of NetHack: Doug Thompson, 
+XPhil Mills, Scott Murray. 
+X
+XThis first version of NetHack for Windows NT is a tty port utilizing 
+Xthe NT WIN32 Console I/O subsystem.
+X
+X
+XI.  Dispelling the Myths:
+X
+X    Compiling NetHack is not as easy as it sounds, nor as hard as it looks,
+X    however it will behoove you to read this entire file through before
+X    beginning the task.
+X
+X    We have provided the proper makefiles for building NetHack using the
+X    following compilers:
+X
+X    Microsoft Windows NT October 1992 SDK C Compiler with December '92 fixes.
+X
+X    All the makefiles were created for use with MS NMAKE which
+X    is provided with the Windows NT SDK (Software Development Kit).
+X
+X    You may find it useful to obtain copies of lex (flex) and yacc (bison).
+X    While not strictly necessary to compile nethack, they are required should
+X    you desire to make any changes to the level and dungeon compilers.
+X    Flex and Yacc for NT are available in the "Porting from UNIX to
+X    NT" library on the MSWIN32 Forum on compuserve and other places.
+X
+X    To use the distributed NetHack icon, a version of uudecode is required,
+X    but this is not a necessary step for compiling NT NetHack.
+X
+XII. To compile your copy of NetHack on a Windows NT machine:
+X    (or "just follow these few 'simple' steps outlined below.")
+X
+XSetting Up
+X
+X1.  It almost goes without saying that you should make sure that your tools
+X    are set up and running correctly.
+X
+X2.  Make sure all the NetHack files are in the appropriate directory
+X    structure.  You should have a main directory with subdirectories
+X    dat, doc, include, src, sys\share, sys\winnt, util and win\tty.
+X    Other subdirectories may also be included in your distribution, but
+X    they are not necessary for use with NT.  You can delete them
+X    to save space.
+X
+X    Check the file "Files" in your top level directory for an exact
+X    listing of what file is in which directory.  In order for the
+X    Makefiles to work, all the source files must be in the proper
+X    locations.
+X
+X    If you downloaded or ftp'd the sources from a UNIX system, the lines
+X    will probably end in UNIX-style newlines, instead of the carriage
+X    return and line feed pairs used by DOS.  Some programs have trouble
+X    with them, so you may need to convert them (with a utility like
+X    Rahul Dhesi's "flip").  Also, every file should end with an empty
+X    line, because Microsoft C has a habit of ignoring the
+X    last line of each file. 
+X
+X3.  Go to the sys\winnt directory and run the setup.bat batch file.
+X    The necessary Makefile movements will be accomplished for you.
+X
+X4.  Now go to the include subdirectory to check a couple of the header
+X    files there.  Things *should* work as they are, but since you have
+X    probably set up your system in some sort of custom configuration
+X    it doesn't hurt to check out the following:
+X
+X    First check config.h according to the comments to match your system and
+X    desired set of features.  Mostly you need to check the WIZARD option,
+X    make sure the HACKDIR is set properly. The directory specified here must
+X    conform to any file-system limitations for directory names.  If you will 
+X    be installing NetHack on a FAT (MSDOS compatible) volume (disk), then 
+X    there is a limit of 8 characters for each intermediate subdirectory.
+X    If the volume is formatted with the NTFS file system, however, then there
+X    is no such limitation.
+X    Also check COMPRESS.
+X
+X    You may include all or as few of the special game features as you wish.
+X
+X    Also check ntconf.h, which should not need much editing. It is there that
+X    you may choose to enable color text character support by leaving
+X    TERMCOLOR uncommented, or disable color support by commenting out 
+X    TERMCOLOR.
+X
+X5.  If you want to change the high score list behavior, examine the top of
+X    topten.c, in the src directory.  You may want to change the definitions of
+X    PERSMAX, POINTSMIN, and ENTRYMAX.  I set POINTSMIN to 51 and ENTRYMAX to
+X    50 to keep the size of the score list down.
+X
+X6.  Go to the src directory and edit the top of your Makefile.
+X    Change the setting of (GAMEDIR) reflect the directory where
+X    you want NetHack to be installed.  
+X
+X    ie.  GAMEDIR = \games\nethack
+X
+X    The directory you specify *MUST* exist for all remaining steps to be 
+X    successful. Be sure the directory you want the game installed 
+X    actually exists.  If it doesn't, create it now.
+X
+X    If you elected not to use the high-quality BSD random number routines by
+X    commenting out RANDOM in ntconf.h, comment out (or set equal
+X    to nothing) the RANDOM macro in your Makefile.
+X
+X    If you are recompiling after patching your sources, or if you got your
+X    files from somewhere other than the official distribution, "touch
+X    makedefs.c" to ensure that certain files (onames.h and pm.h) are remade,
+X    lest potentially troublesome timestamps fool "make".
+X
+XCompiling
+X
+X7.  Now that everything is set up, go to the util directory and
+X    run nmake.  If you get any errors along the way then something
+X    has not been set up correctly.
+X
+X8.  Next, go to the dat directory and run nmake (just as you did for util).
+X    Once again, if you get any errors then something has not been 
+X    set up correctly.
+X
+X9.  Finally, go to the src directory and "nmake install".  The time it takes
+X    to compile depends on your particular machine of course, but you should 
+X    be able to go for lunch and return to find everything finished.  The 
+X    less memory, and slower your machine, the longer the lunch you may take.
+X    
+X    In any case, it is likely that the command prompt window where you are 
+X    doing the compiling will be occupied for a quite a while.  If all 
+X    goes well, you will get an NetHack executable.
+X
+XRunning NetHack
+X
+X10. Make sure the support files -- data, rumors, cmdhelp, opthelp, help, hh,
+X    history, and license -- were copied to the game directory.  If not,
+X    move them there from the dat directory yourself.  
+X    Assuming you are still in the src,dat, or util directory,
+X    "rumors." can be created manually by entering "..\util\makedefs -r"
+X    "data." can be created by entering "..\util\makedefs -d".
+X
+X    Make sure the files NetHack.cnf and termcap also made it to your game
+X    directory.  If not, go to sys\share and copy NetHack.cnf and
+X    termcap to your game directory.  Edit NetHack.cnf to reflect your
+X    particular setup and personal preferences, by following the comments.
+X    If you are using the NetHack.cnf off the distribution, be sure to
+X    comment out the following line which is MSDOS specific, and will
+X    result in a syntax error under the Windows NT port at run time;
+X
+X    Change:
+X	OPTIONS=rawio,BIOS,IBMgraphics
+X    to:
+X	#OPTIONS=rawio,BIOS,IBMgraphics
+X
+X    Also, be sure that the value of HACKDIR is correctly referring to
+X    the location of your executable.
+X  
+X    I also recommend uncommenting the second GRAPHICS= section
+X    located later in the file for the best choice of character sets.
+X
+X
+XRunning from Command Prompt
+X
+X11. If you are running it from the command prompt, you must first set the
+X    HACKDIR environment variable to the location where the nethack 
+X    executable resides:
+X
+X	set HACKDIR=c:\games\nethack)
+X	(or whatever drive and directory you want to use)
+X
+X    You should also add the directory containing the NetHack executable
+X    to your PATH, so that you can just type "nethack" or "nethack -umike"
+X    to start it up.  Alternatively, you can explicitly invoke it with 
+X    "c:\games\nethack\nethack" (specifying whatever drive and directory your
+X    executable resides in) each time.
+X
+X
+XRunning from Program Manager
+X
+X12. If you will be running it by launching it from the Program Manager,
+X    be sure to specify the location of your NetHack executable in the 
+X    "Working Directory:" dialogue box field when creating your 
+X    Program Manager Icon:
+X
+X    ie.  Description      :  NetHack 3.1.1 
+X         Command Line     :  C:\GAMES\NETHACK\NETHACK.EXE
+X         Working Directory:  C:\GAMES\NETHACK
+X         Shortcut key     :
+X
+X13. A NetHack icon has been provided int the file SYS\WINNT\NHICO.UU.
+X    This is a uuencoded copy of the icon file, and you must use uudecode
+X    to turn it into a Windows NT icon file, in order to use the icon.
+X
+X14. Play NetHack.  If it works, you're done!
+X
+XNotes:
+X
+X1)  To install an update of NetHack after changing something, enter "nmake"
+X    from the src directory.  If you add, delete, or reorder monsters or
+X    objects, or you change the format of saved level files, delete any save
+X    and bones files.  (Trying to use such files sometimes produces amusing
+X    confusions on the game's part, but usually crashes.)
+X
+X    If you made changes to any of the level compiler software, you may have
+X    to delete dgn_flex.c, dgn_yacc.c, lev_flex.c, and lev_yacc.c from the
+X    util directory to ensure that they are remade.
+X
+X2)  The executable produced by this port is a 32-bit, flat-address space, 
+X    non-overlayed .exe file, which should run on any Windows NT system. It
+X    is also a rather large file:
+X
+X	More than 1,900,000 bytes, nethack.exe when debugging information 
+X        is included in the .exe.
+X
+X3)  A true Windows (WIN32s) version of NetHack is currently under development
+X    by the PC Windows Porting team.
+X
+X
+X4)  If you have comments or suggestions, feel free to drop any one of
+X    us a line c/o nethack-bugs@linc.cis.upenn.edu.  From compuserve,
+X    try  >INTERNET:nethack-bugs@linc.cis.upenn.edu.
+END_OF_FILE
+if test 10400 -ne `wc -c <'sys/winnt/Install.nt'`; then
+    echo shar: \"'sys/winnt/Install.nt'\" unpacked with wrong size!
+fi
+# end of 'sys/winnt/Install.nt'
+if test -f 'sys/winnt/Makefile.src' -a "${1}" != "-c" ; then 
+  echo shar: Renaming existing file \"'sys/winnt/Makefile.src'\" to \"'sys/winnt/Makefile.src.orig'\"
+  mv -f 'sys/winnt/Makefile.src' 'sys/winnt/Makefile.src.orig'
+fi
+echo shar: Extracting \"'sys/winnt/Makefile.src'\" \(12159 characters\)
+sed "s/^X//" >'sys/winnt/Makefile.src' <<'END_OF_FILE'
+X#       SCCS Id: @(#)Makefile.src       3.1     93/02/21
+X#       Copyright (c) NetHack PC Development Team 1993
+X#
+X#       NT NetHack 3.1 Src Makefile 
+X#	for MS NMAKE for Windows NT
+X#  
+X#	NT Version Tested:  October 1992 SDK pre-release
+X#			    + December '92 compiler fix
+X#
+X#       For questions read the Install.nt file included with
+X#       the distribution.
+X#
+X#	Michael Allison
+X#
+X#----------------------------------------------------------------------
+X# The following nmake include sets up the environment
+X# correctly for the Windows NT Console I/O subsystem
+X#
+X# Do not delete the following include.
+X#
+X!include <..\sys\winnt\nhincl.mak>
+X
+X#
+X#  Set the gamedir according to your preference.  It must be present prior
+X#  to compilation.
+X
+XGAME    = nethack            # Game Name
+XGAMEDIR = c:\games\hackdir      # Game directory
+X
+X#
+X#  Source directories.    Makedefs hardcodes these, don't change them.
+X#
+X
+XINCL = ..\include   # NetHack include files
+XDAT  = ..\dat       # NetHack data files
+XDOC  = ..\doc       # NetHack documentation files
+XUTIL = ..\util      # Utility source
+XSRC  = ..\src       # Main source
+XSYS  = ..\sys\share # Shared system files
+XMSYS = ..\sys\winnt # NT Win32 specific files
+XWIN  = ..\win\tty   # windows files (wintty)
+XGAMEFILE = $(GAMEDIR)\$(GAME).exe # whole thing
+X
+XRANDOM = ..\sys\share\random.o
+X#RANDOM = 
+X
+X#
+X#  Uncomment the next two lines _ONLY_ if you do not want any
+X#  debug capability in the object files, or in the NetHack executable.
+X#cdebug =
+X#linkdebug =
+X
+X#
+X#  The default make target (so just typing 'nmake' is useful).
+X#
+X
+Xdefault : $(GAMEFILE)
+X
+X######################################################################
+X#
+X#  Nothing below this line should have to be changed.
+X#
+X#  Other things that have to be reconfigured are in
+X#       config.h, pccconf.h and possibly system.h.
+X#
+X
+X#       This line should not be deleted.
+X
+XNTSUB = -DWIN32CON
+X#
+X#  Make Rules.
+X#
+X
+X.SUFFIXES:  .exe .o .c .y .l
+X
+X.c.o:
+X    $(cc) $(cflags) $(NTSUB) -I$(INCL)  $(cvars) $(cdebug) -Fo$*.o $*.c
+X
+X
+X#
+X#  Object files for the game itself.
+X#
+X
+XVOBJ01 = allmain.o  alloc.o    $(RANDOM)  apply.o    artifact.o  attrib.o
+XVOBJ02 = ball.o     bones.o    botl.o     cmd.o      dbridge.o
+XVOBJ03 = decl.o     detect.o   display.o  do.o       do_name.o
+XVOBJ04 = do_wear.o  dog.o      dogmove.o  dokick.o   dothrow.o
+XVOBJ05 = drawing.o  dungeon.o  eat.o      end.o      engrave.o
+XVOBJ06 = exper.o    explode.o  extralev.o files.o    fountain.o
+XVOBJ07 = hack.o     hacklib.o  invent.o   lock.o
+XVOBJ08 = mail.o     main.o     makemon.o  mcastu.o   mhitm.o
+XVOBJ09 = mhitu.o    minion.o   mkmap.o    mklev.o    mkmaze.o
+XVOBJ10 = mkobj.o    mkroom.o   mon.o      mondata.o  monmove.o
+XVOBJ11 = monst.o    monstr.o   mplayer.o  mthrowu.o  muse.o
+XVOBJ12 = music.o    o_init.o   objects.o  objnam.o   options.o
+XVOBJ13 = pickup.o   pline.o    polyself.o potion.o   quest.o
+XVOBJ14 = questpgr.o pager.o    pray.o     priest.o   read.o
+XVOBJ15 = rect.o     restore.o  rip.o      rnd.o      rumors.o
+XVOBJ16 = save.o     shk.o      shknam.o   sit.o      sounds.o
+XVOBJ17 = sp_lev.o   spell.o    steal.o    timeout.o
+XVOBJ18 = topten.o   track.o    trap.o     u_init.o
+XVOBJ19 = uhitm.o    vault.o    vision.o   vis_tab.o  weapon.o
+XVOBJ20 = were.o     wield.o    windows.o  wizard.o
+XVOBJ21 = worm.o     worn.o     write.o    zap.o
+XWOBJ   = topl.o     getline.o  wintty.o
+XSOBJ   = winnt.o    sys.o      tty.o      unix.o
+XVVOBJ  = version.o
+X
+X
+XVOBJ   = $(VOBJ01) $(VOBJ02) $(VOBJ03) $(VOBJ04) $(VOBJ05) \
+X         $(VOBJ06) $(VOBJ07) $(VOBJ08) $(VOBJ09) $(VOBJ10) \
+X         $(VOBJ11) $(VOBJ12) $(VOBJ13) $(VOBJ14) $(VOBJ15) \
+X         $(VOBJ16) $(VOBJ17) $(VOBJ18) $(VOBJ19) $(VOBJ20) \
+X         $(VOBJ21)
+X
+XALLOBJ = $(VOBJ) $(SOBJ) $(WOBJ) $(VVOBJ)
+X
+XDGN_FILE_H = $(INCL)\align.h    $(INCL)\dgn_file.h
+XDUNGEON_H  = $(INCL)\align.h    $(INCL)\dungeon.h
+XEMIN_H     = $(DUNGEON_H)       $(INCL)\emin.h
+XEPRI_H     = $(DUNGEON_H)       $(INCL)\align.h     $(INCL)\epri.h
+XESHK_H     = $(DUNGEON_H)       $(INCL)\eshk.h
+XMONDATA_H  = $(INCL)\align.h    $(INCL)\mondata.h
+XMONST_H    = $(INCL)\align.h    $(INCL)\monst.h
+XPERMONST_H = $(INCL)\monattk.h  $(INCL)\monflag.h   $(INCL)\align.h   \
+X             $(INCL)\permonst.h
+XRM_H       = $(INCL)\align.h    $(INCL)\rm.h
+XSP_LEV_H   = $(INCL)\align.h    $(INCL)\sp_lev.h
+XVAULT_H    = $(DUNGEON_H)       $(INCL)\vault.h
+XYOUPROP_H  = $(PERMONST_H)      $(MONDATA_H)        $(INCL)\prop.h    \
+X             $(INCL)\pm.h       $(INCL)\youprop.h
+XYOU_H      = $(MONST_H)         $(YOUPROP_H)        $(INCL)\align.h   \
+X             $(INCL)\attrib.h   $(INCL)\you.h
+XDISPLAY_H  = $(MONDATA_H)       $(INCL)\vision.h    $(INCL)\display.h
+XNTCONF_H   = $(INCL)\micro.h    $(INCL)\system.h    $(INCL)\ntconf.h
+XCONFIG_H   = $(GLOBAL_H)        $(INCL)\tradstdc.h  $(INCL)\config.h
+XDECL_H     = $(YOU_H)           $(INCL)\spell.h     $(INCL)\color.h   \
+X             $(INCL)\obj.h      $(INCL)\onames.h    $(INCL)\pm.h      \
+X             $(INCL)\decl.h
+XGLOBAL_H   = $(NTCONF_H)        $(INCL)\coord.h     $(INCL)\global.h
+XHACK_H     = $(CONFIG_H)        $(DUNGEON_H)        $(DECL_H)         \
+X             $(DISPLAY_H)       $(INCL)\monsym.h    $(INCL)\mkroom.h  \
+X             $(INCL)\objclass.h $(INCL)\trap.h      $(INCL)\flag.h    \
+X             $(RM_H)            $(INCL)\vision.h    $(INCL)\wintype.h \
+X             $(INCL)\engrave.h  $(INCL)\rect.h      $(INCL)\extern.h \
+X             $(INCL)\trampoli.h $(INCL)\hack.h
+X
+X
+X
+X#
+X#  The default target.
+X#
+X
+Xall :     $(GAMEFILE) install.tag
+X    @echo Done.
+X
+Xinstall: install.tag
+X
+Xinstall.tag:    $(GAMEFILE) $(DAT)\sp_lev.tag
+X    copy $(SYS)\termcap       $(GAMEDIR)
+X    copy $(DAT)\*.?           $(GAMEDIR)
+X    copy $(DAT)\*.dat         $(GAMEDIR)
+X    copy $(DAT)\*.lev         $(GAMEDIR)
+X    copy $(SYS)\NetHack.cnf   $(GAMEDIR)
+X    copy $(UTIL)\recover.exe  $(GAMEDIR)
+X    del   $(GAMEDIR)\makefile
+X    echo install done > install.tag
+X
+X#
+X#  The main target.
+X#
+X$(GAMEFILE) : $(GAME).res  $(UTIL)\utility.tag
+X    $(link) $(linkdebug) $(conflags) -out:$*.exe @$(GAME).res $(conlibs)
+X
+X$(GAME).res : $(ALLOBJ)
+X    @echo $(VOBJ01) > $@
+X    @echo $(VOBJ02) >> $@
+X    @echo $(VOBJ03) >> $@
+X    @echo $(VOBJ04) >> $@
+X    @echo $(VOBJ05) >> $@
+X    @echo $(VOBJ06) >> $@
+X    @echo $(VOBJ07) >> $@
+X    @echo $(VOBJ08) >> $@
+X    @echo $(VOBJ09) >> $@
+X    @echo $(VOBJ10) >> $@
+X    @echo $(VOBJ11) >> $@
+X    @echo $(VOBJ12) >> $@
+X    @echo $(VOBJ13) >> $@
+X    @echo $(VOBJ14) >> $@
+X    @echo $(VOBJ15) >> $@
+X    @echo $(VOBJ16) >> $@
+X    @echo $(VOBJ17) >> $@
+X    @echo $(VOBJ18) >> $@
+X    @echo $(VOBJ19) >> $@
+X    @echo $(VOBJ20) >> $@
+X    @echo $(VOBJ21) >> $@
+X    @echo $(WOBJ) >> $@
+X    @echo $(SOBJ) >> $@
+X    @echo $(VVOBJ) >> $@
+X
+X
+X#
+X#  The following include files depend on makedefs to be created.
+X#
+X#  date.h should be remade every time any of the source or include
+X#  files is modified.
+X#
+X
+X$(INCL)\date.h : $(VOBJ)
+X    $(UTIL)\makedefs -v
+X
+X$(INCL)\onames.h :
+X    $(UTIL)\makedefs -o
+X
+X$(INCL)\pm.h :
+X    $(UTIL)\makedefs -p
+X
+Xmain.o:  $(HACK_H) $(SYS)\pcmain.c
+X    $(cc) $(cflags) $(NTSUB) -I$(INCL)  $(cvars) $(cdebug) -Fo$*.o $(SYS)\pcmain.c
+X
+Xtty.o:   $(HACK_H) $(INCL)\wintty.h $(MSYS)\nttty.c
+X    $(cc) $(cflags) $(NTSUB) -I$(INCL)  $(cvars) $(cdebug) -Fo$*.o $(MSYS)\nttty.c
+X
+Xunix.o:  $(SYS)\pcunix.c $(HACK_H)
+X    $(cc) $(cflags) $(NTSUB) -I$(INCL)  $(cvars) $(cdebug) -Fo$*.o $(SYS)\pcunix.c
+X
+Xsys.o : $(SYS)\pcsys.c $(HACK_H)
+X    $(cc) $(cflags) $(NTSUB) -I$(INCL)  $(cvars) $(cdebug) -Fo$*.o $(SYS)\pcsys.c
+X
+Xwinnt.o : $(HACK_H) $(MSYS)\winnt.c
+X    $(cc) $(cflags) $(NTSUB) -I$(INCL)  $(cvars) $(cdebug) -Fo$*.o $(MSYS)\winnt.c
+X
+X
+X# some other files in other directories
+X
+Xgetline.o : $(WIN)\getline.c
+X    $(cc) $(cflags) $(NTSUB) -I$(INCL)  $(cvars) $(cdebug) -Fo$*.o $(WIN)\$*.c
+X
+Xtermcap.o : $(CONFIG_H) $(WIN)\termcap.c
+X    $(cc) $(cflags) $(NTSUB) -I$(INCL)  $(cvars) $(cdebug) -Fo$*.o $(WIN)\$*.c
+X
+Xtopl.o : $(CONFIG_H) $(WIN)\topl.c
+X    $(cc) $(cflags) $(NTSUB) -I$(INCL)  $(cvars) $(cdebug) -Fo$*.o $(WIN)\$*.c
+X
+Xwintty.o : $(CONFIG_H) $(WIN)\wintty.c
+X    $(cc) $(cflags) $(NTSUB) -I$(INCL)  $(cvars) $(cdebug) -Fo$*.o $(WIN)\$*.c
+X
+X#
+X#  Housekeeping.
+X#
+X
+Xclean :
+X    -del *.o
+X
+Xspotless : clean
+X    -del $(INCL)\date.h
+X    -del $(INCL)\onames.h
+X    -del $(INCL)\pm.h
+X    -del $(INCL)\vis_tab.h
+X    -del vis_tab.c
+X    -del $(UTIL)\makedefs.exe
+X    -del $(UTIL)\lev_comp.exe
+X    -del $(UTIL)\dgn_comp.exe
+X    -del $(UTIL)\*.res
+X    -del $(UTIL)\*.def
+X    -del $(UTIL)\*.map
+X    -del $(DAT)\data
+X    -del $(DAT)\rumors
+X    -del $(UTIL)\guideboo.dvi
+X
+X# dependencies
+Xallmain.o     : $(HACK_H)
+Xalloc.o       : $(CONFIG_H)
+Xapply.o       : $(HACK_H)
+Xartifact.o    : $(HACK_H)       $(INCL)\artifact.h
+Xattrib.o      : $(HACK_H)
+Xbones.o       : $(HACK_H)
+Xbotl.o        : $(HACK_H)
+Xcmd.o         : $(HACK_H)       $(INCL)\func_tab.h
+Xdbridge.o     : $(HACK_H)
+Xdecl.o        : $(HACK_H)       $(INCL)\quest.h
+Xdetect.o      : $(HACK_H)
+Xdisplay.o     : $(HACK_H)
+Xdo.o          : $(HACK_H)       $(INCL)\lev.h
+Xdo_name.o     : $(HACK_H)
+Xdo_wear.o     : $(HACK_H)
+Xdog.o         : $(HACK_H)       $(INCL)\edog.h
+Xdogmove.o     : $(HACK_H)       $(INCL)\mfndpos.h   $(INCL)\edog.h
+Xdokick.o      : $(HACK_H)       $(ESHK_H)
+Xdothrow.o     : $(HACK_H)
+Xdrawing.o     : $(HACK_H)       $(INCL)\termcap.h
+Xdungeon.o     : $(HACK_H)       $(DGN_FILE_H)
+Xeat.o         : $(HACK_H)
+Xend.o         : $(HACK_H)       $(ESHK_H)
+Xengrave.o     : $(HACK_H)       $(INCL)\lev.h
+Xexper.o       : $(HACK_H)
+Xexplode.o     : $(HACK_H)
+Xextralev.o    : $(HACK_H)
+Xfiles.o       : $(HACK_H)
+Xfountain.o    : $(HACK_H)
+Xhack.o        : $(HACK_H)
+Xinvent.o      : $(HACK_H)
+Xlock.o        : $(HACK_H)
+Xmail.o        : $(HACK_H)
+Xhacklib.o     : $(HACK_H)
+Xmakemon.o     : $(HACK_H)
+Xmcastu.o      : $(HACK_H)
+Xmhitm.o       : $(HACK_H)
+Xmhitu.o       : $(HACK_H)
+Xminion.o      : $(HACK_H)
+Xmklev.o       : $(HACK_H)
+Xmkmap.o       : $(HACK_H)
+Xmkmaze.o      : $(HACK_H)
+Xmkobj.o       : $(HACK_H)
+Xmkroom.o      : $(HACK_H)
+Xmon.o         : $(HACK_H)
+Xmondata.o     : $(HACK_H)
+Xmonmove.o     : $(HACK_H)       $(INCL)\mfndpos.h   $(INCL)\artifact.h
+Xmonst.o       : $(CONFIG_H)     $(PERMONST_H)       $(INCL)\monsym.h     \
+X                $(ESHK_H)       $(VAULT_H)          $(INCL)\color.h      \
+X                $(EPRI_H)
+Xmonstr.o      : $(CONFIG_H)
+Xmplayer.o     : $(HACK_H)
+Xmthrowu.o     : $(HACK_H)
+Xmuse.o        : $(HACK_H)
+Xmusic.o       : $(HACK_H)
+Xo_init.o      : $(HACK_H)
+Xobjects.o     : $(CONFIG_H)     $(INCL)\obj.h       $(INCL)\objclass.h   \
+X                $(INCL)\prop.h  $(INCL)\color.h
+Xobjnam.o      : $(HACK_H)
+Xoptions.o     : $(HACK_H)       $(INCL)\termcap.h
+Xpager.o       : $(HACK_H)
+Xpickup.o      : $(HACK_H)
+Xpline.o       : $(HACK_H)     $(EPRI_H)
+Xpolyself.o    : $(HACK_H)
+Xpotion.o      : $(HACK_H)
+Xpriest.o      : $(HACK_H)     $(INCL)\mfndpos.h   $(ESHK_H) \
+X                $(EPRI_H)     $(EMIN_H)
+Xquest.o       : $(HACK_H)     $(INCL)\quest.h     $(INCL)\qtext.h
+Xquestpgr.o    : $(HACK_H)     $(INCL)\quest.h     $(INCL)\qtext.h
+Xpray.o        : $(HACK_H)
+Xread.o        : $(HACK_H)
+Xrect.o        : $(HACK_H)
+Xrestore.o     : $(HACK_H)     $(INCL)\lev.h       $(INCL)\quest.h
+Xrip.o         : $(HACK_H)
+Xrnd.o         : $(HACK_H)
+Xrumors.o      : $(HACK_H)
+Xsave.o        : $(HACK_H)     $(INCL)\lev.h       $(INCL)\quest.h
+Xsearch.o      : $(HACK_H)     $(INCL)\artifact.h
+Xshk.o         : $(HACK_H)
+Xshknam.o      : $(HACK_H)     $(ESHK_H)
+Xsit.o         : $(HACK_H)
+Xsounds.o      : $(HACK_H)     $(INCL)\edog.h      $(ESHK_H)
+Xsp_lev.o      : $(HACK_H)
+Xspell.o       : $(HACK_H)
+Xsteal.o       : $(HACK_H)
+Xtimeout.o     : $(HACK_H)
+Xtopten.o      : $(HACK_H)
+Xtrack.o       : $(HACK_H)
+Xtrap.o        : $(HACK_H)     $(INCL)\edog.h
+Xu_init.o      : $(HACK_H)
+Xuhitm.o       : $(HACK_H)
+Xvault.o       : $(HACK_H)     $(INCL)\vault.h
+Xversion.o     : $(HACK_H)     $(INCL)\date.h      $(INCL)\patchlev.h
+Xvision.o      : $(HACK_H)     $(INCL)\vis_tab.h
+Xvis_tab.o     : $(HACK_H)
+Xweapon.o      : $(HACK_H)
+Xwere.o        : $(HACK_H)
+Xwield.o       : $(HACK_H)
+Xwindows.o     : $(HACK_H)
+Xwintty.o      : $(HACK_H)
+Xwizard.o      : $(HACK_H)
+Xworm.o        : $(HACK_H)     $(INCL)\lev.h
+Xworn.o        : $(HACK_H)
+Xwrite.o       : $(HACK_H)
+Xzap.o         : $(HACK_H)
+END_OF_FILE
+if test 12159 -ne `wc -c <'sys/winnt/Makefile.src'`; then
+    echo shar: \"'sys/winnt/Makefile.src'\" unpacked with wrong size!
+fi
+# end of 'sys/winnt/Makefile.src'
+if test -f 'sys/winnt/nttty.c' -a "${1}" != "-c" ; then 
+  echo shar: Renaming existing file \"'sys/winnt/nttty.c'\" to \"'sys/winnt/nttty.c.orig'\"
+  mv -f 'sys/winnt/nttty.c' 'sys/winnt/nttty.c.orig'
+fi
+echo shar: Extracting \"'sys/winnt/nttty.c'\" \(12579 characters\)
+sed "s/^X//" >'sys/winnt/nttty.c' <<'END_OF_FILE'
+X/*	SCCS Id: @(#)nttty.c	3.1	90/22/02
+X/* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+X/* NetHack may be freely redistributed.  See license for details. */
+X
+X/* tty.c - (Windows NT) version */
+X/*                                                  
+X * Initial Creation - Michael Allison January 31/93 
+X *
+X */
+X
+X#ifdef WIN32CON
+X
+X#define NEED_VARARGS /* Uses ... */	/* comment line for pre-compiled headers */
+X#include "hack.h"
+X#include "wintty.h"
+X#include "termcap.h"
+X#include <windows.h>
+X#include <wincon.h>
+X#include <sys\types.h>
+X#include <sys\stat.h>
+X/* #include <conio.h> */
+X
+Xvoid FDECL(cmov, (int, int));
+Xvoid FDECL(nocmov, (int, int));
+Xvoid FDECL(xputspecl, (char *));
+Xvoid FDECL(xputcolor, (char));
+X
+X/*
+X * The following WIN32 Console API routines are used in this file.
+X *
+X * CreateFile
+X * GetConsoleScreenBufferInfo
+X * GetStdHandle
+X * SetConsoleCursorPosition
+X * SetConsoleTextAttribute
+X * PeekConsoleInput
+X * ReadConsoleInput
+X * WriteConsoleOutputCharacter
+X */
+X
+X/* Win32 Console handles for input and output */
+XHANDLE hConIn;
+XHANDLE hConOut;
+X
+X/* Win32 Screen buffer,coordinate,console I/O information */
+XCONSOLE_SCREEN_BUFFER_INFO csbi;
+XCOORD ntcoord;
+XINPUT_RECORD ir;
+X
+X/* Flag for whether NetHack was launched via progman, not command line.
+X * The reason we care at all, is so that we can get
+X * a final RETURN at the end of the game when launched from progman
+X * to prevent the scoreboard (or panic message :-| from vanishing
+X * immediately after it is displayed, yet not bother when started
+X * from the command line. 
+X */
+Xint ProgmanLaunched;
+X
+X	/* (see termcap.h) -- CM, ND, CD, HI,HE, US,UE, ul_hack */
+Xstruct tc_lcl_data tc_lcl_data = { 0, 0, 0, 0,0, 0,0, FALSE };
+XSTATIC_VAR char *HO, *CL, *CE, *UP, *XD, *BC, *SO, *SE, *TI, *TE;
+XSTATIC_VAR char *VS, *VE;
+X
+X#ifdef TEXTCOLOR
+Xchar *hilites[MAXCOLORS]; /* terminal escapes for the various colors */
+Xstatic void NDECL(init_hilite);
+XSTATIC_VAR char *MD;
+X#endif
+X
+Xstatic char *KS = NULL, *KE = NULL;	/* keypad sequences */
+Xstatic char nullstr[] = "";
+Xchar erase_char,kill_char;
+X
+X/* STATIC_VAR char tgotobuf[20]; */
+X/* #define tgoto(fmt, x, y)	(Sprintf(tgotobuf, fmt, y+1, x+1), tgotobuf) */
+X#define tgoto(fmt, x, y) gotoxy(x,y)
+X/*
+X * Get initial state of terminal, set ospeed (for termcap routines)
+X * and switch off tab expansion if necessary.
+X * Called by startup() in termcap.c and after returning from ! or ^Z
+X */
+Xvoid
+Xgettty(){
+X	register int i;
+X
+X	erase_char = '\b';
+X	kill_char = 21;		/* cntl-U */
+X	flags.cbreak = TRUE;
+X	TI = VS = VE = TE = nullstr;
+X	HO = "\033\001";
+X	CL = "\033\002";		/* the VT52 termcap */
+X	CE = "\033\003";
+X	UP = "\033\004";
+X	CM = "\033\005";	/* used with function tgoto() */
+X	ND = "\033\006";
+X	XD = "\033\007";
+X	BC = "\033\010";
+X	SO = "\033\011";
+X	SE = "\033\012";
+X	/* HI and HE will be updated in init_hilite if we're using color */
+X	HI = "\033\013";
+X	HE = "\033\014";
+X# ifdef TEXTCOLOR
+X	for (i = 0; i < MAXCOLORS / 2; i++)
+X	{
+X	     hilites[i|BRIGHT] = (char *) alloc(sizeof("\033\015\001"));
+X	     hilites[i] = (char *) alloc(sizeof("\033\015\001"));
+X	}
+X	init_hilite();
+X# endif
+X}
+X
+X/* reset terminal to original state */
+Xvoid
+Xsettty(s)
+Xconst char *s;
+X{
+X	end_screen();
+X	if(s) raw_print(s);
+X}
+X
+X/* called by init_nhwindows() and resume_nhwindows() */
+Xvoid
+Xsetftty()
+X{
+X	start_screen();
+X}
+X
+Xint
+Xtgetch()
+X{
+X	int ch;
+X	int valid = 0;
+X	int metaflags = 0;
+X	int count;
+X
+X	valid = 0;
+X	while (!valid)
+X	{
+X	    ReadConsoleInput(hConIn,&ir,1,&count);
+X	    /* We only care about ascii press-down KEY_EVENTs */
+X	    if ((ir.EventType == KEY_EVENT) &&
+X	       (ir.Event.KeyEvent.bKeyDown) &&	
+X	       (ir.Event.KeyEvent.uChar.AsciiChar)) valid = 1;
+X	}
+X	metaflags = ir.Event.KeyEvent.dwControlKeyState;
+X	/*
+X	 * metaflags can be checked to see if various special
+X         * keys were pressed at the same time as the key.
+X         * Currently we are using the ALT keys only.
+X	 *
+X	 *           RIGHT_ALT_PRESSED, LEFT_ALT_PRESSED,
+X         *           RIGHT_CTRL_PRESSED, LEFT_CTRL_PRESSED,
+X         *           SHIFT_PRESSED,NUMLOCK_ON, SCROLLLOCK_ON,
+X         *           CAPSLOCK_ON, ENHANCED_KEY
+X         *
+X	 * are all valid bit masks to use on metaflags
+X         * eg. (metaflags & LEFT_CTRL_PRESSED) is true if the
+X         *      left control key was pressed with the keystroke.
+X         */
+X	ch = (ir.Event.KeyEvent.uChar.AsciiChar == '\r') ?
+X			 '\n' :ir.Event.KeyEvent.uChar.AsciiChar;
+X	if (metaflags & (LEFT_ALT_PRESSED|RIGHT_ALT_PRESSED))
+X	   ch = tolower(ch) | 0x080;
+X	return ch;
+X}
+X
+Xint
+Xkbhit()
+X{
+X	int done = 0;	/* true =  "stop searching"        */
+X	int retval;	/* true =  "we had a match"        */
+X	int count;	/* scratch-pad area for API call   */
+X
+X	done = 0;
+X	retval = 0;
+X	while (!done)
+X	{
+X	    count = 0;
+X	    PeekConsoleInput(hConIn,&ir,1,&count);
+X	    if (count > 0)
+X            {
+X		/* Make sure its an ascii press-down KEY_EVENT */
+X	        if ((ir.EventType == KEY_EVENT) &&
+X	        (ir.Event.KeyEvent.bKeyDown) &&	
+X	        (ir.Event.KeyEvent.uChar.AsciiChar))
+X	        { 
+X		     /* This is what we were looking for        */
+X		     done = 1;	        /* Stop looking         */
+X		     retval = 1;        /* Found what we sought */
+X	        }
+X		/* Discard it, its an insignificant event */
+X	        else ReadConsoleInput(hConIn,&ir,1,&count);
+X	    }
+X	    else  /* There are no events in console event queue*/
+X	    {
+X		done = 1;	  /* Stop looking               */
+X		retval = 0;	  /* No ascii press-down key    */
+X	    }
+X	}
+X	return retval;
+X}
+X
+X/* called by init_tty in wintty.c for WIN32CON port only */
+Xvoid
+Xnttty_open()
+X{
+X        HANDLE hStdOut;
+X
+X        /* The following 6 lines of code were suggested by 
+X         * Bob Landau of Microsoft WIN32 Developer support,
+X         * as the only current means of determining whether
+X         * we were launched from the command prompt, or from
+X         * the NT program manager. M. Allison
+X         */
+X        hStdOut = GetStdHandle( STD_OUTPUT_HANDLE );
+X        GetConsoleScreenBufferInfo( hStdOut, &csbi);
+X        ProgmanLaunched = ((csbi.dwCursorPosition.X == 0) &&
+X                           (csbi.dwCursorPosition.Y == 0));
+X        if ((csbi.dwSize.X <= 0) || (csbi.dwSize.Y <= 0))
+X            ProgmanLaunched = 0;
+X
+X
+X        /* Obtain handles for the standard Console I/O devices */
+X	hConIn = CreateFile("CONIN$",
+X			GENERIC_READ |GENERIC_WRITE,
+X			FILE_SHARE_READ |FILE_SHARE_WRITE,
+X			NULL, OPEN_EXISTING, 0, NULL);					
+X
+X	hConOut = CreateFile("CONOUT$",
+X			GENERIC_READ |GENERIC_WRITE,
+X			FILE_SHARE_READ |FILE_SHARE_WRITE,
+X			NULL, OPEN_EXISTING, 0, NULL);					
+X	get_scr_size();
+X}
+X
+Xvoid
+Xgotoxy(x,y)
+Xint x,y;
+X{
+X	COORD gtcoord;
+X
+X	x--; y--;			/* (0,0) is upper right corner */
+X	gtcoord.X = x;
+X	gtcoord.Y = y;
+X	SetConsoleCursorPosition(hConOut, gtcoord);
+X}
+X
+Xvoid
+Xget_scr_size()
+X{
+X	if (GetConsoleScreenBufferInfo(hConOut,&csbi))
+X	{
+X	    LI = csbi.dwSize.Y;
+X	    CO = csbi.dwSize.X;
+X	}
+X	else
+X	{	
+X		LI = 25;
+X		CO = 80;
+X	}
+X}
+X
+Xvoid
+Xnttty_rubout()
+X{
+X	DWORD count;
+X
+X	GetConsoleScreenBufferInfo(hConOut,&csbi);
+X	if (csbi.dwCursorPosition.X > 0)
+X		ntcoord.X = csbi.dwCursorPosition.X-1;
+X	ntcoord.Y = csbi.dwCursorPosition.Y;
+X	WriteConsoleOutputCharacter(hConOut,' ',1,ntcoord,&count);
+X	SetConsoleCursorPosition(hConOut,ntcoord);	
+X}
+X
+X/* fatal error */
+X/*VARARGS1*/
+X
+Xvoid
+Xerror VA_DECL(const char *,s)
+X	VA_START(s);
+X	VA_INIT(s, const char *);
+X	/* error() may get called before tty is initialized */
+X	if (flags.window_inited) end_screen();
+X	putchar('\n');
+X	Vprintf(s,VA_ARGS);
+X	putchar('\n');
+X	VA_END();
+X	exit(1);
+X}
+X
+X
+Xvoid
+Xtty_startup(wid, hgt)
+X    int *wid, *hgt;
+X{
+X	register int i;
+X
+X	*wid = CO;
+X	*hgt = LI;
+X}
+X
+Xvoid
+Xtty_number_pad(state)
+Xint state;
+X{
+X}
+X
+Xvoid
+Xtty_start_screen()
+X{
+X/*	xputs(TI);
+X *	xputs(VS);
+X */
+X	if (flags.num_pad) tty_number_pad(1);	/* make keypad send digits */
+X}
+X
+Xvoid
+Xtty_end_screen()
+X{
+X	clear_screen();
+X}
+X
+X/* Cursor movements */
+X
+Xvoid
+Xnocmov(x, y)
+Xint x,y;
+X{
+X	ntcoord.X = x;
+X	ntcoord.Y = y;
+X	SetConsoleCursorPosition(hConOut,ntcoord);
+X}
+X
+Xvoid
+Xcmov(x, y)
+Xregister int x, y;
+X{
+X	ntcoord.X = x;
+X	ntcoord.Y = y;
+X	SetConsoleCursorPosition(hConOut,ntcoord);
+X	ttyDisplay->cury = y;
+X	ttyDisplay->curx = x;
+X}
+X
+Xvoid
+Xxputc(c)
+Xchar c;
+X{
+X	int count;
+X
+X	ntcoord.X = ttyDisplay->curx;
+X	ntcoord.Y = ttyDisplay->cury;
+X	WriteConsoleOutputCharacter(hConOut,&c,1,ntcoord,&count);
+X}
+X
+Xvoid
+Xxputs(s)
+Xconst char *s;
+X{
+X	int count;
+X	if (s[0]=='\033')xputspecl(s);
+X	else
+X	{
+X		ntcoord.X = ttyDisplay->curx;
+X		ntcoord.Y = ttyDisplay->cury;
+X		WriteConsoleOutputCharacter(hConOut,s,
+X			strlen(s),ntcoord,&count);
+X	}
+X}
+Xvoid
+Xcl_end()
+X{
+X		int count;
+X
+X		ntcoord.X = ttyDisplay->curx;
+X		ntcoord.Y = ttyDisplay->cury;
+X		FillConsoleOutputCharacter(hConOut,' ',
+X			CO - ntcoord.X,ntcoord,&count);
+X		tty_curs(BASE_WINDOW, (int)ttyDisplay->curx+1,
+X						(int)ttyDisplay->cury);
+X}
+X
+X
+Xvoid
+Xclear_screen()
+X{
+X	int count;
+X
+X	ntcoord.X = 0;
+X	ntcoord.Y = 0;
+X	FillConsoleOutputCharacter(hConOut,' ',CO * LI,
+X		ntcoord, &count);
+X	home();
+X}
+X
+X
+Xvoid
+Xhome()
+X{
+X	tty_curs(BASE_WINDOW, 1, 0);	/* using UP ... */
+X	ttyDisplay->curx = ttyDisplay->cury = 0;
+X}
+X
+Xvoid
+Xstandoutbeg()
+X{
+X	/* Mix all three colors for white */
+X	SetConsoleTextAttribute(hConOut,
+X		FOREGROUND_RED|FOREGROUND_BLUE|
+X		FOREGROUND_GREEN|FOREGROUND_INTENSITY );
+X}
+X
+Xvoid
+Xstandoutend()
+X{
+X	/* Mix all three colors for white */
+X	SetConsoleTextAttribute(hConOut,
+X		FOREGROUND_RED|FOREGROUND_BLUE|
+X		FOREGROUND_GREEN);
+X}
+X
+X#if 0	/* if you need one of these, uncomment it (here and in extern.h) */
+Xvoid
+Xrevbeg()
+X{
+X	if(MR) xputs(MR);
+X}
+X
+Xvoid
+Xboldbeg()
+X{
+X	if(MD) xputs(MD);
+X}
+X
+Xvoid
+Xblinkbeg()
+X{
+X	if(MB) xputs(MB);
+X}
+X
+Xvoid
+Xdimbeg()
+X/* not in most termcap entries */
+X{
+X	if(MH) xputs(MH);
+X}
+X
+Xvoid
+Xm_end()
+X{
+X	if(ME) xputs(ME);
+X}
+X#endif /* 0              */
+X
+X
+Xvoid
+Xbacksp()
+X{
+X	nttty_rubout();
+X}
+X
+Xvoid
+Xtty_nhbell()
+X{
+X	if (flags.silent) return;
+X	Beep(8000,500);
+X}
+X
+X
+Xvoid
+Xtty_delay_output()
+X{
+X	/* delay 50 ms - could also use a 'nap'-system call */
+X	/* BUG: if the padding character is visible, as it is on the 5620
+X	   then this looks terrible. */
+X}
+X
+Xvoid
+Xcl_eos()			/* free after Robert Viduya */
+X{				/* must only be called with curx = 1 */
+X
+X		register int cy = ttyDisplay->cury+1;
+X		while(cy <= LI-2) {
+X			cl_end();
+X			xputc('\n');
+X			cy++;
+X		}
+X		cl_end();
+X		tty_curs(BASE_WINDOW, (int)ttyDisplay->curx+1,
+X						(int)ttyDisplay->cury);
+X}
+X
+X/* Because the tty port assumes that hilites etc.
+X   can be done by blasting sequences to the screen
+X   and code to do that is scattered about, this
+X   routine will parse our special versions of those
+X   sequences to ensure compatibility.
+X*/
+Xvoid
+Xxputspecl(char *x)
+X{
+X      switch (x[1])
+X      {
+X	case 1:		/* HO */
+X		home();
+X		break;
+X	case 2:		/* CL */
+X	case 3:		/* CE */
+X	case 4:		/* UP */
+X	case 5:		/* CM */
+X	case 6:		/* ND */
+X	case 7:		/* XD */
+X	case 8:		/* BC */
+X	case 9:		/* SO */
+X	case 10:	/* SE */
+X		impossible("Unexpected termcap usage under NT");
+X		break;
+X	case 11:	/* HI */
+X		standoutbeg();
+X		break;
+X	case 12:	/* HE */
+X		standoutend();
+X		break;
+X#ifdef TEXTCOLOR
+X	case 13:
+X		xputcolor(x[2]);
+X		break;
+X#endif
+X	default:
+X		impossible("bad escape sequence");
+X      }
+X}
+X
+X#ifdef TEXTCOLOR
+X/*
+X * BLACK		0
+X * RED			1
+X * GREEN		2
+X * BROWN		3	low-intensity yellow
+X * BLUE			4
+X * MAGENTA 		5
+X * CYAN			6
+X * GRAY			7	low-intensity white
+X * NO_COLOR		8
+X * ORANGE_COLORED	9
+X * BRIGHT_GREEN		10
+X * YELLOW		11
+X * BRIGHT_BLUE		12
+X * BRIGHT_MAGENTA  	13
+X * BRIGHT_CYAN		14
+X * WHITE		15
+X * MAXCOLORS		16
+X * BRIGHT		8
+X */
+X
+Xvoid
+Xxputcolor(char x)
+X{
+X	WORD attr;
+X
+X	if ((x >= 0) && (x <= FOREGROUND_GREEN|FOREGROUND_BLUE|
+X			 FOREGROUND_RED|FOREGROUND_INTENSITY)) {
+X		attr = x;
+X		SetConsoleTextAttribute(hConOut,attr);
+X	}
+X	else impossible("xputcolor: bad color value");
+X}
+X
+X#define CMAP(a,b) Sprintf(hilites[a],"\033\015%c",b)
+Xstatic void
+Xinit_hilite()
+X{
+X	CMAP(BLACK,FOREGROUND_GREEN|FOREGROUND_BLUE|FOREGROUND_RED);
+X	CMAP(RED,FOREGROUND_RED);
+X	CMAP(GREEN,FOREGROUND_GREEN);
+X	CMAP(BROWN,FOREGROUND_GREEN|FOREGROUND_RED);
+X	CMAP(BLUE,FOREGROUND_BLUE|FOREGROUND_INTENSITY);
+X	CMAP(MAGENTA,FOREGROUND_BLUE|FOREGROUND_RED);
+X	CMAP(CYAN,FOREGROUND_GREEN|FOREGROUND_BLUE);
+X	CMAP(GRAY,FOREGROUND_GREEN|FOREGROUND_RED|FOREGROUND_BLUE);
+X	CMAP(BRIGHT,FOREGROUND_GREEN|FOREGROUND_BLUE|FOREGROUND_RED|FOREGROUND_INTENSITY);
+X	CMAP(ORANGE_COLORED,FOREGROUND_RED|FOREGROUND_INTENSITY);
+X	CMAP(BRIGHT_GREEN,FOREGROUND_GREEN|FOREGROUND_INTENSITY);
+X	CMAP(YELLOW,FOREGROUND_GREEN|FOREGROUND_RED|FOREGROUND_INTENSITY);
+X	CMAP(BRIGHT_BLUE,FOREGROUND_BLUE|FOREGROUND_INTENSITY);
+X	CMAP(BRIGHT_MAGENTA,FOREGROUND_BLUE|FOREGROUND_RED|FOREGROUND_INTENSITY);
+X	CMAP(BRIGHT_CYAN,FOREGROUND_GREEN|FOREGROUND_BLUE);
+X	CMAP(WHITE,FOREGROUND_GREEN|FOREGROUND_BLUE|FOREGROUND_RED|FOREGROUND_INTENSITY);
+X}
+X
+X#endif /* TEXTCOLOR */
+X
+X#endif /* WIN32CON */
+END_OF_FILE
+if test 12579 -ne `wc -c <'sys/winnt/nttty.c'`; then
+    echo shar: \"'sys/winnt/nttty.c'\" unpacked with wrong size!
+fi
+# end of 'sys/winnt/nttty.c'
+echo shar: End of archive 30 \(of 31\).
+cp /dev/null ark30isdone
+MISSING=""
+for I in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 ; do
+    if test ! -f ark${I}isdone ; then
+	MISSING="${MISSING} ${I}"
+    fi
+done
+if test "${MISSING}" = "" ; then
+    echo You have unpacked all 31 archives.
+    echo "Now execute 'patchit.sh'"
+    rm -f ark[1-9]isdone ark[1-9][0-9]isdone
+else
+    echo You still need to unpack the following archives:
+    echo "        " ${MISSING}
+fi
+##  End of shell archive.
+exit 0

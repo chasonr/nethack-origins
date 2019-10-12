@@ -1,0 +1,2060 @@
+Subject:  v17i048:  nethack31 - display oriented dungeons & dragons (Ver. 3.1), Patch1g/31
+Newsgroups: comp.sources.games
+Approved: billr@saab.CNA.TEK.COM
+
+Submitted-by: izchak@linc.cis.upenn.edu (Izchak Miller)
+Posting-number: Volume 17, Issue 48
+Archive-name: nethack31/Patch1g
+Patch-To: nethack31: Volume 16, Issue 1-116
+Environment: Amiga, Atari, Mac, MS-DOS, Windows-NT, OS2, Unix, VMS, X11
+
+
+
+#! /bin/sh
+# This is a shell archive.  Remove anything before this line, then unpack
+# it by saving it into a file and typing "sh file".  To overwrite existing
+# files, type "sh file -c".  You can also feed this as standard input via
+# unshar, or by typing "sh <file", e.g..  If this archive is complete, you
+# will see the following message at the end:
+#		"End of archive 7 (of 31)."
+# Contents:  patches01h sys/share/sounds/README
+# Wrapped by billr@saab on Fri Mar  5 10:50:42 1993
+PATH=/bin:/usr/bin:/usr/ucb ; export PATH
+if test -f 'patches01h' -a "${1}" != "-c" ; then 
+  echo shar: Renaming existing file \"'patches01h'\" to \"'patches01h.orig'\"
+  mv -f 'patches01h' 'patches01h.orig'
+fi
+echo shar: Extracting \"'patches01h'\" \(54919 characters\)
+sed "s/^X//" >'patches01h' <<'END_OF_FILE'
+X*** /tmp/da08502	Thu Feb 25 10:24:49 1993
+X--- src/priest.c	Thu Feb 18 10:58:35 1993
+X***************
+X*** 1,4 ****
+X! /*	SCCS Id: @(#)priest.c	3.1	92/01/05
+X  /* Copyright (c) Izchak Miller, Steve Linhart, 1989. 		  */
+X  /* NetHack may be freely redistributed.  See license for details. */
+X  
+X--- 1,4 ----
+X! /*	SCCS Id: @(#)priest.c	3.1	93/02/09
+X  /* Copyright (c) Izchak Miller, Steve Linhart, 1989. 		  */
+X  /* NetHack may be freely redistributed.  See license for details. */
+X  
+X***************
+X*** 265,271 ****
+X  priestname(mon)
+X  register struct monst *mon;
+X  {
+X! 	static char NEARDATA pname[PL_NSIZ];
+X  
+X  	Strcpy(pname, "the ");
+X  	if (mon->minvis) Strcat(pname, "invisible ");
+X--- 265,271 ----
+X  priestname(mon)
+X  register struct monst *mon;
+X  {
+X! 	static NEARDATA char pname[PL_NSIZ];
+X  
+X  	Strcpy(pname, "the ");
+X  	if (mon->minvis) Strcat(pname, "invisible ");
+X***************
+X*** 414,423 ****
+X  		 !priest->mpeaceful || !priest->mcanmove || priest->msleep) {
+X  	    if(!priest->mcanmove || priest->msleep) {
+X  		pline("%s breaks out of %s reverie!",
+X! 			humanoid(priest->data)
+X! 				? (priest->female ? "her" : "his")
+X! 				: "its",
+X! 			Monnam(priest));
+X  		priest->mfrozen = priest->msleep = 0;
+X  		priest->mcanmove = 1;
+X  	    }
+X--- 414,420 ----
+X  		 !priest->mpeaceful || !priest->mcanmove || priest->msleep) {
+X  	    if(!priest->mcanmove || priest->msleep) {
+X  		pline("%s breaks out of %s reverie!",
+X! 		      Monnam(priest), his[pronoun_gender(priest)]);
+X  		priest->mfrozen = priest->msleep = 0;
+X  		priest->mcanmove = 1;
+X  	    }
+X***************
+X*** 430,436 ****
+X  		   verbalize("Talk?  Here is what I have to say!");
+X  		   break;
+X  		default:
+X! 		   verbalize("Pilgrim, I have lost mine desire to talk.");
+X  		   break;
+X  	    }
+X  	    return;
+X--- 427,433 ----
+X  		   verbalize("Talk?  Here is what I have to say!");
+X  		   break;
+X  		default:
+X! 		   verbalize("Pilgrim, I would speak no longer with thee.");
+X  		   break;
+X  	    }
+X  	    return;
+X***************
+X*** 632,637 ****
+X--- 629,662 ----
+X  
+X  	if(priest = findpriest(temple_occupied(u.urooms)))
+X  		wakeup(priest);
+X+ }
+X+ 
+X+ /*
+X+  * When saving bones, find priests that aren't on their shrine level,
+X+  * and remove them.   This avoids big problems when restoring bones.
+X+  */
+X+ void
+X+ clearpriests()
+X+ {
+X+     register struct monst *mtmp, *mtmp2;
+X+ 
+X+     for(mtmp = fmon; mtmp; mtmp = mtmp2) {
+X+ 	mtmp2 = mtmp->nmon;
+X+ 	if (mtmp->ispriest && !on_level(&(EPRI(mtmp)->shrlevel), &u.uz))
+X+ 	    mongone(mtmp);
+X+     }
+X+ }
+X+ 
+X+ /* munge priest-specific structure when restoring -dlc */
+X+ void
+X+ restpriest(mtmp, ghostly)
+X+ register struct monst *mtmp;
+X+ boolean ghostly;
+X+ {
+X+     if(u.uz.dlevel) {
+X+ 	if (ghostly)
+X+ 	    assign_level(&(EPRI(mtmp)->shrlevel), &u.uz);
+X+     }
+X  }
+X  
+X  #endif /* OVLB */
+X*** /tmp/da08510	Thu Feb 25 10:24:51 1993
+X--- src/quest.c	Thu Feb 11 12:11:06 1993
+X***************
+X*** 55,105 ****
+X  }
+X  
+X  void
+X! quest_init() {
+X  /*
+X   *	Special setup modifications here:
+X   *
+X!  *	Unfortunately, this is going to have to be done on each level,
+X!  *	on start-up, and on entry, since you lose the permonst mods
+X   *	across a save/restore :-)
+X   *
+X   *	1 - The Rogue Leader is the Tourist Nemesis.
+X-  *	1 - Elves can have one of two different leaders, work it out here.
+X   *	2 - Priests start with a random alignment - convert the leader and
+X   *	    guardians here.
+X   */
+X  #ifdef TOURIST
+X!     if(pl_character[0] == 'T' && Is_nemesis(&u.uz)) {
+X! 	register struct monst *mtmp;
+X  	mons[PM_MASTER_OF_THIEVES].msound = MS_NEMESIS;
+X  	mons[PM_MASTER_OF_THIEVES].mflags2 &= ~(M2_PEACEFUL);
+X  	mons[PM_MASTER_OF_THIEVES].mflags2 |= (M2_NASTY|M2_STALK|M2_HOSTILE);
+X  	mons[PM_MASTER_OF_THIEVES].mflags3 = M3_WANTSARTI | M3_WAITFORU;
+X- 	for(mtmp = fmon; mtmp; mtmp = mtmp->nmon) /* find the leader... */
+X- 	    if(mtmp->data->msound == MS_NEMESIS) {
+X- 		set_malign(mtmp); /* changed M2_PEACEFUL */
+X- 		break;
+X- 	    }
+X      } else
+X  #endif
+X!     if(pl_character[0] == 'E' && flags.female && Is_qstart(&u.uz)) {
+X! 	register struct monst *mtmp;
+X! 	for(mtmp = fmon; mtmp; mtmp = mtmp->nmon) /* find the leader... */
+X! 	    if(mtmp->data->msound == MS_LEADER) {
+X! 		mtmp->data = &mons[PM_ELWING]; /* sex-change */
+X! 		break;
+X! 	    }
+X!     } else if(pl_character[0] == 'P' && Is_qstart(&u.uz)) {
+X! 
+X! 	register struct monst *mtmp;
+X! 	for(mtmp = fmon; mtmp; mtmp = mtmp->nmon) /* find leader & guards */
+X! 	   if(mtmp->data->msound == MS_LEADER ||
+X! 	      mtmp->data->msound == MS_GUARDIAN) {
+X! 	       /* use game-start alignment for reference */
+X! 		mtmp->data->maligntyp = u.ualignbase[1]*3;
+X! 		mtmp->mpeaceful = TRUE;
+X! 		set_malign(mtmp); /* mpeaceful may have changed */
+X! 	   }
+X      }
+X  }
+X  
+X--- 55,87 ----
+X  }
+X  
+X  void
+X! quest_init()
+X! {
+X  /*
+X   *	Special setup modifications here:
+X   *
+X!  *	Unfortunately, this is going to have to be done
+X!  *	on each newgame or restore, because you lose the permonst mods
+X   *	across a save/restore :-)
+X   *
+X   *	1 - The Rogue Leader is the Tourist Nemesis.
+X   *	2 - Priests start with a random alignment - convert the leader and
+X   *	    guardians here.
+X+  *	3 - Elves can have one of two different leaders, but can't work it
+X+  *	    out here because it requires hacking the level file data (see
+X+  *	    sp_lev.c).
+X   */
+X  #ifdef TOURIST
+X!     if (pl_character[0] == 'T') {
+X  	mons[PM_MASTER_OF_THIEVES].msound = MS_NEMESIS;
+X  	mons[PM_MASTER_OF_THIEVES].mflags2 &= ~(M2_PEACEFUL);
+X  	mons[PM_MASTER_OF_THIEVES].mflags2 |= (M2_NASTY|M2_STALK|M2_HOSTILE);
+X  	mons[PM_MASTER_OF_THIEVES].mflags3 = M3_WANTSARTI | M3_WAITFORU;
+X      } else
+X  #endif
+X!     if (pl_character[0] == 'P') {
+X! 	mons[PM_ARCH_PRIEST].maligntyp = u.ualignbase[1]*3;
+X! 	mons[PM_ACOLYTE].maligntyp = u.ualignbase[1]*3;
+X      }
+X  }
+X  
+X*** /tmp/da08518	Thu Feb 25 10:24:53 1993
+X--- src/questpgr.c	Wed Feb 17 09:03:15 1993
+X***************
+X*** 183,191 ****
+X  	  ART_PALANTIR_OF_WESTERNESSE },
+X  
+X  /* H */ { "the Temple of Coeus",
+X! 	  "the Isle of the Healers",
+X! 	  PM_HIPPOCRATES, PM_CYCLOPS, PM_NURSE,
+X! 	  PM_GIANT_RAT, PM_APE, S_RODENT, S_YETI,
+X  	  ART_STAFF_OF_AESCULAPIUS },
+X  
+X  /* K */ { "the Isle of Glass",
+X--- 183,191 ----
+X  	  ART_PALANTIR_OF_WESTERNESSE },
+X  
+X  /* H */ { "the Temple of Coeus",
+X! 	  "the Temple of Epidaurus",
+X! 	  PM_HIPPOCRATES, PM_CYCLOPS, PM_ATTENDANT,
+X! 	  PM_GIANT_RAT, PM_SNAKE, S_RODENT, S_YETI,
+X  	  ART_STAFF_OF_AESCULAPIUS },
+X  
+X  /* K */ { "the Isle of Glass",
+X***************
+X*** 346,352 ****
+X  			break;
+X  	    case 'i':	str = intermed();
+X  			break;
+X! 	    case 'o':	str = artiname(qt_matrix[class_index()].artinum);
+X  			break;
+X  	    case 'n':	str = neminame();
+X  			break;
+X--- 346,352 ----
+X  			break;
+X  	    case 'i':	str = intermed();
+X  			break;
+X! 	    case 'o':	str = the(artiname(qt_matrix[class_index()].artinum));
+X  			break;
+X  	    case 'n':	str = neminame();
+X  			break;
+X***************
+X*** 398,403 ****
+X--- 398,416 ----
+X  			if (*(c+1)) {
+X  			    convert_arg(*(++c));
+X  			    switch (*(c+1)) {
+X+ 
+X+ 				case 'A': Strcat(cc, An(cvt_buf));
+X+ 				    cc += strlen(cc);
+X+ 				    c++;
+X+ 				    continue; /* for */
+X+ 				case 'a': Strcat(cc, an(cvt_buf));
+X+ 				    cc += strlen(cc);
+X+ 				    c++;
+X+ 				    continue; /* for */
+X+ 
+X+ 				case 'C': cvt_buf[0] = highc(cvt_buf[0]);
+X+ 				    c++;
+X+ 				    break;
+X  
+X  				case 'P': cvt_buf[0] = highc(cvt_buf[0]);
+X  				case 'p': Strcpy(cvt_buf, makeplural(cvt_buf));
+X*** /tmp/da08526	Thu Feb 25 10:24:55 1993
+X--- src/read.c	Thu Feb 18 16:51:40 1993
+X***************
+X*** 1,4 ****
+X! /*	SCCS Id: @(#)read.c	3.1	92/12/10	*/
+X  /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+X  /* NetHack may be freely redistributed.  See license for details. */
+X  
+X--- 1,4 ----
+X! /*	SCCS Id: @(#)read.c	3.1	93/02/04	*/
+X  /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+X  /* NetHack may be freely redistributed.  See license for details. */
+X  
+X***************
+X*** 15,21 ****
+X  
+X  boolean	known;
+X  
+X! static const char NEARDATA readable[] =
+X  		   { ALL_CLASSES, SCROLL_CLASS, SPBOOK_CLASS, 0 };
+X  static const char all_count[] = { ALLOW_COUNT, ALL_CLASSES, 0 };
+X  
+X--- 15,21 ----
+X  
+X  boolean	known;
+X  
+X! static NEARDATA const char readable[] =
+X  		   { ALL_CLASSES, SCROLL_CLASS, SPBOOK_CLASS, 0 };
+X  static const char all_count[] = { ALLOW_COUNT, ALL_CLASSES, 0 };
+X  
+X***************
+X*** 281,286 ****
+X--- 281,287 ----
+X  		break;
+X  	    case HORN_OF_PLENTY:
+X  	    case BAG_OF_TRICKS:
+X+ 	    case CAN_OF_GREASE:
+X  		if (is_cursed) stripspe(obj);
+X  		else if (is_blessed) {
+X  		    if (obj->spe <= 10)
+X***************
+X*** 292,297 ****
+X--- 293,313 ----
+X  		    p_glow1(obj);
+X  		}
+X  		break;
+X+ 	    case MAGIC_FLUTE:
+X+ 	    case MAGIC_HARP:
+X+ 	    case FROST_HORN:
+X+ 	    case FIRE_HORN:
+X+ 	    case DRUM_OF_EARTHQUAKE:
+X+ 		if (is_cursed) {
+X+ 		    stripspe(obj);
+X+ 		} else if (is_blessed) {
+X+ 		    obj->spe += d(2,4);
+X+ 		    p_glow2(obj,blue);
+X+ 		} else {
+X+ 		    obj->spe += rnd(4);
+X+ 		    p_glow1(obj);
+X+ 		}
+X+ 		break;
+X  	    default:
+X  		You("have a feeling of loss.");
+X  		break;
+X***************
+X*** 349,355 ****
+X  	register boolean confused = (Confusion != 0);
+X  	register struct obj *otmp;
+X  
+X! 	exercise(A_WIS, TRUE);		/* just for trying */
+X  	switch(sobj->otyp) {
+X  #ifdef MAIL
+X  	case SCR_MAIL:
+X--- 365,372 ----
+X  	register boolean confused = (Confusion != 0);
+X  	register struct obj *otmp;
+X  
+X! 	if (objects[sobj->otyp].oc_magic)
+X! 		exercise(A_WIS, TRUE);		/* just for trying */
+X  	switch(sobj->otyp) {
+X  #ifdef MAIL
+X  	case SCR_MAIL:
+X***************
+X*** 599,604 ****
+X--- 616,623 ----
+X  		    (void) makemon (confused ? &mons[PM_ACID_BLOB] :
+X  					(struct permonst *) 0, u.ux, u.uy);
+X  		}
+X+ 		/* flush monsters before asking for identification */
+X+ 		flush_screen(0);
+X  		break;
+X  	    }
+X  /*	    break;	/*NOTREACHED*/
+X***************
+X*** 836,849 ****
+X  struct obj *obj;
+X  {
+X  	/* first produce the text (provided you're not blind) */
+X- 	if(Blind) goto do_it;
+X  	if(!on) {
+X! 		if(u.uswallow) {
+X  			pline("It seems even darker in here than before.");
+X  			return;
+X  		}
+X! 		You("are surrounded by darkness!");
+X  	} else {
+X  		if(u.uswallow){
+X  			if (is_animal(u.ustuck->data))
+X  				pline("%s stomach is lit.",
+X--- 855,878 ----
+X  struct obj *obj;
+X  {
+X  	/* first produce the text (provided you're not blind) */
+X  	if(!on) {
+X! 		register struct obj *otmp;
+X! 
+X! 		if (!Blind) {
+X! 		    if(u.uswallow) {
+X  			pline("It seems even darker in here than before.");
+X  			return;
+X+ 		    }
+X+ 		    You("are surrounded by darkness!");
+X  		}
+X! 
+X! 		/* the magic douses lamps, et al, too */
+X! 		for(otmp = invent; otmp; otmp = otmp->nobj)
+X! 		    if (otmp->lamplit)
+X! 			(void) snuff_lit(otmp);
+X! 		if (Blind) goto do_it;
+X  	} else {
+X+ 		if (Blind) goto do_it;
+X  		if(u.uswallow){
+X  			if (is_animal(u.ustuck->data))
+X  				pline("%s stomach is lit.",
+X*** /tmp/da08542	Thu Feb 25 10:25:00 1993
+X--- src/restore.c	Tue Feb 23 10:00:06 1993
+X***************
+X*** 31,39 ****
+X  
+X  boolean restoring = FALSE;
+X  #ifdef TUTTI_FRUTTI
+X! static struct fruit NEARDATA *oldfruit;
+X  #endif
+X! static long NEARDATA omoves;
+X  
+X  /* Recalculate level.objects[x][y], since this info was not saved. */
+X  static void
+X--- 31,39 ----
+X  
+X  boolean restoring = FALSE;
+X  #ifdef TUTTI_FRUTTI
+X! static NEARDATA struct fruit *oldfruit;
+X  #endif
+X! static NEARDATA long omoves;
+X  
+X  /* Recalculate level.objects[x][y], since this info was not saved. */
+X  static void
+X***************
+X*** 251,257 ****
+X  #ifdef MUSE
+X  		if (mtmp->mw) mtmp->mw = mtmp->minvent;	/* wield 1st obj in inventory */
+X  #endif
+X! 		if (mtmp->isshk) restshk(mtmp);
+X  
+X  		mtmp2 = mtmp;
+X  	}
+X--- 251,258 ----
+X  #ifdef MUSE
+X  		if (mtmp->mw) mtmp->mw = mtmp->minvent;	/* wield 1st obj in inventory */
+X  #endif
+X! 		if (mtmp->isshk) restshk(mtmp, ghostly);
+X! 		if (mtmp->ispriest) restpriest(mtmp, ghostly);
+X  
+X  		mtmp2 = mtmp;
+X  	}
+X***************
+X*** 330,336 ****
+X  	flags.msg_history = oldflags.msg_history;
+X  	flags.echo = oldflags.echo;
+X  	flags.cbreak = oldflags.cbreak;
+X! 
+X  	mread(fd, (genericptr_t) &u, sizeof(struct you));
+X  	if(u.uhp <= 0) {
+X  	    You("were not healthy enough to survive restoration.");
+X--- 331,342 ----
+X  	flags.msg_history = oldflags.msg_history;
+X  	flags.echo = oldflags.echo;
+X  	flags.cbreak = oldflags.cbreak;
+X! #ifdef NEWS
+X! 	flags.news = oldflags.news;
+X! #endif
+X! #ifdef AMII_GRAPHICS
+X! 	amii_setpens();		/* use colors from save file */
+X! #endif
+X  	mread(fd, (genericptr_t) &u, sizeof(struct you));
+X  	if(u.uhp <= 0) {
+X  	    You("were not healthy enough to survive restoration.");
+X***************
+X*** 452,457 ****
+X--- 458,466 ----
+X  		restoring = FALSE;
+X  		return(0);
+X  	}
+X+ #ifdef MULDGN
+X+ 	quest_init();
+X+ #endif
+X  #ifdef INSURANCE
+X  	savestateinlock();
+X  #endif
+X***************
+X*** 485,492 ****
+X  			break;
+X  		getlev(fd, 0, ltmp, FALSE);
+X  #ifdef MICRO
+X! 		curs(WIN_MAP, 11 + dotcnt++, 1);
+X  		putstr(WIN_MAP, 0, ".");
+X  #endif
+X  		rtmp = restlevelfile(fd, ltmp);
+X  		if (rtmp < 2) return(rtmp);  /* dorecover called recursively */
+X--- 494,502 ----
+X  			break;
+X  		getlev(fd, 0, ltmp, FALSE);
+X  #ifdef MICRO
+X! 		curs(WIN_MAP, 1+dotcnt++, 2);
+X  		putstr(WIN_MAP, 0, ".");
+X+ 		mark_synch();
+X  #endif
+X  		rtmp = restlevelfile(fd, ltmp);
+X  		if (rtmp < 2) return(rtmp);  /* dorecover called recursively */
+X***************
+X*** 814,819 ****
+X--- 824,837 ----
+X  		}
+X  		break;
+X  	    }
+X+ 	} else if (ghostly && !Is_branchlev(&u.uz)) {
+X+ 	    /* Make sure there are no dangling portals.  If so, remove them */
+X+ 	    register struct trap *ttmp;
+X+ 	    for(ttmp = ftrap; ttmp; ttmp = ttmp->ntrap)
+X+ 		if (ttmp->ttyp == MAGIC_PORTAL) {
+X+ 		    deltrap(ttmp);
+X+ 		    break; /* max of 1 portal/level */
+X+ 		}
+X  	}
+X  }
+X  
+X***************
+X*** 823,833 ****
+X  #ifndef ZEROCOMP_BUFSIZ
+X  #define ZEROCOMP_BUFSIZ BUFSZ
+X  #endif
+X! static unsigned char NEARDATA inbuf[ZEROCOMP_BUFSIZ];
+X! static unsigned short NEARDATA inbufp = 0;
+X! static unsigned short NEARDATA inbufsz = 0;
+X! static short NEARDATA inrunlength = -1;
+X! static int NEARDATA mreadfd;
+X  
+X  static int
+X  mgetc()
+X--- 841,851 ----
+X  #ifndef ZEROCOMP_BUFSIZ
+X  #define ZEROCOMP_BUFSIZ BUFSZ
+X  #endif
+X! static NEARDATA unsigned char inbuf[ZEROCOMP_BUFSIZ];
+X! static NEARDATA unsigned short inbufp = 0;
+X! static NEARDATA unsigned short inbufsz = 0;
+X! static NEARDATA short inrunlength = -1;
+X! static NEARDATA int mreadfd;
+X  
+X  static int
+X  mgetc()
+X*** /tmp/da08558	Thu Feb 25 10:25:05 1993
+X--- src/rnd.c	Thu Feb 11 12:12:15 1993
+X***************
+X*** 27,34 ****
+X  		impossible("rn2(0) attempted");
+X  		return(0);
+X  	}
+X! #endif
+X  	return(RND(x));
+X  }
+X  
+X  #endif /* OVL0 */
+X--- 27,37 ----
+X  		impossible("rn2(0) attempted");
+X  		return(0);
+X  	}
+X! 	x = RND(x);
+X! 	return(x);
+X! #else
+X  	return(RND(x));
+X+ #endif
+X  }
+X  
+X  #endif /* OVL0 */
+X***************
+X*** 69,76 ****
+X  		impossible("rnd(0) attempted");
+X  		return(1);
+X  	}
+X! #endif
+X  	return(RND(x)+1);
+X  }
+X  
+X  #endif /* OVL0 */
+X--- 72,82 ----
+X  		impossible("rnd(0) attempted");
+X  		return(1);
+X  	}
+X! 	x = RND(x)+1;
+X! 	return(x);
+X! #else
+X  	return(RND(x)+1);
+X+ #endif
+X  }
+X  
+X  #endif /* OVL0 */
+X***************
+X*** 83,89 ****
+X  	register int tmp = n;
+X  
+X  #ifdef DEBUG
+X! 	if (x == 0) {
+X  		impossible("d(n,0) attempted");
+X  		return(1);
+X  	}
+X--- 89,95 ----
+X  	register int tmp = n;
+X  
+X  #ifdef DEBUG
+X! 	if (x == 0 && n != 0) {
+X  		impossible("d(n,0) attempted");
+X  		return(1);
+X  	}
+X*** /tmp/da08574	Thu Feb 25 10:25:09 1993
+X--- src/save.c	Tue Feb 23 10:00:09 1993
+X***************
+X*** 1,4 ****
+X! /*	SCCS Id: @(#)save.c	3.1	93/01/07	*/
+X  /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+X  /* NetHack may be freely redistributed.  See license for details. */
+X  
+X--- 1,4 ----
+X! /*	SCCS Id: @(#)save.c	3.1	93/02/09	*/
+X  /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+X  /* NetHack may be freely redistributed.  See license for details. */
+X  
+X***************
+X*** 61,67 ****
+X  	} else {
+X  		clear_nhwindow(WIN_MESSAGE);
+X  		pline("Saving...");
+X- 		mark_synch();	/* flush output */
+X  		hu = FALSE;
+X  		if(dosave0()) {
+X  			/* make sure they see the Saving message */
+X--- 61,66 ----
+X***************
+X*** 93,98 ****
+X--- 92,98 ----
+X  {
+X  	register int fd, ofd;
+X  	xchar ltmp;
+X+ 	d_level uz_save;
+X  #ifdef MFLOPPY
+X  	long fds, needed;
+X  #endif
+X***************
+X*** 122,128 ****
+X  	    }
+X  	}
+X  #endif
+X! 	
+X  	fd = create_savefile();
+X  
+X  	if(fd < 0) {
+X--- 122,129 ----
+X  	    }
+X  	}
+X  #endif
+X! 	if (!hu) mark_synch();	/* flush any buffered screen output */
+X! 
+X  	fd = create_savefile();
+X  
+X  	if(fd < 0) {
+X***************
+X*** 170,177 ****
+X  	savelev(fd, ledger_no(&u.uz), WRITE_SAVE | FREE_SAVE);
+X  	savegamestate(fd, WRITE_SAVE | FREE_SAVE);
+X  
+X  	for(ltmp = (xchar)1; ltmp <= maxledgerno(); ltmp++) {
+X! 		if (ltmp == ledger_no(&u.uz)) continue;
+X  #ifdef MFLOPPY
+X  		if (!fileinfo[ltmp].where) continue;
+X  #else
+X--- 171,186 ----
+X  	savelev(fd, ledger_no(&u.uz), WRITE_SAVE | FREE_SAVE);
+X  	savegamestate(fd, WRITE_SAVE | FREE_SAVE);
+X  
+X+ 	/* While copying level files around, zero out u.uz to keep
+X+ 	 * parts of the restore code from completely initializing all
+X+ 	 * in-core data structures, since all we're doing is copying.
+X+ 	 * This also avoids at least one nasty core dump.
+X+ 	 */
+X+ 	uz_save = u.uz;
+X+ 	u.uz.dnum = u.uz.dlevel = 0;
+X+ 
+X  	for(ltmp = (xchar)1; ltmp <= maxledgerno(); ltmp++) {
+X! 		if (ltmp == ledger_no(&uz_save)) continue;
+X  #ifdef MFLOPPY
+X  		if (!fileinfo[ltmp].where) continue;
+X  #else
+X***************
+X*** 179,186 ****
+X  #endif
+X  #ifdef MICRO
+X  		if(!hu) {
+X! 		    curs(WIN_MAP, 8 + dotcnt++, 1);
+X  		    putstr(WIN_MAP, 0, ".");
+X  		}
+X  #endif
+X  		ofd = open_levelfile(ltmp);
+X--- 188,196 ----
+X  #endif
+X  #ifdef MICRO
+X  		if(!hu) {
+X! 		    curs(WIN_MAP, 1 + dotcnt++, 2);
+X  		    putstr(WIN_MAP, 0, ".");
+X+ 		    mark_synch();
+X  		}
+X  #endif
+X  		ofd = open_levelfile(ltmp);
+X***************
+X*** 200,205 ****
+X--- 210,217 ----
+X  	}
+X  	bclose(fd);
+X  
+X+ 	u.uz = uz_save;
+X+ 
+X  	/* get rid of current level --jgm */
+X  	delete_levelfile(ledger_no(&u.uz));
+X  	delete_levelfile(0);
+X***************
+X*** 455,466 ****
+X  #define flushoutrun(ln) (bputc(RLESC), bputc(ln), ln = -1)
+X  
+X  #ifndef ZEROCOMP_BUFSIZ
+X! #define ZEROCOMP_BUFSIZ BUFSZ
+X  #endif
+X! static unsigned char NEARDATA outbuf[ZEROCOMP_BUFSIZ];
+X! static unsigned short NEARDATA outbufp = 0;
+X! static short NEARDATA outrunlength = -1;
+X! static int NEARDATA bwritefd;
+X  
+X  /*dbg()
+X  {
+X--- 467,478 ----
+X  #define flushoutrun(ln) (bputc(RLESC), bputc(ln), ln = -1)
+X  
+X  #ifndef ZEROCOMP_BUFSIZ
+X! # define ZEROCOMP_BUFSIZ BUFSZ
+X  #endif
+X! static NEARDATA unsigned char outbuf[ZEROCOMP_BUFSIZ];
+X! static NEARDATA unsigned short outbufp = 0;
+X! static NEARDATA short outrunlength = -1;
+X! static NEARDATA int bwritefd;
+X  
+X  /*dbg()
+X  {
+X***************
+X*** 676,683 ****
+X  
+X  	    if (Is_container(otmp) || otmp->otyp == STATUE)
+X  		saveobjchn(fd,otmp->cobj,mode);
+X! 	    if (mode & FREE_SAVE)
+X  		dealloc_obj(otmp);
+X  	    otmp = otmp2;
+X  	}
+X  	bwrite(fd, (genericptr_t) &minusone, sizeof(int));
+X--- 688,697 ----
+X  
+X  	    if (Is_container(otmp) || otmp->otyp == STATUE)
+X  		saveobjchn(fd,otmp->cobj,mode);
+X! 	    if (mode & FREE_SAVE) {
+X! 		if(otmp->oclass == FOOD_CLASS) food_disappears(otmp);
+X  		dealloc_obj(otmp);
+X+ 	    }
+X  	    otmp = otmp2;
+X  	}
+X  	bwrite(fd, (genericptr_t) &minusone, sizeof(int));
+X*** /tmp/da08582	Thu Feb 25 10:25:11 1993
+X--- src/shk.c	Thu Feb 18 11:17:58 1993
+X***************
+X*** 1,4 ****
+X! /*	SCCS Id: @(#)shk.c	3.1	93/01/12	*/
+X  /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+X  /* NetHack may be freely redistributed.  See license for details. */
+X  
+X--- 1,4 ----
+X! /*	SCCS Id: @(#)shk.c	3.1	93/02/09	*/
+X  /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+X  /* NetHack may be freely redistributed.  See license for details. */
+X  
+X***************
+X*** 25,31 ****
+X  
+X  extern const struct shclass shtypes[];	/* defined in shknam.c */
+X  
+X! STATIC_VAR long int NEARDATA followmsg;	/* last time of follow message */
+X  
+X  STATIC_DCL void FDECL(setpaid, (struct monst *));
+X  STATIC_DCL long FDECL(addupbill, (struct monst *));
+X--- 25,31 ----
+X  
+X  extern const struct shclass shtypes[];	/* defined in shknam.c */
+X  
+X! STATIC_VAR NEARDATA long int followmsg;	/* last time of follow message */
+X  
+X  STATIC_DCL void FDECL(setpaid, (struct monst *));
+X  STATIC_DCL long FDECL(addupbill, (struct monst *));
+X***************
+X*** 43,49 ****
+X  static long FDECL(cost_per_charge, (struct obj *));
+X  static long FDECL(cheapest_item, (struct monst *));
+X  static int FDECL(dopayobj, (struct monst *, struct bill_x *,
+X! 			    struct obj *, int, BOOLEAN_P));
+X  static long FDECL(stolen_container, (struct obj *, struct monst *, long,
+X  				     BOOLEAN_P));
+X  static long FDECL(getprice, (struct obj *));
+X--- 43,49 ----
+X  static long FDECL(cost_per_charge, (struct obj *));
+X  static long FDECL(cheapest_item, (struct monst *));
+X  static int FDECL(dopayobj, (struct monst *, struct bill_x *,
+X! 			    struct obj **, int, BOOLEAN_P));
+X  static long FDECL(stolen_container, (struct obj *, struct monst *, long,
+X  				     BOOLEAN_P));
+X  static long FDECL(getprice, (struct obj *));
+X***************
+X*** 55,61 ****
+X  static void FDECL(remove_damage, (struct monst *, BOOLEAN_P));
+X  static void FDECL(sub_one_frombill, (struct obj *, struct monst *));
+X  static void FDECL(add_one_tobill, (struct obj *, BOOLEAN_P));
+X! static void FDECL(dropped_container, (struct obj *));
+X  static void FDECL(bill_box_content, (struct obj *, BOOLEAN_P, BOOLEAN_P,
+X  				     struct monst *));
+X  
+X--- 55,62 ----
+X  static void FDECL(remove_damage, (struct monst *, BOOLEAN_P));
+X  static void FDECL(sub_one_frombill, (struct obj *, struct monst *));
+X  static void FDECL(add_one_tobill, (struct obj *, BOOLEAN_P));
+X! static void FDECL(dropped_container, (struct obj *, struct monst *,
+X! 				      BOOLEAN_P));
+X  static void FDECL(bill_box_content, (struct obj *, BOOLEAN_P, BOOLEAN_P,
+X  				     struct monst *));
+X  
+X***************
+X*** 134,144 ****
+X  
+X  /* do shopkeeper specific structure munging -dlc */
+X  void
+X! restshk(mtmp)
+X  register struct monst *mtmp;
+X  {
+X!     if(ESHK(mtmp)->bill_p != (struct bill_x *) -1000)
+X! 	ESHK(mtmp)->bill_p = &(ESHK(mtmp)->bill[0]);
+X  }
+X  
+X  /* Clear the unpaid bit on all of the objects in the list. */
+X--- 135,152 ----
+X  
+X  /* do shopkeeper specific structure munging -dlc */
+X  void
+X! restshk(mtmp, ghostly)
+X  register struct monst *mtmp;
+X+ boolean ghostly;
+X  {
+X!     if(u.uz.dlevel) {
+X! 	if(ESHK(mtmp)->bill_p != (struct bill_x *) -1000)
+X! 	    ESHK(mtmp)->bill_p = &(ESHK(mtmp)->bill[0]);
+X! 	/* shoplevel can change as dungeons move around */
+X! 	/* savebones guarantees that non-homed shk's will be gone */
+X! 	if (ghostly)
+X! 	    assign_level(&(ESHK(mtmp)->shoplevel), &u.uz);
+X!     }
+X  }
+X  
+X  /* Clear the unpaid bit on all of the objects in the list. */
+X***************
+X*** 857,864 ****
+X  
+X  	/* ltmp is still eshkp->robbed here */
+X  	if (!eshkp->billct && !eshkp->debit) {
+X! 		const char *pronoun = shkp->female ? "her" : "him";
+X! 		const char *possessive = shkp->female ? "her" : "his";
+X  
+X  		if(!ltmp && NOTANGRY(shkp)) {
+X  		    You("do not owe %s anything.", mon_nam(shkp));
+X--- 865,872 ----
+X  
+X  	/* ltmp is still eshkp->robbed here */
+X  	if (!eshkp->billct && !eshkp->debit) {
+X! 		const char *pronoun = him[shkp->female];
+X! 		const char *possessive = his[shkp->female];
+X  
+X  		if(!ltmp && NOTANGRY(shkp)) {
+X  		    You("do not owe %s anything.", mon_nam(shkp));
+X***************
+X*** 980,990 ****
+X  	    for (pass = 0; pass <= 1; pass++) {
+X  		tmp = 0;
+X  		while (tmp < eshkp->billct) {
+X! 		    register struct obj *otmp;
+X  		    register struct bill_x *bp = &(eshkp->bill_p[tmp]);
+X  
+X  		    /* find the object on one of the lists */
+X! 		    if (!(otmp = bp_to_obj(bp))) {
+X  			impossible("Shopkeeper administration out of order.");
+X  			setpaid(shkp);	/* be nice to the player */
+X  			return 1;
+X--- 988,1003 ----
+X  	    for (pass = 0; pass <= 1; pass++) {
+X  		tmp = 0;
+X  		while (tmp < eshkp->billct) {
+X! 		    struct obj *otmp;
+X  		    register struct bill_x *bp = &(eshkp->bill_p[tmp]);
+X  
+X  		    /* find the object on one of the lists */
+X! 		    if ((otmp = bp_to_obj(bp)) != 0) {
+X! 			/* if completely used up, object quantity is stale;
+X! 			   restoring it to its original value here avoids
+X! 			   making the partly-used-up code more complicated */
+X! 			if (bp->useup) otmp->quan = bp->bquan;
+X! 		    } else {
+X  			impossible("Shopkeeper administration out of order.");
+X  			setpaid(shkp);	/* be nice to the player */
+X  			return 1;
+X***************
+X*** 996,1002 ****
+X  			 * are processed on both passes */
+X  			tmp++;
+X  		    } else {
+X! 			switch (dopayobj(shkp, bp, otmp, pass, itemize)) {
+X  			  case PAY_CANT:
+X  				return 1;	/*break*/
+X  			  case PAY_BROKE:
+X--- 1009,1015 ----
+X  			 * are processed on both passes */
+X  			tmp++;
+X  		    } else {
+X! 			switch (dopayobj(shkp, bp, &otmp, pass, itemize)) {
+X  			  case PAY_CANT:
+X  				return 1;	/*break*/
+X  			  case PAY_BROKE:
+X***************
+X*** 1033,1045 ****
+X  /*	 -1 if skip this object     */
+X  /*	 -2 if no money/credit left */
+X  static int
+X! dopayobj(shkp, bp, obj, which, itemize)
+X  register struct monst *shkp;
+X  register struct bill_x *bp;
+X! register struct obj *obj;
+X  int	which;		/* 0 => used-up item, 1 => other (unpaid or lost) */
+X  boolean itemize;
+X  {
+X  	long ltmp, quan, save_quan;
+X  	int buy;
+X  	boolean stashed_gold = (hidden_gold() > 0L),
+X--- 1046,1059 ----
+X  /*	 -1 if skip this object     */
+X  /*	 -2 if no money/credit left */
+X  static int
+X! dopayobj(shkp, bp, obj_p, which, itemize)
+X  register struct monst *shkp;
+X  register struct bill_x *bp;
+X! struct obj **obj_p;
+X  int	which;		/* 0 => used-up item, 1 => other (unpaid or lost) */
+X  boolean itemize;
+X  {
+X+ 	register struct obj *obj = *obj_p;
+X  	long ltmp, quan, save_quan;
+X  	int buy;
+X  	boolean stashed_gold = (hidden_gold() > 0L),
+X***************
+X*** 1106,1129 ****
+X  	obj->quan = save_quan;		/* restore original count */
+X  	/* quan => amount just bought, save_quan => remaining unpaid count */
+X  	if (consumed) {
+X! 	    if (quan != save_quan) {
+X  		/* eliminate used-up portion; remainder is still unpaid */
+X  		bp->bquan = obj->quan;
+X  		obj->unpaid = 1;
+X  		bp->useup = 0;
+X  	    } else {	/* completely used-up, so get rid of it */
+X! 		register struct obj *otmp = billobjs;
+X! 		if(obj == billobjs)
+X! 			billobjs = obj->nobj;
+X! 		else {
+X! 			while(otmp && otmp->nobj != obj) otmp = otmp->nobj;
+X! 			if(otmp) otmp->nobj = obj->nobj;
+X! 			else impossible("Error in shopkeeper administration.");
+X  		}
+X  		dealloc_obj(obj);
+X  	    }
+X  	}
+X! 	return quan != save_quan ? PAY_SOME : PAY_BUY;
+X  }
+X  
+X  /* routine called after dying (or quitting) */
+X--- 1120,1147 ----
+X  	obj->quan = save_quan;		/* restore original count */
+X  	/* quan => amount just bought, save_quan => remaining unpaid count */
+X  	if (consumed) {
+X! 	    if (quan != bp->bquan) {
+X  		/* eliminate used-up portion; remainder is still unpaid */
+X  		bp->bquan = obj->quan;
+X  		obj->unpaid = 1;
+X  		bp->useup = 0;
+X+ 		buy = PAY_SOME;
+X  	    } else {	/* completely used-up, so get rid of it */
+X! 		if (obj == billobjs) {
+X! 		    billobjs = obj->nobj;
+X! 		} else {
+X! 		    register struct obj *otmp = billobjs;
+X! 
+X! 		    while (otmp && otmp->nobj != obj) otmp = otmp->nobj;
+X! 		    if (otmp) otmp->nobj = obj->nobj;
+X! 		    else impossible("Error in shopkeeper administration.");
+X  		}
+X+ 	     /* assert( obj == *obj_p ); */
+X  		dealloc_obj(obj);
+X+ 		*obj_p = 0;	/* destroy pointer to freed object */
+X  	    }
+X  	}
+X! 	return buy;
+X  }
+X  
+X  /* routine called after dying (or quitting) */
+X***************
+X*** 1353,1359 ****
+X  	    register boolean goods = saleable(rooms[ESHK(shkp)->shoproom -
+X  					   ROOMOFFSET].rtype-SHOPBASE, otmp);
+X  
+X! 	    if(otmp->otyp == GOLD_PIECE) continue;
+X  
+X  	    /* the "top" container is evaluated by caller */
+X  	    if(usell) {
+X--- 1371,1377 ----
+X  	    register boolean goods = saleable(rooms[ESHK(shkp)->shoproom -
+X  					   ROOMOFFSET].rtype-SHOPBASE, otmp);
+X  
+X! 	    if(otmp->oclass == GOLD_CLASS) continue;
+X  
+X  	    /* the "top" container is evaluated by caller */
+X  	    if(usell) {
+X***************
+X*** 1383,1389 ****
+X  
+X  	/* accumulate contained gold */
+X  	for (otmp = obj->cobj; otmp; otmp = otmp->nobj)
+X! 	    if (otmp->otyp == GOLD_PIECE)
+X  		value += otmp->quan;
+X  	    else if (Is_container(otmp))
+X  		value += contained_gold(otmp);
+X--- 1401,1407 ----
+X  
+X  	/* accumulate contained gold */
+X  	for (otmp = obj->cobj; otmp; otmp = otmp->nobj)
+X! 	    if (otmp->oclass == GOLD_CLASS)
+X  		value += otmp->quan;
+X  	    else if (Is_container(otmp))
+X  		value += contained_gold(otmp);
+X***************
+X*** 1392,1412 ****
+X  }
+X  
+X  static void
+X! dropped_container(obj)
+X  register struct obj *obj;
+X  {
+X  	register struct obj *otmp;
+X  
+X  	/* the "top" container is treated in the calling fn */
+X  	for(otmp = obj->cobj; otmp; otmp = otmp->nobj) {
+X  
+X! 	    if(otmp->otyp == GOLD_PIECE) continue;
+X  
+X! 	    if(!otmp->unpaid)
+X  		otmp->no_charge = 1;
+X  
+X  	    if(Is_container(otmp))
+X! 		dropped_container(otmp);
+X  	}
+X  }
+X  
+X--- 1410,1436 ----
+X  }
+X  
+X  static void
+X! dropped_container(obj, shkp, sale)
+X  register struct obj *obj;
+X+ register struct monst *shkp;
+X+ register boolean sale;
+X  {
+X  	register struct obj *otmp;
+X+ 	register boolean saleitem;
+X  
+X  	/* the "top" container is treated in the calling fn */
+X  	for(otmp = obj->cobj; otmp; otmp = otmp->nobj) {
+X  
+X! 	    if(otmp->oclass == GOLD_CLASS) continue;
+X  
+X! 	    saleitem = saleable(rooms[ESHK(shkp)->shoproom -
+X! 					ROOMOFFSET].rtype-SHOPBASE, otmp);
+X! 
+X! 	    if(!otmp->unpaid && !(sale && saleitem))
+X  		otmp->no_charge = 1;
+X  
+X  	    if(Is_container(otmp))
+X! 		dropped_container(otmp, shkp, sale);
+X  	}
+X  }
+X  
+X***************
+X*** 1419,1425 ****
+X  	/* the "top" container is treated in the calling fn */
+X  	for(otmp = obj->cobj; otmp; otmp = otmp->nobj) {
+X  
+X! 	    if(otmp->otyp == GOLD_PIECE) continue;
+X  
+X  	    if(otmp->no_charge)
+X  		otmp->no_charge = 0;
+X--- 1443,1449 ----
+X  	/* the "top" container is treated in the calling fn */
+X  	for(otmp = obj->cobj; otmp; otmp = otmp->nobj) {
+X  
+X! 	    if(otmp->oclass == GOLD_CLASS) continue;
+X  
+X  	    if(otmp->no_charge)
+X  		otmp->no_charge = 0;
+X***************
+X*** 1535,1541 ****
+X  
+X  	for(otmp = obj->cobj; otmp; otmp = otmp->nobj) {
+X  
+X! 		if(obj->otyp == GOLD_PIECE) continue;
+X  		/* the "top" box is added in addtobill() */
+X  		if(!otmp->no_charge)
+X  		    add_one_tobill(otmp, dummy);
+X--- 1559,1565 ----
+X  
+X  	for(otmp = obj->cobj; otmp; otmp = otmp->nobj) {
+X  
+X! 		if(otmp->oclass == GOLD_CLASS) continue;
+X  		/* the "top" box is added in addtobill() */
+X  		if(!otmp->no_charge)
+X  		    add_one_tobill(otmp, dummy);
+X***************
+X*** 1576,1582 ****
+X  		return;
+X  	}
+X  
+X! 	if(!obj->no_charge) ltmp = get_cost(obj, shkp);
+X  
+X  	if (obj->no_charge && !container) {
+X  		obj->no_charge = 0;
+X--- 1600,1607 ----
+X  		return;
+X  	}
+X  
+X! 	if(!obj->no_charge)
+X! 	    ltmp = get_cost(obj, shkp);
+X  
+X  	if (obj->no_charge && !container) {
+X  		obj->no_charge = 0;
+X***************
+X*** 1754,1760 ****
+X  
+X  	if(Is_container(obj))
+X  	    for(otmp = obj->cobj; otmp; otmp = otmp->nobj) {
+X! 		if(otmp->otyp == GOLD_PIECE) continue;
+X  
+X  		if(Is_container(otmp))
+X  		    subfrombill(otmp, shkp);
+X--- 1779,1785 ----
+X  
+X  	if(Is_container(obj))
+X  	    for(otmp = obj->cobj; otmp; otmp = otmp->nobj) {
+X! 		if(otmp->oclass == GOLD_CLASS) continue;
+X  
+X  		if(Is_container(otmp))
+X  		    subfrombill(otmp, shkp);
+X***************
+X*** 1783,1789 ****
+X  	/* the price of contained objects, if any */
+X  	for(otmp = obj->cobj; otmp; otmp = otmp->nobj) {
+X  
+X! 	    if(otmp->otyp == GOLD_PIECE) continue;
+X  
+X  	    if(!Is_container(otmp)) {
+X  		if(ininv) {
+X--- 1808,1814 ----
+X  	/* the price of contained objects, if any */
+X  	for(otmp = obj->cobj; otmp; otmp = otmp->nobj) {
+X  
+X! 	    if(otmp->oclass == GOLD_CLASS) continue;
+X  
+X  	    if(!Is_container(otmp)) {
+X  		if(ininv) {
+X***************
+X*** 1825,1831 ****
+X  				   ROOMOFFSET].rtype-SHOPBASE, obj);
+X  	goods = (goods && !obj->no_charge);
+X  
+X! 	if(obj->otyp == GOLD_PIECE) {
+X  	    gvalue += obj->quan;
+X  	} else if(Is_container(obj)) {
+X  	    register boolean ininv = !!count_unpaid(obj->cobj);
+X--- 1850,1856 ----
+X  				   ROOMOFFSET].rtype-SHOPBASE, obj);
+X  	goods = (goods && !obj->no_charge);
+X  
+X! 	if(obj->oclass == GOLD_CLASS) {
+X  	    gvalue += obj->quan;
+X  	} else if(Is_container(obj)) {
+X  	    register boolean ininv = !!count_unpaid(obj->cobj);
+X***************
+X*** 1845,1851 ****
+X  	    ESHK(shkp)->debit += value;
+X  
+X  	    if(!silent) {
+X! 		if(obj->otyp == GOLD_PIECE)
+X  		    You("owe %s %ld zorkmids!", mon_nam(shkp), value);
+X  		else You("owe %s %ld zorkmids for %s!",
+X  			mon_nam(shkp),
+X--- 1870,1876 ----
+X  	    ESHK(shkp)->debit += value;
+X  
+X  	    if(!silent) {
+X! 		if(obj->oclass == GOLD_CLASS)
+X  		    You("owe %s %ld zorkmids!", mon_nam(shkp), value);
+X  		else You("owe %s %ld zorkmids for %s!",
+X  			mon_nam(shkp),
+X***************
+X*** 1928,1933 ****
+X--- 1953,1959 ----
+X  
+X  	offer = ltmp + cltmp;
+X  
+X+ 	/* get one case out of the way: nothing to sell, and no gold */
+X  	if(!isgold && (offer + gltmp) == 0L) {
+X  		register boolean unpaid = (obj->unpaid ||
+X  				  (container && count_unpaid(obj->cobj)));
+X***************
+X*** 1934,1940 ****
+X  
+X  		if(container) {
+X  		    if(obj->cobj != (struct obj *)0) {
+X! 			dropped_container(obj);
+X  			if(obj->unpaid || count_unpaid(obj->cobj))
+X  			    subfrombill(obj, shkp);
+X  		    } else obj->no_charge = 1;
+X--- 1960,1968 ----
+X  
+X  		if(container) {
+X  		    if(obj->cobj != (struct obj *)0) {
+X! 			dropped_container(obj, shkp, FALSE);
+X! 			if(!obj->unpaid && !saleitem)
+X! 			    obj->no_charge = 1;
+X  			if(obj->unpaid || count_unpaid(obj->cobj))
+X  			    subfrombill(obj, shkp);
+X  		    } else obj->no_charge = 1;
+X***************
+X*** 1948,1955 ****
+X  	/* you dropped something of your own - probably want to sell it */
+X  	if(shkp->msleep || !shkp->mcanmove) {
+X  		if(container && obj->cobj != (struct obj *)0) {
+X! 		    dropped_container(obj);
+X  		}
+X  		if(!shkp->mcanmove) {
+X  		    if(ANGRY(shkp) && !rn2(4))
+X  			pline("%s utters a curse.", Monnam(shkp));
+X--- 1976,1985 ----
+X  	/* you dropped something of your own - probably want to sell it */
+X  	if(shkp->msleep || !shkp->mcanmove) {
+X  		if(container && obj->cobj != (struct obj *)0) {
+X! 		    dropped_container(obj, shkp, TRUE);
+X  		}
+X+ 		if(!obj->unpaid && !saleitem && !isgold)
+X+ 		    obj->no_charge = 1;
+X  		if(!shkp->mcanmove) {
+X  		    if(ANGRY(shkp) && !rn2(4))
+X  			pline("%s utters a curse.", Monnam(shkp));
+X***************
+X*** 1963,1977 ****
+X  
+X  	eshkp = ESHK(shkp);
+X  
+X! 	if(isgold || cgold) {
+X! 		if(ANGRY(shkp)) {
+X! 		    if(!offer) {
+X! 			 pline("%s is not appeased.", Monnam(shkp));
+X! 			 if(cgold) subfrombill(obj, shkp);
+X! 			 return;
+X! 		    } else goto move_on;
+X! 		}
+X  
+X  		if(!cgold) gltmp = obj->quan;
+X  
+X  		if(eshkp->debit >= gltmp) {
+X--- 1993,2016 ----
+X  
+X  	eshkp = ESHK(shkp);
+X  
+X! 	if (ANGRY(shkp)) { /* they become shop-objects, no pay */
+X! 		pline("Thank you, scum!");
+X! 		subfrombill(obj, shkp);
+X! 		return;
+X! 	}
+X  
+X+ 	if(eshkp->robbed) {  /* shkp is not angry? */
+X+ 		if(isgold) offer = obj->quan;
+X+ 		else if(cgold) offer += cgold;
+X+ 		if((eshkp->robbed -= offer < 0L))
+X+ 			eshkp->robbed = 0L;
+X+ 		if(offer) verbalize(
+X+   "Thank you for your contribution to restock this recently plundered shop.");
+X+ 		subfrombill(obj, shkp);
+X+ 		return;
+X+ 	}
+X+ 
+X+ 	if(isgold || cgold) {
+X  		if(!cgold) gltmp = obj->quan;
+X  
+X  		if(eshkp->debit >= gltmp) {
+X***************
+X*** 1997,2020 ****
+X  		}
+X  		if(offer) goto move_on;
+X  		else {
+X! 		    if(container && obj->cobj != (struct obj *)0) {
+X! 			dropped_container(obj);
+X  		    }
+X- 		    subfrombill(obj, shkp);
+X- 		    obj->no_charge = 1;
+X  		    return;
+X  		}
+X  	}
+X  move_on:
+X- 	if (ANGRY(shkp)) { /* they become shop-objects, no pay */
+X- 		pline("Thank you, scum!");
+X- 		subfrombill(obj, shkp);
+X- 		return;
+X- 	}
+X- 
+X  	if((!saleitem && !(container && cltmp > 0L))
+X  	   || eshkp->billct == BILLSZ
+X! 	   || obj->oclass == BALL_CLASS || offer == 0L
+X  	   || (obj->oclass == FOOD_CLASS && obj->oeaten)
+X  	   || (Is_candle(obj) &&
+X  		   obj->age < 20L * (long)objects[obj->otyp].oc_cost)) {
+X--- 2036,2057 ----
+X  		}
+X  		if(offer) goto move_on;
+X  		else {
+X! 		    if(!isgold) {
+X! 		        if(container && obj->cobj != (struct obj *)0) {
+X! 			    dropped_container(obj, shkp, FALSE);
+X! 		        }
+X! 		        if(!obj->unpaid && !saleitem)
+X! 			    obj->no_charge = 1;
+X! 		        subfrombill(obj, shkp);
+X  		    }
+X  		    return;
+X  		}
+X  	}
+X  move_on:
+X  	if((!saleitem && !(container && cltmp > 0L))
+X  	   || eshkp->billct == BILLSZ
+X! 	   || obj->oclass == BALL_CLASS
+X! 	   || obj->oclass == CHAIN_CLASS || offer == 0L
+X  	   || (obj->oclass == FOOD_CLASS && obj->oeaten)
+X  	   || (Is_candle(obj) &&
+X  		   obj->age < 20L * (long)objects[obj->otyp].oc_cost)) {
+X***************
+X*** 2021,2041 ****
+X  		pline("%s seems not interested%s.", Monnam(shkp),
+X  					   cgold ? " in the rest" : "");
+X  		if(container && obj->cobj != (struct obj *)0) {
+X! 		    dropped_container(obj);
+X  		}
+X  		obj->no_charge = 1;
+X  		return;
+X  	}
+X  
+X- 	if(eshkp->robbed) {  /* shkp is not angry? */
+X- 		if((eshkp->robbed -= offer < 0L))
+X- 			eshkp->robbed = 0L;
+X- 		verbalize(
+X-   "Thank you for your contribution to restock this recently plundered shop.");
+X- 		subfrombill(obj, shkp);
+X- 		return;
+X- 	}
+X- 
+X  	if(!shkp->mgold) {
+X  		long tmpcr = (ltmp + cltmp) * 2L;
+X  
+X--- 2058,2069 ----
+X  		pline("%s seems not interested%s.", Monnam(shkp),
+X  					   cgold ? " in the rest" : "");
+X  		if(container && obj->cobj != (struct obj *)0) {
+X! 		    dropped_container(obj, shkp, FALSE);
+X  		}
+X  		obj->no_charge = 1;
+X  		return;
+X  	}
+X  
+X  	if(!shkp->mgold) {
+X  		long tmpcr = (ltmp + cltmp) * 2L;
+X  
+X***************
+X*** 2050,2059 ****
+X  		    subfrombill(obj, shkp);
+X  		} else {
+X  		    if(container && obj->cobj != (struct obj *)0) {
+X! 				dropped_container(obj);
+X  		    }
+X  		    subfrombill(obj, shkp);
+X- 		    obj->no_charge = 1;
+X  		}
+X  	} else {
+X  		int qlen;
+X--- 2078,2088 ----
+X  		    subfrombill(obj, shkp);
+X  		} else {
+X  		    if(container && obj->cobj != (struct obj *)0) {
+X! 				dropped_container(obj, shkp, FALSE);
+X  		    }
+X+ 		    if(!obj->unpaid)
+X+ 			obj->no_charge = 1;
+X  		    subfrombill(obj, shkp);
+X  		}
+X  	} else {
+X  		int qlen;
+X***************
+X*** 2085,2097 ****
+X  		switch (sell_response ? sell_response : ynaq(qbuf)) {
+X  		 case 'q':  sell_response = 'n';
+X  		 case 'n':  if(container && obj->cobj != (struct obj *)0) {
+X! 				dropped_container(obj);
+X  			    }
+X  			    subfrombill(obj, shkp);
+X- 			    obj->no_charge = 1;
+X  			    break;
+X  		 case 'a':  sell_response = 'y';
+X! 		 case 'y':  subfrombill(obj, shkp);
+X  			    pay(-offer, shkp);
+X  			    You("sold %s for %ld gold piece%s.", doname(obj),
+X  				offer, plur(offer));
+X--- 2114,2130 ----
+X  		switch (sell_response ? sell_response : ynaq(qbuf)) {
+X  		 case 'q':  sell_response = 'n';
+X  		 case 'n':  if(container && obj->cobj != (struct obj *)0) {
+X! 				dropped_container(obj, shkp, FALSE);
+X  			    }
+X+ 		            if(!obj->unpaid) obj->no_charge = 1;
+X  			    subfrombill(obj, shkp);
+X  			    break;
+X  		 case 'a':  sell_response = 'y';
+X! 		 case 'y':  if(container && obj->cobj != (struct obj *)0)
+X! 		                dropped_container(obj, shkp, TRUE);
+X! 		            if(!obj->unpaid && !saleitem)
+X! 			        obj->no_charge = 1;
+X! 		            subfrombill(obj, shkp);
+X  			    pay(-offer, shkp);
+X  			    You("sold %s for %ld gold piece%s.", doname(obj),
+X  				offer, plur(offer));
+X***************
+X*** 2193,2201 ****
+X  	case WEAPON_CLASS:
+X  		if (obj->spe > 0) tmp += 10L * (long) obj->spe;
+X  		break;
+X- 	case CHAIN_CLASS:
+X- 		pline("Strange... carrying a chain?");
+X- 		break;
+X  	case TOOL_CLASS:
+X  		if (Is_candle(obj) &&
+X  			obj->age < 20L * (long)objects[obj->otyp].oc_cost)
+X--- 2226,2231 ----
+X***************
+X*** 2630,2636 ****
+X  makekops(mm)		/* returns the number of (all types of) Kops  made */
+X  coord *mm;
+X  {
+X! 	register int cnt = depth(&u.uz) + rnd(5);
+X  	register int scnt = (cnt / 3) + 1;	/* at least one sarge */
+X  	register int lcnt = (cnt / 6);		/* maybe a lieutenant */
+X  	register int kcnt = (cnt / 9);		/* and maybe a kaptain */
+X--- 2660,2666 ----
+X  makekops(mm)		/* returns the number of (all types of) Kops  made */
+X  coord *mm;
+X  {
+X! 	register int cnt = abs(depth(&u.uz)) + rnd(5);
+X  	register int scnt = (cnt / 3) + 1;	/* at least one sarge */
+X  	register int lcnt = (cnt / 6);		/* maybe a lieutenant */
+X  	register int kcnt = (cnt / 9);		/* and maybe a kaptain */
+X***************
+X*** 2864,2870 ****
+X  	if (otmp->otyp == GOLD_PIECE) {
+X  	 /* if (otmp == first_obj)  first_obj = otmp->nexthere; */
+X  	    continue;	/* don't quote a price on this */
+X! 	} else if (otmp->no_charge) {
+X  	    Strcpy(price, "no charge");
+X  	} else {
+X  	    cost = get_cost(otmp, (struct monst *)0);
+X--- 2894,2900 ----
+X  	if (otmp->otyp == GOLD_PIECE) {
+X  	 /* if (otmp == first_obj)  first_obj = otmp->nexthere; */
+X  	    continue;	/* don't quote a price on this */
+X! 	} else if (otmp->no_charge || otmp == uball || otmp == uchain) {
+X  	    Strcpy(price, "no charge");
+X  	} else {
+X  	    cost = get_cost(otmp, (struct monst *)0);
+X***************
+X*** 2877,2886 ****
+X      if (cnt > 1) {
+X  	display_nhwindow(tmpwin, TRUE);
+X      } else if (cnt == 1) {
+X! 	cost = get_cost(first_obj, (struct monst *)0);
+X! 	pline("%s, price %ld zorkmid%s%s%s", doname(first_obj),
+X  		cost, plur(cost), first_obj->quan > 1L ? " each" : "",
+X  		shk_embellish(first_obj, cost));
+X      }
+X      destroy_nhwindow(tmpwin);
+X  }
+X--- 2907,2921 ----
+X      if (cnt > 1) {
+X  	display_nhwindow(tmpwin, TRUE);
+X      } else if (cnt == 1) {
+X! 	if (first_obj->no_charge || first_obj == uball || first_obj == uchain){
+X! 	    pline("%s!", buf);	/* buf still contains the string */
+X! 	} else {
+X! 	    /* print cost in slightly different format, so can't reuse buf */
+X! 	    cost = get_cost(first_obj, (struct monst *)0);
+X! 	    pline("%s, price %ld zorkmid%s%s%s", doname(first_obj),
+X  		cost, plur(cost), first_obj->quan > 1L ? " each" : "",
+X  		shk_embellish(first_obj, cost));
+X+ 	}
+X      }
+X      destroy_nhwindow(tmpwin);
+X  }
+X***************
+X*** 2972,2978 ****
+X  		    if (otmp->spe > 1) tmp /= 4L;
+X  	} else if (otmp->oclass == SPBOOK_CLASS) {
+X  		    tmp -= tmp / 5L;
+X! 	}
+X  	return(tmp);
+X  }
+X  
+X--- 3007,3014 ----
+X  		    if (otmp->spe > 1) tmp /= 4L;
+X  	} else if (otmp->oclass == SPBOOK_CLASS) {
+X  		    tmp -= tmp / 5L;
+X! 	} else if (otmp->otyp == CAN_OF_GREASE)
+X! 	            tmp /= 10L;
+X  	return(tmp);
+X  }
+X  
+X*** /tmp/da08590	Thu Feb 25 10:25:16 1993
+X--- src/shknam.c	Thu Feb 18 10:58:37 1993
+X***************
+X*** 1,4 ****
+X! /*	SCCS Id: @(#)shknam.c	3.1	92/11/14	*/
+X  /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+X  /* NetHack may be freely redistributed.  See license for details. */
+X  
+X--- 1,4 ----
+X! /*	SCCS Id: @(#)shknam.c	3.1	93/02/17	*/
+X  /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+X  /* NetHack may be freely redistributed.  See license for details. */
+X  
+X***************
+X*** 163,169 ****
+X  	{"used armor dealership", ARMOR_CLASS, 14,
+X  	    D_SHOP, {{90, ARMOR_CLASS}, {10, WEAPON_CLASS}, {0, 0}},
+X  	     shkarmors},
+X! 	{"second hand bookstore", SCROLL_CLASS, 10, D_SHOP,
+X  	    {{90, SCROLL_CLASS}, {10, SPBOOK_CLASS}, {0, 0}}, shkbooks},
+X  	{"liquor emporium", POTION_CLASS, 10, D_SHOP,
+X  	    {{100, POTION_CLASS}, {0, 0}, {0, 0}}, shkliquors},
+X--- 163,169 ----
+X  	{"used armor dealership", ARMOR_CLASS, 14,
+X  	    D_SHOP, {{90, ARMOR_CLASS}, {10, WEAPON_CLASS}, {0, 0}},
+X  	     shkarmors},
+X! 	{"second-hand bookstore", SCROLL_CLASS, 10, D_SHOP,
+X  	    {{90, SCROLL_CLASS}, {10, SPBOOK_CLASS}, {0, 0}}, shkbooks},
+X  	{"liquor emporium", POTION_CLASS, 10, D_SHOP,
+X  	    {{100, POTION_CLASS}, {0, 0}, {0, 0}}, shkliquors},
+X*** /tmp/da08598	Thu Feb 25 10:25:18 1993
+X--- src/sit.c	Fri Feb 19 11:00:57 1993
+X***************
+X*** 20,56 ****
+X  int
+X  dosit()
+X  {
+X! 	char pbuf[BUFSZ];
+X  	register struct trap *trap;
+X  	register int typ = levl[u.ux][u.uy].typ;
+X  
+X  	if(Levitation)  {
+X! 	    pline("There's nothing to sit on up here.");
+X  	    return 0;
+X  	} 
+X  
+X- 	Strcpy(pbuf, "You sit on the %s.");
+X- 
+X  	if(OBJ_AT(u.ux, u.uy)) { 
+X  	    register struct obj *obj;
+X  
+X  	    obj = level.objects[u.ux][u.uy];
+X  	    You("sit on %s.", the(xname(obj)));
+X! 	    if(!Is_box(obj)) pline("It is not very comfortable...");
+X  
+X  	} else if(trap = t_at(u.ux, u.uy)) {
+X  
+X! 	    if(u.utrap) {
+X! 	        if(u.utraptype == TT_BEARTRAP) {
+X! 		    You("can't sit down!");
+X  		    u.utrap++;
+X  	        } else if(u.utraptype == TT_PIT) {
+X! 		    You("sit in the bottom of the pit.");
+X! 		    if(trap->ttyp == SPIKED_PIT) pline("This hurts!");
+X  		    u.utrap += rn2(5);
+X  		} else if(u.utraptype == TT_WEB) {
+X! 		    pline(pbuf, "giant spider's web");
+X! 		    You("are further entangled!");
+X  		    u.utrap += rn1(10, 5);
+X  		} else if(u.utraptype == TT_LAVA) {
+X  		    /* Must have fire resistance or they'd be dead already */
+X--- 20,58 ----
+X  int
+X  dosit()
+X  {
+X! 	static const char *sit_message = "sit on the %s.";
+X  	register struct trap *trap;
+X  	register int typ = levl[u.ux][u.uy].typ;
+X  
+X  	if(Levitation)  {
+X! 	    pline("You're sitting on air.");
+X  	    return 0;
+X  	} 
+X  
+X  	if(OBJ_AT(u.ux, u.uy)) { 
+X  	    register struct obj *obj;
+X  
+X  	    obj = level.objects[u.ux][u.uy];
+X  	    You("sit on %s.", the(xname(obj)));
+X! 	    if(!Is_box(obj)) pline("It's not very comfortable...");
+X  
+X  	} else if(trap = t_at(u.ux, u.uy)) {
+X  
+X! 	    if (u.utrap) {
+X! 		exercise(A_WIS, FALSE);	/* you're getting stuck longer */
+X! 		if(u.utraptype == TT_BEARTRAP) {
+X! 		    You("can't sit down with your %s in the bear trap.", body_part(FOOT));
+X  		    u.utrap++;
+X  	        } else if(u.utraptype == TT_PIT) {
+X! 		    if(trap->ttyp == SPIKED_PIT) {
+X! 			You("sit down on a spike.  Ouch!");
+X! 			losehp(1, "sitting on an iron spike", KILLED_BY);
+X! 			exercise(A_STR, FALSE);
+X! 		    } else
+X! 			You("sit down in the pit.");
+X  		    u.utrap += rn2(5);
+X  		} else if(u.utraptype == TT_WEB) {
+X! 		    You("sit in the spider web and get entangled further!");
+X  		    u.utrap += rn1(10, 5);
+X  		} else if(u.utraptype == TT_LAVA) {
+X  		    /* Must have fire resistance or they'd be dead already */
+X***************
+X*** 67,73 ****
+X  	    }
+X  	} else if(Underwater || Is_waterlevel(&u.uz)) {
+X  	    if (Is_waterlevel(&u.uz))
+X! 		pline("There are no seats floating in the neighborhood.");
+X  	    else
+X  		You("sit down in the muddy bottom.");
+X  	} else if(is_pool(u.ux, u.uy)) {
+X--- 69,75 ----
+X  	    }
+X  	} else if(Underwater || Is_waterlevel(&u.uz)) {
+X  	    if (Is_waterlevel(&u.uz))
+X! 		pline("There are no cushions floating nearby.");
+X  	    else
+X  		You("sit down in the muddy bottom.");
+X  	} else if(is_pool(u.ux, u.uy)) {
+X***************
+X*** 84,125 ****
+X  #ifdef SINKS
+X  	} else if(IS_SINK(typ)) {
+X  
+X! 	    pline(pbuf, defsyms[S_sink].explanation);
+X  	    Your("%s gets wet.", humanoid(uasmon) ? "rump" : "underside");
+X  #endif
+X  	} else if(IS_ALTAR(typ)) {
+X  
+X! 	    pline(pbuf, defsyms[S_altar].explanation);
+X  	    altar_wrath(u.ux, u.uy);
+X  
+X  	} else if(typ == STAIRS) {
+X  
+X! 	    pline(pbuf, "stairs");
+X  
+X  	} else if(typ == LADDER) {
+X  
+X! 	    pline(pbuf, "ladder");
+X  
+X  	} else if (is_lava(u.ux, u.uy)) {
+X  
+X  	    /* must be WWalking */
+X! 	    pline(pbuf, "lava");
+X! 	    pline("It burns you!");
+X  	    losehp(d((Fire_resistance ? 2 : 10), 10),
+X  		   "sitting on lava", KILLED_BY);
+X  
+X  	} else if (is_ice(u.ux, u.uy)) {
+X  
+X! 	    pline(pbuf, defsyms[S_ice].explanation);
+X! 	    if (!Cold_resistance) pline("It's very cold...");
+X  
+X  	} else if (typ == DRAWBRIDGE_DOWN) {
+X  
+X! 	    pline(pbuf, "drawbridge");
+X  
+X  	} else if(IS_THRONE(typ)) {
+X  
+X! 	    pline(pbuf, defsyms[S_throne].explanation);
+X  	    if (rnd(6) > 4)  {
+X  		switch (rnd(13))  {
+X  		    case 1:
+X--- 86,127 ----
+X  #ifdef SINKS
+X  	} else if(IS_SINK(typ)) {
+X  
+X! 	    You(sit_message, defsyms[S_sink].explanation);
+X  	    Your("%s gets wet.", humanoid(uasmon) ? "rump" : "underside");
+X  #endif
+X  	} else if(IS_ALTAR(typ)) {
+X  
+X! 	    You(sit_message, defsyms[S_altar].explanation);
+X  	    altar_wrath(u.ux, u.uy);
+X  
+X  	} else if(typ == STAIRS) {
+X  
+X! 	    You(sit_message, "stairs");
+X  
+X  	} else if(typ == LADDER) {
+X  
+X! 	    You(sit_message, "ladder");
+X  
+X  	} else if (is_lava(u.ux, u.uy)) {
+X  
+X  	    /* must be WWalking */
+X! 	    You(sit_message, "lava");
+X! 	    pline("The lava burns you!");
+X  	    losehp(d((Fire_resistance ? 2 : 10), 10),
+X  		   "sitting on lava", KILLED_BY);
+X  
+X  	} else if (is_ice(u.ux, u.uy)) {
+X  
+X! 	    You(sit_message, defsyms[S_ice].explanation);
+X! 	    if (!Cold_resistance) pline("The ice feels cold.");
+X  
+X  	} else if (typ == DRAWBRIDGE_DOWN) {
+X  
+X! 	    You(sit_message, "drawbridge");
+X  
+X  	} else if(IS_THRONE(typ)) {
+X  
+X! 	    You(sit_message, defsyms[S_throne].explanation);
+X  	    if (rnd(6) > 4)  {
+X  		switch (rnd(13))  {
+X  		    case 1:
+X***************
+X*** 130,140 ****
+X  			(void) adjattrib(rn2(A_MAX), 1, FALSE);
+X  			break;
+X  		    case 3:
+X! 		pline("A%s charge of electricity shoots through your body!",
+X  			      (Shock_resistance) ? "" : " massive");
+X! 			if(Shock_resistance)
+X! 				losehp(rnd(6), "electric chair", KILLED_BY_AN);
+X! 			else	losehp(rnd(30), "electric chair", KILLED_BY_AN);
+X  			exercise(A_CON, FALSE);
+X  			break;
+X  		    case 4:
+X--- 132,141 ----
+X  			(void) adjattrib(rn2(A_MAX), 1, FALSE);
+X  			break;
+X  		    case 3:
+X! 			pline("A%s electric shock shoots through your body!",
+X  			      (Shock_resistance) ? "" : " massive");
+X! 			losehp(Shock_resistance ? rnd(6) : rnd(30),
+X! 			       "electric chair", KILLED_BY_AN);
+X  			exercise(A_CON, FALSE);
+X  			break;
+X  		    case 4:
+X***************
+X*** 159,165 ****
+X  			{
+X  			register int cnt = rnd(10);
+X  
+X! 			You("hear a voice echo:");
+X  			verbalize("Thy audience hath been summoned, %s!",
+X  				  flags.female ? "Dame" : "Sire");
+X  			while(cnt--)
+X--- 160,166 ----
+X  			{
+X  			register int cnt = rnd(10);
+X  
+X! 			pline("A voice echoes:");
+X  			verbalize("Thy audience hath been summoned, %s!",
+X  				  flags.female ? "Dame" : "Sire");
+X  			while(cnt--)
+X***************
+X*** 167,179 ****
+X  			break;
+X  			}
+X  		    case 8:
+X! 			You("hear a voice echo:");
+X  			verbalize("By thy Imperious order, %s...",
+X  				  flags.female ? "Dame" : "Sire");
+X  			do_genocide(1);
+X  			break;
+X  		    case 9:
+X! 			You("hear a voice echo:");
+X  	verbalize("A curse upon thee for sitting upon this most holy throne!");
+X  			if (Luck > 0)  {
+X  			    make_blinded(Blinded + rn1(100,250),TRUE);
+X--- 168,180 ----
+X  			break;
+X  			}
+X  		    case 8:
+X! 			pline("A voice echoes:");
+X  			verbalize("By thy Imperious order, %s...",
+X  				  flags.female ? "Dame" : "Sire");
+X  			do_genocide(1);
+X  			break;
+X  		    case 9:
+X! 			pline("A voice echoes:");
+X  	verbalize("A curse upon thee for sitting upon this most holy throne!");
+X  			if (Luck > 0)  {
+X  			    make_blinded(Blinded + rn1(100,250),TRUE);
+X***************
+X*** 191,197 ****
+X  					do_mapping();
+X  				}
+X  			} else  {
+X! 				Your("vision clarifies.");
+X  				HSee_invisible |= FROMOUTSIDE;
+X  				newsym(u.ux, u.uy);
+X  			}
+X--- 192,198 ----
+X  					do_mapping();
+X  				}
+X  			} else  {
+X! 				Your("vision becomes clear.");
+X  				HSee_invisible |= FROMOUTSIDE;
+X  				newsym(u.ux, u.uy);
+X  			}
+X***************
+X*** 207,213 ****
+X  			}
+X  			break;
+X  		    case 12:
+X! 			You("are granted a gift of insight!");
+X  			if (invent) {
+X  			    int ret, cval = rn2(5); /* agrees w/seffects() */
+X  			    do {
+X--- 208,214 ----
+X  			}
+X  			break;
+X  		    case 12:
+X! 			You("are granted an insight!");
+X  			if (invent) {
+X  			    int ret, cval = rn2(5); /* agrees w/seffects() */
+X  			    do {
+X***************
+X*** 241,247 ****
+X  		}
+X  
+X  		if (u.uhunger < (int)objects[EGG].oc_nutrition) {
+X! 			You("are too weak to lay an egg.");
+X  			return 0;
+X  		}
+X  
+X--- 242,248 ----
+X  		}
+X  
+X  		if (u.uhunger < (int)objects[EGG].oc_nutrition) {
+X! 			You("don't have enough energy to lay an egg.");
+X  			return 0;
+X  		}
+X  
+X*** /tmp/da08622	Thu Feb 25 10:25:27 1993
+X--- src/spell.c	Fri Feb 12 10:26:53 1993
+X***************
+X*** 4,11 ****
+X  
+X  #include "hack.h"
+X  
+X! static schar NEARDATA delay;		/* moves left for this spell */
+X! static struct obj NEARDATA *book;	/* last/current book being xscribed */
+X  
+X  #define spelluses(spell)	spl_book[spell-1].sp_uses
+X  #define decrnuses(spell)	spl_book[spell-1].sp_uses--
+X--- 4,11 ----
+X  
+X  #include "hack.h"
+X  
+X! static NEARDATA schar delay;		/* moves left for this spell */
+X! static NEARDATA struct obj *book;	/* last/current book being xscribed */
+X  
+X  #define spelluses(spell)	spl_book[spell-1].sp_uses
+X  #define decrnuses(spell)	spl_book[spell-1].sp_uses--
+X***************
+X*** 92,97 ****
+X--- 92,99 ----
+X  deadbook(book2)
+X  struct obj *book2;
+X  {
+X+     You("turn the pages of the Book of the Dead....");
+X+     makeknown(SPE_BOOK_OF_THE_DEAD);
+X      if(invocation_pos(u.ux, u.uy) && !On_stairs(u.ux, u.uy)) {
+X  	register struct obj *otmp;
+X  	register boolean arti1_primed = FALSE, arti2_primed = FALSE,
+X*** /tmp/da08630	Thu Feb 25 10:25:30 1993
+X--- src/steal.c	Thu Feb 11 11:29:21 1993
+X***************
+X*** 242,248 ****
+X  	(void) snuff_candle(otmp);
+X  	mpickobj(mtmp,otmp);
+X  	if (otmp->otyp == CORPSE && otmp->corpsenm == PM_COCKATRICE
+X! 	    && !resists_ston(mtmp->data)) {
+X  	    pline("%s turns to stone.", Monnam(mtmp));
+X  	    stoned = TRUE;
+X  	    xkilled(mtmp, 0);
+X--- 242,252 ----
+X  	(void) snuff_candle(otmp);
+X  	mpickobj(mtmp,otmp);
+X  	if (otmp->otyp == CORPSE && otmp->corpsenm == PM_COCKATRICE
+X! 	    && !resists_ston(mtmp->data)
+X! #ifdef MUSE
+X! 	    && !(mtmp->misc_worn_check & W_ARMG)
+X! #endif
+X! 		) {
+X  	    pline("%s turns to stone.", Monnam(mtmp));
+X  	    stoned = TRUE;
+X  	    xkilled(mtmp, 0);
+X***************
+X*** 271,281 ****
+X  register struct monst *mtmp;
+X  {
+X  	register struct obj *otmp;
+X  
+X  	for(otmp = invent; otmp; otmp = otmp->nobj) {
+X! 	    if(otmp->otyp == AMULET_OF_YENDOR ||
+X! 	       (otmp->otyp == FAKE_AMULET_OF_YENDOR && !mtmp->iswiz)) {
+X  		/* might be an imitation one */
+X  		setnotworn(otmp);
+X  		freeinv(otmp);
+X  		mpickobj(mtmp,otmp);
+X--- 275,307 ----
+X  register struct monst *mtmp;
+X  {
+X  	register struct obj *otmp;
+X+ 	register int	real, fake;
+X  
+X+ 	/* select the artifact to steal */
+X+         if(u.uhave.amulet) {
+X+ 		real = AMULET_OF_YENDOR ;
+X+ 		fake = FAKE_AMULET_OF_YENDOR ;
+X+ #ifdef MULDGN
+X+ 	} else if(u.uhave.questart) {
+X+ 	    for(otmp = invent; otmp; otmp = otmp->nobj)
+X+ 	        if(is_quest_artifact(otmp)) goto snatch_it;
+X+ #endif
+X+ 	} else if(u.uhave.bell) {
+X+ 		real = BELL_OF_OPENING;
+X+ 		fake = BELL;
+X+ 	} else if(u.uhave.book) {
+X+ 		real = SPE_BOOK_OF_THE_DEAD;
+X+ 		fake = 0;
+X+ 	} else if(u.uhave.menorah) {
+X+ 		real = CANDELABRUM_OF_INVOCATION;
+X+ 		fake = 0;
+X+ 	} else return;	/* you have nothing of special interest */
+X+ 
+X+ /*	If we get here, real and fake have been set up. */
+X  	for(otmp = invent; otmp; otmp = otmp->nobj) {
+X! 	    if(otmp->otyp == real || (otmp->otyp == fake && !mtmp->iswiz)) {
+X  		/* might be an imitation one */
+X+ snatch_it:
+X  		setnotworn(otmp);
+X  		freeinv(otmp);
+X  		mpickobj(mtmp,otmp);
+X
+END_OF_FILE
+if test 54919 -ne `wc -c <'patches01h'`; then
+    echo shar: \"'patches01h'\" unpacked with wrong size!
+fi
+# end of 'patches01h'
+if test -f 'sys/share/sounds/README' -a "${1}" != "-c" ; then 
+  echo shar: Renaming existing file \"'sys/share/sounds/README'\" to \"'sys/share/sounds/README.orig'\"
+  mv -f 'sys/share/sounds/README' 'sys/share/sounds/README.orig'
+fi
+echo shar: Extracting \"'sys/share/sounds/README'\" \(1408 characters\)
+sed "s/^X//" >'sys/share/sounds/README' <<'END_OF_FILE'
+XREADME for the AIFF files:
+X
+XThese files are sound files for the instruments in NetHack.
+XThere are 12 sounds, one for each distinct instrument.
+XThe sounds are in 8-bit 22kHz AIFF format, which should be
+Xreadable by a broad range of platforms. Since the sounds
+Xcame from Rolands S-750 sample library (most of them) there
+Xshould be no copyright on them when we treat them like we
+Xdo here (as instruments) - indeed, the sample library I
+Xgot from Roland didn't even bear a (c) symbol.
+X
+XSome of the sounds are very adequate (Drum of Earthquake,
+XWooden Flute, Magic Harp) while some are less true to the
+Xoriginal name (how does a Frost Horn sound?) Actually, I
+Xdon't know what a Bugle is (Bugle horn?) so I took a trumpet
+Xsound for that. Correct me if I'm wrong.
+X
+XWhat does this have to do with the main code? Well, nothing
+Xso far. There are some places that are #ifdef MAC and calls
+Xmac_speaker; that function takes an object and a tune (in
+Xcapital letters A-G) and plays the tune with the given
+Xinstrument. When playing a specific tune, that tune is of
+Xcourse used. For "improvise," I use middle "C."
+X
+XIdeally, we should do something equal with sound that we
+Xhave with displays, so we can use one common set of calls
+Xin the main code, and have ports do whatever seems appropriate
+Xfor the available hardware.
+X
+XAny comment on the sounds or their use is welcome:
+X
+X						h+@nada.kth.se
+X						Jon W{tte
+X						Mac Team
+END_OF_FILE
+if test 1408 -ne `wc -c <'sys/share/sounds/README'`; then
+    echo shar: \"'sys/share/sounds/README'\" unpacked with wrong size!
+fi
+# end of 'sys/share/sounds/README'
+echo shar: End of archive 7 \(of 31\).
+cp /dev/null ark7isdone
+MISSING=""
+for I in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 ; do
+    if test ! -f ark${I}isdone ; then
+	MISSING="${MISSING} ${I}"
+    fi
+done
+if test "${MISSING}" = "" ; then
+    echo You have unpacked all 31 archives.
+    echo "Now execute 'patchit.sh'"
+    rm -f ark[1-9]isdone ark[1-9][0-9]isdone
+else
+    echo You still need to unpack the following archives:
+    echo "        " ${MISSING}
+fi
+##  End of shell archive.
+exit 0

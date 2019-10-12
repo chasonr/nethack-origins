@@ -1,0 +1,1632 @@
+Subject:  v17i058:  nethack31 - display oriented dungeons & dragons (Ver. 3.1), Patch1q/31
+Newsgroups: comp.sources.games
+Approved: billr@saab.CNA.TEK.COM
+
+Submitted-by: izchak@linc.cis.upenn.edu (Izchak Miller)
+Posting-number: Volume 17, Issue 58
+Archive-name: nethack31/Patch1q
+Patch-To: nethack31: Volume 16, Issue 1-116
+Environment: Amiga, Atari, Mac, MS-DOS, Windows-NT, OS2, Unix, VMS, X11
+
+
+
+#! /bin/sh
+# This is a shell archive.  Remove anything before this line, then unpack
+# it by saving it into a file and typing "sh file".  To overwrite existing
+# files, type "sh file -c".  You can also feed this as standard input via
+# unshar, or by typing "sh <file", e.g..  If this archive is complete, you
+# will see the following message at the end:
+#		"End of archive 17 (of 31)."
+# Contents:  patches01l
+# Wrapped by billr@saab on Fri Mar  5 10:50:46 1993
+PATH=/bin:/usr/bin:/usr/ucb ; export PATH
+if test -f 'patches01l' -a "${1}" != "-c" ; then 
+  echo shar: Renaming existing file \"'patches01l'\" to \"'patches01l.orig'\"
+  mv -f 'patches01l' 'patches01l.orig'
+fi
+echo shar: Extracting \"'patches01l'\" \(52174 characters\)
+sed "s/^X//" >'patches01l' <<'END_OF_FILE'
+X*** /tmp/da07141	Thu Feb 25 10:18:25 1993
+X--- dat/Healer.des	Mon Feb  8 13:58:20 1993
+X***************
+X*** 1,6 ****
+X! #	SCCS Id: @(#)Healer.des	3.1	93/01/23
+X  #	Copyright (c) 1989 by Jean-Christophe Collet
+X! #	Copyright (c) 1991 by M. Stephenson
+X  # NetHack may be freely redistributed.  See license for details.
+X  #
+X  #	The "start" level for the quest.
+X--- 1,6 ----
+X! #	SCCS Id: @(#)Healer.des	3.1	93/02/06
+X  #	Copyright (c) 1989 by Jean-Christophe Collet
+X! #	Copyright (c) 1991, 1993 by M. Stephenson, P. Winner
+X  # NetHack may be freely redistributed.  See license for details.
+X  #
+X  #	The "start" level for the quest.
+X***************
+X*** 21,27 ****
+X  PPPP........PPPPP.........-----------------------........PP...PPPPPPP.....PP
+X  PPP............PPPPP....--|.|......S..........S.|--.....PPPP.PPPPPPP.......P
+X  PPPP..........PPPPP.....|.S.|......-----------|S|.|......PPPPPP.PPP.......PP
+X! PPPPPP......PPPPPP......|.|.|......|...|......|.|.|.....PPPPPP...PP.......PP
+X  PPPPPPPPPPPPPPPPPPP.....+.|.|......S.\.S......|.|.+......PPPPPP.PPPP.......P
+X  PPP...PPPPP...PPPP......|.|.|......|...|......|.|.|.......PPPPPPPPPPP.....PP
+X  PP.....PPP.....PPP......|.|S|-----------......|.S.|......PPPPPPPPPPPPPPPPPPP
+X--- 21,27 ----
+X  PPPP........PPPPP.........-----------------------........PP...PPPPPPP.....PP
+X  PPP............PPPPP....--|.|......S..........S.|--.....PPPP.PPPPPPP.......P
+X  PPPP..........PPPPP.....|.S.|......-----------|S|.|......PPPPPP.PPP.......PP
+X! PPPPPP......PPPPPP......|.|.|...\..|...|......|.|.|.....PPPPPP...PP.......PP
+X  PPPPPPPPPPPPPPPPPPP.....+.|.|......S.\.S......|.|.+......PPPPPP.PPPP.......P
+X  PPP...PPPPP...PPPP......|.|.|......|...|......|.|.|.......PPPPPPPPPPP.....PP
+X  PP.....PPP.....PPP......|.|S|-----------......|.S.|......PPPPPPPPPPPPPPPPPPP
+X***************
+X*** 34,40 ****
+X  PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+X  ENDMAP
+X  # Random Monsters
+X! RANDOM_MONSTERS: 'r', ';', 'D'
+X  # Dungeon Description
+X  REGION:(00,00,75,19),lit,"ordinary"
+X  # Stairs
+X--- 34,40 ----
+X  PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+X  ENDMAP
+X  # Random Monsters
+X! RANDOM_MONSTERS: 'r', ';', 'D', 'S'
+X  # Dungeon Description
+X  REGION:(00,00,75,19),lit,"ordinary"
+X  # Stairs
+X***************
+X*** 41,46 ****
+X--- 41,48 ----
+X  STAIR:(37,9),down
+X  # Portal arrival point
+X  BRANCH:(04,12,04,12),(0,0,0,0)
+X+ # altar for the Temple
+X+ ALTAR:(32,09),neutral,altar
+X  # Doors
+X  DOOR:locked,(24,10)
+X  DOOR:closed,(26,08)
+X***************
+X*** 59,72 ****
+X  # The treasure of Hippocrates
+X  OBJECT:'(',"chest",(37,10)
+X  # intern guards for the audience chamber
+X! MONSTER:'@',"intern",(29,08)
+X! MONSTER:'@',"intern",(29,09)
+X! MONSTER:'@',"intern",(29,10)
+X! MONSTER:'@',"intern",(29,11)
+X! MONSTER:'@',"intern",(40,09)
+X! MONSTER:'@',"intern",(40,10)
+X! MONSTER:'@',"intern",(40,11)
+X! MONSTER:'@',"intern",(40,13)
+X  # Non diggable walls
+X  NON_DIGGABLE:(00,00,75,19)
+X  # Random traps
+X--- 61,74 ----
+X  # The treasure of Hippocrates
+X  OBJECT:'(',"chest",(37,10)
+X  # intern guards for the audience chamber
+X! MONSTER:'@',"attendant",(29,08)
+X! MONSTER:'@',"attendant",(29,09)
+X! MONSTER:'@',"attendant",(29,10)
+X! MONSTER:'@',"attendant",(29,11)
+X! MONSTER:'@',"attendant",(40,09)
+X! MONSTER:'@',"attendant",(40,10)
+X! MONSTER:'@',"attendant",(40,11)
+X! MONSTER:'@',"attendant",(40,13)
+X  # Non diggable walls
+X  NON_DIGGABLE:(00,00,75,19)
+X  # Random traps
+X***************
+X*** 94,100 ****
+X  MONSTER: 'D',random,random,hostile
+X  MONSTER: 'D',random,random,hostile
+X  MONSTER: 'D',random,random,hostile
+X!  
+X  #
+X  #	The "locate" level for the quest.
+X  #
+X--- 96,106 ----
+X  MONSTER: 'D',random,random,hostile
+X  MONSTER: 'D',random,random,hostile
+X  MONSTER: 'D',random,random,hostile
+X! MONSTER: 'S',random,random,hostile
+X! MONSTER: 'S',random,random,hostile
+X! MONSTER: 'S',random,random,hostile
+X! MONSTER: 'S',random,random,hostile
+X! MONSTER: 'S',random,random,hostile
+X  #
+X  #	The "locate" level for the quest.
+X  #
+X***************
+X*** 166,180 ****
+X  MONSTER:'r',"rabid rat",random
+X  MONSTER:'r',"rabid rat",random
+X  MONSTER:'r',"rabid rat",random
+X- MONSTER:'r',"rabid rat",random
+X- MONSTER:'r',"rabid rat",random
+X- MONSTER:'r',"rabid rat",random
+X- MONSTER:'r',"rabid rat",random
+X- MONSTER:'r',"rabid rat",random
+X- MONSTER:'r',"rabid rat",random
+X- MONSTER:'r',"rabid rat",random
+X- MONSTER:'r',"rabid rat",random
+X- MONSTER:'r',"rabid rat",random
+X  MONSTER:'r',random,random,hostile
+X  MONSTER:';',"giant eel",random
+X  MONSTER:';',"giant eel",random
+X--- 172,177 ----
+X***************
+X*** 191,196 ****
+X--- 188,202 ----
+X  MONSTER: 'D',random,random,hostile
+X  MONSTER: 'D',random,random,hostile
+X  MONSTER: 'D',random,random,hostile
+X+ MONSTER: 'S',random,random,hostile
+X+ MONSTER: 'S',random,random,hostile
+X+ MONSTER: 'S',random,random,hostile
+X+ MONSTER: 'S',random,random,hostile
+X+ MONSTER: 'S',random,random,hostile
+X+ MONSTER: 'S',random,random,hostile
+X+ MONSTER: 'S',random,random,hostile
+X+ MONSTER: 'S',random,random,hostile
+X+ MONSTER: 'S',random,random,hostile
+X  
+X  #
+X  #	The "goal" level for the quest.
+X***************
+X*** 219,225 ****
+X  PPP..................................PPP.
+X  ENDMAP
+X  # Random Monsters
+X! RANDOM_MONSTERS: 'r', ';', 'D'
+X  # Dungeon Description
+X  REGION:(00,00,40,11),lit,"ordinary"
+X  # Stairs
+X--- 225,231 ----
+X  PPP..................................PPP.
+X  ENDMAP
+X  # Random Monsters
+X! RANDOM_MONSTERS: 'r', ';', 'D', 'S'
+X  # Dungeon Description
+X  REGION:(00,00,40,11),lit,"ordinary"
+X  # Stairs
+X***************
+X*** 255,273 ****
+X  MONSTER:'r',"rabid rat",random
+X  MONSTER:'r',"rabid rat",random
+X  MONSTER:'r',"rabid rat",random
+X- MONSTER:'r',"rabid rat",random
+X- MONSTER:'r',"rabid rat",random
+X- MONSTER:'r',"rabid rat",random
+X- MONSTER:'r',"rabid rat",random
+X- MONSTER:'r',"rabid rat",random
+X- MONSTER:'r',"rabid rat",random
+X- MONSTER:'r',"rabid rat",random
+X- MONSTER:'r',"rabid rat",random
+X- MONSTER:'r',"rabid rat",random
+X- MONSTER:'r',"rabid rat",random
+X- MONSTER:'r',"rabid rat",random
+X- MONSTER:'r',"rabid rat",random
+X- MONSTER:'r',"rabid rat",random
+X  MONSTER:'r',random,random,hostile
+X  MONSTER:'r',random,random,hostile
+X  MONSTER:';',"giant eel",random
+X--- 261,266 ----
+X***************
+X*** 284,289 ****
+X--- 277,292 ----
+X  MONSTER: 'D',random,random,hostile
+X  MONSTER: 'D',random,random,hostile
+X  MONSTER: 'D',random,random,hostile
+X+ MONSTER: 'S',random,random,hostile
+X+ MONSTER: 'S',random,random,hostile
+X+ MONSTER: 'S',random,random,hostile
+X+ MONSTER: 'S',random,random,hostile
+X+ MONSTER: 'S',random,random,hostile
+X+ MONSTER: 'S',random,random,hostile
+X+ MONSTER: 'S',random,random,hostile
+X+ MONSTER: 'S',random,random,hostile
+X+ MONSTER: 'S',random,random,hostile
+X+ MONSTER: 'S',random,random,hostile
+X  
+X  #
+X  #	The "fill" levels for the quest.
+X***************
+X*** 298,304 ****
+X  INIT_MAP: '.' , 'P' , false , true , lit , false
+X  NOMAP
+X  # Random Monsters
+X! RANDOM_MONSTERS: 'r', ';', 'D'
+X  #
+X  STAIR: random, up
+X  STAIR: random, down
+X--- 301,307 ----
+X  INIT_MAP: '.' , 'P' , false , true , lit , false
+X  NOMAP
+X  # Random Monsters
+X! RANDOM_MONSTERS: 'r', ';', 'D', 'S'
+X  #
+X  STAIR: random, up
+X  STAIR: random, down
+X***************
+X*** 313,321 ****
+X  OBJECT: random, random, random
+X  #
+X  MONSTER: 'r', "rabid rat", random
+X- MONSTER: 'r', "rabid rat", random
+X- MONSTER: 'r', "rabid rat", random
+X- MONSTER: 'r', "rabid rat", random
+X  MONSTER: 'r', random, random,hostile
+X  MONSTER: 'r', random, random,hostile
+X  MONSTER: ';', "giant eel", random
+X--- 316,321 ----
+X***************
+X*** 325,330 ****
+X--- 325,333 ----
+X  MONSTER: 'D',random,random,hostile
+X  MONSTER: 'D',random,random,hostile
+X  MONSTER: 'D',random,random,hostile
+X+ MONSTER: 'S',random,random,hostile
+X+ MONSTER: 'S',random,random,hostile
+X+ MONSTER: 'S',random,random,hostile
+X  #
+X  TRAP: random, random
+X  TRAP: random, random
+X***************
+X*** 335,341 ****
+X  INIT_MAP: '.' , 'P' , false , true , lit , false
+X  NOMAP
+X  # Random Monsters
+X! RANDOM_MONSTERS: 'r', ';', 'D'
+X  #
+X  STAIR: random, up
+X  STAIR: random, down
+X--- 338,344 ----
+X  INIT_MAP: '.' , 'P' , false , true , lit , false
+X  NOMAP
+X  # Random Monsters
+X! RANDOM_MONSTERS: 'r', ';', 'D', 'S'
+X  #
+X  STAIR: random, up
+X  STAIR: random, down
+X***************
+X*** 354,362 ****
+X  #
+X  MONSTER: 'r', "rabid rat", random
+X  MONSTER: 'r', "rabid rat", random
+X- MONSTER: 'r', "rabid rat", random
+X- MONSTER: 'r', "rabid rat", random
+X- MONSTER: 'r', "rabid rat", random
+X  MONSTER: 'r', random, random,hostile
+X  MONSTER: 'r', random, random,hostile
+X  MONSTER: ';', "giant eel", random
+X--- 357,362 ----
+X***************
+X*** 370,375 ****
+X--- 370,378 ----
+X  MONSTER: 'D',random,random,hostile
+X  MONSTER: 'D',random,random,hostile
+X  MONSTER: 'D',random,random,hostile
+X+ MONSTER: 'S',random,random,hostile
+X+ MONSTER: 'S',random,random,hostile
+X+ MONSTER: 'S',random,random,hostile
+X  #
+X  TRAP: random, random
+X  TRAP: random, random
+X*** /tmp/da07173	Thu Feb 25 10:18:33 1993
+X--- dat/Samurai.des	Fri Feb  5 14:02:42 1993
+X***************
+X*** 78,84 ****
+X  # Monsters on siege duty.
+X  MONSTER: '@',"ronin",(64,00),hostile
+X  MONSTER: 'd',"wolf",(65,01)
+X! MONSTER: '@',"ronin",(66,02),hostile
+X  MONSTER: '@',"ronin",(69,05),hostile
+X  MONSTER: '@',"ronin",(69,06),hostile
+X  MONSTER: 'd',"wolf",(69,07)
+X--- 78,84 ----
+X  # Monsters on siege duty.
+X  MONSTER: '@',"ronin",(64,00),hostile
+X  MONSTER: 'd',"wolf",(65,01)
+X! MONSTER: '@',"ronin",(67,02),hostile
+X  MONSTER: '@',"ronin",(69,05),hostile
+X  MONSTER: '@',"ronin",(69,06),hostile
+X  MONSTER: 'd',"wolf",(69,07)
+X*** /tmp/da07221	Thu Feb 25 10:18:46 1993
+X--- dat/cmdhelp	Sat Jan 30 14:27:20 1993
+X***************
+X*** 83,88 ****
+X--- 83,90 ----
+X  .       Rest one move while doing nothing
+X          Rest one move while doing nothing (if rest_on_space option is on)
+X  :       Look at what is on the floor
+X+ ;       Show what type of thing a map symbol on the level corresponds to
+X+ ,       Pick up things at the current location
+X  @       Toggle the pickup option on/off
+X  )       Show the weapon currently wielded
+X  [       Show the armor currently worn
+X*** /tmp/da07229	Thu Feb 25 10:18:47 1993
+X--- dat/data.base	Tue Feb 23 15:12:05 1993
+X***************
+X*** 1,4 ****
+X! #	NetHack data file - version 3.1a
+X  #	The demons are all listed first because makedefs used to have to give
+X  #	them special handling for #ifndef INFERNO; it doesn't matter any more.
+X  balrog
+X--- 1,4 ----
+X! #	NetHack data file - version 3.1
+X  #	The demons are all listed first because makedefs used to have to give
+X  #	them special handling for #ifndef INFERNO; it doesn't matter any more.
+X  balrog
+X***************
+X*** 426,432 ****
+X  sasquatch
+X  		An ape-like humanoid  native to densely forested  mountains,
+X  		the sasquatch is  also known as "bigfoot".   Normally benign
+X! 		are rarely seen,  this creature is reputed to be  a relative
+X  		of the ferocious yeti.
+X  snickersnee
+X  		Ah, never shall I forget the cry, 
+X--- 426,432 ----
+X  sasquatch
+X  		An ape-like humanoid  native to densely forested  mountains,
+X  		the sasquatch is  also known as "bigfoot".   Normally benign
+X! 		and rarely seen,  this creature is reputed to be  a relative
+X  		of the ferocious yeti.
+X  snickersnee
+X  		Ah, never shall I forget the cry, 
+X***************
+X*** 503,509 ****
+X  		than any normal man's, he grew weary of lesser mortals;  and
+X  		so, spurning all human company,  he forsook the dwellings of
+X  		men  and  went to live in the depths of the  Earth.  He took
+X! 		with him the mystical artifact, the Amulet of Yendor,  which
+X  		is said to hold great power indeed. Many have sought to find
+X  		the  wizard and  his treasure,  but none have found  him and
+X  		lived to tell the tale.  Woe be to the incautious adventurer
+X--- 503,509 ----
+X  		than any normal man's, he grew weary of lesser mortals;  and
+X  		so, spurning all human company,  he forsook the dwellings of
+X  		men  and  went to live in the depths of the  Earth.  He took
+X! 		with him the dreadful artifact, the Book of the Dead,  which
+X  		is said to hold great power indeed. Many have sought to find
+X  		the  wizard and  his treasure,  but none have found  him and
+X  		lived to tell the tale.  Woe be to the incautious adventurer
+X*** /tmp/da07237	Thu Feb 25 10:18:50 1993
+X--- dat/dungeon.def	Tue Feb 16 16:21:41 1993
+X***************
+X*** 106,113 ****
+X  DESCRIPTION:	mazelike
+X  ALIGNMENT:	unaligned
+X  ENTRY:		-1
+X! LEVEL:		"astral" "Z" @ (1, 0)
+X! LEVEL:		"water"  "W" @ (2, 0)
+X! LEVEL:		"fire"   "F" @ (3, 0)
+X! LEVEL:		"air"    "A" @ (4, 0)
+X! LEVEL:		"earth"  "E" @ (5, 0)
+X--- 106,113 ----
+X  DESCRIPTION:	mazelike
+X  ALIGNMENT:	unaligned
+X  ENTRY:		-1
+X! LEVEL:		"astral" "none" @ (1, 0)
+X! LEVEL:		"water"  "none" @ (2, 0)
+X! LEVEL:		"fire"   "none" @ (3, 0)
+X! LEVEL:		"air"    "none" @ (4, 0)
+X! LEVEL:		"earth"  "none" @ (5, 0)
+X*** /tmp/da07245	Thu Feb 25 10:18:52 1993
+X--- dat/endgame.des	Tue Feb 16 16:10:41 1993
+X***************
+X*** 454,460 ****
+X  
+X  
+X  MAZE:"astral",' '
+X! FLAGS: noteleport,hardfloor,shortsighted
+X  MESSAGE: "You arrive on the Astral Plane!"
+X  MESSAGE: "Here the High Temples of the aligned gods are located."
+X  MESSAGE: "You sense alarm, hostility, and excitement in the air!"
+X--- 454,460 ----
+X  
+X  
+X  MAZE:"astral",' '
+X! FLAGS: noteleport,hardfloor,nommap,shortsighted
+X  MESSAGE: "You arrive on the Astral Plane!"
+X  MESSAGE: "Here the High Temples of the aligned gods are located."
+X  MESSAGE: "You sense alarm, hostility, and excitement in the air!"
+X*** /tmp/da07253	Thu Feb 25 10:18:54 1993
+X--- dat/gehennom.des	Tue Feb 16 16:10:44 1993
+X***************
+X*** 5,11 ****
+X  #
+X  
+X  MAZE: "valley", ' '
+X! FLAGS: hardfloor
+X  GEOMETRY:center,center
+X  MAP
+X  ----------------------------------------------------------------------------
+X--- 5,11 ----
+X  #
+X  
+X  MAZE: "valley", ' '
+X! FLAGS: noteleport,hardfloor,nommap
+X  GEOMETRY:center,center
+X  MAP
+X  ----------------------------------------------------------------------------
+X***************
+X*** 256,262 ****
+X  .|....|....|....|--...-+-------|.............
+X  .|....|....|....|..............+.............
+X  .|.........|....|..............|....|........
+X! .--+-...-+----+--....-------...--------.+----
+X  .....................|.....|.................
+X  .....................|.....|.................
+X  .--+----....-+---....|.....|...----------+---
+X--- 256,262 ----
+X  .|....|....|....|--...-+-------|.............
+X  .|....|....|....|..............+.............
+X  .|.........|....|..............|....|........
+X! .--+-...-+----+--....-------...--------.-+---
+X  .....................|.....|.................
+X  .....................|.....|.................
+X  .--+----....-+---....|.....|...----------+---
+X***************
+X*** 307,313 ****
+X  DOOR:nodoor,(03,05)
+X  DOOR:closed,(09,05)
+X  DOOR:closed,(14,05)
+X! DOOR:closed,(40,05)
+X  DOOR:open,(03,08)
+X  DOOR:nodoor,(13,08)
+X  DOOR:open,(41,08)
+X--- 307,313 ----
+X  DOOR:nodoor,(03,05)
+X  DOOR:closed,(09,05)
+X  DOOR:closed,(14,05)
+X! DOOR:closed,(41,05)
+X  DOOR:open,(03,08)
+X  DOOR:nodoor,(13,08)
+X  DOOR:open,(41,08)
+X***************
+X*** 528,534 ****
+X  # The Sanctum Level
+X  #
+X  MAZE:"sanctum", ' '
+X! FLAGS: noteleport,hardfloor
+X  GEOMETRY:center,center
+X  MAP
+X  ----------------------------------------------------------------------------
+X--- 528,534 ----
+X  # The Sanctum Level
+X  #
+X  MAZE:"sanctum", ' '
+X! FLAGS: noteleport,hardfloor,nommap
+X  GEOMETRY:center,center
+X  MAP
+X  ----------------------------------------------------------------------------
+X*** /tmp/da07261	Thu Feb 25 10:18:56 1993
+X--- dat/help	Thu Feb 18 10:54:34 1993
+X***************
+X*** 44,52 ****
+X          `        A boulder or statue.
+X          A to Z, a to z, and several others:  Monsters.
+X  
+X!                  You can find out what a character represents by typing
+X!                  '/' followed by the character, as in "/A", which will
+X!                  tell you that 'A' is an Ape.
+X  
+X  
+X  y k u   7 8 9   Move commands:
+X--- 44,53 ----
+X          `        A boulder or statue.
+X          A to Z, a to z, and several others:  Monsters.
+X  
+X!                  You can find out what a symbol represents by typing
+X!                  '/' and following the directions to move the cursor
+X!                  to the symbol in question.  For instance, a 'd' may
+X!                  turn out to be a dog.
+X  
+X  
+X  y k u   7 8 9   Move commands:
+X***************
+X*** 63,70 ****
+X  Commands:
+X          NetHack knows the following commands:
+X          ?       Help menu.
+X!         /       (followed by any symbol):  tell what this symbol represents.
+X!                 You may choose to specify a location or give a symbol argument.
+X          &       Tell what a command does.
+X          <       Go up a staircase (if you are standing on it).
+X          >       Go down a staircase (if you are standing on it).
+X--- 64,71 ----
+X  Commands:
+X          NetHack knows the following commands:
+X          ?       Help menu.
+X!         /       Tell what a symbol represents.  You may choose to specify
+X!                 a location or give a symbol argument.
+X          &       Tell what a command does.
+X          <       Go up a staircase (if you are standing on it).
+X          >       Go down a staircase (if you are standing on it).
+X*** /tmp/da07269	Thu Feb 25 10:18:58 1993
+X--- dat/hh	Thu Feb 18 16:59:38 1993
+X***************
+X*** 68,74 ****
+X  :       look    look at what is here
+X  ;       farlook look at what is somewhere else by selecting a map symbol
+X  
+X! Keyboards that have a meta key can also use these extended commands:
+X  
+X  M-a     adjust  adjust inventory letters
+X  M-c     chat    talk to someone
+X--- 68,75 ----
+X  :       look    look at what is here
+X  ;       farlook look at what is somewhere else by selecting a map symbol
+X  
+X! Keyboards that have a meta key can also use these extended commands
+X! via the meta modifier instead of the # prefix:
+X  
+X  M-a     adjust  adjust inventory letters
+X  M-c     chat    talk to someone
+X***************
+X*** 88,94 ****
+X  M-v     version print compile time options for this version
+X  M-w     wipe    wipe off your face
+X  
+X! If the "number_pad" option is on, these additional commands are available:
+X  
+X  n               followed by number of times to repeat the next command
+X  j       jump    jump to another location
+X--- 89,95 ----
+X  M-v     version print compile time options for this version
+X  M-w     wipe    wipe off your face
+X  
+X! If the "number_pad" option is on, these additional variants are available:
+X  
+X  n               followed by number of times to repeat the next command
+X  j       jump    jump to another location
+X*** /tmp/da07309	Thu Feb 25 10:19:08 1993
+X--- dat/mines.des	Wed Feb 24 22:41:47 1993
+X***************
+X*** 1,4 ****
+X! #	SCCS Id: @(#)mines.des	3.1	91/06/24
+X  #	Copyright (c) 1989 by Jean-Christophe Collet
+X  #	Copyright (c) 1991 by M. Stephenson
+X  # NetHack may be freely redistributed.  See license for details.
+X--- 1,4 ----
+X! #	SCCS Id: @(#)mines.des	3.1	93/02/23
+X  #	Copyright (c) 1989 by Jean-Christophe Collet
+X  #	Copyright (c) 1991 by M. Stephenson
+X  # NetHack may be freely redistributed.  See license for details.
+X***************
+X*** 51,68 ****
+X  SUBROOM: "temple", lit, (15,9), (4,4), "town"
+X  DOOR: false, closed, north, random
+X  ALTAR:(02,02),align[0],shrine
+X- OBJECT: random,random,random
+X  MONSTER: 'G', "gnomish wizard", random
+X  MONSTER: 'G', "gnomish wizard", random
+X  
+X  SUBROOM: "ordinary", unlit, (19,2), (2,3), "town"
+X  DOOR: false, locked, west, random
+X- OBJECT: random,random,random
+X  MONSTER: 'G', "gnome", random
+X  
+X  SUBROOM: "ordinary", lit, (22,10), (2,3), "town"
+X  DOOR: false, locked, west, random
+X- OBJECT: random,random,random
+X  
+X  SUBROOM: "ordinary", lit, (26,2), (3,3), "town"
+X  DOOR: false, closed, south, random
+X--- 51,65 ----
+X***************
+X*** 73,94 ****
+X  
+X  ROOM: "ordinary" , random, random, random, random
+X  STAIR: random, up
+X- OBJECT: random,random,random
+X  
+X  ROOM: "ordinary" , random, random, random, random
+X  STAIR: random, down
+X- OBJECT: random, random, random
+X  TRAP: random, random
+X  MONSTER: 'G', "gnome", random
+X  MONSTER: 'G', "gnome", random
+X  
+X  ROOM: "ordinary" , random, random, random, random
+X- OBJECT: random, random, random
+X- OBJECT: random, random, random
+X  MONSTER: 'h', "dwarf", random
+X  
+X  ROOM: "ordinary" , random, random, random, random
+X- OBJECT: random, random, random
+X  TRAP: random, random
+X  MONSTER: 'G', "gnome", random
+X  
+X--- 70,86 ----
+X***************
+X*** 157,164 ****
+X  OBJECT:random,random,random
+X  OBJECT:random,random,random
+X  OBJECT:random,random,random
+X- OBJECT:random,random,random
+X- OBJECT:random,random,random
+X  # Random traps
+X  TRAP:random,random
+X  TRAP:random,random
+X--- 149,154 ----
+X***************
+X*** 206,229 ****
+X  OBJECT: '*', random, random
+X  OBJECT: '*', random, random
+X  OBJECT: '*', random, random
+X- OBJECT: '*', random, random
+X- OBJECT: '*', random, random
+X- OBJECT: '*', random, random
+X  OBJECT: '(', random, random
+X- OBJECT: '!', random, random
+X- OBJECT: '?', random, random
+X- OBJECT: random, random, random
+X- OBJECT: random, random, random
+X- OBJECT: random, random, random
+X- OBJECT: random, random, random
+X- OBJECT: random, random, random
+X- OBJECT: random, random, random
+X- OBJECT: random, random, random
+X- OBJECT: random, random, random
+X- OBJECT: random, random, random
+X- OBJECT: random, random, random
+X- OBJECT: random, random, random
+X- OBJECT: random, random, random
+X  OBJECT: random, random, random
+X  OBJECT: random, random, random
+X  OBJECT: random, random, random
+X--- 196,202 ----
+X*** /tmp/da07341	Thu Feb 25 10:19:16 1993
+X--- dat/quest.txt	Thu Feb 25 09:02:58 1993
+X***************
+X*** 107,119 ****
+X  %E
+X  %Cc A 00015
+X  %p!  I've heard that you've been using sloppy techniques.  Your
+X! results lately can hardly be called suitable for a %r!
+X  
+X  How could you have strayed from the %a path?  Go from here, and come
+X  back only when you have purified yourself.
+X  %E
+X  %Cc A 00016
+X! Grave times have befallen the college, for a %n has
+X  stolen %o.  Without it, the board of directors of
+X  the university will soon have no choice but to revoke our research grants.
+X  
+X--- 107,119 ----
+X  %E
+X  %Cc A 00015
+X  %p!  I've heard that you've been using sloppy techniques.  Your
+X! results lately can hardly be called suitable for %ra!
+X  
+X  How could you have strayed from the %a path?  Go from here, and come
+X  back only when you have purified yourself.
+X  %E
+X  %Cc A 00016
+X! Grave times have befallen the college, for %na has
+X  stolen %o.  Without it, the board of directors of
+X  the university will soon have no choice but to revoke our research grants.
+X  
+X***************
+X*** 136,142 ****
+X  many traps.
+X  %E
+X  %Cp A 00022
+X! A %n may be vulnerable to attacks by magical cold.
+X  %E
+X  %Cp A 00023
+X  Call upon %d when you encounter the %n.
+X--- 136,142 ----
+X  many traps.
+X  %E
+X  %Cp A 00022
+X! %nA may be vulnerable to attacks by magical cold.
+X  %E
+X  %Cp A 00023
+X  Call upon %d when you encounter the %n.
+X***************
+X*** 145,151 ****
+X  You must destroy the %n.  It will pursue you otherwise.
+X  %E
+X  %Cp A 00025
+X! %o is a mighty talisman.  With it you
+X  can destroy the %n.
+X  %E
+X  %Cp A 00026
+X--- 145,151 ----
+X  You must destroy the %n.  It will pursue you otherwise.
+X  %E
+X  %Cp A 00025
+X! %oC is a mighty talisman.  With it you
+X  can destroy the %n.
+X  %E
+X  %Cp A 00026
+X***************
+X*** 322,328 ****
+X  %E
+X  %Cc B 00014
+X  %p, I fear that you are as yet too inexperienced to face
+X! %n.  Only a %R with the help of %d could ever hope to
+X  defeat him.
+X  %E
+X  %Cp B 00015
+X--- 322,328 ----
+X  %E
+X  %Cc B 00014
+X  %p, I fear that you are as yet too inexperienced to face
+X! %n.  Only %Ra with the help of %d could ever hope to
+X  defeat him.
+X  %E
+X  %Cp B 00015
+X***************
+X*** 349,355 ****
+X  
+X  If %n can bend %o to his will, he will become
+X  almost indestructible.  He will then be able to enslave the minds of
+X! men across the world.  You are the only hope.  The Gods smile upon you,
+X  and with %d behind you, you alone can defeat %n.
+X  
+X  You must go to %i.  From there, you can track down
+X--- 349,355 ----
+X  
+X  If %n can bend %o to his will, he will become
+X  almost indestructible.  He will then be able to enslave the minds of
+X! men across the world.  You are the only hope.  The gods smile upon you,
+X  and with %d behind you, you alone can defeat %n.
+X  
+X  You must go to %i.  From there, you can track down
+X***************
+X*** 417,423 ****
+X  You return yet again, %c!  Are you prepared for death now?
+X  %E
+X  %Cp B 00053
+X! I shall have %o back, you pitiful excuse for a %c.
+X  And your life as well.
+X  %E
+X  %Cp B 00060
+X--- 417,423 ----
+X  You return yet again, %c!  Are you prepared for death now?
+X  %E
+X  %Cp B 00053
+X! I shall have %o back, you pitiful excuse for %ca.
+X  And your life as well.
+X  %E
+X  %Cp B 00060
+X***************
+X*** 424,430 ****
+X  My pets will dine on your carcass tonight!
+X  %E
+X  %Cp B 00061
+X! You are a sorry excuse for a %r.
+X  %E
+X  %Cp B 00062
+X  Run while you can, %c.  My next spell will be your last.
+X--- 424,430 ----
+X  My pets will dine on your carcass tonight!
+X  %E
+X  %Cp B 00061
+X! You are a sorry excuse for %ra.
+X  %E
+X  %Cp B 00062
+X  Run while you can, %c.  My next spell will be your last.
+X***************
+X*** 565,571 ****
+X  Alas, %p, you are as yet too inexperienced to embark upon such
+X  a difficult quest as that I propose to give you.
+X  
+X! A %r could not possibly survive the rigors demanded to find
+X  %i, never mind to confront the %n herself.
+X  
+X  Adventure some more, and you will learn the skills you will require.
+X--- 565,571 ----
+X  Alas, %p, you are as yet too inexperienced to embark upon such
+X  a difficult quest as that I propose to give you.
+X  
+X! %rA could not possibly survive the rigors demanded to find
+X  %i, never mind to confront the %n herself.
+X  
+X  Adventure some more, and you will learn the skills you will require.
+X***************
+X*** 615,621 ****
+X  Concentrate on %o.
+X  %E
+X  %Cp C 00025
+X! %o is the only object that the %n truly fears.
+X  %E
+X  %Cp C 00026
+X  Do not be fooled by the %n's size.  She is fast, and it is
+X--- 615,621 ----
+X  Concentrate on %o.
+X  %E
+X  %Cp C 00025
+X! %oC is the only object that the %n truly fears.
+X  %E
+X  %Cp C 00026
+X  Do not be fooled by the %n's size.  She is fast, and it is
+X***************
+X*** 684,690 ****
+X  Your mentor, the %l has failed.  You are nothing to fear.
+X  %E
+X  %Cp C 00065
+X! You shall die here, %c.  A %r cannot hope to defeat me.
+X  %E
+X  %Cp C 00066
+X  You, a mere %r challenge the might of the %n?  Hah!
+X--- 684,690 ----
+X  Your mentor, the %l has failed.  You are nothing to fear.
+X  %E
+X  %Cp C 00065
+X! You shall die here, %c.  %rA cannot hope to defeat me.
+X  %E
+X  %Cp C 00066
+X  You, a mere %r challenge the might of the %n?  Hah!
+X***************
+X*** 789,795 ****
+X  %E
+X  %Cc E 00014
+X  %p, you are yet too inexperienced to withstand the demands of that
+X! which we need you to do.  A %R might just be able to do this thing.
+X  
+X  Return to us when you have learned more, my %S.
+X  %E
+X--- 789,795 ----
+X  %E
+X  %Cc E 00014
+X  %p, you are yet too inexperienced to withstand the demands of that
+X! which we need you to do.  %RA might just be able to do this thing.
+X  
+X  Return to us when you have learned more, my %S.
+X  %E
+X***************
+X*** 861,867 ****
+X  You descend into the outer regions of %i.  You can hear
+X  scuffling sounds in the corridors, and vague mumblings in the distance.
+X  
+X! You remember that a %g once told you that there were many secret
+X  passageways in this complex.
+X  %E
+X  %Cp E 00031
+X--- 861,867 ----
+X  You descend into the outer regions of %i.  You can hear
+X  scuffling sounds in the corridors, and vague mumblings in the distance.
+X  
+X! You remember that %ga once told you that there were many secret
+X  passageways in this complex.
+X  %E
+X  %Cp E 00031
+X***************
+X*** 911,920 ****
+X  %d has abandoned you, %c.  You are doomed.
+X  %E
+X  %Cp E 00066
+X! A %r?  %l sends a mere %r against me?  Hah!
+X  %E
+X  %Cp E 00067
+X! %l has failed, %c.  %o will never leave here.
+X  %E
+X  %Cp E 00068
+X  You really think you can defeat me, eh %c?  You are wrong!
+X--- 911,920 ----
+X  %d has abandoned you, %c.  You are doomed.
+X  %E
+X  %Cp E 00066
+X! %rA?  %l sends a mere %r against me?  Hah!
+X  %E
+X  %Cp E 00067
+X! %l has failed, %c.  %oC will never leave here.
+X  %E
+X  %Cp E 00068
+X  You really think you can defeat me, eh %c?  You are wrong!
+X***************
+X*** 972,979 ****
+X  of fresh funeral pyres tells you that something is amiss with the healing
+X  powers that used to practice here.
+X  
+X! No %gP are tending the materia medica gardens, and where are the
+X  common folk who used to come for the cures?
+X  %E
+X  %Cp H 00002
+X  After your last experience you expected to be here, but you certainly
+X--- 972,983 ----
+X  of fresh funeral pyres tells you that something is amiss with the healing
+X  powers that used to practice here.
+X  
+X! No rhizotomists are tending the materia medica gardens, and where are the
+X  common folk who used to come for the cures?
+X+ 
+X+ You know that you must quickly make your way to the collegium, and
+X+ %l's iatreion, and find out what has happened in your
+X+ absence.
+X  %E
+X  %Cp H 00002
+X  After your last experience you expected to be here, but you certainly
+X***************
+X*** 984,990 ****
+X  Again, you %x %H in the distance.
+X  
+X  The smell of death and disease permeates the air.  You do not have
+X! to be a %R to know that the %n is on the verge of victory.
+X  %E
+X  %Cp H 00005
+X  Did you read that new treatise on the therapeutic use of leeches?
+X--- 988,994 ----
+X  Again, you %x %H in the distance.
+X  
+X  The smell of death and disease permeates the air.  You do not have
+X! to be %Ra to know that the %n is on the verge of victory.
+X  %E
+X  %Cp H 00005
+X  Did you read that new treatise on the therapeutic use of leeches?
+X***************
+X*** 1036,1042 ****
+X  vetenary, and alchemy before I can send you on this quest with good
+X  conscience.
+X  
+X! Return when you wear a %R's caduceus.
+X  %E
+X  %Cc H 00015
+X  You have learned much of the remedies that benefit, but you must also
+X--- 1040,1046 ----
+X  vetenary, and alchemy before I can send you on this quest with good
+X  conscience.
+X  
+X! Return when you wear %Ra's caduceus.
+X  %E
+X  %Cc H 00015
+X  You have learned much of the remedies that benefit, but you must also
+X***************
+X*** 1078,1084 ****
+X  Bring with you antidotes for poisons.
+X  %E
+X  %Cp H 00024
+X! Remember this, %n can not use %o
+X  to harm you, it has only healing powers.
+X  %E
+X  %Cp H 00025
+X--- 1082,1088 ----
+X  Bring with you antidotes for poisons.
+X  %E
+X  %Cp H 00024
+X! Remember this, %n cannot use %o
+X  to harm you, it has only healing powers.
+X  %E
+X  %Cp H 00025
+X***************
+X*** 1251,1275 ****
+X  Once again, thou standeth before us, %p.  Art thou ready now?
+X  %E
+X  %Cp K 00013
+X  Verily, %p, thou hast done well.  That thou hast survived thus
+X  far is a credit to thy valor, but thou art yet unprepared for
+X! the demands required as Our Champion.  A %r, no matter how
+X  pure, could never hope to defeat the foul %n.
+X  
+X  Journey forth from this place, and hone thy skills.  Return to
+X  Our presence when thou hast attained the noble title of %R.
+X  %E
+X! %Cp K 00014
+X  Thou dishonoureth us, %p!  Thou hast strayed from the path of
+X  chivalry! Go from our presence and do penance.  Only when thou art again
+X  pure may thou return hence.
+X  %E
+X- %Cp K 00015
+X- Thou disgraceth this noble court with thine impure presence.  We have been
+X- lenient with thee, but no more.  Thy name shalt be spoken no more.  We
+X- hereby strip thee of thy title, thy lands, and thy standing as a %c.
+X- Begone from our sight!
+X- %E
+X  %Cc K 00016
+X  Ah, %p.  Thou art truly ready, as no %c before thee hath
+X  been.  Hear now Our words:
+X--- 1255,1279 ----
+X  Once again, thou standeth before us, %p.  Art thou ready now?
+X  %E
+X  %Cp K 00013
+X+ Thou disgraceth this noble court with thine impure presence.  We have been
+X+ lenient with thee, but no more.  Thy name shalt be spoken no more.  We
+X+ hereby strip thee of thy title, thy lands, and thy standing as %ca.
+X+ Begone from our sight!
+X+ %E
+X+ %Cp K 00014
+X  Verily, %p, thou hast done well.  That thou hast survived thus
+X  far is a credit to thy valor, but thou art yet unprepared for
+X! the demands required as Our Champion.  %rA, no matter how
+X  pure, could never hope to defeat the foul %n.
+X  
+X  Journey forth from this place, and hone thy skills.  Return to
+X  Our presence when thou hast attained the noble title of %R.
+X  %E
+X! %Cp K 00015
+X  Thou dishonoureth us, %p!  Thou hast strayed from the path of
+X  chivalry! Go from our presence and do penance.  Only when thou art again
+X  pure may thou return hence.
+X  %E
+X  %Cc K 00016
+X  Ah, %p.  Thou art truly ready, as no %c before thee hath
+X  been.  Hear now Our words:
+X***************
+X*** 1473,1481 ****
+X  Once more, %p, you stand within the sanctum.  Are you ready now?
+X  %E
+X  %Cc P 00013
+X! You are a heretic, %p!  How can you, a %r, deviate so from the
+X  teachings of %d?  Begone from this temple.  You are no longer
+X! a %s to this order.  We will pray to %d for other assistance,
+X  as you have failed us utterly.
+X  %E
+X  %Cc P 00014
+X--- 1477,1485 ----
+X  Once more, %p, you stand within the sanctum.  Are you ready now?
+X  %E
+X  %Cc P 00013
+X! You are a heretic, %p!  How can you, %ra, deviate so from the
+X  teachings of %d?  Begone from this temple.  You are no longer
+X! %sa to this order.  We will pray to %d for other assistance,
+X  as you have failed us utterly.
+X  %E
+X  %Cc P 00014
+X***************
+X*** 1611,1617 ****
+X  %Cc P 00070
+X  As you pick up %o, you feel the essence of
+X  %d fill your soul.  You know now why %n stole it from
+X! %H, for with it, a %c of %d could
+X  easily defeat his plans.
+X  
+X  You sense a message from %d.  Though not verbal, you
+X--- 1615,1621 ----
+X  %Cc P 00070
+X  As you pick up %o, you feel the essence of
+X  %d fill your soul.  You know now why %n stole it from
+X! %H, for with it, %ca of %d could
+X  easily defeat his plans.
+X  
+X  You sense a message from %d.  Though not verbal, you
+X***************
+X*** 1710,1716 ****
+X  %E
+X  %Cc R 00014
+X  In the time that you've been gone you've only been able to master the
+X! arts of a %r?  I've trained ten times again as many %Rp
+X  in that time.  Maybe I should send one of them, no?  Where would that
+X  leave you, %p?  Oh yeah, I remember, I was going to kill you!
+X  %E
+X--- 1714,1720 ----
+X  %E
+X  %Cc R 00014
+X  In the time that you've been gone you've only been able to master the
+X! arts of %ra?  I've trained ten times again as many %Rp
+X  in that time.  Maybe I should send one of them, no?  Where would that
+X  leave you, %p?  Oh yeah, I remember, I was going to kill you!
+X  %E
+X***************
+X*** 1787,1793 ****
+X  We meet again.  Please reconsider your actions.
+X  %E
+X  %Cp R 00052
+X! Surely, %p, you have learned that you can not trust any bargains
+X  that the %l has made.  I can show you how to continue on
+X  your quest without having to run into him again.
+X  %E
+X--- 1791,1797 ----
+X  We meet again.  Please reconsider your actions.
+X  %E
+X  %Cp R 00052
+X! Surely, %p, you have learned that you cannot trust any bargains
+X  that the %l has made.  I can show you how to continue on
+X  your quest without having to run into him again.
+X  %E
+X***************
+X*** 1830,1836 ****
+X  %E
+X  %Cc R 00070
+X  As you pick up %o, the hairs on the back of your
+X! neck fall out.  At once you you realize why the %n was
+X  willing to die to keep it out of the %l's hands.  Somehow
+X  you know that you must do likewise.
+X  %E
+X--- 1834,1840 ----
+X  %E
+X  %Cc R 00070
+X  As you pick up %o, the hairs on the back of your
+X! neck fall out.  At once you realize why the %n was
+X  willing to die to keep it out of the %l's hands.  Somehow
+X  you know that you must do likewise.
+X  %E
+X***************
+X*** 1927,1938 ****
+X  %E
+X  %Cp S 00014
+X  %p-san, you have learned well and honored your family.
+X! I require the skills of a %R in order to defeat %n.
+X  Go and seek out teachers.  Learn what they have learned.  When you
+X  are ready, return to me.
+X  %E
+X  %Cp S 00015
+X! %p-san, you are no better than eta!
+X  
+X  You have skills, but until you can call upon the bushido to know when and
+X  how to use them you are not samurai.  When you can think %A and
+X--- 1931,1942 ----
+X  %E
+X  %Cp S 00014
+X  %p-san, you have learned well and honored your family.
+X! I require the skills of %Ra in order to defeat %n.
+X  Go and seek out teachers.  Learn what they have learned.  When you
+X  are ready, return to me.
+X  %E
+X  %Cp S 00015
+X! %p-san, you would do better to join the kyokaku.
+X  
+X  You have skills, but until you can call upon the bushido to know when and
+X  how to use them you are not samurai.  When you can think %A and
+X***************
+X*** 1939,1945 ****
+X  act %A then return.
+X  %E
+X  %Cc S 00016
+X! Tomo %p-san, indeed you are ready.  I can now tell you what
+X  it is that I require of you.
+X  
+X  The daimyo, %n, has betrayed us.  He has stolen from us
+X--- 1943,1949 ----
+X  act %A then return.
+X  %E
+X  %Cc S 00016
+X! Domo %p-san, indeed you are ready.  I can now tell you what
+X  it is that I require of you.
+X  
+X  The daimyo, %n, has betrayed us.  He has stolen from us
+X***************
+X*** 1946,1952 ****
+X  %o and taken it to his donjon deep within
+X  %i.
+X  
+X! If I can not show the emperor %o when he comes
+X  for the festival he will know that I have failed in my duty, and
+X  request that I commit seppuku.
+X  
+X--- 1950,1956 ----
+X  %o and taken it to his donjon deep within
+X  %i.
+X  
+X! If I cannot show the emperor %o when he comes
+X  for the festival he will know that I have failed in my duty, and
+X  request that I commit seppuku.
+X  
+X***************
+X*** 2023,2035 ****
+X  %H.
+X  %E
+X  %Cp S 00060
+X! %l may not know eta when he sees one, but I do!
+X  %E
+X  %Cp S 00061
+X  There is no honor for me in your death.
+X  %E
+X  %Cp S 00062
+X! You know that I can not resash my swords until they have killed.
+X  %E
+X  %Cp S 00063
+X  Your presence only compounds the dishonor of %l in not coming himself.
+X--- 2027,2039 ----
+X  %H.
+X  %E
+X  %Cp S 00060
+X! Ahh, I finally meet the daimyo of the kyokaku!
+X  %E
+X  %Cp S 00061
+X  There is no honor for me in your death.
+X  %E
+X  %Cp S 00062
+X! You know that I cannot resash my swords until they have killed.
+X  %E
+X  %Cp S 00063
+X  Your presence only compounds the dishonor of %l in not coming himself.
+X***************
+X*** 2209,2215 ****
+X  You must hurry, %p!
+X  %E
+X  %Cp T 00027
+X! You are like a %S to me, %p.  Do not let me down.
+X  %E
+X  %Cp T 00028
+X  If you are %a at all times you may succeed, %p.
+X--- 2213,2219 ----
+X  You must hurry, %p!
+X  %E
+X  %Cp T 00027
+X! You are like %Sa to me, %p.  Do not let me down.
+X  %E
+X  %Cp T 00028
+X  If you are %a at all times you may succeed, %p.
+X***************
+X*** 2236,2242 ****
+X  So, %p, %l thinks that you can wrest
+X  %o from me!
+X  
+X! It only proves how desperate he has become that he sends a %r to
+X  try and defeat me.  When this day is over, I will have you enslaved
+X  in the mines where you will rue the day that you ever entered
+X  %i.
+X--- 2240,2246 ----
+X  So, %p, %l thinks that you can wrest
+X  %o from me!
+X  
+X! It only proves how desperate he has become that he sends %ra to
+X  try and defeat me.  When this day is over, I will have you enslaved
+X  in the mines where you will rue the day that you ever entered
+X  %i.
+X***************
+X*** 2279,2285 ****
+X  I only wish that %l had a more worthy %r to send against me.
+X  %E
+X  %Cp T 00066
+X! With %o in my possession you can not
+X  hope to defeat me.
+X  %E
+X  %Cp T 00067
+X--- 2283,2289 ----
+X  I only wish that %l had a more worthy %r to send against me.
+X  %E
+X  %Cp T 00066
+X! With %o in my possession you cannot
+X  hope to defeat me.
+X  %E
+X  %Cp T 00067
+X***************
+X*** 2389,2395 ****
+X  I see you and %n fighting, %p.  But you are not prepared and
+X  shall die at %n's hand if you proceed.  No.  This will not do.
+X  Go back out into the world, and grow more experienced at the ways of
+X! war.  Only when you have returned a %R will you be able to defeat
+X  %n.
+X  %E
+X  %Cc V 00015
+X--- 2393,2399 ----
+X  I see you and %n fighting, %p.  But you are not prepared and
+X  shall die at %n's hand if you proceed.  No.  This will not do.
+X  Go back out into the world, and grow more experienced at the ways of
+X! war.  Only when you have returned %Ra will you be able to defeat
+X  %n.
+X  %E
+X  %Cc V 00015
+X***************
+X*** 2468,2474 ****
+X  Once again, you stand in sight of %n's lair.
+X  %E
+X  %Cc V 00050
+X! So!  The %l has finally sent a %c to challenge me!
+X  
+X  I thought that mastering %o would enable me to challenge %d,
+X  but it has shown me that first I must kill you!
+X--- 2472,2478 ----
+X  Once again, you stand in sight of %n's lair.
+X  %E
+X  %Cc V 00050
+X! So!  The %l has finally sent %ca to challenge me!
+X  
+X  I thought that mastering %o would enable me to challenge %d,
+X  but it has shown me that first I must kill you!
+X***************
+X*** 2507,2513 ****
+X  Some instrument of %d you are, %p.  You are a weakling!
+X  %E
+X  %Cp V 00067
+X! Never have I seen a %c so clumsy in battle.
+X  %E
+X  %Cp V 00068
+X  You die now, little %s.
+X--- 2511,2517 ----
+X  Some instrument of %d you are, %p.  You are a weakling!
+X  %E
+X  %Cp V 00067
+X! Never have I seen %ca so clumsy in battle.
+X  %E
+X  %Cp V 00068
+X  You die now, little %s.
+X***************
+X*** 2610,2618 ****
+X  %E
+X  %Cc W 00014
+X  Alas, %p, you have not yet shown your proficiency as a worthy
+X! spellcaster.  As a %r, you would surely be overcome in the challenge
+X  ahead.  Go, now, expand your horizons, and return when you have attained
+X! renown as a %R.
+X  %E
+X  %Cc W 00015
+X  You amaze me, %p!  How many times did I tell you that Balance
+X--- 2614,2622 ----
+X  %E
+X  %Cc W 00014
+X  Alas, %p, you have not yet shown your proficiency as a worthy
+X! spellcaster.  As %ra, you would surely be overcome in the challenge
+X  ahead.  Go, now, expand your horizons, and return when you have attained
+X! renown as %Ra.
+X  %E
+X  %Cc W 00015
+X  You amaze me, %p!  How many times did I tell you that Balance
+X***************
+X*** 2662,2668 ****
+X  You must utterly destroy the %n.  He will pursue you otherwise.
+X  %E
+X  %Cp W 00025
+X! %o is a mighty artifact.  With it you can
+X  destroy the %n.
+X  %E
+X  %Cp W 00026
+X--- 2666,2672 ----
+X  You must utterly destroy the %n.  He will pursue you otherwise.
+X  %E
+X  %Cp W 00025
+X! %oC is a mighty artifact.  With it you can
+X  destroy the %n.
+X  %E
+X  %Cp W 00026
+X***************
+X*** 2801,2807 ****
+X      Under World, where he now lurks, and bides his time.
+X  
+X  Your god %d seeks to possess the Amulet, and with it
+X! to gain his deserved ascendance over the other gods.
+X  
+X  You, a newly trained %r, have been heralded
+X  from birth as the instrument of %d.  You are destined
+X--- 2805,2811 ----
+X      Under World, where he now lurks, and bides his time.
+X  
+X  Your god %d seeks to possess the Amulet, and with it
+X! to gain deserved ascendance over the other gods.
+X  
+X  You, a newly trained %r, have been heralded
+X  from birth as the instrument of %d.  You are destined
+X***************
+X*** 2937,2942 ****
+X--- 2941,2949 ----
+X   %L:	return("lawful");
+X   %x:	return((Blind) ? "sense" : "see");
+X   %%:	return(percent_sign);
+X+  a suffix:	return an(root);
+X+  A suffix:	return An(root);
+X+  C suffix:	return capitalized(root);
+X   p suffix:	return makeplural(root);
+X   P suffix:	return makeplural(capitalized(root));
+X  %E
+X*** /tmp/da07349	Thu Feb 25 10:19:23 1993
+X--- dat/rumors.fal	Mon Feb  8 14:09:29 1993
+X***************
+X*** 47,52 ****
+X--- 47,53 ----
+X  Didn't you forget to pay?
+X  Didn't your mother tell you not to eat food off the floor?
+X  Direct a direct hit on your direct opponent, directing in the right direction.
+X+ Do you want to make more money?  Sure, we all do!  Join the Fort Ludios guard!
+X  Don't eat too much:  you might start hiccoughing!
+X  Don't play hack at your work; your boss might hit you!
+X  Don't tell a soul you found a secret door, otherwise it isn't a secret anymore.
+X***************
+X*** 87,93 ****
+X  Kicking the terminal doesn't hurt the monsters.
+X  Killer bees keep appearing till you kill their queen.
+X  Killer bunnies can be tamed with carrots only.
+X! Latest news?  Put 'rec.games.hack' in your .newsrc!
+X  Learn how to spell.  Play NetHack!
+X  Leprechauns hide their gold in a secret room.
+X  Let your fingers do the walking on the yulkjhnb keys.
+X--- 88,94 ----
+X  Kicking the terminal doesn't hurt the monsters.
+X  Killer bees keep appearing till you kill their queen.
+X  Killer bunnies can be tamed with carrots only.
+X! Latest news?  Put `rec.games.hack' in your .newsrc!
+X  Learn how to spell.  Play NetHack!
+X  Leprechauns hide their gold in a secret room.
+X  Let your fingers do the walking on the yulkjhnb keys.
+X***************
+X*** 136,141 ****
+X--- 137,144 ----
+X  Row (3x) that boat gently down the stream, Charon (4x), death is but a dream.
+X  Running is good for your legs.
+X  Screw up your courage!  You've screwed up everything else.
+X+ Scrolls fading?  It's not the heat, it's the humidity.
+X+ Seepage?  Leaky pipes?  Rising damp?  Summon the plumber!
+X  Segmentation fault (core dumped).
+X  Shopkeepers sometimes die from old age.
+X  Some mazes (especially small ones) have no solutions, says man 6 maze.
+X***************
+X*** 145,150 ****
+X--- 148,154 ----
+X  Spare your scrolls of make-edible until it's really necessary!
+X  Suddenly, the dungeon will collapse...
+X  Taming a mail daemon may cause a system security violation.
+X+ The crowd was so tough, the Stooges won't play the Dungeon anymore, nyuk nyuk.
+X  The leprechauns hide their treasure in a small hidden room.
+X  The longer the wand the better.
+X  The use of dynamite is dangerous.
+X***************
+X*** 178,184 ****
+X  They say that a hacker named Mary once lost a white sheep in the mazes.
+X  They say that a helm of brilliance is not to be taken lightly.
+X  They say that a hot dog and a hell hound are the same thing.
+X! They say that a lamp named Aladdin contains a djinni with 3 wishes.
+X  They say that a large dog named Lassie will lead you to the amulet.
+X  They say that a long sword is not a light sword.
+X  They say that a manes won't mince words with you.
+X--- 182,188 ----
+X  They say that a hacker named Mary once lost a white sheep in the mazes.
+X  They say that a helm of brilliance is not to be taken lightly.
+X  They say that a hot dog and a hell hound are the same thing.
+X! They say that a lamp named Aladdin's Lamp contains a djinni with 3 wishes.
+X  They say that a large dog named Lassie will lead you to the amulet.
+X  They say that a long sword is not a light sword.
+X  They say that a manes won't mince words with you.
+X***************
+X*** 189,194 ****
+X--- 193,199 ----
+X  They say that a potion of yogurt is a cancelled potion of sickness.
+X  They say that a purple worm is not a baby purple dragon.
+X  They say that a quivering blob tastes different than a gelatinous cube.
+X+ They say that a runed broadsword named Stormbringer attracts vortices.
+X  They say that a scroll of summoning has other names.
+X  They say that a shaman can bestow blessings but usually doesn't.
+X  They say that a shaman will bless you for an eye of newt and wing of bat.
+X***************
+X*** 198,204 ****
+X  They say that a stethoscope is no good if you can only hear your heartbeat.
+X  They say that a succubus named Suzy will sometimes warn you of danger.
+X  They say that a wand of cancellation is not like a wand of polymorph.
+X- They say that a wide sword named Stormbringer attracts vortices.
+X  They say that a wood golem named Pinocchio would be easy to control.
+X  They say that after killing a dragon its time for a change of scenery.
+X  They say that an amulet of strangulation is worse than ring around the collar.
+X--- 203,208 ----
+X***************
+X*** 227,232 ****
+X--- 231,237 ----
+X  They say that fortune cookies are food for thought.
+X  They say that gold is only wasted on a pet dragon.
+X  They say that good things come to those that wait.
+X+ They say that greased objects will slip out of monsters' hands.
+X  They say that if you can't spell then you'll wish you had a spell book.
+X  They say that if you live by the sword, you'll die by the sword.
+X  They say that if you play like a monster you'll have a better game.
+X***************
+X*** 275,282 ****
+X  They say that shopkeepers never carry more than 20 gold pieces, at night.
+X  They say that shopkeepers never sell blessed potions of invisibility.
+X  They say that soldiers wear kid gloves and silly helmets.
+X  They say that some monsters may kiss your boots to stop your drum playing.
+X- They say that someone said that the stooges once played here, nyuck, nyuck.
+X  They say that sometimes you can be the hit of the party when playing a horn.
+X  They say that the NetHack gods generally welcome your sacrifices.
+X  They say that the Three Rings are named Vilya, Nenya and Narya.
+X--- 280,288 ----
+X  They say that shopkeepers never carry more than 20 gold pieces, at night.
+X  They say that shopkeepers never sell blessed potions of invisibility.
+X  They say that soldiers wear kid gloves and silly helmets.
+X+ They say that some Kops are on the take.
+X+ They say that some guards' palms can be greased.
+X  They say that some monsters may kiss your boots to stop your drum playing.
+X  They say that sometimes you can be the hit of the party when playing a horn.
+X  They say that the NetHack gods generally welcome your sacrifices.
+X  They say that the Three Rings are named Vilya, Nenya and Narya.
+X***************
+X*** 296,302 ****
+X  They say that there was a time when cursed holy water wasn't water.
+X  They say that there's no point in crying over a gray ooze.
+X  They say that there's only hope left after you've opened Pandora's box.
+X! They say that trapdoors should always be marked 'Caution:  Trap Door'.
+X  They say that using an amulet of change isn't a difficult operation.
+X  They say that water walking boots are better if you are fast like Hermes.
+X  They say that when you wear a circular amulet you might resemble a troll.
+X--- 302,308 ----
+X  They say that there was a time when cursed holy water wasn't water.
+X  They say that there's no point in crying over a gray ooze.
+X  They say that there's only hope left after you've opened Pandora's box.
+X! They say that trapdoors should always be marked `Caution:  Trap Door'.
+X  They say that using an amulet of change isn't a difficult operation.
+X  They say that water walking boots are better if you are fast like Hermes.
+X  They say that when you wear a circular amulet you might resemble a troll.
+X***************
+X*** 337,343 ****
+X  Unfortunately, this message was left intentionally blank.
+X  Using a morning star in the evening has no effect.
+X  Want a hint?  Zap a wand of make invisible on your weapon!
+X! Wanted: shopkeepers.  Send a scroll of mail to: Mage of Yendor/Level 35/Dungeon.
+X  Warning:  fortune reading can be hazardous to your health.
+X  We have new ways of detecting treachery...
+X  What a pity, you cannot read it!
+X--- 343,349 ----
+X  Unfortunately, this message was left intentionally blank.
+X  Using a morning star in the evening has no effect.
+X  Want a hint?  Zap a wand of make invisible on your weapon!
+X! Wanted: shopkeepers.  Send a scroll of mail to Mage of Yendor/Level 35/Dungeon.
+X  Warning:  fortune reading can be hazardous to your health.
+X  We have new ways of detecting treachery...
+X  What a pity, you cannot read it!
+X*** /tmp/da07357	Thu Feb 25 10:19:25 1993
+X--- dat/rumors.tru	Mon Feb  8 14:09:46 1993
+X***************
+X*** 71,77 ****
+X  If you are being punished, it's done with a deadly weapon.
+X  If you kill the Wizard, you get promoted to demi-god.
+X  If you need a wand of digging, kindly ask the minotaur.
+X- If you want a sex change, you must get it before the game.
+X  If you want to hit, use a dagger.
+X  If you want to rob a shop, train your dog.
+X  If you're lost, try buying a map next time you're in a shop.
+X--- 71,76 ----
+X*** /tmp/da07381	Thu Feb 25 10:19:31 1993
+X--- dat/yendor.des	Wed Feb 17 09:52:40 1993
+X***************
+X*** 38,43 ****
+X--- 38,48 ----
+X  NON_DIGGABLE:(11,00,21,00)
+X  NON_DIGGABLE:(11,10,27,12)
+X  NON_DIGGABLE:(21,00,27,10)
+X+ # Non passable walls
+X+ NON_PASSWALL:(00,00,11,12)
+X+ NON_PASSWALL:(11,00,21,00)
+X+ NON_PASSWALL:(11,10,27,12)
+X+ NON_PASSWALL:(21,00,27,10)
+X  # The wizard and his guards
+X  MONSTER:'@',"Wizard of Yendor",(16,05),asleep
+X  MONSTER:'d',"hell hound",(15,05)
+X***************
+X*** 112,117 ****
+X--- 117,127 ----
+X  LADDER:(14,11),down
+X  # Non diggable walls everywhere
+X  NON_DIGGABLE:(00,00,27,12)
+X+ #
+X+ NON_PASSWALL:(00,00,06,12)
+X+ NON_PASSWALL:(06,00,27,02)
+X+ NON_PASSWALL:(16,02,27,12)
+X+ NON_PASSWALL:(06,12,16,12)
+X  # Random traps.
+X  TRAP:"spiked pit",random
+X  TRAP:"sleep gas",random
+X***************
+X*** 164,169 ****
+X--- 174,185 ----
+X  NON_DIGGABLE:(06,00,27,02)
+X  NON_DIGGABLE:(16,02,27,12)
+X  NON_DIGGABLE:(06,12,16,12)
+X+ #
+X+ NON_PASSWALL:(00,00,06,12)
+X+ NON_PASSWALL:(06,00,27,02)
+X+ NON_PASSWALL:(16,02,27,12)
+X+ NON_PASSWALL:(06,12,16,12)
+X+ #
+X  MONSTER:'L',random,(10,07)
+X  MONSTER:'V',"vampire lord",(12,07)
+X  # Some surrounding horrors
+X
+END_OF_FILE
+if test 52174 -ne `wc -c <'patches01l'`; then
+    echo shar: \"'patches01l'\" unpacked with wrong size!
+fi
+# end of 'patches01l'
+echo shar: End of archive 17 \(of 31\).
+cp /dev/null ark17isdone
+MISSING=""
+for I in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 ; do
+    if test ! -f ark${I}isdone ; then
+	MISSING="${MISSING} ${I}"
+    fi
+done
+if test "${MISSING}" = "" ; then
+    echo You have unpacked all 31 archives.
+    echo "Now execute 'patchit.sh'"
+    rm -f ark[1-9]isdone ark[1-9][0-9]isdone
+else
+    echo You still need to unpack the following archives:
+    echo "        " ${MISSING}
+fi
+##  End of shell archive.
+exit 0

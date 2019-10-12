@@ -1,0 +1,225 @@
+Subject:  v17i072:  nethack31 - display oriented dungeons & dragons (Ver. 3.1), Patch1ee/31
+Newsgroups: comp.sources.games
+Approved: billr@saab.CNA.TEK.COM
+
+Submitted-by: izchak@linc.cis.upenn.edu (Izchak Miller)
+Posting-number: Volume 17, Issue 72
+Archive-name: nethack31/Patch1ee
+Patch-To: nethack31: Volume 16, Issue 1-116
+Environment: Amiga, Atari, Mac, MS-DOS, Windows-NT, OS2, Unix, VMS, X11
+
+
+
+#! /bin/sh
+# This is a shell archive.  Remove anything before this line, then unpack
+# it by saving it into a file and typing "sh file".  To overwrite existing
+# files, type "sh file -c".  You can also feed this as standard input via
+# unshar, or by typing "sh <file", e.g..  If this archive is complete, you
+# will see the following message at the end:
+#		"End of archive 31 (of 31)."
+# Contents:  sys/winnt/nhincl.mak
+# Wrapped by billr@saab on Fri Mar  5 10:50:50 1993
+PATH=/bin:/usr/bin:/usr/ucb ; export PATH
+if test -f 'sys/winnt/nhincl.mak' -a "${1}" != "-c" ; then 
+  echo shar: Renaming existing file \"'sys/winnt/nhincl.mak'\" to \"'sys/winnt/nhincl.mak.orig'\"
+  mv -f 'sys/winnt/nhincl.mak' 'sys/winnt/nhincl.mak.orig'
+fi
+echo shar: Extracting \"'sys/winnt/nhincl.mak'\" \(5702 characters\)
+sed "s/^X//" >'sys/winnt/nhincl.mak' <<'END_OF_FILE'
+X# =========================================================
+X# NTWIN32.MAK
+X# Win32 Application NMAKE Definitions
+X# Modified slightly for compiling NT NetHack 3.1.0
+X# =========================================================
+X
+X# ---------------------------------------------------------
+X# Get CPU Type - exit if CPU environment variable is not defined
+X# ---------------------------------------------------------
+X
+X# declarations for use on Intel 80x86 systems.
+X!IF "$(CPU)" == "i386"
+XCPUTYPE = 1
+XDLLENTRY = @12
+X!ENDIF
+X
+X# declarations for use on self hosted MIPS systems.
+X!IF "$(CPU)" == "MIPS"
+XCPUTYPE = 2
+XDLLENTRY = 
+X!ENDIF
+X
+X!IFNDEF CPUTYPE
+X!ERROR  Must specify CPU Environment Variable ( CPU=i386 or CPU=MIPS )
+X!ENDIF
+X
+X# ---------------------------------------------------------
+X# Target Module Dependant Compile Declarations
+X#
+X# Below is a table which describes which flags to use
+X# depending on the module target:
+X#
+X# Module       Number of Threads Variables to C run-time
+X# Target       Single/Multiple   Include      Library
+X# -----------  ----------------- ------------ ----------
+X# MODULE .EXE  Single            CVARS        LIBC.LIB
+X# MODULE .EXE  Multiple          CVARSMT      LIBCMT.LIB
+X# MODULE .DLL  Single            CVARSDLL     CRTDLL.LIB
+X# MODULE .DLL  Multiple          CVARSMTDLL   CRTDLL.LIB
+X#
+X# Legend:
+X# MODULE  : A Win32 Graphical User Interface module or a
+X#           Win32 Character-Mode User Interface module
+X# ---------------------------------------------------------
+X
+Xcvars      = -DWIN32
+Xcvarsmt    = $(cvars) -D_MT
+Xcvarsdll   = $(cvars) -D_DLL
+Xcvarsmtdll = $(cvars) -D_MT -D_DLL
+X
+X#----------------------------------------------------------
+X# Subsystem Dependent Compile Declarations
+X#
+X# When compiling for the POSIX Subsystem, psxvars should be
+X# included.
+X#
+X#----------------------------------------------------------
+X
+Xpsxvars    = -D_POSIX_
+X
+X# ---------------------------------------------------------
+X# Platform Dependent Compile Flags - must be specified after $(cc)
+X#
+X# Note: Debug switches are default for current release
+X#
+X# These switches allow for source level debugging
+X# with WinDebug for local and global variables.
+X#
+X# i386 flags:
+X#   -c   - compile without linking
+X#   -G3  - generate 80386 instructions
+X#   -W3  - Set warning level to level 3
+X#   -Zi  - generate debugging information
+X#   -Od  - disable all optimizations
+X#
+X# MIPS flags:
+X#   -c   - compile without linking
+X#   -std - produce warnings for non-ANSI standard source code.
+X#   -g2  - produce a symbol table for debugging
+X#   -O   - invoke the global optimizer
+X#   -EL  - produce object modules targeted for
+X#          "little-endian" byte ordering
+X# ---------------------------------------------------------
+X
+X# declarations for use on Intel 80x86 systems.
+X!IF "$(CPU)" == "i386"
+Xcdebug   = -Zi -Od
+Xcflags   = -c -G3 -W0 -Di386=1 -nologo
+Xcvtdebug =
+X!ENDIF
+X
+X# declarations for use on self hosted MIPS systems.
+X!IF "$(CPU)" == "MIPS"
+Xcdebug   = -g2
+Xcflags   = -c -std -o $(*B).obj -EL -DMIPS=1
+Xcvtdebug = -c
+X!ENDIF
+X
+X# ---------------------------------------------------------
+X# Target Module Dependent Link Flags - must be specified after $(link)
+X#
+X# Note: Debug switches are default for current release
+X#
+X# These switches allow for source level debugging
+X# with WinDebug for local and global variables.
+X# ---------------------------------------------------------
+X
+Xlinkdebug = -debug:full -debugtype:cv
+Xconflags  = -subsystem:console -entry:mainCRTStartup
+Xguiflags  = -subsystem:windows -entry:WinMainCRTStartup
+Xpsxflags  = -subsystem:posix -entry:__PosixProcessStartup
+X
+X# ---------------------------------------------------------
+X# Platform Dependent Binaries Declarations
+X#
+X# Note: Debug switches are default for current release
+X#
+X# These switches allow for source level debugging
+X# with WinDebug for local and global variables.
+X# ---------------------------------------------------------
+X
+X# declarations for use on Intel 80x86 systems.
+X!IF "$(CPU)" == "i386"
+Xcc     = cl386
+Xcvtobj = REM MIPS-only conversion:
+X!ENDIF
+X
+X# declarations for use on self hosted MIPS systems.
+X!IF "$(CPU)" == "MIPS"
+Xcc     = cc
+Xcvtobj = mip2coff 
+X!ENDIF
+X
+Xlink = link 
+X
+X# ---------------------------------------------------------
+X# Target Module Dependent Link Libraries
+X#
+X# Below is a table which describes which libraries to use
+X# depending on the module target:
+X#
+X# Module       Number of Threads Variables to C run-time
+X# Target       Single/Multiple   Include      Library
+X# -----------  ----------------- ------------ ----------
+X# CONSOLE.EXE  Single            CONLIBS      LIBC.LIB
+X# CONSOLE.EXE  Multiple          CONLIBSMT    LIBCMT.LIB
+X# CONSOLE.DLL  Either            CONLIBSDLL   CRTDLL.LIB
+X# WINDOWS.EXE  Single            GUILIBS      LIBC.LIB
+X# WINDOWS.EXE  Multiple          GUILIBSMT    LIBCMT.LIB
+X# WINDOWS.DLL  Either            GUILIBSDLL   CRTDLL.LIB
+X# POSIX.EXE    Single            PSXLIBS      LIBCPSX.LIB
+X#
+X# Legend:
+X# WINDOWS : A Win32 Graphical User Interface module
+X# CONSOLE : A Win32 Character-Mode User Interface module
+X# POSIX   : A Posix Subsystem Character-Mode User Interface module
+X# ---------------------------------------------------------
+X
+Xconlibs    = libc.lib ntdll.lib kernel32.lib
+X
+Xconlibsmt  = libcmt.lib ntdll.lib kernel32.lib
+X
+Xconlibsdll = crtdll.lib ntdll.lib kernel32.lib
+X
+Xguilibs    = libc.lib ntdll.lib kernel32.lib user32.lib gdi32.lib \
+X             winspool.lib comdlg32.lib
+X
+Xguilibsmt  = libcmt.lib ntdll.lib kernel32.lib user32.lib gdi32.lib \
+X             winspool.lib comdlg32.lib
+X
+Xguilibsdll = crtdll.lib ntdll.lib kernel32.lib user32.lib gdi32.lib \
+X             winspool.lib comdlg32.lib
+X
+Xpsxlibs    = libcpsx.lib ntdll.lib kernel32.lib psxdll.lib psxrtl.lib
+END_OF_FILE
+if test 5702 -ne `wc -c <'sys/winnt/nhincl.mak'`; then
+    echo shar: \"'sys/winnt/nhincl.mak'\" unpacked with wrong size!
+fi
+# end of 'sys/winnt/nhincl.mak'
+echo shar: End of archive 31 \(of 31\).
+cp /dev/null ark31isdone
+MISSING=""
+for I in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 ; do
+    if test ! -f ark${I}isdone ; then
+	MISSING="${MISSING} ${I}"
+    fi
+done
+if test "${MISSING}" = "" ; then
+    echo You have unpacked all 31 archives.
+    echo "Now execute 'patchit.sh'"
+    rm -f ark[1-9]isdone ark[1-9][0-9]isdone
+else
+    echo You still need to unpack the following archives:
+    echo "        " ${MISSING}
+fi
+##  End of shell archive.
+exit 0

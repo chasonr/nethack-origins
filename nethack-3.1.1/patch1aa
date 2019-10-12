@@ -1,0 +1,1468 @@
+Subject:  v17i068:  nethack31 - display oriented dungeons & dragons (Ver. 3.1), Patch1aa/31
+Newsgroups: comp.sources.games
+Approved: billr@saab.CNA.TEK.COM
+
+Submitted-by: izchak@linc.cis.upenn.edu (Izchak Miller)
+Posting-number: Volume 17, Issue 68
+Archive-name: nethack31/Patch1aa
+Patch-To: nethack31: Volume 16, Issue 1-116
+Environment: Amiga, Atari, Mac, MS-DOS, Windows-NT, OS2, Unix, VMS, X11
+
+
+
+#! /bin/sh
+# This is a shell archive.  Remove anything before this line, then unpack
+# it by saving it into a file and typing "sh file".  To overwrite existing
+# files, type "sh file -c".  You can also feed this as standard input via
+# unshar, or by typing "sh <file", e.g..  If this archive is complete, you
+# will see the following message at the end:
+#		"End of archive 27 (of 31)."
+# Contents:  sys/mac/NHrsrc.hqx sys/share/lev_yacc.c2
+# Wrapped by billr@saab on Fri Mar  5 10:50:49 1993
+PATH=/bin:/usr/bin:/usr/ucb ; export PATH
+if test -f 'sys/mac/NHrsrc.hqx' -a "${1}" != "-c" ; then 
+  echo shar: Renaming existing file \"'sys/mac/NHrsrc.hqx'\" to \"'sys/mac/NHrsrc.hqx.orig'\"
+  mv -f 'sys/mac/NHrsrc.hqx' 'sys/mac/NHrsrc.hqx.orig'
+fi
+echo shar: Extracting \"'sys/mac/NHrsrc.hqx'\" \(26482 characters\)
+sed "s/^X//" >'sys/mac/NHrsrc.hqx' <<'END_OF_FILE'
+X(This file must be converted with BinHex 4.0)
+X:$%jPG%KKBfXZFR0bB`"bFh*M8P0&4!%!!!!!!!!!5qNTkJ!!!!!"!!!!4SN!!%@
+X*!!!&B!!!!!!0!"!!,3!`S!)!U!!!!!!!&J!i!#F!iBJB8h4[$%jPG%KKBfXZFR0
+XbBaN#!!!!FR0bBe*6483"!!##!%!!!(*cFQ058d9%!3!!JJ"!!!!!!!!!!!!!!!!
+X!!!!!!"P!TiRee`!!!!!!!%[T!!$)!6!!!3!!!!!!!!!!#lN!!!!!&3!!!!!!jJ&
+XF!!%!!!!!!!!!!!Zi!!!!!"8!8!"Z!2S"Z!!"!!!!!!!!!!!(e!!!!!!9!&!!EJ$
+Xk!EJ!!3!!!!!!!!!!"p-!!!!!&3"3!'i!qJ'i!!%!!!!!!!!!!!I5!!!!!"8!8!"
+XZ!2S"Z!!!!"`"#!!)!8S!m!!!!!!!!!!!!!!(6@9cFf&RC6J+!!!!(!%Z!!3"8J(
+X+!!!!!!!!!!!!!!C6G'&dGA0V1!S!!!!@!(`!fJ$i!BS!!!!!!3!!!!!!!%di#J!
+X!!"S![J!'!9!"-J!!!!!"!!!!!!!%5@jQEb!i#J!!!#)!+!!S!)`!SJ!!!!!"!!!
+X!!!!06R9XE#"AD@jNEhFJ)6J+!!!!2!j1G@eLCA)JEfBJDf9jFdp$6P3&+LSU+LT
+X-8e4$"dYPH@0[C'9)3PP8"%0SBA*$5%&5"5SU+LSU6&0843!!!#!!+!!S!8S"lJ!
+X!!!!!!!!!!!!,4(9ZCf9[EL"0BA!i#J!!!#!!+!!S!+`"c!!!!!!"!!!!!!!,4'P
+XKCfj[Fh4TBh-i#J!!!!-!!3!!!!!@!!%66@&M)%jPG%KKBfXJ5'9XF-N[2`!!!!i
+X!!JNMGQ9bFfP[EJd"2`!!!!i!"J&6!!*2B`*2F`!"83!!!#J!J!!!!!!!!!!!rrr
+Xrr`%8%N&LEh9d)%eKBb"1CA4)B@0Vb3!!!!!!!!!!A3#"!!!!!!!!!!$rrrrE"%C
+XTE'8*8f&fC5"(B@eP!&-!!!%Y!!!!!""%DA0`E'&j)%p`G'P[ER2*!%3!!!a6CA3
+XJ6h"dD@pZFmN!6`!!!5d!!!!!"&&eDA3!83!!!!!!!%J!JJ!!!!!!!!!!rrrrq`4
+X&C'Pd"&9ZC'm!@J!!!5d!!!!!!d0eG!"B!!!%3fp`H3"$!!!&8'&cG'8!9J!!"80
+XXC@&b!!!!!!!!!!#!!!!!!!!!!!!!!!$rm!!!!!$3$r%Im!!!!0d!m4(`!!!!$G$
+Xa%4m!!!!!hI%4(`!!$r$phrmI!!!2rrrG!2!!!!m4%Ih3!!!!$a%4m0d!!!!2%4(
+X`$G!!!!$r%I!!h3!!!!rr!!!0d!!!!!!!!!$G!!!!!!!!!!h3!!!!!!!!!0!!!!#
+X!$rrrrrrr!!!2c-c-c-r`!!r-c-c-cmm!$mc-crr2rr!2crc2%Ic-m!r2rmm4(mc
+X`$mcrra%Ic2!2c-rrrrr-m!rrrrrmc-c`$r%4rrr-c2!2m4(mrrc-m!r2%Ic2rmc
+X`$mcrr-crr2!2c-c-c-rrm!r-c-c-c2r`$rrrrrrrrr!!!!"!!!!$J#I!-q!Em!r
+X`*r"r)(q!I-"mB$i`("J!$!!'!!)$J#I!Iq"rm$ri2rKrq2r`rq$ri2r`IhJq2"`
+XH!!m!"`!!!%"rm%!B3"4$rP[LAI*2mPIbIi*r`RlLAh*11N!H3!jrrRr`IrKrr(r
+XqIrjrrRrqIrjrrRrqIrjrrRrqIrjrrRrq!!!"!!!!!!!!$i!!!$rJ!"!rm!!F(rJ
+X!#Kri!!NIr!!%Rr`!!Rrm!!%rr!!!Rr`!--rm!(rQ'!"rmJ!!IrN!!(rmJ!"rmN!
+X!Ir%J!$r`N!!!2r")!"ri*!!2q")!!q!*!!!!")!!!!*!!!!")!!!!*!!!!!!5!!
+X!!#3!!!!5!!!!#J!!!!3!$i!!!$rJ!""rm!!mIrJ!2Mrm!"mrr!!I[ri!$rrq!!I
+XrrJ!$rri!-Irq!(rrrJ$rrr`!rrmB!2rrJ!$rrm!!rrrJ!2rlm!"rqIJ!IrMm!$r
+XmIJ!Ir$m!$rJIJ!2J$m!!!!IJ!!!$m!!!!IJ!!!$m!!!!IJ!!!$m!!!!I!!!!$J!
+X!!3!Irri!%!!$!"!!!S!3!!*!%!!#)"!!!K!3!q))%!Ilq"'(r!J43r`)%52q#"#
+X6rJJ36ri)%#Iq#"!6rJJ6'B`)&rb!#"Iq3!JArb!)&rb3!!JAr%J)%r`N#"2q%JJ
+X4rJN)%(`%L"!!!NJ3!!%S%!!!Q"!!!%J3!!!S%!!!'"rrrrJIrri!(rrr!"rrri!
+XIrrr!(rrri"rrrr!Irrri(rrrq"rrrrJIrrri(rrrq"rrrrJIrrri(rrrq"rrrrJ
+XIrrri(rrrq"rrrrJIrrri(rrrq"rrrrJIrrri(rrrq"rrrrJIrrri(rrrq"rrrrJ
+XIrrri(rrrq"rrrrJIrrri(rrrq!!!!J!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!rrr
+X`!!!!!!!!!!!!!!!!ra%4(r!!!!!!!!!!$`!!!2%4%4%I!!!!!!!!!!rr!!!2%4%
+X4%I!!!!!!!!!!rI!!$a%4%4(`!!!!!!!!!2hI!!m4%4%4(`!!!!!!!!!2hI!2%4%
+X4%4m!!!!!!!!!!2hIra%4%4%I!!!!!!!!!!!2hI%4%4%4(`!!!!!!!!!!!2hI%4%
+X4%4m!!!!!!!$r!!$rhI(rrr%I!!!!!!!2%Irr%IhIm!!2m!!!!!!!$a%4%4%IhI!
+X!!!!!!!!!!!m4%4%4%IhI!!!!!!!!!!!2%4%4%4(rhI!!!!!!!!!!$a%4%4%I!2h
+XI!!!!!!!!!!m4%4%4(`!2hI!!!!!!!!!!m4%4%4m!!2hI!!!!!!!!!2%4%4%I!!!
+X2hI!!!!!!!!!2%4%4%I!!!2hI!!!!!!!!!2m4%4r`!!!2hI!!!!!!!!!!rrr`!!!
+X!!2hI!!!!!!!!!!!!!!!!!!!2hI!!!!!!!!!!!!!!!!!!!2hI!!!!!!!!!!!!!!!
+X!!!!2hI!!!!!!!!!!!!!!!!!!!2hI!!!!!!!!!!!!!!!!!!!2hI!!!!!!!!!!!!!
+X!!!!!!2hI!!!!!!!!!!!!!!!!!!!2hI!!!!!!!!!!!!!!!!!!!2h`!!!!!!!!!!!
+X!!!!!!!!2!!!!!J!!$rrrrrrrrrrrrr!!!!!!!!r-c-c-c-c-c-cr!!!!!!!2c-c
+X-c-c-c-c-r2!!!!!!$mc-c-c-c-c-c2c2!!!!!!r-c-c-c-c-c-cmc2!!!!!2c-c
+X-c-c-c-c-r-c2!!!!$mc-c-c-rrrmc2c-c2!!!!r-c-c-ca%4(rcrrrr`!!!2c-r
+Xmc-m4%4(rc-c-m!!!$mc2cmc-m4%4(mc-c2!!!!r-cmcmc2%4%4(mc-c`!!!2c-c
+Xmcmca%4%4r-c-m!!!$mc-cmcrm4%4%Ic-c2!!!!r-c-cmca%4%4(mc-c`!!!2c-c
+X-cmcarrrrr-c-m!!!$mcrc-rmcrc-rmc-c2!!!!r2rrrr(mcmc-c-c-c`!!!2ca%
+X4%4(mcmc-c-c-m!!!$mm4%4%Irmcmc-c-c2!!!!r2%4%4(mcmcmc-c-c`!!!2ca%
+X4%4r-cmcmc-c-m!!!$mca%4%Ic-cmcmc-c2!!!!r-m4%4(rc-cmcmc-c`!!!2c-r
+Xa%4rmc-cmcmc-m!!!$mc-crrrc-c-cmcmc2!!!!r-c-c-c-c-c-cmcmc`!!!2c-c
+X-c-c-c-c-cmcmm!!!$mc-c-c-c-c-c-cmcr!!!!r-c-c-c-c-c-c-cmc`!!!2c-c
+X-c-c-c-c-c-cmm!!!$mc-c-c-c-c-c-c-cr!!!!rrrrrrrrrrrrrrrrr`!!!!!!`
+X!@J"Z!1i"NJ#"4%3!!!"-!!)!!!!!!(J!aJ#+!4!%!Np,!!!!!!!+!%B!F`%3L"a
+X$Eh9XC#"ZEh3JAM)JBQ9MBA9cC5"H-#iJ)&ia!!!!!!!+!"3!+J!dS!)!!!!!!3!
+X!!!!!!!!!!$rrrr!J!!!B)!I!'#!2m"JM$rJB)SIi'#*(r"JK*r`B)*rm'#"2r"J
+XJ*r`B*M-B'#rj!"J[r)!B,rj!'#rj)"J[q*!!'#Ii5"JRr#3B)r`5'#$i#4JJ!!5
+XB)!!#@#!!!6JJ!!#B)!!!@#!!!$Jrrrri(rrrq!!!!!!!!!!!!!!!!$rrrr!rrrr
+Xi2rrrq$rrrrJrrrri2rrrq$rrrrJrrrri2rrrq$rrrrJrrrri2rrrq$rrrrJrrrr
+Xi2rrrq$rrrrJrrrri2rrrq$rrrrJrrrri2rrrq$rrrrJrrrri2rrrq$rrrrJrrrr
+Xi2rrrq$rrrrJIrrri!!!!!!!!!%!!!(rm3iCEaPrQ6qChjRq'ImCqjPjf6Mj!(N!
+X1IrirrJ!!IrarrRrqIrjrrRrqIrjrrRrqIrjrrRrqIrjrrMrq!!!#!!!!!!!!!!!
+X!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!2rrrrrrrrrrrrrrrrm!!!$mc-c-c-c
+X-c-c-c-c2m!!!r-c-c-c2rrr-c-c-cr!!!2c-c-c-m4%4rmc-c-r`!!$mc2r-c2%
+X4%4(mc-c2m!!!r-cpr-c2%4%4r-c-cr!!!2c-rGr-ca%4%4r-c-r`!!$mc-rGr-m
+X4%4%Ic-c2m!!!r-c-rGra%4%4(mc-cr!!!2c-c-rGm4%4%4r-c-r`!!$mc-c-rGm
+X4rr%Ic-c2m!!!r-rmc2rGrmc2r-c-cr!!!2ca(rm4rGr-c-c-c-r`!!$mm4%4%4r
+XGr-c-c-c2m!!!r2%4%4%IrGr-c-c-cr!!!2ca%4%4r-rGr-c-c-r`!!$mm4%4%Ic
+X-rGr-c-c2m!!!r-m4%4(mc-rGr-c-cr!!!2c2%4%4(mc-rGr-c-r`!!$mc2m4%4r
+X-c-rGr-c2m!!!r-c-rrrmc-c-rGr-cr!!!2c-c-c-c-c-c-rGr-r`!!$mc-c-c-c
+X-c-c-rGr2m!!!r-c-c-c-c-c-c-rGrr!!!2c-c-c-c-c-c-c-rGr`!!$mc-c-c-c
+X-c-c-c-rIm!!!r-c-c-c-c-c-c-c-rr!!!2rrrrrrrrrrrrrrrrr`!!!2rrrrrrr
+Xrrrrrrrrrm!!!!!!!!!!!!!!!!!!!!!!!!!!!$!!f!)S!L3)E!)"%4!!!!#)!!3!
+X!!!!!0!&*!%J"J`3#6dX!!!!!!!B!1!"'!6D)!Pi`!!!!'!"D!&i!k!'R!!8!!!!
+X!!!!!!!##!!&`#J!!!"J!-J!b!2d"B3!&!!!!!!!!!!!!J`!YF!S!!!!B!%J!FJ$
+Xf!Am!"3%!!3!!!!!!!)3!*h!+!!!!'!"#!&`!``(A!!8!!!!!!!!!!!#(!!"`#J!
+X!!"J!3J"F!--"e`!&!!!!!!!!!!!!KJ!!F!S!!!!B!%)!A!$$!GF!"3!!!!!!!!!
+X!!)8!!(!+!!!!8J!%!!!!!!"M!5d!G`&R"!0CCA-!!!!!!!"M!1F!G`%K"!*1E`!
+X!!!!!#`"-!&3"CSJ#AM!!!!!!!!`!&!!X!$5J!J!"!!!!!!"G!5J!I3&)J!!!!!"
+XN!!8!!!!!!'-",3"h!@F%!ePPF`!!!!!!!'-!j`"h!5%%!Nj[!!!!!!"M!+%!G`$
+XE"!44G@Pd!!!!!!!,!%`!9!&QL!*H-!!!!!!!$!!8!#`!0+!#!!%!!!!!!&d"+!"
+Xp!8L!!!!!!(B!"J!!!!!!B`%Y!(F"C`3$@@9c!!!!!!!!B`$R!(F")33#6Qm!!!!
+X!!'-!S3"h!0X%!d&XE!!!!!!!!'-!@`"h!*8%"&&eDA3!!!!!!!X!6!"8!@D)!Pi
+X`!!!!!!!-!"3!,!!dS!)!!3!!!!!!A`%T!(m"5B!!!!!!'!"#!&`!``(A!!8!!!!
+X!!!!!!!#)!!"`#J!!!)3!"`!!!!!!B`%Y!(F"C`3$@@9c!!!!!!!!B`$R!(F")33
+X#6Qm!!!!!!'-!S3"h!0Z3!!!!!!!!!'-!@`"h!*8%!d&XE(3!!!!!!'-!&3"h!%m
+X%"&&eDA3!!!!!!!X!6!"8!@D)!Pi`!!!!!!!-!"3!,!!dS!)!!3!!!!!!AJ%S!(i
+X"5)!!!!!!BJ!&!!!!!!"U!2N!IJ%c"!*25`!!!!!!DJ#P!(i!h`3'3f&ZBf9X!!!
+X!!!!+!&8!1J%lL!*H-!!!!!!!4!"A!&3"0K!!!!!!!!!+!"`!+J!mS!)!!3!!!!!
+X!C!$d!)3"&)!!!!!"H!!6!!!!!!#V!1-![`%G"!*25`!!!!!!U`#D!,m!e!3'3f&
+XZBf9X!!!!!!!-!"J!(J#3!!B'3@4UGA0d!!!!!!!H!"J!-!#3!!B%3fKKG!!!!!!
+X!-!!B!%)!N!!'!d4TF!!!!!!!!%)!'!"8!*!!"J9'Eh*MC3!!!!!!!&3!'!"Q!*!
+X!"J4+G@e`!!!!!!"Q!"J!H!#3!!B%6'p[G!!!!!!!H!!B!)S!N!!'"de[ER0dCA)
+X!!!!!!!#+!"J!R!#3!!B%6Q&YC3!!!!!!R!!B!+i!N!!'"8pQCQ9b!!!!!!!!$!#
+XD!"i"%JB%8(*KH3!!!!!!(J#D!$!"%JB$8R9L!!!!!!!!-!#D!%)"%JB$8fPd!!!
+X!!!!!3J#D!&3"%JB%9(9bEJ!!!!!!9!#D!'B"%JB'9@jdFQ&`!!!!!!"Q!*S!H!%
+X5"JG@CA*cD@pZ!!!!!!!!H!#D!)S"%JB'9fPZC'ph!!!!!!#+!*S!R!%5"J4ADA"
+XP!!!!!!#Q!0m!aJ$rJ!!!!!%b!!i!!!!!!)d!U!#K!1)%!Np,!!!!!!#0!$%!S3"
+XV"!44G@Pd!!!!!!!1!"8!)!"r"Ja"FQ0SC@pXEfGTFh3!!!!!!#!!&3!b!(m'#8*
+XKFQ*KFQPKEJ!!!!!!!$)!&3"%!(m'"d0KGQ9YB@i!!!!!!!"%!"8!9J"r"J0&E'B
+X!!!!!!!"@!"8!D!"r"JC)C@&XCA)!!!!!!'J!&3"k!(m'"NYZD@GSG!!!!!!!$J#
+X0!#!!p`B'8(*TCA0d!!!!!!!J!)d!-J$h"J95EfGeC3!!!!!!!$)!M3"%!2F'"e0
+XKEA9bB@N!!!!!!!"%!)d!9J$h"JG8Eh9bDA0d!!!!!!!!9J#0!'J!p`B)9Q&XDhP
+XbD@8!!!!!!'J!M3"k!2F'"PGTHQ&bC!!!!!!!L!#N!+J!a)!!!!!!'!#m!*S"'`&
+Xc!!8!!!!!!!!!!!#*!!"S#J!!!'`!"3!!!!!!3J"0!&B!K`3#6dX!!!!!!%)!#`"
+X@!%8%"N0KEQ0PE!!!!!!!"`!d!$F!e)J#AM!!!!!!!%3!Q!"8!-`3#89NDA3J9'9
+XiG!!!!!!!!!J!#J!S!#UJ!J!"!!!!!!!p!%N!A3"TJ!!!!!#!!!!!!!!!!!!2rrr
+Xrrrrr!!r-c2rmc-r`$mrmm4r-cr!2crra%Ic2m!r-rr%4r-r`$rrrrrrmcr!2m4(
+Xrr-c2m!m4%Irrc-r`$r%4r2rmcr!2ca(mcrr2m!r-rrc-rrr`$mc-c-c2rr!2c-c
+X-c-crm!rrrrrrrrr`!2rrrrrrrr!!!!Q)N!!!!!!!rJ!'!!$rp`!'!!X$Z`!*!!)
+X!!!!r!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+X!!!!!!!!!f!!!!!!!!"4"!!!!!!!T3!!!-!!!'J!!!KK!"@YBL8!(i$P%))"!"*A
+X!F"`"`K3!&3!8))r!rr!"q!!!!(1!)!!!!!!!)!!!$Q!"!"!!!!!!!!!!!!!!!!!
+X!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!(!!8)J#'!3"!S#L!!3
+X##)!!!'!!35)6E!!!!LL!!!(iL8!&S#P%))"!"*9!8"3"3K3!&3!8))r!rr!0#!!
+X!!#4!8!,c`!!%)!-!#C!!"Y8jl%`J!!A,R#qllR!!$R1mlhrZM`aK',[1mlmBaM(
+Xr'J)%!"!B)6$!!!!!!J!!!!#TV[N8S53+8+eFli(U844&1L#8I%*%*D,X3!**)!9
+XV@)P!"D!T4##!3!593&!8!8)8!"8!&##2`2r`%`!q!$CdA%!&r#!5'L!%J!NJp0r
+X@XT+T!!BmBQK!-BJJNBaM'-)4LJbK[-BaM%NBa9%0$3%%!"!J)""!!!!!!J!!!!#
+XUdIJ!!"J!!!!M'!+!!!!!4L5#SN!!!$-b!!+U!!!"q)P!"D!T4##!3!593&!8!8)
+X8!"8!&##2`2r`)`!5!!QXBL!pr$q4+L3-Z$P!PB95e#&a!!TS3Upi-BeI3HaM#-)
+X3LJdK@XBaM!NBa*%8L!"rR2Gcr6*pChRfImBeM(kS%&1Hplh1Fj*M'$U1Fk-BaLl
+XRiZI1MDXb3!&9B!9V@2P"rErTI##!3!6eIprhrhq9q"Ai&IL2`2rhC3I)r)L[iZh
+X,r#"mb#"cI#RqPiqj5#'[ciUSM5$%6SL!)Urp#2[6qJiK'FI4miNBa)SNL!#-BaL
+XNBc4VQ-BjJNBe9%8%%&4M'-BaM&*rreI4M'-BaM@"2%M4MQEXMriCDC!!!Iq2IM'
+XaMmIrrrrrPc---``JIJIr*riRrrrrq+8#K45)V'-Dbr`rN5JrL(a!$T!!K4@e)5%
+X!%bN$m-54H&p%p'-)`K'+M5%BaK')54M8K%4)!)aK(k4M2'XBaM"b4M8N5+J3Gq-
+XBaKrrdQ-BIT'-BaM'0)IN50'-BJ%)"#(b6@YBq8[p[IJm3!*!"2AhrhIrIi(j3Id
+X9q%rrr!LM!SN8L(4M(G2m)")B)("r3!k3!!"@XK)"!")U)LM%N3JJJ)4M'-)4LSb
+XK'-B4M%N9E85%5!#FB4JNBc*V'-B`#Ne99&#S%53R1Fi3K"*M'&+4M'FiaM@*,NR
+X4R'2r'!4!FNJ"q)P+*D8!!%!#3!58&!&8!8!!)8!P&#"2rr`)S`+6&)JN94"6r$q
+X!##5!1)!!N!#!1Nd-!""Kcp`R1)je!!4dI1pq$SpdIaLk$SZ)iNBNrMMmEjlhSq-
+XaDaGjm2'dLS[qU!iMfYDelh[5BarHlR1DelR1m54'cQaL!1!!F'Q9DeL*5L@P!!"
+X!!N!%P"3"9!&!!#&!*43J6rrm"fd#[ZG)FlEJ2I`JIrNJ!!#!!2!!%!!!!"!J!!!
+X!!!!"!!!!!!!!!!!!!!!!!3!!!!!!!#!!!!!!!%!J!!"!)!!!!!"!F!*`!!!!J!!
+X!!!!!!!!!!)!%!!C!!!!!!!!!!!!!!IL*5L@P!!"!!N!%P"3"9!&!!#&!*43J6rr
+Xm!#!!!!3!!!!!)IrJ!!NJ!!!!!!!!!!!!!#!!!!!!!!!#!!!!!!!!!!!!!!!!!!!
+X!!!!!!!!!!!!!!i$!!!"!)!!!!!1!!!3!!!!"!!!!!!!!!!!!"`!!!!'!!!!!!!!
+X!!!!&DeL*5LIR!!"!!N!%P"`"h!(!!#&!*43J6rrm!!!!!!3!!!!!3!!!!!M!!!!
+X!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+X!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"!!3!#3!1!"-!'!!D!"d!)!!P!#S!,!!
+Xa!$)!0J!l!$d!3J"(!%`!83"@!&X!B!"P!'B!D!"V!(!!F`"i!(d!JJ#(!)`!N3#
+X@!*X!S!#P!+J!V3#b!,F![!$"!-B!b`$3!08!fJ$I!13!k3$Z!2-!q!$p!2m"!`%
+X&!3J"$J%3!48"'J%I!53"+3%Y!6)"0`%i!6X"3!&#!8F"6!&4!9B"@`&J!@8"D3&
+XZ!A-"H!&p!B)"K`'+!BX"MJ'6!C-"Q!'G!D)"T`'X!E%"YJ'l!F!"a3(+!Fd"d!(
+X5!GF"h!(K!HB"k`(`!I8"qJ(r!J3##3)1!K-#'!)G!L)#*`)X!M%#-`)i!Md#3J*
+X(!NX#6`*8!PN#AJ*N!QS#D`*`!R8#HJ*r!S3#K3+*!Sd#NJ+A!TX#S!+M!UJ#V3+
+Xb!VB#ZJ+p!X-#b3,-!Y)#f!,E!Ym#i`,R!Zd#m`,h![d$!`-*!`m$&3-E!am$)J-
+XP!bN$,`-e!cN$2!0#!dJ$5`01!e3$@J0I!f8$DJ0[!h8$HJ1!!i8$LJ12!j3$Q31
+XI!k8$U`1a!lB$Z31m!lm$``2)!md$d32@!pF$h!2J!q3$j`2Y!!B!"J!'!!B!"J!
+X'!!B!"J!'!!B!"J!'!!B!"J!'!!B!"J!'!!B!"J!'!!B!"J!'!!B!"J!'!!B!"J!
+X'!!B!"JB'!JB""J!'!!B!"J!'!JB""J)'!!B!"J%'!!B#"J%'!!B#"J!'!!B!"J!
+X'!!B!"J!'!!B#"J%'!3B!"J%'!!B!"J!'!!B!"J!'!!B!"J!'!!B""J!'!!B!"J!
+X'!!B!"J!'!!B!"J!'!!B!"J!'!!B!"J!'!!B#"J%'!JB""J!'!3B!"J!'!!B!"J!
+X'!3B!"J!'!JB!"J!'!3B!"J!'!!B!"J!'!!B!"J%'!!B!"J!'!!B!"J!'!JB#"J%
+X'!!B!!!!'!!B!"J!'!!B!"J!'!!B!"J!'!!B""J%'!3B!"J!'!!B!"J!'!!B!"J!
+X'!!B!"J!'!!B!"J!'!!B!"J!'!!B!"J)'!!B!"J!'!!B""J%'!!B!"J!'!!B!"J-
+X'!!B!"J!'!!B!"J-'!!B!"J!'!!B!"J!'!JB!"J!'!!B!"J!'!`B!"J!'!`B!"J!
+X'!`B#"J)'!JB!"J!'!JB!"J!'!!B!"J!'!!B#"J-'!`B#"J!'!!B!"J-'!!B!"J!
+X'!`B!"J!'!!B!"J!'!!B!"J!'!!B!"J!'!!B!"J!'!!B!"J!'!!B!"J%'!3B$"J!
+X'!!B!"J%'!!B#"J!'!!B!"J%'!!Err`!!#pk3!!!!!!$r!!F!!2rp!!F!$`6P!!`
+X!!`!!!%)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+X!!!!!!!!!!!!!!!!!!!!!!!!i!!!!!!!!!!!!!!!!"S!!!!!!!&@V9L*3!IJ183J
+X3!J!)LR!(!(!"`38!!+3!#JJ3rJ2rq!!!!!!!!!!!!!!!!!!J!!!!!!!!!!!!!!!
+X!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+X!!!!!!!9%3!!!!!!+8!!!$!!!#`!!!##!!!!"rL*3!@J+83J3!J!)LP!&!&!"338
+X!!+3!#JJ3rJ2rq!!!!!!!!!!!!!2!!!!J!!!+B!!!%!!-!!!!!!!!!!!!!!!!!!!
+X!!!!!!!!!!!!!!!!!!("`!!!!!!!!!!!!!!!!!!!!!"`!!!!!"J!!!!"%J!!!!!!
+X!!!!!%!!!!!!!!##!!&@V9L*3!@J+83J3!J!)LP!&!&!"338!!+3!#JJ3rJ2rq!!
+X!!!!!1!!B!23J!!!J!!!0N!!!e6NX8L!!!ZA1&mhh1!!"`$[1prlSm-B4Llc[1r'
+X-Bar)%J#"!!3'#%`!!!!!!!!!!!!UDi!L!)N"!)#R1q"l!))J$SJ0(a")K0Lpa!!
+XLLJ!!!IiL8!&S#P%)%!)!#)T3"3"3!8%&!!#N!!S)%2i$rrJ1q$i!!"(1)!(m)!!
+XJ)!-!15"phpDb8UJ!!aia0"!Ba!JL)%BaM#%BS-SEM'-Ba*'-Ba$)&3""!!3)#%`
+X`!!!!!)!!!!!UY&4&+%N#P%YBaJ#NP%848BJ3U*!!N3PSaL3!**)!9DY@)P!"D!T
+X4#"!#!!L+8!8!8!&""3!!T!!+#"$q!rri%8JL!"Z5-5!&r#!%6#!%J#P24095dQ&
+Xa!!88)93J'-33%#p'-B`K#+$5&FaM'-#4M'-3a"L!!3!%#!J%%!!!!!#!!!!!+J4
+X!!!!'!!!!#-B!S!!!!"'*%IL3!!!!$-BJ!!JJ!!!"rL*3!@J+83J3!J!)LP!&!&!
+X"338!!+3!#JJ3rJ2rqh&!%!!N1M%3"I`r)T)N")!Trd5&-G3KF3!&0#DA[#G'TmK
+X3ap#-)3LJiK'XBaM!NBa9%833!"rR2Gcr6*pjhRfGdBeM(kS%)ZHplh1Fj*M'$U1
+XFk-BaLj!!5,RcSfV'*!!@5PT9UeBq8(p[qPm)%!)!#2TIrIrIrhrP2i#Rq!Tr%2i
+X$rrb54mMm4%BaH"hm)#&5)%Xi)!p%MjL))Dr!#94"q'*)aX!%P[i`MldrS-)4R(d
+XI1*'-5+*#%!!M'-BT'-dDaM'1BT'094&*"#-BaM'-Ba5BapAmBaM'-Bejra)dBjQ
+Xpa2rTQU8!!IrMhiaXBr(rrrrrri['-'$'$"!I`(rm4rq)rrrrrrb53S8N4%IaMZ[
+Xm2rS`2l"m)!p%K498)5%2LC5"%'*)[#I)PXB`M#%BS1)4M'%BK*'-9%4#%!!M'%I
+XT'-iDaM'-A*'054)U"#2iaM'(rr5IrKHNBaM'-Bd35")dBaL!#)""+d,9UeBq8[p
+X[IJm3!#)!#2Tqrr[IrhrJ2j3(r3Tr#2rrr!0a3SNN4%BaM@[m)#34)%Kq)!p%!"@
+XbS3%!%48"%'*)K"!3&mB`M#%BU0)4M'%BK*'0BNK"%!!M'%B*'-dDaM'-!T'0543
+XU"#-)aM'%)35BaK5NBaM'-Bd554)dBaMrm)"#Id+!!IiL8SPT3!!3!#)!#)S#J!T
+X3!8!!""3!43S)#2rrr!!43T%N4%BUMZ[m2b$a*,"pS!p%J&Da%J!384B4&'*)LSJ
+XJN!"'-B`K'+M+%BaK'-549Z*)34!!*aM'+4M-QXBaM#+6998B+J4R'FjcM'%8Q-B
+X9T'-CcM'08NZ5G'FBJ"%!"!UP9DY@)P+*D8!!%!!L!!L+!S!+8!&!!!38!%8+#!M
+Xrrr`!%8+M*-3k+SJVr#!(%-!!1'!!4)!k6T)!%'$RlK1F4c+!!)p(c[IJk2G(mBZ
+XJk,L1*'*2`*!!Ia[R2FMic&V&hR`FE5+LrkS$QZDeVA1Hj*M(lVZFjVAZFla*%E1
+XE')!1!!m+@J!"rL*5L@P!!"!!)J!)LJ+!#P!"3!!%&!"&#JJ)rrrm!"C#[XG#%GY
+X`(IrJq"!!!!!J!(d!%!!-!"!J!!!!!!!!J!!!!!!!!!!!!!!!!%!!!!!!!($`!!!
+X!!!!3#!!!%!J!!!!!%"`"!!!!!#!!!!!!!!!!!!!J!3!"%!!!!!!!!!!!!&@V9L*
+X5L@P!!"!!)J!)LJ+!#P!"3!!%&!"&#JJ)rrrm!"!!!!3!%!!!%IJ!!"!!!!!!!!!
+X!!!!!!#!!!!!!!!!"!!!!!!!!!!!!!!!!!#!!!!!!!!!!!!!!!!%3#!!!%!J!!!!
+X"%!!"!!!!!#!!!!!!!!!!!!!J!!!"i!!!!!!!!!!!!!!"rL*5L@P!!"!!)J!)LJ+
+X!#P!"3!!%&!"&#JJ)rrrm!!!!!!3!1!!!%!!!!"!!!!!!!!!!!!!!!!!!!!!!!!!
+X!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!$J-!!!!!!!!!!!i!!#!!!!!%!!!!!
+X!!!!!!!(!!!!!!!!!!!!!!!!!!&@V9L*5LIR!!"!!)J!)LJ1!$R!"`!!%&!"&#JJ
+X)rrrm!!!!!!!!!!!!!!!!!"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+X!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"!!3
+X!#3!1!"-!'3!D!"d!)!!P!#S!,!!a!$)!0`!m!$i!3`")!%d!8J"A!&`!B3"Q!'F
+X!D3"Y!()!GJ"l!)%!KJ#,!*!!!*8!QJ#I!+3!U3#X!,%!YJ#l!-!!a3$+!-m!e!$
+XC!0i!i`$S!1d!mJ$h!2`"!3%%!3N"$!%4!4J"'J%I!53"+3%Z!6-"0`%m!8%"3J&
+X&!8S"6!&4!9B"@`&J!@8"DJ&[!A-"H!&p!B)"K`'-!C%"P!'9!CJ"R3'G!D)"T`'
+XX!E%"YJ'l!F!"a3(+!Fm"e!(A!GS"h!(K!HB"k`(`!I8"qJ(r!J3##3)1!K-#'!)
+XG!L)#*`)X!M%#0J)l!Md#3J*(!N`#83*@!PX#B!*P!QS#F!*f!RF#I!+"!SJ#M`+
+X@!TF#Q`+I!U3#U3+Y!V)#Y3+k!Vm#a!,)!X`#d!,A!Yi#iJ,T![!#p!,j![i$!`-
+X+!a%$&J-G!b3$+`-b!cN$3!0&!dN$6305!eN$B!0N!fJ$E`0f!hS$IJ1&!iX$N!!
+X$P31D!jm$T31U!l%$YJ1l!m!$a32+!mm$e32E!q!$j32S!qX$l`2c!rJ$r33""!B
+X%"`3-""!%&!3B""J%(`!(!!F!"`!(!!F!"`!(!!F!"`!(!!F!"`!(!!F!"`!(!!F
+X!"`!(!!F!"`!(!!F!"`!(!!F!"`!(!!F!"`!(!!F!"`-(!JF""`%(!3F!"`-(!JF
+X#"`%(!3F#"`%(!`F""`%(!JF""`%(!3F""`%(!3F""`%(!`F#"`%(!3F#"`%(!!F
+X""`%(!3F""`%(!3F""`%(!JF""`%(!3F""`%(!3F""`%(!3F""`%(!3F""`%(!3F
+X""`%(!JF""`)(!3F!"`-(!3F""`%(!3F""`)(!3F""`-(!3F""`)(!3F""`%(!3F
+X""`%(!3F""`%(!3F""`%(!3F""`)(!`F#"`%(!!!""`%(!3F""`%(!3F""`%(!3F
+X""`%(!JF#"`)(!3F""`%(!3F""`%(!3F""`%(!3F""`%(!3F""`%(!3F""`%(!3F
+X$"`%(!3F""`%(!3F""`%(!3F""`%(!3F$"`%(!3F!"`!(!!F$"`!(!!F!"`!(!!F
+X!"`)(!!F!"`!(!!F!"`-(!!F!"`-(!!F!"`-(!JF#"`)(!!F!"`)(!!F!"`!(!!F
+X!"`!(!JF$"`-(!JF!"`!(!!F$"`!(!!F!"`-(!!F""`%(!3F""`%(!3F""`!(!3F
+X""`%(!3F""`%(!3F""`%(!3F#"`)(!`F!"`%(!3F""`%(!`F""`!(!!F""`!"!!I
+Xrr`!!!%)!m!#A!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+X!!!!!!!!!!!!"!!%!#3!!5iN!$!!!5i`!!!!@!!TCH9YVA(9@D&G[@'a6BP4U9@j
+X5,!!!!"B!#PPC@dYF99C)9fpB6&0#9%T96P)X!!!!3Q!!!*J!!!!!!!!!!!!!!!!
+X!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%!!3!*!!!i#3!-!!!
+Xi$!!!#-+3!!!!!!$[!!S!!2rf!!S!$!0R!!S!!J!!!$3!!!!!!!!!!!!!!!!!!!!
+X!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!i"0!!!!!!!!!!!!!!!
+X!!!!!!!!!!!!!!!!!!!!!!!!IJF!!!!!!!!"`(!F!F!!!!!!!!!!!!!!!!!!!!!!
+X!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"83*C5J!!
+X"J!!!!!!!!!!!!!!!!!!!!!!!!!+J!!!!!"D"3!!!!!#!!&!8"3"3!!!!!!!!!!!
+X!"4!!`-!!!)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!('!!!!!!!!!!!!!!!!!!!
+X$J!1!!!!*#"C!N3'3!&*%"54!6!!i!!(Ki!!!!!!!!!!!!"D"6J!!!!d!!&!8"3"
+X3!!&93!!!$c`!hlRp*58!!,PhaI0pcJ!"MK21jrZM$')1AHGjhiaJaMp#J))!3-)
+X6'!!!!!3!!!!&65%GqA43P@Q"#UCYT#UD3URb3d32FK)ALd!qGU!!L$2rP[P4!!#
+XJ#3!!9j3&!&!!!TC!)N!I`rM99NP'%K!"4iL0"!Ba""*4%M'84'--SajM'-BNM'$
+X')b0!3J""!J%)!!!!"!!!!!9@)5-CM%!!!!!!!!!!!!!!!&,N3G@0c-VF"&#)"#4
+X8L5Pfcf#!0!!4")"FpJ@"f!!#USK3$jr$#)r58))IN!!"43N9k!SaUqKQUM#-4#-
+X0)UeM'-B%M&8T45)!'jRERlF[EQjlIc'$'I9!FU%9M&hGhGQCQrEQCQDCQ8e81r@
+X0,3US2P#DT%,mP)P'l'#q5+!6Z)60`rcr#f!!!!#+-&r$#)8jZ9)5I2*&%k3I#Fm
+X3"+UVd)pdr`iL6@2SqF5+P4#*%J!'CQ8Q8dbCQCb&+P5T+#"bSG@-CQCQCQCP8TQ
+XCQCQC38j(pEA0#SJ)r+JIJ55N5AD[i-PC2k&&5Aer$F2FN!!!!$m'-2r$#)!8CL)
+X9%!*&)(iBNL%,k5Vq-)a%BidL$1-)d#5+LLL4%J!HBRdQ8ibCQCKP+P4*48$ri41
+X-CQCQBrrp8TQCQCQC!93llidXb!!qN!$+T%,mT)N@U"&2DL+K19)&!Geq92rm!!#
+X+-(r$#!"8TP)3%!4&4%8BNL)%%#G'-C4%BibL$1-+bL5*#N54#J!QCQ%Q8dbCQCJ
+X9*#LTK8#-Ba1-CQCQCL)K8TQCQCQC!15&aBS5%!!4%)J%*#5P+4DS#NK+BN&#+38
+X!93"8J!!!#&)[Rm-)J$NCL5!"$$RlK1F4c+!"%%I1jm1MG(i-A3G&a(%+4*m+2aq
+XCf4j6,*PZH1,N+4Ie3)aGmA1GhGhCfCe5PQCQGhF!6d3&XH(J!!%IFVrr*e[T&VJ
+XE2V'J332NK`"9!&2J!!!!)HLI`rJ!%!!!`!%!!!!!!!!!)!!1!!!!!!!!!!!!!3!
+X!!!!!!BB!!!!!"!)!!!J3!!!!!31!!!J!!!!!!!J!!!!!!!!!!!!!1!!!!!!!!!!
+X!!!!%!!!IJ!!!!!!"!!!!!&F!F!!!!!!!)"rq!!!!!!!!!J!!!!!!!!"!!!!!!!!
+X!!!!!!!!!!!!!!!!!!!!!!!!B$!!!#"!!!!!'!!!!%!!!!!!!%!!!!!!!!!!!!!!
+X!!!!!!!!!!!!!!!3!!!!!!!!!!!)!!!!!F!!!!!!!!!(!!!!!!!!!!!!!!!!!!!!
+X!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+X!!!!!!!!!!!!!!3!%!!N!$J!@!"d!(J!K!#3!+3!Z!$!!0!!e!$N!2J"!!%8!5J"
+X2!&3!@3"H!'-!D!"T!'X!EJ"c!(B!HJ#"!)B!L`#3!!#9!*N!R3#L!+F!U!#Y!,)
+X!YJ#p!-)!a`$-!0%!eJ$E!1!!j3$U!2%!pJ$l!2m"!3%&!3F"#J%3!4)"&J%D!4i
+X")J%Q!5S",J%b!63"0`%l!6d"4!&)!8`"8!&8!9J"A!&I!@-"D!&[!A3"H!&m!Am
+X"J!'$!BJ"L!'0!C)"P`'E!D!"T3'U!Di"XJ'f!ES"[J(#!FB"bJ(1!G)"eJ(B!GS
+X"h3(J!H3"k!(X!I!"p!(i!I`#!!)%!JJ##`)2!K3#'3)H!L-#+!)Y!M8#23*&!NF
+X#5J*2!PF#AJ*M!QJ#E!*`!R8#HJ*q!S-#L3+1!T%#P3+D!U%#U!+Z!V)#X`+h!Vi
+X#`3,'!XX#d3,9!YN#h`,P!ZN#l`,e![`$!!-'!`S$$J-3!a)$&`-H!b-$+`-V!bX
+X$+`-V!bX$+`-V!bX$+`-V!bX$+`-V!bX$+`-V!bX$+`-V!bX$-3-h!ci!!!!!!!!
+X!!!!!!!$rrrrrrrm'"[rrrrrrr`!!rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+Xrr`!(rrrrrrrr!`-"!`%&!3F!"J!*!!J"!`!%!!3""`!'!33!"3%$!3B!"J%'!!B
+X!"J!'!!B!"J!'!!B!"J)%!33""3!'!38""J!)!3F!"J!'!!B!"3!&!!B!"J%$!!B
+X!"J!&!!J!"J!'!!B!"J!'!!B!"J!'!!B!#!!'!!B!"3%%!3B""!!%!!B!!`!&!!8
+X!"3!&!!8!"!!&!!8!!`!%!!8!!`!)!!8!"3!&!!8!"3!&!!3!"3!'!!J!"J!'!!8
+X!"!!#!!3!"J!!!!B""`!'!!8!"J!'!!B!"3!&!!8!"3!&!!8!"3!&!!8!"3!&!!-
+X!!`!%!!3!"3!&!!8!"3!&!!8!"3!&!!8!"3!%!!8!"J!'!!B!"J!'!!B!#3!*!!N
+X""!!%!!B!#3!(!3S!"J!&!!8!"J!'!!8!"J!(!`J#"3%&!!8!#!%*!!B""J%$!!8
+X!#!%&!!B""`!)!!J"#!!'!!F$"`!'!!N!#!!&!!F""`)(!33""!!'!!J!"J!*rrr
+Xrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr`!'!!B!"`!!!!!
+X,*T!!!!!!!1m!$`!!rr3!$`!2"*N!$!!$!!%!2J!!!!!!!!!!!!!!!!!!!!!!!!!
+X!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!F!%b!!!!!!B
+X!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!93!!!!!!"q!i!!!!!!!!!!!!!!1!$J!!!!
+X!!!!!!!!!!!8!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+X!!!!!!!!!!!!!!!!!!!!!!!!!+)J#6**!!!!*!!!!!!!!!!!!!!!!!!!!!!!!!!!
+X!!!!!!!!!!!!@J+!!!!!!!!!!$RcJ#J!S!!!!!!!!!!$`!!!&!!3!!$!!!!3!!!!
+X!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!F-!!!!!!!!!!!!!!!!!!!!!!!(!!#
+X)!!!!"#%!f3#))"N'L33$4))"!!!!!!!!!!!!!!!"9!!!!!!!&[bJ!!!!!!`!!!T
+X%S!S!+!!!#8U!!!-"qm!!"G&1IQ&*)!!%a1r"IRI[2!!!m!#2R[2rHKJ``Ji[I2I
+X2IiB-"M(p"3"!J!)$""--!!!!!!)!!!!!#TN3FHrLp#J5P@B""&+Qfa#+9BK&+l!
+X-H!21!!"d@J"qHJ!!%3$2rjE%Ti!!")!)J!!+A+!+!#J!!"*-J!4'!I`[m!AApC+
+X45-!!#5d3Jd#!--)!!3RJL''+%)BB-8-H-----)L'$!Ba$)D!))!#"!3""!!!!!!
+X#!!!!!!UQ%#)BB``J!!!!!!!!!!!!!!!!!!&*%S3&84iH*Z!!S)98!!S!*&%@p+K
+X!!!!!%3!J#P#J#J!S!!!5P3"!$!(m+"!&JT58S)Ib!!S@%39"!&$#""%+%8KJKK#
+X#'$*#V6$$$$!)KJa&845%!!lcRZjpYaE0ChRhGdBa'-IUJ#K5#&--,R1FjcR1Fk8
+XV1FjcSaM&5j!!JHP4)5%P3!#JM!#%Rd35%4D8X#lMT)!4!#!+8+Ik!#MZ!!!!%+4
+XIpI`S%!@2c'K!K-)!%K36#Ah`6d0)#"6T6k#'%))B0%*0-----!L&%NP+&%3!%Ba
+XM&)j6*c1BaML+4M%Ba#U!+&))8``aM'-BaM'-C5c'-BaM'-8e8([j8Pc-T%!4)*9
+X8L%4%F4&fPl!a&%5!)l*3#P#N'i$[%3!!!!%8Irhm+"!&K3B3S)8[Ra)8)*%$#*!
+X!`K2N*5SSB)IHRrJi3Jb`r3r2#)85U)SN4!!2M#-8M&0')aM'-)*'+U9%8N"%LJp
+X,$#plh[I#-BaP+-BaM'-Ba!8iKrP48Y#!!IRmT!2`2d53!*&'PM![&-Mm)8a3Qp1
+XrH2q$%3!!!(i-IrRm+"!&J!8Y&)3#!#)83'%$#*!![L!#45SSB)B3KKJd3Jb``3d
+X!L)5LU84%*!!4M#2dM&1')aM'-(*&5U*%LS"%LJK,$$'-BaM$rrrP+-BaM'-Ba!8
+X3Kr93h0#!!#)Ja95)4%84%ADAk&(e8)C"!)NSdJP,`HmIrq!!!Ja$qI`S%!@!"9-
+X)K!)!)K5!Ii-*%))3"%6hq'#'%)BF-N)-F-%-J)L%S4&%4#3!%B`M")a64L-BaM!
+X+484&43U!rri)4``aM'-B`K#%*5M'-BaM'-3&%([cd0,-J!"#))3!K)4&%K%@P!K
+X4"P'&36++6r2j5RmT%!!!!"%84Krm+"!&!"@6&%J!!%%P#)&$#4#%#qJ#""KKLK#
+X'($&#$($",&#)K%%5*)38!"'-Ba5-8bBM'-B`LNb%5-B+J)-''%F--BaM'-BaM'8
+XSaM'-CcR-"9%&i9%K)3!"r#'&9!!%4544&T`%N444J)&0"5!!!8S!+4%!!!!!T%J
+X"r#J3"B!1M1*)!#$!arF"22%218333F3IR[2`HK[3rJ`[323[#(K"%L6m&(q2mjl
+XNI&-@)aGjm('dK%LrkS#$"Hr#mmplh[HjcR1P+,R1FjV@Y!1qK!&f(Ki!!)3qH!2
+Xrj(V2d4D!$-lVMS#"!Ib3!!!"5J!SlJ!!!!"$`!(m,r!&!!3!!$!!)!!!!!!!!!!
+X!3!!!!!!!!!!!!!!!!!!!#!!!!!!!!!B-!!!!!!!)!J!!!%!J!!!!!!3(!!!!3!!
+X!!!!!!"!!!!!!!!!!!!!!!3"i!!!!!!!!!!!"9!!!3!!!&S!!!!!!!!%!!!!!!8S
+X!+!!!!!!!!%!!"q!!"3!!!!!!!%!!!!!!!!!!!)!!!!!!!!!!!!!!!!!!!!!!!!!
+X!!!!!!!!!!!!!L!)!!!"!)!!!!!"%!!!!!#!!!!!!!!!J!!!!!!!!!!!!!!!!!!!
+X!!!!!!!!!!!!!!)!!!"D!!!!!!!!"!!!!!!(+!#J!!!!!!!4!!!!!!!8!!!!!!!!
+X!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!(!-!!!!!!!!!!!
+X!1!!!!!"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!&8!!!!!!!IJ!!!!!!
+X!!J!!!!!!$J!i!!!!!!!$J!!!!!!&!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+X!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!3!%!!X
+X!%!!A!"m!)!!M!#B!,!!a!$-!1!!j!$i!4!"'!%`!8J"C!&m!C3"V!(%!G`"i!(S
+X!IJ#$!)F!M3#9!*`!SJ#S!+i!X`#i!,i!a!$&!-X!d3$@!0d!i`$T!1m!p3$l!3%
+X"#!%1!48"(J%M!5J",3%[!63"0J%j!8%"3`&)!8d"8J&A!9`"B!&P!@S"E!&[!A3
+X"GJ&r!B3"L3'1!C-"Q!'G!D%"TJ'V!E3"Z3'q!F-"aJ((!FS"d!(3!GF"hJ(N!HN
+X"l`(e!IX#!!)&!JS#$`)8!KN#(J)M!LJ#,3)b!M3#0J)j!M`#33*'!NX#8!*9!PS
+X#A`*N!QN#EJ*a!R8#HJ+!!SB#M!+5!TN#S3+T!V)#Y!+h!Vd#a`,2!YB#f`,I!Z-
+X#k!,[![3#qJ-"!`B$#3-1!a-$'`-N!bX$-!-a!cB$2J0"!dF$6J08!eN$AJ0P!f`
+X$F30i!hm$L!1-!j-$Q!1G!jm$S31Q!kd$XJ1r!lm$[`1r!lm$[`1r!lm$[`1r!lm
+X$[`1r!lm$[`1r!lm$[`1r!lm$[`2&!mX$e3!!rrm!!!!!!!!!!2rrrrrrr`J)rrr
+Xrrrrr!!$rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrm%"!%$!38
+X"#3%(!3N!#3%$!38""3%)!3F""!%(!3-""`%)!`J"#!%)!3J"#!%)!3J"#!%)!3-
+X""!%'!3F""J%)!3S"#3%)!3J"#!%(!3F"#!%)!J8!"`%)!3F"#3%)!3J"#!%)!3J
+X"#!!)!3J"#3%,!3F""`%(!33""`%%!33!#!%%!3F""`%(!3F""`%'!3F""`%&!3B
+X""`%&!3X""`%(!3F""`%'!3F""J%(!3F"#`%(!3F""`%&!3-""3%)!!!"#3%*!3J
+X""`%)!3J"#!%(!3F""`%(!3F""`%(!3F""`%(!3F#"3%&!38""3%(!3F""`%(!3F
+X""`%(!3F""`%(!38""J%(!3J"#!%)!3J"#3%+!3S"#`%%!38"#!%-!!J!#`%(!3B
+X""J%(!3N""`%)!3N##J%&!!B!"J%+!3X!"`%)!J3""`%+!38"#!%*!3J"#!)+!!J
+X"#3)*!3J$$!%,!3B"#3%(!3F""!%%!3F"#3%)!3rrrrrrrrrrrrrrrrrrrrrrrrr
+Xrrrrrrrrrrrrrrrrrrrrrrrrrrrrr!JN##3!+YYX!!!"%!!!!!!!!!!!!#!!-!(S
+X!33"k!!`!#!!!!!!!!!!!!!!!!!!!!!!!!!!)!!`!IJ"r!(i!$!!)!!!!!!!!!!!
+X!!!!(!!N!!!"%!!!!!!!!!!!!!!!!!!!!!!!!!F!"3!&!"h!#)!&!!)!!!!!!!!!
+X!!!!!!!!!!!!!!!!"`!(!!F!(m!2J!F!!J!!*!!J!!!"%!!!!!!!!!!!!!"!!-!"
+XH!))!AJ!`!"!!!!!!!!!!!!!!!!!!!!!!!!!!%!!`!(i!rJ"q!$!!%!!!!!!!!!!
+X!!!!)!!B!!!"%!!!!!!!!!!!!!!!!!!!!!!!!!!!!%!!T!"F!#3!*!"m!!!!!!!!
+X!!!!!!!!!!!!!!!!!!!!3!$N!(`!2!!m!(`!,!!X!!!"%!!!!!!!!!!!!!!!!!!!
+X!!!!!!!!)!*3!k!#3!!#3!!$i!!!!!!!!!!!!!!!!!!!!!!!!!!!!#!#F!2J!m!$
+X`!2J!!!X!"!!!!%6i!*!!!*!!!1J!P!!)!!!!!!!!!!!!!!!!!!!!!!!!!!!!q!$
+X`!2!!q!#F!!J!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"!!%!!!!4!!!!!!2m!J3#"!
+X)%!J3#"!)%!J3#"!)%!r`!!!!!!!!!!!2m"ri'"JB'"JB'"JB'"JB'"JB'"JB(rJ
+X2m!!!!!!!"`!(!!!!4!%!!S!%3!lJ!S!#J!1!!!!!!!!!!!!!!!!!!!!!!!!!!3!
+X$J!I!$q!$J!1!!i!!!!!!!!!!!!!!!!!!!!!!!!!!"J!(!!!!4!!I!!N!#3!A!#N
+X!%!!!!!!!!!!!!!!!!!!!!!!!!!!!!"m!$`!2!"m!13!3!!!!!!!!!!!!!!!!!!!
+X!!!!!!!!!"!!,!!!!%!p1CA4)B@0V)&GTEQ4[Gh-!!!!3!!J"D3&*!!&N!83",!!
+X"3!!!!"S!$!&A!9!"G`&8!9)#Gbd!!@8"F3&b!A3"HJ!!!)3!%3JMB@4UGA0d$3B
+XMBfKKG!d&)f4TF!d()fC[FQ0P$3BMDR9YF!d')fa[Eh30#50YEfjcG'9b$3BMEQ&
+XYC3d()fpQCQ9b$3BMF(*KH3d&)h*eBJd&)h0TG!d')h4eFQi0##0eER4bBA!0#50
+XfCA*cD@pZ$3JMGfPZC'ph$3BMGfP`C3d!!!!5!!J!J!#"!))!J`#%!)8!KJ#(!!!
+X!R!#(!!!!!!!!!!$rrrpl"%PZCQm38(*PGQP[GA-J6@9cFf&RC3"3!!!",3!!!!!
+X06'p[Db""G#"'E'p[FJ!!!!!98hPYBQpX)%PZCQmJ3RNJ3h9bFfpb!!!!!"G6H@e
+XLEf`J5@jQEb"#H5",CAPLEf&bC!!!!!!*9(*KF#"*EQC[!!!!!!%Y!!!!!!a%DA0
+XMEhCPFQPPFcm!!!!!!!!!!)-!K!!!!!!!!!!!rrrrG`P*ERCPER4[FRN*5@jfC@j
+XdEh*j!%N!!"**ERCPER4[FRNJ3RNJ9(P`CA-!!!!!!5d!!!!!"%4bEh!!!!!!$84
+XbEh!J3RNJ9(P`CA-!!!!!"e"TBfXJ9A!!!!!!!5d!!!!!$94[CfGXC5"3D@0VGA!
+X!!!!!!!!!!,%!K3!!!!!!!!!!rrrrI`C8D'PZCh-,9f9KFL""FQe[GA)!!!!!#9G
+XPBA)J8QPZC`!!!!!-9fPPE'3J9f9KF'pZ!!!!!!p8B@YP)%pQCL""FQe[GA)!!!!
+X!$94KDf8J6fCQ)&*TEQF!!!!!$P9ZGfPPE'3J9f9KF'pZ!!!!!!%Y!!!!!!0&BA3
+X!!!!!"9&eB@CQ!!!!!!45C@&N!!!!!!98D(*[G`!!!!!$@Q&`!!!!!!!!!!$r!)B
+X!!!!!!!!!!2rrrrm)4AKdC@jNC@333@4UGA0d)%PZGQ9ZG'pbH3!!!!!%3fKKG!!
+X!!!!$4'P`!!!!!!T'Eh*MC5"-Ef0V!%B!!!4+G@e`!!!!!!K-Efpd)%*[H!"-!!!
+X26@pZFh4PFL""BQPXDA4j!%d!!!41B@eP!!!!!!p2CQCPFL"6B@0bD@CTBf8!!!!
+X!"&"bBAN!!!!!#&*eBL"-B@e`!!!!!!06DA3!!!!!#e4eFQiJ9@jNC@&N!!!!!!C
+X9ER4bBA!!!!!!$&CPFR0TEfiJ5@jQE`!!!!!19fPZC'ph)%0XC@&ZGA!!!!!!#9G
+XTF'8J4Q&MC3!!!!!!!!!!%3!)!4!!!6S"1`)[EJ&H!!&F!!!!IJ#$!!!!!!!!!!$
+Xrrrlr"N&MG'P[EJT$E'PYBL"%EhGZ!!!!!!K$E'PYBL"9F!!!!!!%5fPMD`",!!!
+X*6h"PEL"%Efpb!!!!!!T$E'pcC5"%Efpb!!!!!!C6C@&bBfJ!!!!!#&4PE'9`Eh*
+Xd!&3!!!%Y!!!!!!03BAN!!!!!!!!!!"-!#3%q!6`""!&[!@-"F`%8!!&`!!!"!!!
+X!4SN!!%@*!!!&B!$Nrl`2%!!!!"`%0J!39dP14!!'!)T869"-!!!!hNjeEA!!!3$
+XU38a59!!"!3*%594-!!N"'Ne#39)!!!'5689193!(!Cj69&)M!!J"rQPMFc3!!J*
+XUD@0c)`!#!Sj*3diM!!)#XQPME$3!!J,@4%a24`!(![T'6dj8!!-$@NC26N3!!31
+X+3e958`!)!k*69&)J!!!%$J#!!#d!!!"i!16m#!#"!!!!!!!!!16m"!##!!J!!!!
+XJ!16m!!#$!!m!!!$H!16lr!#%!"F!!!"!!16lq!#&!"`!!!"D!16lp!#'!#%!!!%
+X#!16lm!#!!$)!!!#H!16m$!#!!$F!!#SQ!16m&!#"!%%!!#T!!16m%!#"rrmJ!!R
+XN!16m+!#!rrm!!!f3!!$Nr#3!JIrr)!!*p!$NrJ`!J2rr!!!0S!$NrK!!J[rr!!!
+X35J$NrK3!Jrrr!!!3X!$NrKJ!K2rr!!!5,!$NrL!!L2rr!!!2`J$NrL3!KIrr!!!
+X1EJ$Nr$J!K[rr!!!1a!$Nr$3!Krrr!!!2,!$Nr$!!LIrr!!!6IJ$Nr#`!J2rr!!"
+X"jJ$NrJJ!JIrr!!!"P`$Nqc`!J[rr!!!"q!$NrJ3!Jrrr!!"%m!$NrK`!K2rr!!"
+X#R!$Nqq`!J2rr!!!"D`$Nr1`!KIrr!!"$)`$NqqJ!K[rr!!"$f!$Nqq3!Krrr!!"
+X"r!$Nqq!!J!#q)!!",3$Nr&`!J3$-)!!"4`$Nr&J!JJ$A)!!"@3$Nr&3!J`$K)!!
+X"*J$Nqd!!K!$j)!"&FJ$Nr%`!K3%&)!"",!$Nr%J!KJ%8)!""3!$Nr%3!K`$V)!"
+X"AJ$Nr%!!L!%J)!"%f`$Nr$`$k2rr!!!#4!$Nr'J$kIrr!!!#b!$Nr'3$k[rr!!!
+X6lJ$Nr'!$k2rr!!!$6!$Nr(3$kIrr!!!$N!!!j2a`!qVrr`!!#dJ!j2aX!qMrr`!
+X!!p3!j2b!!qRrr`!!"0J!j2am!qVrr`!!#N3!j2ai!qMrr`!!"G`!j2b-!qRrr`!
+X!"q!!j2b)!qVrr`!!#i`!j2b%!)3!@`!!$Ii!j2bX!)J!53!!$kB!j2bS!)F!9J!
+X!$KS!j2bN!)B!8J!!$MB!j2bJ!)8!6`!!$P)!j2bF!)N!C3!!%f)!j2bB!))!F`!
+X!$FB!j2b8!)-!HJ!!$H)!j2b3!%Z*rrmJ!"4b!16m[%Z-rrm!!"hq!16mZ%`*!*F
+XJ!#UJ!16mY%`-!+3J!$0Q!16mX!#A!)-%!#RJ!16ma!#B!)`%!#TD!16m`!)!rrm
+XJ!%"!!16mk!)$rrmJ!%#)!16p!!)%rrmJ!%$3!16mi!)&rrmJ!$k3!!$Nr0`#"rr
+Xr)!!qf!$Nr0J#!Irr)!!r)!$Nr03#"[rr)!!rD!$Nr0!##2rr)!!rX!$Nr-`#![r
+Xr)!!rq!$Nr-J!J!#[!!""'!$Nr2!(6@9cFf&RC3C6G'&dGA-(4(9ZCf9[EJ40C@j
+Xe"&4PH(3,4'PKCfj[Fh4TBh-%6P9-6!41G@e`#99ZFfKTCR4PC!G6D'PQG'9N"AP
+XZ6Q&a!RPZ!hPZF34jEQ&a#80SBA*KBh4PFJe6E@&XE#"(CA4XD@jP"P"bEfe`G!K
+X&H(4PEQ4PC!K)B@0V4QpZG!T38dKKBfY'Efjd$&"65'&MDdC[ER3J13T38dKKBfY
+X'Efjd$P"bC@BJ4QPXC5"1B@eP$8eTFf-Z)&0dFQPZCh-+3A"`E'8J6@9ZG3P'D@a
+XP)%ePER8*4@4TG#"0C@je$89iG'9ZC'9N)%ePER8,3@0dD@pZ)%ePER815@jfC@j
+XdEh*j)%ePER8,9'KTEQGc)%ePER8*5@jQEb"0C@jeD'J:
+END_OF_FILE
+if test 26482 -ne `wc -c <'sys/mac/NHrsrc.hqx'`; then
+    echo shar: \"'sys/mac/NHrsrc.hqx'\" unpacked with wrong size!
+fi
+# end of 'sys/mac/NHrsrc.hqx'
+if test -f 'sys/share/lev_yacc.c2' -a "${1}" != "-c" ; then 
+  echo shar: Renaming existing file \"'sys/share/lev_yacc.c2'\" to \"'sys/share/lev_yacc.c2.orig'\"
+  mv -f 'sys/share/lev_yacc.c2' 'sys/share/lev_yacc.c2.orig'
+fi
+echo shar: Extracting \"'sys/share/lev_yacc.c2'\" \(26312 characters\)
+sed "s/^X//" >'sys/share/lev_yacc.c2' <<'END_OF_FILE'
+Xcase 25:
+X# line 376 "lev_comp.y"
+X{
+X			tmproom[nrooms] = New(room);
+X			(void) memset((genericptr_t) tmproom[nrooms], 0,
+X					sizeof *tmproom[nrooms]);
+X			tmproom[nrooms]->name = (char *) 0;
+X			tmproom[nrooms]->parent = (char *) 0;
+X			tmproom[nrooms]->rtype = 0;
+X			tmproom[nrooms]->rlit = 0;
+X			tmproom[nrooms]->xalign = ERR;
+X			tmproom[nrooms]->yalign = ERR;
+X			tmproom[nrooms]->x = 0;
+X			tmproom[nrooms]->y = 0;
+X			tmproom[nrooms]->w = 2;
+X			tmproom[nrooms]->h = 2;
+X			in_room = 1;
+X		  } break;
+Xcase 31:
+X# line 404 "lev_comp.y"
+X{
+X			tmpcor[0] = New(corridor);
+X			tmpcor[0]->src.room = -1;
+X			ncorridor = 1;
+X		  } break;
+Xcase 34:
+X# line 416 "lev_comp.y"
+X{
+X			tmpcor[ncorridor] = New(corridor);
+X			tmpcor[ncorridor]->src.room = yypvt[-2].corpos.room;
+X			tmpcor[ncorridor]->src.wall = yypvt[-2].corpos.wall;
+X			tmpcor[ncorridor]->src.door = yypvt[-2].corpos.door;
+X			tmpcor[ncorridor]->dest.room = yypvt[-0].corpos.room;
+X			tmpcor[ncorridor]->dest.wall = yypvt[-0].corpos.wall;
+X			tmpcor[ncorridor]->dest.door = yypvt[-0].corpos.door;
+X			ncorridor++;
+X		  } break;
+Xcase 35:
+X# line 427 "lev_comp.y"
+X{
+X			tmpcor[ncorridor]->src.room = yypvt[-2].corpos.room;
+X			tmpcor[ncorridor]->src.wall = yypvt[-2].corpos.wall;
+X			tmpcor[ncorridor]->src.door = yypvt[-2].corpos.door;
+X			tmpcor[ncorridor]->dest.room = -1;
+X			tmpcor[ncorridor]->dest.wall = yypvt[-0].i;
+X			ncorridor++;
+X		  } break;
+Xcase 36:
+X# line 438 "lev_comp.y"
+X{
+X			if (yypvt[-5].i >= nrooms)
+X			    yyerror("Wrong room number!");
+X			yyval.corpos.room = yypvt[-5].i;
+X			yyval.corpos.wall = yypvt[-3].i;
+X			yyval.corpos.door = yypvt[-1].i;
+X		  } break;
+Xcase 37:
+X# line 448 "lev_comp.y"
+X{
+X			store_room();
+X		  } break;
+Xcase 38:
+X# line 452 "lev_comp.y"
+X{
+X			store_room();
+X		  } break;
+Xcase 39:
+X# line 458 "lev_comp.y"
+X{
+X			tmproom[nrooms] = New(room);
+X			(void) memset((genericptr_t) tmproom[nrooms], 0,
+X					sizeof *tmproom[nrooms]);
+X			tmproom[nrooms]->parent = dup_string(yypvt[-1].map);
+X			tmproom[nrooms]->name = (char *) 0;
+X			tmproom[nrooms]->rtype = yypvt[-9].i;
+X			tmproom[nrooms]->rlit = yypvt[-7].i;
+X			tmproom[nrooms]->filled = yypvt[-0].i;
+X			tmproom[nrooms]->xalign = ERR;
+X			tmproom[nrooms]->yalign = ERR;
+X			tmproom[nrooms]->x = current_coord.x;
+X			tmproom[nrooms]->y = current_coord.y;
+X			tmproom[nrooms]->w = current_size.width;
+X			tmproom[nrooms]->h = current_size.height;
+X			in_room = 1;
+X		  } break;
+Xcase 40:
+X# line 478 "lev_comp.y"
+X{
+X			tmproom[nrooms] = New(room);
+X			(void) memset((genericptr_t) tmproom[nrooms], 0,
+X					sizeof *tmproom[nrooms]);
+X			tmproom[nrooms]->name = (char *) 0;
+X			tmproom[nrooms]->parent = (char *) 0;
+X			tmproom[nrooms]->rtype = yypvt[-9].i;
+X			tmproom[nrooms]->rlit = yypvt[-7].i;
+X			tmproom[nrooms]->filled = yypvt[-0].i;
+X			tmproom[nrooms]->xalign = current_align.x;
+X			tmproom[nrooms]->yalign = current_align.y;
+X			tmproom[nrooms]->x = current_coord.x;
+X			tmproom[nrooms]->y = current_coord.y;
+X			tmproom[nrooms]->w = current_size.width;
+X			tmproom[nrooms]->h = current_size.height;
+X			in_room = 1;
+X		  } break;
+Xcase 41:
+X# line 498 "lev_comp.y"
+X{
+X			yyval.i = 1;
+X		  } break;
+Xcase 42:
+X# line 502 "lev_comp.y"
+X{
+X			yyval.i = yypvt[-0].i;
+X		  } break;
+Xcase 43:
+X# line 508 "lev_comp.y"
+X{
+X			if ( yypvt[-3].i < 1 || yypvt[-3].i > 5 ||
+X			    yypvt[-1].i < 1 || yypvt[-1].i > 5 ) {
+X			    yyerror("Room position should be between 1 & 5!");
+X			} else {
+X			    current_coord.x = yypvt[-3].i;
+X			    current_coord.y = yypvt[-1].i;
+X			}
+X		  } break;
+Xcase 44:
+X# line 518 "lev_comp.y"
+X{
+X			current_coord.x = current_coord.y = ERR;
+X		  } break;
+Xcase 45:
+X# line 524 "lev_comp.y"
+X{
+X			if ( yypvt[-3].i < 0 || yypvt[-1].i < 0) {
+X			    yyerror("Invalid subroom position !");
+X			} else {
+X			    current_coord.x = yypvt[-3].i;
+X			    current_coord.y = yypvt[-1].i;
+X			}
+X		  } break;
+Xcase 46:
+X# line 533 "lev_comp.y"
+X{
+X			current_coord.x = current_coord.y = ERR;
+X		  } break;
+Xcase 47:
+X# line 539 "lev_comp.y"
+X{
+X			current_align.x = yypvt[-3].i;
+X			current_align.y = yypvt[-1].i;
+X		  } break;
+Xcase 48:
+X# line 544 "lev_comp.y"
+X{
+X			current_align.x = current_align.y = ERR;
+X		  } break;
+Xcase 49:
+X# line 550 "lev_comp.y"
+X{
+X			current_size.width = yypvt[-3].i;
+X			current_size.height = yypvt[-1].i;
+X		  } break;
+Xcase 50:
+X# line 555 "lev_comp.y"
+X{
+X			current_size.height = current_size.width = ERR;
+X		  } break;
+Xcase 66:
+X# line 580 "lev_comp.y"
+X{
+X			if (tmproom[nrooms]->name)
+X			    yyerror("This room already has a name!");
+X			else
+X			    tmproom[nrooms]->name = dup_string(yypvt[-0].map);
+X		  } break;
+Xcase 67:
+X# line 589 "lev_comp.y"
+X{
+X			if (tmproom[nrooms]->chance)
+X			    yyerror("This room already assigned a chance!");
+X			else if (tmproom[nrooms]->rtype == OROOM)
+X			    yyerror("Only typed rooms can have a chance!");
+X			else if (yypvt[-0].i < 1 || yypvt[-0].i > 99)
+X			    yyerror("The chance is supposed to be precentile.");
+X			else
+X			    tmproom[nrooms]->chance = yypvt[-0].i;
+X		   } break;
+Xcase 68:
+X# line 602 "lev_comp.y"
+X{
+X			/* ERR means random here */
+X			if (yypvt[-2].i == ERR && yypvt[-0].i != ERR) {
+X		     yyerror("If the door wall is random, so must be its pos!");
+X			} else {
+X			    tmprdoor[ndoor] = New(room_door);
+X			    tmprdoor[ndoor]->secret = yypvt[-6].i;
+X			    tmprdoor[ndoor]->mask = yypvt[-4].i;
+X			    tmprdoor[ndoor]->wall = yypvt[-2].i;
+X			    tmprdoor[ndoor]->pos = yypvt[-0].i;
+X			    ndoor++;
+X			}
+X		  } break;
+Xcase 75:
+X# line 630 "lev_comp.y"
+X{
+X			maze.filling = yypvt[-0].i;
+X			if (index(yypvt[-2].map, '.'))
+X			    yyerror("Invalid dot ('.') in level name.");
+X			if (strlen(yypvt[-2].map) > 8)
+X			    yyerror("Level names limited to 8 characters.");
+X			yyval.map = yypvt[-2].map;
+X			in_room = 0;
+X		  } break;
+Xcase 76:
+X# line 642 "lev_comp.y"
+X{
+X			yyval.i = get_floor_type((char)yypvt[-0].i);
+X		  } break;
+Xcase 77:
+X# line 646 "lev_comp.y"
+X{
+X			yyval.i = -1;
+X		  } break;
+Xcase 80:
+X# line 656 "lev_comp.y"
+X{
+X			store_part();
+X		  } break;
+Xcase 81:
+X# line 662 "lev_comp.y"
+X{
+X			tmppart[npart] = New(mazepart);
+X			tmppart[npart]->halign = 1;
+X			tmppart[npart]->valign = 1;
+X			tmppart[npart]->nrobjects = 0;
+X			tmppart[npart]->nloc = 0;
+X			tmppart[npart]->nrmonst = 0;
+X			tmppart[npart]->xsize = 1;
+X			tmppart[npart]->ysize = 1;
+X			tmppart[npart]->map = (char **) alloc(sizeof(char *));
+X			tmppart[npart]->map[0] = (char *) alloc(1);
+X			tmppart[npart]->map[0][0] = STONE;
+X			max_x_map = COLNO-1;
+X			max_y_map = ROWNO;
+X		  } break;
+Xcase 82:
+X# line 678 "lev_comp.y"
+X{
+X			tmppart[npart] = New(mazepart);
+X			tmppart[npart]->halign = yypvt[-1].i % 10;
+X			tmppart[npart]->valign = yypvt[-1].i / 10;
+X			tmppart[npart]->nrobjects = 0;
+X			tmppart[npart]->nloc = 0;
+X			tmppart[npart]->nrmonst = 0;
+X			scan_map(yypvt[-0].map);
+X		  } break;
+Xcase 83:
+X# line 690 "lev_comp.y"
+X{
+X			yyval.i = yypvt[-2].i + (yypvt[-0].i * 10);
+X		  } break;
+Xcase 90:
+X# line 708 "lev_comp.y"
+X{
+X			if (tmppart[npart]->nrobjects) {
+X			    yyerror("Object registers already initialized!");
+X			} else {
+X			    tmppart[npart]->robjects = (char *)alloc(n_olist);
+X			    (void) memcpy((genericptr_t)tmppart[npart]->robjects,
+X					  (genericptr_t)olist, n_olist);
+X			    tmppart[npart]->nrobjects = n_olist;
+X			}
+X		  } break;
+Xcase 91:
+X# line 719 "lev_comp.y"
+X{
+X			if (tmppart[npart]->nloc) {
+X			    yyerror("Location registers already initialized!");
+X			} else {
+X			    register int i;
+X			    tmppart[npart]->rloc_x = (char *) alloc(n_plist);
+X			    tmppart[npart]->rloc_y = (char *) alloc(n_plist);
+X			    for(i=0;i<n_plist;i++) {
+X				tmppart[npart]->rloc_x[i] = plist[i].x;
+X				tmppart[npart]->rloc_y[i] = plist[i].y;
+X			    }
+X			    tmppart[npart]->nloc = n_plist;
+X			}
+X		  } break;
+Xcase 92:
+X# line 734 "lev_comp.y"
+X{
+X			if (tmppart[npart]->nrmonst) {
+X			    yyerror("Monster registers already initialized!");
+X			} else {
+X			    tmppart[npart]->rmonst = (char *) alloc(n_mlist);
+X			    (void) memcpy((genericptr_t)tmppart[npart]->rmonst,
+X					  (genericptr_t)mlist, n_mlist);
+X			    tmppart[npart]->nrmonst = n_mlist;
+X			}
+X		  } break;
+Xcase 93:
+X# line 747 "lev_comp.y"
+X{
+X			if (n_olist < MAX_REGISTERS)
+X			    olist[n_olist++] = yypvt[-0].i;
+X			else
+X			    yyerror("Object list too long!");
+X		  } break;
+Xcase 94:
+X# line 754 "lev_comp.y"
+X{
+X			if (n_olist < MAX_REGISTERS)
+X			    olist[n_olist++] = yypvt[-2].i;
+X			else
+X			    yyerror("Object list too long!");
+X		  } break;
+Xcase 95:
+X# line 763 "lev_comp.y"
+X{
+X			if (n_mlist < MAX_REGISTERS)
+X			    mlist[n_mlist++] = yypvt[-0].i;
+X			else
+X			    yyerror("Monster list too long!");
+X		  } break;
+Xcase 96:
+X# line 770 "lev_comp.y"
+X{
+X			if (n_mlist < MAX_REGISTERS)
+X			    mlist[n_mlist++] = yypvt[-2].i;
+X			else
+X			    yyerror("Monster list too long!");
+X		  } break;
+Xcase 97:
+X# line 779 "lev_comp.y"
+X{
+X			if (n_plist < MAX_REGISTERS)
+X			    plist[n_plist++] = current_coord;
+X			else
+X			    yyerror("Location list too long!");
+X		  } break;
+Xcase 98:
+X# line 786 "lev_comp.y"
+X{
+X			if (n_plist < MAX_REGISTERS)
+X			    plist[n_plist++] = current_coord;
+X			else
+X			    yyerror("Location list too long!");
+X		  } break;
+Xcase 122:
+X# line 822 "lev_comp.y"
+X{
+X			tmpmonst[nmons] = New(monster);
+X			tmpmonst[nmons]->x = current_coord.x;
+X			tmpmonst[nmons]->y = current_coord.y;
+X			tmpmonst[nmons]->class = yypvt[-4].i;
+X			tmpmonst[nmons]->peaceful = -1; /* no override */
+X			tmpmonst[nmons]->asleep = -1;
+X			tmpmonst[nmons]->align = - MAX_REGISTERS - 2;
+X			tmpmonst[nmons]->name = (char *) 0;
+X			tmpmonst[nmons]->appear = 0;
+X			tmpmonst[nmons]->appear_as = (char *) 0;
+X			if (!in_room)
+X			    check_coord(current_coord.x, current_coord.y,
+X					"Monster");
+X			if (!yypvt[-2].map)
+X			    tmpmonst[nmons]->id = -1;
+X			else {
+X				int token = get_monster_id(yypvt[-2].map, (char) yypvt[-4].i);
+X				if (token == ERR) {
+X				    yywarning("Illegal monster name!  Making random monster.");
+X				    tmpmonst[nmons]->id = -1;
+X				} else
+X				    tmpmonst[nmons]->id = token;
+X			}
+X		  } break;
+Xcase 123:
+X# line 848 "lev_comp.y"
+X{
+X			nmons++;
+X		  } break;
+Xcase 126:
+X# line 858 "lev_comp.y"
+X{
+X			tmpmonst[nmons]->name = dup_string(yypvt[-0].map);
+X		  } break;
+Xcase 127:
+X# line 862 "lev_comp.y"
+X{
+X			tmpmonst[nmons]->peaceful = yypvt[-0].i;
+X		  } break;
+Xcase 128:
+X# line 866 "lev_comp.y"
+X{
+X			tmpmonst[nmons]->asleep = yypvt[-0].i;
+X		  } break;
+Xcase 129:
+X# line 870 "lev_comp.y"
+X{
+X			tmpmonst[nmons]->align = yypvt[-0].i;
+X		  } break;
+Xcase 130:
+X# line 874 "lev_comp.y"
+X{
+X			tmpmonst[nmons]->appear = yypvt[-1].i;
+X			tmpmonst[nmons]->appear_as = dup_string(yypvt[-0].map);
+X		  } break;
+Xcase 131:
+X# line 881 "lev_comp.y"
+X{
+X			tmpobj[nobj] = New(object);
+X			tmpobj[nobj]->x = current_coord.x;
+X			tmpobj[nobj]->y = current_coord.y;
+X			tmpobj[nobj]->class = yypvt[-4].i;
+X			tmpobj[nobj]->corpsenm = -1;	/* init as none */
+X			tmpobj[nobj]->curse_state = -1;
+X			tmpobj[nobj]->name = (char *) 0;
+X			if (!in_room)
+X			    check_coord(current_coord.x, current_coord.y,
+X					"Object");
+X			if (!yypvt[-2].map)
+X			    tmpobj[nobj]->id = -1;
+X			else {
+X				int token = get_object_id(yypvt[-2].map);
+X				if (token == ERR) {
+X				    yywarning("Illegal object name!  Making random object.");
+X				    tmpobj[nobj]->id = -1;
+X				} else
+X				    tmpobj[nobj]->id = token;
+X			}
+X		  } break;
+Xcase 132:
+X# line 904 "lev_comp.y"
+X{
+X			nobj++;
+X		  } break;
+Xcase 133:
+X# line 910 "lev_comp.y"
+X{
+X			tmpobj[nobj]->spe = -127;
+X		  } break;
+Xcase 134:
+X# line 914 "lev_comp.y"
+X{
+X			int token = get_monster_id(yypvt[-2].map, (char)0);
+X			if (token == ERR)	/* "random" */
+X			    tmpobj[nobj]->corpsenm = -2;
+X			else
+X			    tmpobj[nobj]->corpsenm = token;
+X			tmpobj[nobj]->spe = yypvt[-0].i;
+X		  } break;
+Xcase 135:
+X# line 923 "lev_comp.y"
+X{
+X			tmpobj[nobj]->curse_state = yypvt[-4].i;
+X			tmpobj[nobj]->spe = yypvt[-2].i;
+X			if (yypvt[-0].map)
+X			    tmpobj[nobj]->name = dup_string(yypvt[-0].map);
+X			else
+X			    tmpobj[nobj]->name = (char *) 0;
+X		  } break;
+Xcase 139:
+X# line 939 "lev_comp.y"
+X{
+X			yyval.i = -127;
+X		  } break;
+Xcase 140:
+X# line 945 "lev_comp.y"
+X{
+X			tmpdoor[ndoor] = New(door);
+X			tmpdoor[ndoor]->x = current_coord.x;
+X			tmpdoor[ndoor]->y = current_coord.y;
+X			tmpdoor[ndoor]->mask = yypvt[-2].i;
+X			if(current_coord.x >= 0 && current_coord.y >= 0 &&
+X			   tmpmap[current_coord.y][current_coord.x] != DOOR &&
+X			   tmpmap[current_coord.y][current_coord.x] != SDOOR)
+X			    yyerror("Door decl doesn't match the map");
+X			ndoor++;
+X		  } break;
+Xcase 141:
+X# line 959 "lev_comp.y"
+X{
+X			tmptrap[ntrap] = New(trap);
+X			tmptrap[ntrap]->x = current_coord.x;
+X			tmptrap[ntrap]->y = current_coord.y;
+X			tmptrap[ntrap]->type = yypvt[-2].i;
+X			if (!in_room)
+X			    check_coord(current_coord.x, current_coord.y,
+X					"Trap");
+X			ntrap++;
+X		  } break;
+Xcase 142:
+X# line 972 "lev_comp.y"
+X{
+X		        int x, y, dir;
+X
+X			tmpdb[ndb] = New(drawbridge);
+X			x = tmpdb[ndb]->x = current_coord.x;
+X			y = tmpdb[ndb]->y = current_coord.y;
+X			/* convert dir from a DIRECTION to a DB_DIR */
+X			dir = yypvt[-2].i;
+X			switch(dir) {
+X			case W_NORTH: dir = DB_NORTH; y--; break;
+X			case W_SOUTH: dir = DB_SOUTH; y++; break;
+X			case W_EAST:  dir = DB_EAST;  x++; break;
+X			case W_WEST:  dir = DB_WEST;  x--; break;
+X			default:
+X			    yyerror("Invalid drawbridge direction");
+X			    break;
+X			}
+X			tmpdb[ndb]->dir = dir;
+X			if (current_coord.x >= 0 && current_coord.y >= 0 &&
+X			    !IS_WALL(tmpmap[y][x])) {
+X			    char ebuf[60];
+X			    Sprintf(ebuf,
+X				    "Wall needed for drawbridge (%02d, %02d)",
+X				    current_coord.x, current_coord.y);
+X			    yyerror(ebuf);
+X			}
+X
+X			if ( yypvt[-0].i == D_ISOPEN )
+X			    tmpdb[ndb]->db_open = 1;
+X			else if ( yypvt[-0].i == D_CLOSED )
+X			    tmpdb[ndb]->db_open = 0;
+X			else
+X			    yyerror("A drawbridge can only be open or closed!");
+X			ndb++;
+X		   } break;
+Xcase 143:
+X# line 1010 "lev_comp.y"
+X{
+X			tmpwalk[nwalk] = New(walk);
+X			tmpwalk[nwalk]->x = current_coord.x;
+X			tmpwalk[nwalk]->y = current_coord.y;
+X			tmpwalk[nwalk]->dir = yypvt[-0].i;
+X			nwalk++;
+X		  } break;
+Xcase 144:
+X# line 1020 "lev_comp.y"
+X{
+X			wallify_map();
+X		  } break;
+Xcase 145:
+X# line 1026 "lev_comp.y"
+X{
+X			tmplad[nlad] = New(lad);
+X			tmplad[nlad]->x = current_coord.x;
+X			tmplad[nlad]->y = current_coord.y;
+X			tmplad[nlad]->up = yypvt[-0].i;
+X			if (!in_room)
+X			    check_coord(current_coord.x, current_coord.y,
+X					"Ladder");
+X			nlad++;
+X		  } break;
+Xcase 146:
+X# line 1039 "lev_comp.y"
+X{
+X			tmpstair[nstair] = New(stair);
+X			tmpstair[nstair]->x = current_coord.x;
+X			tmpstair[nstair]->y = current_coord.y;
+X			tmpstair[nstair]->up = yypvt[-0].i;
+X			if (!in_room)
+X			    check_coord(current_coord.x, current_coord.y,
+X					"Stairway");
+X			nstair++;
+X		  } break;
+Xcase 147:
+X# line 1052 "lev_comp.y"
+X{
+X			tmplreg[nlreg] = New(lev_region);
+X			tmplreg[nlreg]->in_islev = yypvt[-0].i;
+X			tmplreg[nlreg]->inarea.x1 = current_region.x1;
+X			tmplreg[nlreg]->inarea.y1 = current_region.y1;
+X			tmplreg[nlreg]->inarea.x2 = current_region.x2;
+X			tmplreg[nlreg]->inarea.y2 = current_region.y2;
+X		  } break;
+Xcase 148:
+X# line 1061 "lev_comp.y"
+X{
+X			tmplreg[nlreg]->del_islev = yypvt[-2].i;
+X			tmplreg[nlreg]->delarea.x1 = current_region.x1;
+X			tmplreg[nlreg]->delarea.y1 = current_region.y1;
+X			tmplreg[nlreg]->delarea.x2 = current_region.x2;
+X			tmplreg[nlreg]->delarea.y2 = current_region.y2;
+X			if(yypvt[-0].i)
+X			    tmplreg[nlreg]->rtype = LR_UPSTAIR;
+X			else
+X			    tmplreg[nlreg]->rtype = LR_DOWNSTAIR;
+X			tmplreg[nlreg]->rname = 0;
+X			nlreg++;
+X		  } break;
+Xcase 149:
+X# line 1077 "lev_comp.y"
+X{
+X			tmplreg[nlreg] = New(lev_region);
+X			tmplreg[nlreg]->in_islev = yypvt[-0].i;
+X			tmplreg[nlreg]->inarea.x1 = current_region.x1;
+X			tmplreg[nlreg]->inarea.y1 = current_region.y1;
+X			tmplreg[nlreg]->inarea.x2 = current_region.x2;
+X			tmplreg[nlreg]->inarea.y2 = current_region.y2;
+X		  } break;
+Xcase 150:
+X# line 1086 "lev_comp.y"
+X{
+X			tmplreg[nlreg]->del_islev = yypvt[-2].i;
+X			tmplreg[nlreg]->delarea.x1 = current_region.x1;
+X			tmplreg[nlreg]->delarea.y1 = current_region.y1;
+X			tmplreg[nlreg]->delarea.x2 = current_region.x2;
+X			tmplreg[nlreg]->delarea.y2 = current_region.y2;
+X			tmplreg[nlreg]->rtype = LR_PORTAL;
+X			tmplreg[nlreg]->rname = yypvt[-0].map;
+X			nlreg++;
+X		  } break;
+Xcase 151:
+X# line 1099 "lev_comp.y"
+X{
+X			tmplreg[nlreg] = New(lev_region);
+X			tmplreg[nlreg]->in_islev = yypvt[-0].i;
+X			tmplreg[nlreg]->inarea.x1 = current_region.x1;
+X			tmplreg[nlreg]->inarea.y1 = current_region.y1;
+X			tmplreg[nlreg]->inarea.x2 = current_region.x2;
+X			tmplreg[nlreg]->inarea.y2 = current_region.y2;
+X		  } break;
+Xcase 152:
+X# line 1108 "lev_comp.y"
+X{
+X			tmplreg[nlreg]->del_islev = yypvt[-0].i;
+X			tmplreg[nlreg]->delarea.x1 = current_region.x1;
+X			tmplreg[nlreg]->delarea.y1 = current_region.y1;
+X			tmplreg[nlreg]->delarea.x2 = current_region.x2;
+X			tmplreg[nlreg]->delarea.y2 = current_region.y2;
+X		  } break;
+Xcase 153:
+X# line 1116 "lev_comp.y"
+X{
+X			switch(yypvt[-0].i) {
+X			case -1: tmplreg[nlreg]->rtype = LR_TELE; break;
+X			case 0: tmplreg[nlreg]->rtype = LR_DOWNTELE; break;
+X			case 1: tmplreg[nlreg]->rtype = LR_UPTELE; break;
+X			}
+X			tmplreg[nlreg]->rname = 0;
+X			nlreg++;
+X		  } break;
+Xcase 154:
+X# line 1128 "lev_comp.y"
+X{
+X			tmplreg[nlreg] = New(lev_region);
+X			tmplreg[nlreg]->in_islev = yypvt[-0].i;
+X			tmplreg[nlreg]->inarea.x1 = current_region.x1;
+X			tmplreg[nlreg]->inarea.y1 = current_region.y1;
+X			tmplreg[nlreg]->inarea.x2 = current_region.x2;
+X			tmplreg[nlreg]->inarea.y2 = current_region.y2;
+X		  } break;
+Xcase 155:
+X# line 1137 "lev_comp.y"
+X{
+X			tmplreg[nlreg]->del_islev = yypvt[-0].i;
+X			tmplreg[nlreg]->delarea.x1 = current_region.x1;
+X			tmplreg[nlreg]->delarea.y1 = current_region.y1;
+X			tmplreg[nlreg]->delarea.x2 = current_region.x2;
+X			tmplreg[nlreg]->delarea.y2 = current_region.y2;
+X			tmplreg[nlreg]->rtype = LR_BRANCH;
+X			tmplreg[nlreg]->rname = 0;
+X			nlreg++;
+X		  } break;
+Xcase 156:
+X# line 1150 "lev_comp.y"
+X{
+X			yyval.i = -1;
+X		  } break;
+Xcase 157:
+X# line 1154 "lev_comp.y"
+X{
+X			yyval.i = yypvt[-0].i;
+X		  } break;
+Xcase 158:
+X# line 1160 "lev_comp.y"
+X{
+X			yyval.i = 0;
+X		  } break;
+Xcase 159:
+X# line 1164 "lev_comp.y"
+X{
+X/* This series of if statements is a hack for MSC 5.1.  It seems that its
+X   tiny little brain cannot compile if these are all one big if statement. */
+X			if (yypvt[-7].i <= 0 || yypvt[-7].i >= COLNO)
+X				yyerror("Region out of level range!");
+X			else if (yypvt[-5].i < 0 || yypvt[-5].i >= ROWNO)
+X				yyerror("Region out of level range!");
+X			else if (yypvt[-3].i <= 0 || yypvt[-3].i >= COLNO)
+X				yyerror("Region out of level range!");
+X			else if (yypvt[-1].i < 0 || yypvt[-1].i >= ROWNO)
+X				yyerror("Region out of level range!");
+X			current_region.x1 = yypvt[-7].i;
+X			current_region.y1 = yypvt[-5].i;
+X			current_region.x2 = yypvt[-3].i;
+X			current_region.y2 = yypvt[-1].i;
+X			yyval.i = 1;
+X		  } break;
+Xcase 160:
+X# line 1184 "lev_comp.y"
+X{
+X			tmpfountain[nfountain] = New(fountain);
+X			tmpfountain[nfountain]->x = current_coord.x;
+X			tmpfountain[nfountain]->y = current_coord.y;
+X			if (!in_room)
+X			    check_coord(current_coord.x, current_coord.y,
+X					"Fountain");
+X			nfountain++;
+X		  } break;
+Xcase 161:
+X# line 1196 "lev_comp.y"
+X{
+X			tmpsink[nsink] = New(sink);
+X			tmpsink[nsink]->x = current_coord.x;
+X			tmpsink[nsink]->y = current_coord.y;
+X			nsink++;
+X		  } break;
+Xcase 162:
+X# line 1205 "lev_comp.y"
+X{
+X			tmppool[npool] = New(pool);
+X			tmppool[npool]->x = current_coord.x;
+X			tmppool[npool]->y = current_coord.y;
+X			npool++;
+X		  } break;
+Xcase 163:
+X# line 1214 "lev_comp.y"
+X{
+X			tmpdig[ndig] = New(digpos);
+X			tmpdig[ndig]->x1 = current_region.x1;
+X			tmpdig[ndig]->y1 = current_region.y1;
+X			tmpdig[ndig]->x2 = current_region.x2;
+X			tmpdig[ndig]->y2 = current_region.y2;
+X			ndig++;
+X		  } break;
+Xcase 164:
+X# line 1225 "lev_comp.y"
+X{
+X			tmppass[npass] = New(digpos);
+X			tmppass[npass]->x1 = current_region.x1;
+X			tmppass[npass]->y1 = current_region.y1;
+X			tmppass[npass]->x2 = current_region.x2;
+X			tmppass[npass]->y2 = current_region.y2;
+X			npass++;
+X		  } break;
+Xcase 165:
+X# line 1236 "lev_comp.y"
+X{
+X			tmpreg[nreg] = New(region);
+X			tmpreg[nreg]->x1 = current_region.x1;
+X			tmpreg[nreg]->y1 = current_region.y1;
+X			tmpreg[nreg]->x2 = current_region.x2;
+X			tmpreg[nreg]->y2 = current_region.y2;
+X			tmpreg[nreg]->rlit = yypvt[-3].i;
+X			tmpreg[nreg]->rtype = yypvt[-1].i;
+X			if(yypvt[-0].i & 1) tmpreg[nreg]->rtype += MAXRTYPE+1;
+X			tmpreg[nreg]->rirreg = ((yypvt[-0].i & 2) != 0);
+X			if(current_region.x1 > current_region.x2 ||
+X			   current_region.y1 > current_region.y2)
+X			   yyerror("Region start > end!");
+X			if(tmpreg[nreg]->rtype == VAULT &&
+X			   (tmpreg[nreg]->rirreg ||
+X			    (tmpreg[nreg]->x2 - tmpreg[nreg]->x1 != 1) ||
+X			    (tmpreg[nreg]->y2 - tmpreg[nreg]->y1 != 1)))
+X				yyerror("Vaults must be exactly 2x2!");
+X			if(want_warnings && !tmpreg[nreg]->rirreg &&
+X			   current_region.x1 > 0 && current_region.y1 > 0 &&
+X			   current_region.x2 < max_x_map &&
+X			   current_region.y2 < max_y_map) {
+X			    /* check for walls in the room */
+X			    char ebuf[60];
+X			    register int x, y, nrock = 0;
+X
+X			    for(y=current_region.y1; y<=current_region.y2; y++)
+X				for(x=current_region.x1;
+X				    x<=current_region.x2; x++)
+X				    if(IS_ROCK(tmpmap[y][x]) ||
+X				       IS_DOOR(tmpmap[y][x])) nrock++;
+X			    if(nrock) {
+X				Sprintf(ebuf,
+X					"Rock in room (%02d,%02d,%02d,%02d)?!",
+X					current_region.x1, current_region.y1,
+X					current_region.x2, current_region.y2);
+X				yywarning(ebuf);
+X			    }
+X			    if (
+X		!IS_ROCK(tmpmap[current_region.y1-1][current_region.x1-1]) ||
+X		!IS_ROCK(tmpmap[current_region.y2+1][current_region.x1-1]) ||
+X		!IS_ROCK(tmpmap[current_region.y1-1][current_region.x2+1]) ||
+X		!IS_ROCK(tmpmap[current_region.y2+1][current_region.x2+1])) {
+X				Sprintf(ebuf,
+X				"NonRock edge in room (%02d,%02d,%02d,%02d)?!",
+X					current_region.x1, current_region.y1,
+X					current_region.x2, current_region.y2);
+X				yywarning(ebuf);
+X			    }
+X			} else if(tmpreg[nreg]->rirreg &&
+X		!IS_ROOM(tmpmap[current_region.y1][current_region.x1])) {
+X			    char ebuf[60];
+X			    Sprintf(ebuf,
+X				    "Rock in irregular room (%02d,%02d)?!",
+X				    current_region.x1, current_region.y1);
+X			    yyerror(ebuf);
+X			}
+X			nreg++;
+X		  } break;
+Xcase 166:
+X# line 1298 "lev_comp.y"
+X{
+X			tmpaltar[naltar] = New(altar);
+X			tmpaltar[naltar]->x = current_coord.x;
+X			tmpaltar[naltar]->y = current_coord.y;
+X			tmpaltar[naltar]->align = yypvt[-2].i;
+X			tmpaltar[naltar]->shrine = yypvt[-0].i;
+X			if (!in_room)
+X			    check_coord(current_coord.x, current_coord.y,
+X					"Altar");
+X			naltar++;
+X		  } break;
+Xcase 167:
+X# line 1312 "lev_comp.y"
+X{
+X			tmpgold[ngold] = New(gold);
+X			tmpgold[ngold]->x = current_coord.x;
+X			tmpgold[ngold]->y = current_coord.y;
+X			tmpgold[ngold]->amount = yypvt[-2].i;
+X			if (!in_room)
+X			    check_coord(current_coord.x, current_coord.y,
+X					"Gold");
+X			ngold++;
+X		  } break;
+Xcase 168:
+X# line 1325 "lev_comp.y"
+X{
+X			tmpengraving[nengraving] = New(engraving);
+X			tmpengraving[nengraving]->x = current_coord.x;
+X			tmpengraving[nengraving]->y = current_coord.y;
+X			tmpengraving[nengraving]->e.text = yypvt[-0].map;
+X			tmpengraving[nengraving]->etype = yypvt[-2].i;
+X			if (!in_room)
+X			    check_coord(current_coord.x, current_coord.y,
+X					"Engraving");
+X			nengraving++;
+X		  } break;
+Xcase 170:
+X# line 1340 "lev_comp.y"
+X{
+X			yyval.i = - MAX_REGISTERS - 1;
+X		  } break;
+Xcase 173:
+X# line 1348 "lev_comp.y"
+X{
+X			yyval.i = - MAX_REGISTERS - 1;
+X		  } break;
+Xcase 176:
+X# line 1356 "lev_comp.y"
+X{
+X			yyval.map = (char *) 0;
+X		  } break;
+Xcase 178:
+X# line 1363 "lev_comp.y"
+X{
+X			yyval.map = (char *) 0;
+X		  } break;
+Xcase 179:
+X# line 1369 "lev_comp.y"
+X{
+X			int token = get_trap_type(yypvt[-0].map);
+X			if (token == ERR)
+X				yyerror("Unknown trap type!");
+X			yyval.i = token;
+X		  } break;
+Xcase 181:
+X# line 1379 "lev_comp.y"
+X{
+X			int token = get_room_type(yypvt[-0].map);
+X			if (token == ERR) {
+X				yywarning("Unknown room type!  Making ordinary room...");
+X				yyval.i = OROOM;
+X			} else
+X				yyval.i = token;
+X		  } break;
+Xcase 183:
+X# line 1391 "lev_comp.y"
+X{
+X			yyval.i = 0;
+X		  } break;
+Xcase 184:
+X# line 1395 "lev_comp.y"
+X{
+X			yyval.i = yypvt[-0].i;
+X		  } break;
+Xcase 185:
+X# line 1399 "lev_comp.y"
+X{
+X			yyval.i = yypvt[-2].i + (yypvt[-0].i << 1);
+X		  } break;
+Xcase 188:
+X# line 1407 "lev_comp.y"
+X{
+X			current_coord.x = current_coord.y = -MAX_REGISTERS-1;
+X		  } break;
+Xcase 195:
+X# line 1423 "lev_comp.y"
+X{
+X			yyval.i = - MAX_REGISTERS - 1;
+X		  } break;
+Xcase 198:
+X# line 1433 "lev_comp.y"
+X{
+X			if ( yypvt[-1].i >= MAX_REGISTERS )
+X				yyerror("Register Index overflow!");
+X			else
+X				current_coord.x = current_coord.y = - yypvt[-1].i - 1;
+X		  } break;
+Xcase 199:
+X# line 1442 "lev_comp.y"
+X{
+X			if ( yypvt[-1].i >= MAX_REGISTERS )
+X				yyerror("Register Index overflow!");
+X			else
+X				yyval.i = - yypvt[-1].i - 1;
+X		  } break;
+Xcase 200:
+X# line 1451 "lev_comp.y"
+X{
+X			if ( yypvt[-1].i >= MAX_REGISTERS )
+X				yyerror("Register Index overflow!");
+X			else
+X				yyval.i = - yypvt[-1].i - 1;
+X		  } break;
+Xcase 201:
+X# line 1460 "lev_comp.y"
+X{
+X			if ( yypvt[-1].i >= 3 )
+X				yyerror("Register Index overflow!");
+X			else
+X				yyval.i = - yypvt[-1].i - 1;
+X		  } break;
+Xcase 203:
+X# line 1472 "lev_comp.y"
+X{
+X			if (check_monster_char((char) yypvt[-0].i))
+X				yyval.i = yypvt[-0].i ;
+X			else {
+X				yyerror("Unknown monster class!");
+X				yyval.i = ERR;
+X			}
+X		  } break;
+Xcase 204:
+X# line 1483 "lev_comp.y"
+X{
+X			char c = yypvt[-0].i;
+X			if (check_object_char(c))
+X				yyval.i = c;
+X			else {
+X				yyerror("Unknown char class!");
+X				yyval.i = ERR;
+X			}
+X		  } break;
+Xcase 207:
+X# line 1499 "lev_comp.y"
+X{
+X			yyval.map = (char *) 0;
+X		  } break;
+Xcase 212:
+X# line 1513 "lev_comp.y"
+X{
+X			if (!in_room && !init_lev.init_present &&
+X			    (yypvt[-3].i < 0 || yypvt[-3].i > max_x_map ||
+X			     yypvt[-1].i < 0 || yypvt[-1].i > max_y_map))
+X			    yyerror("Coordinates out of map range!");
+X			current_coord.x = yypvt[-3].i;
+X			current_coord.y = yypvt[-1].i;
+X		  } break;
+Xcase 213:
+X# line 1524 "lev_comp.y"
+X{
+X/* This series of if statements is a hack for MSC 5.1.  It seems that its
+X   tiny little brain cannot compile if these are all one big if statement. */
+X			if (yypvt[-7].i < 0 || yypvt[-7].i > max_x_map)
+X				yyerror("Region out of map range!");
+X			else if (yypvt[-5].i < 0 || yypvt[-5].i > max_y_map)
+X				yyerror("Region out of map range!");
+X			else if (yypvt[-3].i < 0 || yypvt[-3].i > max_x_map)
+X				yyerror("Region out of map range!");
+X			else if (yypvt[-1].i < 0 || yypvt[-1].i > max_y_map)
+X				yyerror("Region out of map range!");
+X			current_region.x1 = yypvt[-7].i;
+X			current_region.y1 = yypvt[-5].i;
+X			current_region.x2 = yypvt[-3].i;
+X			current_region.y2 = yypvt[-1].i;
+X		  } break;
+X	}
+X	goto yystack;		/* reset registers in driver code */
+X}
+X
+END_OF_FILE
+if test 26312 -ne `wc -c <'sys/share/lev_yacc.c2'`; then
+    echo shar: \"'sys/share/lev_yacc.c2'\" unpacked with wrong size!
+fi
+# end of 'sys/share/lev_yacc.c2'
+echo shar: End of archive 27 \(of 31\).
+cp /dev/null ark27isdone
+MISSING=""
+for I in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 ; do
+    if test ! -f ark${I}isdone ; then
+	MISSING="${MISSING} ${I}"
+    fi
+done
+if test "${MISSING}" = "" ; then
+    echo You have unpacked all 31 archives.
+    echo "Now execute 'patchit.sh'"
+    rm -f ark[1-9]isdone ark[1-9][0-9]isdone
+else
+    echo You still need to unpack the following archives:
+    echo "        " ${MISSING}
+fi
+##  End of shell archive.
+exit 0

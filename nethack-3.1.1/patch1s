@@ -1,0 +1,2013 @@
+Subject:  v17i060:  nethack31 - display oriented dungeons & dragons (Ver. 3.1), Patch1s/31
+Newsgroups: comp.sources.games
+Approved: billr@saab.CNA.TEK.COM
+
+Submitted-by: izchak@linc.cis.upenn.edu (Izchak Miller)
+Posting-number: Volume 17, Issue 60
+Archive-name: nethack31/Patch1s
+Patch-To: nethack31: Volume 16, Issue 1-116
+Environment: Amiga, Atari, Mac, MS-DOS, Windows-NT, OS2, Unix, VMS, X11
+
+
+
+#! /bin/sh
+# This is a shell archive.  Remove anything before this line, then unpack
+# it by saving it into a file and typing "sh file".  To overwrite existing
+# files, type "sh file -c".  You can also feed this as standard input via
+# unshar, or by typing "sh <file", e.g..  If this archive is complete, you
+# will see the following message at the end:
+#		"End of archive 19 (of 31)."
+# Contents:  patches01n sys/winnt/Makefile.dat
+# Wrapped by billr@saab on Fri Mar  5 10:50:46 1993
+PATH=/bin:/usr/bin:/usr/ucb ; export PATH
+if test -f 'patches01n' -a "${1}" != "-c" ; then 
+  echo shar: Renaming existing file \"'patches01n'\" to \"'patches01n.orig'\"
+  mv -f 'patches01n' 'patches01n.orig'
+fi
+echo shar: Extracting \"'patches01n'\" \(51640 characters\)
+sed "s/^X//" >'patches01n' <<'END_OF_FILE'
+X*** /tmp/da10214	Thu Feb 25 10:32:43 1993
+X--- win/X11/Install.X11	Wed Feb 24 14:24:17 1993
+X***************
+X*** 8,13 ****
+X--- 8,19 ----
+X  may work as well, with some tweaking likely.  Follow WIN* in
+X  sys/unix/Makefile.src for compilation hints.
+X  
+X+ (If you try to compile it with X11R3 or earlier, you will get many errors,
+X+ starting with complaints about XtPointer not being declared.  If you get
+X+ around the compilation problems, you will still need a recent library of
+X+ Athena Widgets to link against.  Once compiled, you can probably run it
+X+ under an R3 X server, though.)
+X+ 
+X  The reason this uses the Athena widget set is that the Athena widgets come
+X  free from MIT (like X11).  Unfortunately, the companies that resell X11
+X  (value subtracted er, added software; yea, yea, that's the ticket) usually
+X***************
+X*** 15,25 ****
+X  "unsupported" portion of their tape.  If you do not have the Athena
+X  widgets, you may obtain them via anonymous ftp from export.lcs.mit.edu.
+X  
+X! To use this code, define X11_GRAPHICS in include/config.h.  Add $(WINX11SRC),
+X  $(WINX11OBJ), and $(WINX11LIB) to WINSRC, WINOBJ, and WINLIB respectively
+X  in src/Makefile.  This will give you an executable supporting both X11 and
+X  tty windowing.
+X  
+X  If you want special graphics symbols, you will also need to install one
+X  or both of the included X11 fonts and use the symbol mappings found in
+X  nethack.rc.  The fonts are found in nh10.bdf and ibm.bdf.  You first need
+X--- 21,42 ----
+X  "unsupported" portion of their tape.  If you do not have the Athena
+X  widgets, you may obtain them via anonymous ftp from export.lcs.mit.edu.
+X  
+X! To use this code, define X11_GRAPHICS in include/config.h.  (You can comment
+X! out TTY_GRAPHICS or change DEFAULT_WINDOW_SYS if you want to, but there's
+X! little reason to do so.  The X11 version almost requires a config file
+X! for full effect, so you can just as well set windowtype there; also, you
+X! or someone else might just possibly be stuck in a situation where you can't
+X! use the X version -- over a non-blindingly-fast modem, say.)  Add $(WINX11SRC),
+X  $(WINX11OBJ), and $(WINX11LIB) to WINSRC, WINOBJ, and WINLIB respectively
+X  in src/Makefile.  This will give you an executable supporting both X11 and
+X  tty windowing.
+X  
+X+ If you are using Xauthority security, installing NetHack setuid may cause
+X+ problems since the alternate id will probably not have permission to open
+X+ your display.  NetHack will be just as happy setgid, but you will have to
+X+ change the file permissions in the top Makefile before 'make install' to
+X+ do that.
+X+ 
+X  If you want special graphics symbols, you will also need to install one
+X  or both of the included X11 fonts and use the symbol mappings found in
+X  nethack.rc.  The fonts are found in nh10.bdf and ibm.bdf.  You first need
+X***************
+X*** 54,90 ****
+X  defaults directory:
+X  	XAPPLRESDIR=$HACKDIR; export XAPPLRESDIR
+X  
+X! Two icon suggestions to the window manager are supported:  nh72 and nh56.
+X! Data for them comes from source files nh72icon and nh56icon and they are
+X! compiled into the program via #include in winX.c.  Selection between them
+X! is controlled by the "icon" resource in NetHack.ad; the default is nh72.
+X  
+X  Sorry, an Imakefile is not included.  Unlike many X11 programs, X11
+X  support is only a small, optional, part of nethack, and the Makefile is
+X  needed for systems that don't use X11.
+X  
+X! Notes for Sun's OpenWindows 3.x (2.x will not work):
+X!     1.	Define OPENWINBUG in include/unixconf.h.  Add -I/usr/openwin/include
+X! 	to CFLAGS, -L/usr/openwin/lib to LFLAGS, and -lm to WINX11LIB in
+X! 	src/Makefile.  (Naturally, if your OpenWindows is installed
+X! 	elsewhere, adapt the two openwin paths.)  This will allow you
+X! 	to create a game executable.
+X  
+X      2.	Run the fonts through convertfont and run bldfamily on the directory.
+X! 	The environment variable FONTPATH must include the directory the fonts
+X! 	are in when NetHack is run.  For a personal installation, setting the
+X! 	variable in your .profile or .login is the simplest thing.  For a
+X! 	multi-user installation, add the lines
+X! 		FONTPATH=$FONTPATH:$HACKDIR/fonts
+X! 		export FONTPATH
+X! 	near the top of sys/unix/nethack.sh (before installation), and put
+X! 	the fonts and associated files in the "fonts" subdirectory of your
+X! 	GAMEDIR from the top Makefile (after installation via 'make install').
+X  
+X!     3.  Something must still be done with the NetHack.ad file.  All three
+X! 	of the possibilities mentioned for standard X11 should work, but
+X! 	it may be simplest to use the second or third, paralleling your
+X! 	FONTPATH choice.
+X  
+X  
+X  File				Description
+X--- 71,106 ----
+X  defaults directory:
+X  	XAPPLRESDIR=$HACKDIR; export XAPPLRESDIR
+X  
+X! Three icon suggestions to the window manager are supported:  nh72, nh56,
+X! and nh32.  Data for them comes from the source files nh72icon, nh56icon,
+X! and nh32icon; they are compiled into the program via #includes in winX.c.
+X! Selection between them is controlled by the "icon" resource in NetHack.ad;
+X! the default is nh72.
+X  
+X  Sorry, an Imakefile is not included.  Unlike many X11 programs, X11
+X  support is only a small, optional, part of nethack, and the Makefile is
+X  needed for systems that don't use X11.
+X  
+X! Notes for Sun's OpenWindows:
+X!     1.	For OpenWindows 3.x (NOT 2.x), define OPENWINBUG in include/unixconf.h.
+X! 	The library bug from SunOS 4.1.x is apparently fixed in Solaris 2.x, 
+X! 	so it is also unnecessary there.  (Defining it when unnecessary
+X! 	causes the same problem being avoided when it is necessary. :-)
+X! 	Add -I/usr/openwin/include to CFLAGS, -L/usr/openwin/lib to LFLAGS,
+X! 	and -lm to WINX11LIB in src/Makefile.  (Naturally, if your OpenWindows
+X! 	is installed elsewhere, adapt the two openwin paths.)  This will
+X! 	allow you to create a game executable.
+X  
+X      2.	Run the fonts through convertfont and run bldfamily on the directory.
+X! 	Now you must let your X server know where to find the fonts.  For a
+X! 	personal installation, the simplest thing is to include the directory
+X! 	of the fonts in the environment variable FONTPATH, as set in your
+X! 	.profile or .login before starting the server.  For a multi-user
+X! 	installation, you have the various "xset fp+" options outlined
+X! 	above for standard X.
+X  
+X!     3.  Something must still be done with the NetHack.ad file -- all three
+X! 	of the possibilities mentioned for standard X11 should work.
+X  
+X  
+X  File				Description
+X*** /tmp/da10222	Thu Feb 25 10:32:44 1993
+X--- win/X11/NetHack.ad	Tue Feb 23 09:38:32 1993
+X***************
+X*** 10,15 ****
+X--- 10,31 ----
+X  !NetHack*text*font:			fixed
+X  NetHack*map*font:			nh10
+X  
+X+ ! Translation tables.  There are currently several actions in nethack, but
+X+ ! the only one you should be using is "input()", which, with no parameters,
+X+ ! uses XLookupString to translate your keypress into a command.  You
+X+ ! can optionally give it parameters to change the behavior, see the example
+X+ ! below.  Note that you have to specify the translations in every appropriate
+X+ ! window.
+X+ NetHack*message*translations:	<KeyPress>: input()
+X+ !
+X+ ! Example extra translations for the map window.
+X+ !
+X+ !NetHack*map*translations:	#override \
+X+ !				!<Key>Left: input(h) \n\
+X+ !				!<Key>Right: input(l) \n\
+X+ !				!<Key>Up: input(k) \n\
+X+ !				!<Key>Down: input(j)
+X+ !
+X  ! The icon to use; supported values are nh72, nh56, and nh32; nh72 is the
+X  ! default.  Some window managers may not support the larger icon sizes.
+X  ! It is not guaranteed that the window manager will honor the icon selection.
+X***************
+X*** 42,48 ****
+X  NetHack*nethack.background: 	wheat
+X  NetHack*map*yellow:		gold
+X  NetHack*map*brown:		tan
+X! NetHack*map*grey:		grey85
+X  NetHack*map*foreground:		wheat
+X  NetHack*map*background:		grey40
+X  
+X--- 58,64 ----
+X  NetHack*nethack.background: 	wheat
+X  NetHack*map*yellow:		gold
+X  NetHack*map*brown:		tan
+X! NetHack*map*gray:		grey85
+X  NetHack*map*foreground:		wheat
+X  NetHack*map*background:		grey40
+X  
+X***************
+X*** 63,68 ****
+X--- 79,86 ----
+X  NetHack*player_selection*quit.foreground:	blue
+X  NetHack*player_selection*Command.borderColor:	red
+X  NetHack*player_selection*Command.foreground:	red
+X+ NetHack*player_selection*quit.accelerators: #override\n\
+X+ 				<Key>Escape:	set() notify() unset()
+X  
+X  NetHack*extended_commands*dismiss.borderColor:	blue
+X  NetHack*extended_commands*dismiss.foreground:	blue
+X***************
+X*** 70,75 ****
+X--- 88,97 ----
+X  NetHack*extended_commands*help.foreground:	blue
+X  NetHack*extended_commands*Command.borderColor:	red
+X  NetHack*extended_commands*Command.foreground:	red
+X+ NetHack*extended_commands*help.accelerators: #override\n\
+X+ 				:<Key>?:	set() notify() unset()
+X+ NetHack*extended_commands*dismiss.accelerators: #override\n\
+X+ 				<Key>Escape:	set() notify() unset()
+X  !
+X  !
+X  ! The following are the default 15 colors that the nethack map uses.
+X***************
+X*** 77,94 ****
+X  !
+X  ! The foreground color is used as "no color".
+X  !
+X! !NetHack*map*black:		"black"
+X! !NetHack*map*red:		"red"
+X! !NetHack*map*green:		"pale green"
+X! !NetHack*map*brown:		"brown"
+X! !NetHack*map*blue:		"blue"
+X! !NetHack*map*magenta:		"magenta"
+X! !NetHack*map*cyan:		"light cyan"
+X! !NetHack*map*gray:		"gray"
+X! !NetHack*map*orange:		"orange"
+X! !NetHack*map*bright_green:	"green"
+X! !NetHack*map*yellow:		"yellow"
+X! !NetHack*map*bright_blue:	"royal blue"
+X! !NetHack*map*bright_magenta:	"violet"
+X! !NetHack*map*bright_cyan:	"cyan"
+X! !NetHack*map*white:		"white"
+X--- 99,116 ----
+X  !
+X  ! The foreground color is used as "no color".
+X  !
+X! !NetHack*map*black:		black
+X! !NetHack*map*red:		red
+X! !NetHack*map*green:		pale green
+X! !NetHack*map*brown:		brown
+X! !NetHack*map*blue:		blue
+X! !NetHack*map*magenta:		magenta
+X! !NetHack*map*cyan:		light cyan
+X! !NetHack*map*gray:		gray
+X! !NetHack*map*orange:		orange
+X! !NetHack*map*bright_green:	green
+X! !NetHack*map*yellow:		yellow
+X! !NetHack*map*bright_blue:	royal blue
+X! !NetHack*map*bright_magenta:	violet
+X! !NetHack*map*bright_cyan:	cyan
+X! !NetHack*map*white:		white
+X*** /tmp/da10230	Thu Feb 25 10:32:46 1993
+X--- win/X11/Window.c	Wed Feb 24 16:11:09 1993
+X***************
+X*** 1,4 ****
+X! /*	SCCS Id: @(#)Window.c	3.1	92/3/7
+X  /* Copyright (c) Dean Luick, 1992				  */
+X  /* NetHack may be freely redistributed.  See license for details. */
+X  
+X--- 1,4 ----
+X! /*	SCCS Id: @(#)Window.c	3.1	93/02/02		  */
+X  /* Copyright (c) Dean Luick, 1992				  */
+X  /* NetHack may be freely redistributed.  See license for details. */
+X  
+X***************
+X*** 6,15 ****
+X--- 6,30 ----
+X   * Data structures and support routines for the Window widget.  This is a
+X   * drawing canvas with 16 colors and one font.
+X   */
+X+ 
+X+ #ifndef SYSV
+X+ #define PRESERVE_NO_SYSV	/* X11 include files may define SYSV */
+X+ #endif
+X+ 
+X  #include <X11/IntrinsicP.h>
+X  #include <X11/StringDefs.h>
+X+ 
+X+ #ifdef PRESERVE_NO_SYSV
+X+ # ifdef SYSV
+X+ #  undef SYSV
+X+ # endif
+X+ # undef PRESERVE_NO_SYSV
+X+ #endif
+X+ 
+X  #include "WindowP.h"
+X  
+X+ #include "config.h"
+X+ 
+X  static XtResource resources[] = {
+X  #define offset(field) XtOffset(WindowWidget, window.field)
+X      /* {name, class, type, size, offset, default_type, default_addr}, */
+X***************
+X*** 62,76 ****
+X  #undef offset
+X  };
+X  
+X! /* ARGSUSED */
+X! static void InputAction(w, event, params, num_params)
+X!     Widget   w;
+X!     XEvent   *event;
+X!     String   *params;		/* unused */
+X!     Cardinal *num_params;	/* unused */
+X! {
+X!     XtCallCallbacks(w, XtNcallback, (caddr_t) event);
+X! }
+X  
+X  /* ARGSUSED */
+X  static void no_op(w, event, params, num_params)
+X--- 77,84 ----
+X  #undef offset
+X  };
+X  
+X! extern void FDECL(map_input, (Widget, XEvent*, String*, Cardinal*));
+X! 							/* from winmap.c */
+X  
+X  /* ARGSUSED */
+X  static void no_op(w, event, params, num_params)
+X***************
+X*** 83,89 ****
+X  
+X  static XtActionsRec actions[] =
+X  {
+X!     {"input",	InputAction},
+X      {"no-op",	no_op},
+X  };
+X  
+X--- 91,97 ----
+X  
+X  static XtActionsRec actions[] =
+X  {
+X!     {"input",	map_input},
+X      {"no-op",	no_op},
+X  };
+X  
+X***************
+X*** 95,104 ****
+X  /* ARGSUSED */
+X  static void Redisplay(w, event, region)
+X      Widget w;
+X!     XEvent *event;	/* unused */
+X!     Region *region;
+X  {
+X!     XtCallCallbacks(w, XtNexposeCallback, (caddr_t) region);
+X  }
+X  
+X  /* ARGSUSED */
+X--- 103,113 ----
+X  /* ARGSUSED */
+X  static void Redisplay(w, event, region)
+X      Widget w;
+X!     XEvent *event;
+X!     Region region;	/* unused */
+X  {
+X!     /* This isn't correct - we need to call the callback with region. */
+X!     XtCallCallbacks(w, XtNexposeCallback, (caddr_t) event);
+X  }
+X  
+X  /* ARGSUSED */
+X*** /tmp/da10238	Thu Feb 25 10:32:48 1993
+X--- win/X11/dialogs.c	Wed Feb 24 16:11:18 1993
+X***************
+X*** 36,41 ****
+X--- 36,45 ----
+X   *	to this code.
+X   */
+X  
+X+ #ifndef SYSV
+X+ #define PRESERVE_NO_SYSV	/* X11 include files may define SYSV */
+X+ #endif
+X+ 
+X  #include <X11/Intrinsic.h>
+X  #include <X11/StringDefs.h>
+X  #include <X11/Xos.h>
+X***************
+X*** 45,50 ****
+X--- 49,61 ----
+X  #include <X11/Xaw/AsciiText.h>
+X  #include <X11/Xaw/Command.h>
+X  
+X+ #ifdef PRESERVE_NO_SYSV
+X+ # ifdef SYSV
+X+ #  undef SYSV
+X+ # endif
+X+ # undef PRESERVE_NO_SYSV
+X+ #endif
+X+ 
+X  #include "config.h"	/* #define for const for non __STDC__ compilers */
+X  
+X  /* ":" added to both translations below to allow limited redefining of
+X***************
+X*** 260,267 ****
+X  
+X  /* position popup window under the cursor */
+X  void
+X! positionpopup(w)
+X      Widget w;
+X  {
+X      Arg args[3];
+X      Cardinal num_args;
+X--- 271,279 ----
+X  
+X  /* position popup window under the cursor */
+X  void
+X! positionpopup(w, bottom)
+X      Widget w;
+X+     boolean bottom;	/* position y on bottom? */
+X  {
+X      Arg args[3];
+X      Cardinal num_args;
+X***************
+X*** 283,298 ****
+X      XtSetArg(args[num_args], XtNborderWidth, &b_width); num_args++;
+X      XtGetValues(w, args, num_args);
+X  
+X      width += 2 * b_width;
+X-     height += 2 * b_width;
+X- 
+X      x -= ( (Position) width/2 );
+X      if (x < 0) x = 0;
+X      if ( x > (max_x = (Position) (XtScreen(w)->width - width)) ) x = max_x;
+X  
+X!     y -= ( (Position) height/2 );
+X      if (y < 0) y = 0;
+X      if ( y > (max_y = (Position) (XtScreen(w)->height - height)) ) y = max_y;
+X  
+X      num_args = 0;
+X      XtSetArg(args[num_args], XtNx, x); num_args++;
+X--- 295,316 ----
+X      XtSetArg(args[num_args], XtNborderWidth, &b_width); num_args++;
+X      XtGetValues(w, args, num_args);
+X  
+X+     /* position so that the cursor is center,center or center,bottom */
+X      width += 2 * b_width;
+X      x -= ( (Position) width/2 );
+X      if (x < 0) x = 0;
+X      if ( x > (max_x = (Position) (XtScreen(w)->width - width)) ) x = max_x;
+X  
+X!     if (bottom) {
+X! 	y -= (height+b_width-1);
+X! 	height += 2 * b_width;
+X!     } else {
+X! 	height += 2 * b_width;
+X! 	y -= ( (Position) height/2 );
+X!     }
+X      if (y < 0) y = 0;
+X      if ( y > (max_y = (Position) (XtScreen(w)->height - height)) ) y = max_y;
+X+ 
+X  
+X      num_args = 0;
+X      XtSetArg(args[num_args], XtNx, x); num_args++;
+X*** /tmp/da10246	Thu Feb 25 10:32:50 1993
+X--- win/X11/ibm.bdf	Wed Feb 17 09:18:06 1993
+X***************
+X*** 3202,3220 ****
+X  DWIDTH 8 0
+X  BBX 8 14 0 -3
+X  BITMAP
+X  0000
+X  0000
+X  0000
+X  0000
+X! 0000
+X! 7600
+X! dc00
+X! 0000
+X! 7600
+X! dc00
+X! 0000
+X! 0000
+X! 0000
+X  0000
+X  ENDCHAR
+X  STARTCHAR fountain
+X--- 3202,3220 ----
+X  DWIDTH 8 0
+X  BBX 8 14 0 -3
+X  BITMAP
+X+ 7700
+X  0000
+X+ ee00
+X+ bb00
+X  0000
+X+ 7700
+X+ dd00
+X  0000
+X+ bb00
+X+ ee00
+X  0000
+X! dd00
+X! 7700
+X  0000
+X  ENDCHAR
+X  STARTCHAR fountain
+X*** /tmp/da10262	Thu Feb 25 10:32:55 1993
+X--- win/X11/nh10.bdf	Wed Feb 17 09:17:56 1993
+X***************
+X*** 3811,3826 ****
+X  DWIDTH 10 0
+X  BBX 10 20 0 -5
+X  BITMAP
+X  0000
+X  0000
+X  0000
+X! 0000
+X! 0000
+X! 0000
+X! 0000
+X! 0000
+X! 0000
+X! 0000
+X  0000
+X  2480
+X  db40
+X--- 3811,3826 ----
+X  DWIDTH 10 0
+X  BBX 10 20 0 -5
+X  BITMAP
+X+ b6c0
+X  0000
+X+ 2480
+X+ db40
+X  0000
+X+ 9240
+X+ 6d80
+X  0000
+X! 4900
+X! b6c0
+X  0000
+X  2480
+X  db40
+X*** /tmp/da10294	Thu Feb 25 10:33:05 1993
+X--- win/X11/winX.c	Wed Feb 24 16:11:24 1993
+X***************
+X*** 1,4 ****
+X! /*	SCCS Id: @(#)winX.c	3.1	93/01/22		  */
+X  /* Copyright (c) Dean Luick, 1992				  */
+X  /* NetHack may be freely redistributed.  See license for details. */
+X  
+X--- 1,4 ----
+X! /*	SCCS Id: @(#)winX.c	3.1	93/02/17		  */
+X  /* Copyright (c) Dean Luick, 1992				  */
+X  /* NetHack may be freely redistributed.  See license for details. */
+X  
+X***************
+X*** 7,12 ****
+X--- 7,17 ----
+X   * routines.  Please see doc/window.doc for an description of the window
+X   * interface.
+X   */
+X+ 
+X+ #ifndef SYSV
+X+ #define PRESERVE_NO_SYSV	/* X11 include files may define SYSV */
+X+ #endif
+X+ 
+X  #include <X11/Intrinsic.h>
+X  #include <X11/StringDefs.h>
+X  #include <X11/Shell.h>
+X***************
+X*** 16,24 ****
+X--- 21,37 ----
+X  #include <X11/Xaw/Cardinals.h>
+X  #include <X11/Xatom.h>
+X  #include <X11/Xos.h>
+X+ 
+X  /* for color support; should be ifdef TEXTCOLOR, but must come before hack.h */
+X  #include <X11/IntrinsicP.h>
+X  
+X+ #ifdef PRESERVE_NO_SYSV
+X+ # ifdef SYSV
+X+ #  undef SYSV
+X+ # endif
+X+ # undef PRESERVE_NO_SYSV
+X+ #endif
+X+ 
+X  #include "hack.h"
+X  #include "winX.h"
+X  
+X***************
+X*** 105,112 ****
+X--- 118,131 ----
+X   * Local functions.
+X   */
+X  static void FDECL(dismiss_file, (Widget, XEvent*, String*, Cardinal*));
+X+ static void FDECL(delete_file, (Widget, XEvent*, String*, Cardinal*));
+X  static void FDECL(yn_key, (Widget, XEvent*, String*, Cardinal*));
+X+ static void FDECL(yn_delete, (Widget, XEvent*, String*, Cardinal*));
+X+ static void FDECL(askname_delete, (Widget, XEvent*, String*, Cardinal*));
+X+ static void FDECL(getline_delete, (Widget, XEvent*, String*, Cardinal*));
+X+ static void FDECL(X11_hangup, (Widget, XEvent*, String*, Cardinal*));
+X  static int FDECL(input_event, (int));
+X+ static void FDECL(win_visible, (Widget,XtPointer,XEvent *,Boolean *));
+X  static void NDECL(init_standard_windows);
+X  
+X  
+X***************
+X*** 133,139 ****
+X  
+X      /* This is sad.  Search to find the corresponding window. */
+X      for (windex = 0, wp = window_list; windex < MAX_WINDOWS; windex++, wp++)
+X! 	if (wp->type != NHW_NONE && wp->w == w) break;
+X      if (windex == MAX_WINDOWS) panic("find_widget:  can't match widget");
+X      return wp;
+X  }
+X--- 152,159 ----
+X  
+X      /* This is sad.  Search to find the corresponding window. */
+X      for (windex = 0, wp = window_list; windex < MAX_WINDOWS; windex++, wp++)
+X! 	if (wp->type != NHW_NONE &&
+X! 		(wp->w == w || (wp->w && XtParent(wp->w) == w))) break;
+X      if (windex == MAX_WINDOWS) panic("find_widget:  can't match widget");
+X      return wp;
+X  }
+X***************
+X*** 277,283 ****
+X       XtAppWarningMsg(app, "wrongParameters", "cvtStringToPixel",
+X  	"XtToolkitError",
+X  	"String to pixel conversion needs screen and colormap arguments",
+X!         (String *)NULL, (Cardinal *)NULL);
+X       return False;
+X      }
+X  
+X--- 297,303 ----
+X       XtAppWarningMsg(app, "wrongParameters", "cvtStringToPixel",
+X  	"XtToolkitError",
+X  	"String to pixel conversion needs screen and colormap arguments",
+X! 	(String *)0, (Cardinal *)0);
+X       return False;
+X      }
+X  
+X***************
+X*** 329,335 ****
+X  	return False;
+X      } else {
+X  	*closure_ret = (char*)True;
+X!         done(Pixel, screenColor.pixel);
+X      }
+X  }
+X  
+X--- 349,355 ----
+X  	return False;
+X      } else {
+X  	*closure_ret = (char*)True;
+X! 	done(Pixel, screenColor.pixel);
+X      }
+X  }
+X  
+X***************
+X*** 349,355 ****
+X       XtAppWarningMsg(app, "wrongParameters",
+X  		     "freePixel", "XtToolkitError",
+X  		     "Freeing a pixel requires screen and colormap arguments",
+X! 		     (String *)NULL, (Cardinal *)NULL);
+X       return;
+X      }
+X  
+X--- 369,375 ----
+X       XtAppWarningMsg(app, "wrongParameters",
+X  		     "freePixel", "XtToolkitError",
+X  		     "Freeing a pixel requires screen and colormap arguments",
+X! 		     (String *)0, (Cardinal *)0);
+X       return;
+X      }
+X  
+X***************
+X*** 574,580 ****
+X      switch (wp->type) {
+X  	case NHW_MAP:
+X  	    if (wp->popup)
+X! 		nh_XtPopup(wp->popup, XtGrabNone, wp->w);
+X  	    /*else
+X  	     *  XtMapWidget(toplevel);
+X  	     *
+X--- 594,600 ----
+X      switch (wp->type) {
+X  	case NHW_MAP:
+X  	    if (wp->popup)
+X! 		nh_XtPopup(wp->popup, (int)XtGrabNone, wp->w);
+X  	    /*else
+X  	     *  XtMapWidget(toplevel);
+X  	     *
+X***************
+X*** 605,611 ****
+X  	    break;
+X  	case NHW_MESSAGE:
+X  	    if (wp->popup)
+X! 		 nh_XtPopup(wp->popup, XtGrabNone, wp->w);
+X  	    /*else
+X  	     *	XtMapWidget(toplevel);
+X  	     *
+X--- 625,631 ----
+X  	    break;
+X  	case NHW_MESSAGE:
+X  	    if (wp->popup)
+X! 		 nh_XtPopup(wp->popup, (int)XtGrabNone, wp->w);
+X  	    /*else
+X  	     *	XtMapWidget(toplevel);
+X  	     *
+X***************
+X*** 616,622 ****
+X  	    break;
+X  	case NHW_STATUS:
+X  	    if (wp->popup)
+X! 		nh_XtPopup(wp->popup, XtGrabNone, wp->w);
+X  	    /*else
+X  	     *	XtMapWidget(toplevel);
+X  	     *
+X--- 636,642 ----
+X  	    break;
+X  	case NHW_STATUS:
+X  	    if (wp->popup)
+X! 		nh_XtPopup(wp->popup, (int)XtGrabNone, wp->w);
+X  	    /*else
+X  	     *	XtMapWidget(toplevel);
+X  	     *
+X***************
+X*** 741,755 ****
+X--- 761,784 ----
+X  
+X  XtAppContext app_context;		/* context of application */
+X  Widget	     toplevel = (Widget) 0;	/* toplevel widget */
+X+ Atom         wm_delete_window;		/* To pop-down windows */
+X  
+X  static XtActionsRec actions[] = {
+X      {"dismiss_file",	dismiss_file},	/* action for file viewing widget */
+X+     {"delete_file",	delete_file},	/* action for file delete-window */
+X      {"dismiss_text",	dismiss_text},	/* button action for text widget */
+X+     {"delete_text",	delete_text},	/* delete action for text widget */
+X      {"key_dismiss_text",key_dismiss_text},/* key action for text widget */
+X      {"menu_key",	menu_key},	/* action for menu accelerators */
+X      {"yn_key",		yn_key},	/* action for yn accelerators */
+X+     {"yn_delete",	yn_delete},	/* action for yn delete-window */
+X+     {"askname_delete",	askname_delete},/* action for askname delete-window */
+X+     {"getline_delete",	getline_delete},/* action for getline delete-window */
+X+     {"menu_delete",	menu_delete},	/* action for menu delete-window */
+X      {"ec_key",		ec_key},	/* action for extended commands */
+X+     {"ec_delete",	ec_delete},	/* action for ext-com menu delete */
+X      {"ps_key",		ps_key},	/* action for player selection */
+X+     {"X11_hangup",	X11_hangup},	/* action for delete of top-level */
+X  };
+X  
+X  static XtResource resources[] = {
+X***************
+X*** 793,802 ****
+X      toplevel = XtAppInitialize(
+X  		    &app_context,
+X  		    "NetHack",		/* application class */
+X! 		    NULL, 0,		/* options list */
+X  		    &i, av,		/* command line args */
+X! 		    NULL,		/* fallback resources */
+X! 		    args, num_args);
+X  
+X      /* We don't need to realize the top level widget. */
+X  
+X--- 822,833 ----
+X      toplevel = XtAppInitialize(
+X  		    &app_context,
+X  		    "NetHack",		/* application class */
+X! 		    (XrmOptionDescList)0, 0,	/* options list */
+X  		    &i, av,		/* command line args */
+X! 		    (String *)0,	/* fallback resources */
+X! 		    (ArgList)args, num_args);
+X!     XtOverrideTranslations(toplevel,
+X! 	XtParseTranslationTable("<Message>WM_PROTOCOLS: X11_hangup()"));
+X  
+X      /* We don't need to realize the top level widget. */
+X  
+X***************
+X*** 803,809 ****
+X  #ifdef TEXTCOLOR
+X      /* add new color converter to deal with overused colormaps */
+X      XtSetTypeConverter(XtRString, XtRPixel, nhCvtStringToPixel,
+X! 		       nhcolorConvertArgs, XtNumber(nhcolorConvertArgs),
+X  		       XtCacheByDisplay, nhFreePixel);
+X  #endif /* TEXTCOLOR */
+X  
+X--- 834,841 ----
+X  #ifdef TEXTCOLOR
+X      /* add new color converter to deal with overused colormaps */
+X      XtSetTypeConverter(XtRString, XtRPixel, nhCvtStringToPixel,
+X! 		       (XtConvertArgList)nhcolorConvertArgs, 
+X! 		       XtNumber(nhcolorConvertArgs),
+X  		       XtCacheByDisplay, nhFreePixel);
+X  #endif /* TEXTCOLOR */
+X  
+X***************
+X*** 811,818 ****
+X      XtAppAddActions(app_context, actions, XtNumber(actions));
+X  
+X      /* Get application-wide resources */
+X!     XtGetApplicationResources(toplevel,(XtPointer)&appResources,
+X! 			      resources,XtNumber(resources),NULL,ZERO);
+X  
+X      /* Initialize other things. */
+X      init_standard_windows();
+X--- 843,851 ----
+X      XtAppAddActions(app_context, actions, XtNumber(actions));
+X  
+X      /* Get application-wide resources */
+X!     XtGetApplicationResources(toplevel, (XtPointer)&appResources,
+X! 			      resources, XtNumber(resources),
+X! 			      (ArgList)0, ZERO);
+X  
+X      /* Initialize other things. */
+X      init_standard_windows();
+X***************
+X*** 909,916 ****
+X--- 942,973 ----
+X      (void) x_event(EXIT_ON_SENT_EVENT);
+X  }
+X  
+X+ /* X11_hangup -------------------------------------------------------------- */
+X+ /* ARGSUSED */
+X+ static void
+X+ X11_hangup(w, event, params, num_params)
+X+     Widget w;
+X+     XEvent *event;
+X+     String *params;
+X+     Cardinal *num_params;
+X+ {
+X+     (void) hangup();
+X+ }
+X  
+X  /* askname ----------------------------------------------------------------- */
+X+ /* ARGSUSED */
+X+ static void
+X+ askname_delete(w, event, params, num_params)
+X+     Widget w;
+X+     XEvent *event;
+X+     String *params;
+X+     Cardinal *num_params;
+X+ {
+X+     nh_XtPopdown(w);
+X+     (void) strcpy(plname, "Mumbles");	/* give them a name... ;-) */
+X+     exit_x_event = TRUE;
+X+ }
+X+ 
+X  /* Callback for askname dialog widget. */
+X  /* ARGSUSED */
+X  static void
+X***************
+X*** 952,957 ****
+X--- 1009,1016 ----
+X  
+X      popup = XtCreatePopupShell("askname", transientShellWidgetClass,
+X  				   toplevel, args, ONE);
+X+     XtOverrideTranslations(popup,
+X+ 	XtParseTranslationTable("<Message>WM_PROTOCOLS: askname_delete()"));
+X  
+X      dialog = CreateDialog(popup, "dialog",
+X  				    askname_done, (XtCallbackProc) 0);
+X***************
+X*** 960,968 ****
+X      SetDialogResponse(dialog, "");		/* set default answer */
+X  
+X      XtRealizeWidget(popup);
+X!     positionpopup(popup);		/* center on cursor */
+X  
+X!     nh_XtPopup(popup, XtGrabExclusive, dialog);
+X  
+X      /* The callback will enable the event loop exit. */
+X      (void) x_event(EXIT_ON_EXIT);
+X--- 1019,1027 ----
+X      SetDialogResponse(dialog, "");		/* set default answer */
+X  
+X      XtRealizeWidget(popup);
+X!     positionpopup(popup, TRUE);		/* center,bottom */
+X  
+X!     nh_XtPopup(popup, (int)XtGrabExclusive, dialog);
+X  
+X      /* The callback will enable the event loop exit. */
+X      (void) x_event(EXIT_ON_EXIT);
+X***************
+X*** 990,1005 ****
+X      Widget dialog = (Widget) client_data;
+X  
+X      s = (char *) GetDialogResponse(dialog);
+X! 
+X!     if (strlen(s) == 0)
+X! 	Strcpy(getline_input, CANCEL_STR);
+X!     else
+X! 	Strcpy(getline_input, s);
+X! 
+X      nh_XtPopdown(XtParent(dialog));
+X      exit_x_event = TRUE;
+X  }
+X  
+X  /* Callback for getline dialog widget. */
+X  /* ARGSUSED */
+X  static void
+X--- 1049,1072 ----
+X      Widget dialog = (Widget) client_data;
+X  
+X      s = (char *) GetDialogResponse(dialog);
+X!     Strcpy(getline_input, s);
+X      nh_XtPopdown(XtParent(dialog));
+X      exit_x_event = TRUE;
+X  }
+X  
+X+ /* ARGSUSED */
+X+ static void
+X+ getline_delete(w, event, params, num_params)
+X+     Widget w;
+X+     XEvent *event;
+X+     String *params;
+X+     Cardinal *num_params;
+X+ {
+X+     Strcpy(getline_input, CANCEL_STR);
+X+     nh_XtPopdown(w);
+X+     exit_x_event = TRUE;
+X+ }
+X+ 
+X  /* Callback for getline dialog widget. */
+X  /* ARGSUSED */
+X  static void
+X***************
+X*** 1035,1051 ****
+X  
+X  	getline_popup = XtCreatePopupShell("getline",transientShellWidgetClass,
+X  				   toplevel, args, ONE);
+X  
+X  	getline_dialog = CreateDialog(getline_popup, "dialog",
+X  				    done_button, abort_button);
+X  
+X  	XtRealizeWidget(getline_popup);
+X      }
+X!     SetDialogPrompt(getline_dialog, question);	/* set prompt */
+X      SetDialogResponse(getline_dialog, "");	/* set default answer */
+X!     positionpopup(getline_popup);		/* center on cursor */
+X  
+X!     nh_XtPopup(getline_popup, XtGrabNone, getline_dialog);
+X  
+X      /* The callback will enable the event loop exit. */
+X      (void) x_event(EXIT_ON_EXIT);
+X--- 1102,1122 ----
+X  
+X  	getline_popup = XtCreatePopupShell("getline",transientShellWidgetClass,
+X  				   toplevel, args, ONE);
+X+ 	XtOverrideTranslations(getline_popup,
+X+ 	    XtParseTranslationTable("<Message>WM_PROTOCOLS: getline_delete()"));
+X  
+X  	getline_dialog = CreateDialog(getline_popup, "dialog",
+X  				    done_button, abort_button);
+X  
+X  	XtRealizeWidget(getline_popup);
+X+ 	XSetWMProtocols(XtDisplay(getline_popup), XtWindow(getline_popup),
+X+ 			&wm_delete_window, 1);
+X      }
+X!     SetDialogPrompt(getline_dialog, (String)question);	/* set prompt */
+X      SetDialogResponse(getline_dialog, "");	/* set default answer */
+X!     positionpopup(getline_popup, TRUE);		/* center,bottom */
+X  
+X!     nh_XtPopup(getline_popup, (int)XtGrabNone, getline_dialog);
+X  
+X      /* The callback will enable the event loop exit. */
+X      (void) x_event(EXIT_ON_EXIT);
+X***************
+X*** 1055,1063 ****
+X--- 1126,1149 ----
+X  /* Display file ------------------------------------------------------------ */
+X  static const char display_translations[] =
+X      "#override\n\
+X+      <Key>q: dismiss_file()\n\
+X+      <Key>Escape: dismiss_file()\n\
+X       <BtnDown>: dismiss_file()";
+X  
+X  
+X+ /* WM_DELETE_WINDOW callback for file dismissal. */
+X+ /*ARGSUSED*/
+X+ static void
+X+ delete_file(w, event, params, num_params)
+X+     Widget w;
+X+     XEvent *event;
+X+     String *params;
+X+     Cardinal *num_params;
+X+ {
+X+     nh_XtPopdown(w);
+X+     XtDestroyWidget(w);
+X+ }
+X+ 
+X  /* Callback for file dismissal. */
+X  /*ARGSUSED*/
+X  static void
+X***************
+X*** 1117,1122 ****
+X--- 1203,1210 ----
+X  
+X      popup = XtCreatePopupShell("display_file", topLevelShellWidgetClass,
+X  					       toplevel, args, num_args);
+X+     XtOverrideTranslations(popup,
+X+ 	XtParseTranslationTable("<Message>WM_PROTOCOLS: delete_file()"));
+X  
+X      num_args = 0;
+X      XtSetArg(args[num_args], XtNscrollHorizontal,
+X***************
+X*** 1161,1167 ****
+X      XtSetArg(args[num_args], XtNheight, new_height); num_args++;
+X      XtSetValues(dispfile, args, num_args);
+X  
+X!     nh_XtPopup(popup, XtGrabNone, None);
+X  }
+X  
+X  
+X--- 1249,1255 ----
+X      XtSetArg(args[num_args], XtNheight, new_height); num_args++;
+X      XtSetValues(dispfile, args, num_args);
+X  
+X!     nh_XtPopup(popup, (int)XtGrabNone, None);
+X  }
+X  
+X  
+X***************
+X*** 1194,1209 ****
+X  {
+X      char keystring[MAX_KEY_STRING];
+X      int nbytes;
+X  
+X!     nbytes = XLookupString(key, keystring, MAX_KEY_STRING, NULL, NULL);
+X  
+X      /* Modifier keys return a zero lengh string when pressed. */
+X      if (nbytes == 0) return '\0';
+X  
+X!     return keystring[0];
+X  }
+X  
+X  /*
+X   * Called when we get a key press event on a yn window.
+X   */
+X  /* ARGSUSED */
+X--- 1282,1316 ----
+X  {
+X      char keystring[MAX_KEY_STRING];
+X      int nbytes;
+X+     boolean meta = !!(key->state & Mod1Mask);
+X  
+X!     nbytes = XLookupString(key, keystring, MAX_KEY_STRING,
+X! 			   (KeySym *)0, (XComposeStatus *)0);
+X  
+X      /* Modifier keys return a zero lengh string when pressed. */
+X      if (nbytes == 0) return '\0';
+X  
+X!     return (char) (((int) keystring[0]) + (meta ? 0x80 : 0));
+X  }
+X  
+X  /*
+X+  * Called when we get a WM_DELETE_WINDOW event on a yn window.
+X+  */
+X+ /* ARGSUSED */
+X+ static void
+X+ yn_delete(w, event, params, num_params)
+X+     Widget w;
+X+     XEvent *event;
+X+     String *params;
+X+     Cardinal *num_params;
+X+ {
+X+     yn_getting_num = FALSE;
+X+     /* Only use yn_esc_map if we have choices.  Otherwise, return ESC. */
+X+     yn_return = yn_choices ? yn_esc_map : '\033';
+X+     exit_x_event = TRUE;	/* exit our event handler */
+X+ }
+X+ 
+X+ /*
+X   * Called when we get a key press event on a yn window.
+X   */
+X  /* ARGSUSED */
+X***************
+X*** 1217,1223 ****
+X      char ch;
+X  
+X      if(appResources.slow && !input_func)
+X! 	extern_map_input(event);
+X  
+X      ch = key_event_to_char((XKeyEvent *) event);
+X  
+X--- 1324,1330 ----
+X      char ch;
+X  
+X      if(appResources.slow && !input_func)
+X! 	map_input(w, event, params, num_params);
+X  
+X      ch = key_event_to_char((XKeyEvent *) event);
+X  
+X***************
+X*** 1268,1273 ****
+X--- 1375,1381 ----
+X  
+X  	if (yn_getting_num) {
+X  	    yn_return = '#';
+X+ 	    if (yn_val < 0) yn_val = 0;
+X  	    yn_number = yn_val;	/* assign global */
+X  	}
+X      }
+X***************
+X*** 1324,1329 ****
+X--- 1432,1439 ----
+X  	XtSetArg(args[0], XtNallowShellResize, True);
+X  	yn_popup = XtCreatePopupShell("query", transientShellWidgetClass,
+X  					toplevel, args, ONE);
+X+ 	XtOverrideTranslations(yn_popup,
+X+ 	    XtParseTranslationTable("<Message>WM_PROTOCOLS: yn_delete()"));
+X  
+X  	num_args = 0;
+X  	XtSetArg(args[num_args], XtNtranslations,
+X***************
+X*** 1334,1339 ****
+X--- 1444,1451 ----
+X  				args, num_args);
+X  
+X  	XtRealizeWidget(yn_popup);
+X+ 	XSetWMProtocols(XtDisplay(yn_popup), XtWindow(yn_popup),
+X+ 			&wm_delete_window, 1);
+X      }
+X  
+X      if(appResources.slow)
+X***************
+X*** 1352,1359 ****
+X  	XtSetArg(args[num_args], XtNlabel, buf); num_args++;
+X  	XtSetValues(yn_label, args, num_args);
+X  
+X! 	positionpopup(yn_popup);
+X! 	nh_XtPopup(yn_popup, XtGrabExclusive, yn_label);
+X      }
+X  
+X      yn_getting_num = FALSE;
+X--- 1464,1471 ----
+X  	XtSetArg(args[num_args], XtNlabel, buf); num_args++;
+X  	XtSetValues(yn_label, args, num_args);
+X  
+X! 	positionpopup(yn_popup, TRUE);
+X! 	nh_XtPopup(yn_popup, (int)XtGrabExclusive, yn_label);
+X      }
+X  
+X      yn_getting_num = FALSE;
+X***************
+X*** 1399,1407 ****
+X      XtPointer data;
+X      XEvent *event;
+X  {
+X!     extern_map_input(event);
+X  }
+X  
+X  /*
+X   * Set up the playing console.  This has three major parts:  the
+X   * message window, the map, and the status window.
+X--- 1511,1539 ----
+X      XtPointer data;
+X      XEvent *event;
+X  {
+X!     Cardinal num = 0;
+X!     map_input(window_list[WIN_MAP].w, event, (String*) 0, &num);
+X  }
+X  
+X+ /*ARGSUSED*/
+X+ static void
+X+ win_visible(w, data, event, flag)	/* only called for autofocus */
+X+     Widget w;
+X+     XtPointer data;	/* client_data not used */
+X+     XEvent *event;
+X+     Boolean *flag;	/* continue_to_dispatch flag not used */
+X+ {
+X+     XVisibilityEvent *vis_event = (XVisibilityEvent *)event;
+X+ 
+X+     if (vis_event->state != VisibilityFullyObscured) {
+X+ 	/* one-time operation; cancel ourself */
+X+ 	XtRemoveEventHandler(toplevel, VisibilityChangeMask, False,
+X+ 			     win_visible, (XtPointer) 0);
+X+ 	/* grab initial input focus */
+X+ 	XSetInputFocus(XtDisplay(w), XtWindow(w), RevertToNone, CurrentTime);
+X+     }
+X+ }
+X+ 
+X  /*
+X   * Set up the playing console.  This has three major parts:  the
+X   * message window, the map, and the status window.
+X***************
+X*** 1426,1431 ****
+X--- 1558,1567 ----
+X      XtAddEventHandler(form, KeyPressMask, False,
+X  		      (XtEventHandler) msgkey, (XtPointer) 0);
+X  
+X+     if (appResources.autofocus)
+X+ 	XtAddEventHandler(toplevel, VisibilityChangeMask, False,
+X+ 			  win_visible, (XtPointer) 0);
+X+ 
+X      /*
+X       * Create message window.
+X       */
+X***************
+X*** 1513,1527 ****
+X       */
+X      /* XtSetMappedWhenManaged(toplevel, False); */
+X      XtRealizeWidget(toplevel);
+X!     /*
+X!      * The message window was the size we want the viewport to take (when
+X!      * realized).  Now change to our real height.  Do this before we resize
+X!      * so that the vertical scrollbar is activated and is taken into account
+X!      * when calculating the widget size.  If we do this last, then the
+X!      * message window ends up being short by one scrollbar width.  [Brain-dead
+X!      * viewport widget.]
+X!      */
+X!     set_message_height(&window_list[message_win], (int) flags.msg_history);
+X  
+X      /*
+X       * Now get the default widths of the windows.
+X--- 1649,1658 ----
+X       */
+X      /* XtSetMappedWhenManaged(toplevel, False); */
+X      XtRealizeWidget(toplevel);
+X!     wm_delete_window = XInternAtom(XtDisplay(toplevel),
+X! 				   "WM_DELETE_WINDOW", False);
+X!     XSetWMProtocols(XtDisplay(toplevel), XtWindow(toplevel),
+X! 		    &wm_delete_window, 1);
+X  
+X      /*
+X       * Now get the default widths of the windows.
+X***************
+X*** 1584,1608 ****
+X      set_map_size(&window_list[map_win], COLNO, ROWNO);
+X      set_message_slider(&window_list[message_win]);
+X  
+X-     /* grab initial input focus */
+X-     if (appResources.autofocus) {
+X- 	Display *dpy = XtDisplay(toplevel);
+X- 	Window   win = XtWindow(toplevel), current;
+X- 	int      revert;
+X- 
+X- 	/*
+X- 	 * We don't actually care about the `revert' value; this mainly serves
+X- 	 * the purpose of synchronizing with the popup.
+X- 	 */
+X- 	XGetInputFocus(dpy, &current, &revert);
+X- 
+X- 	/* attach the keyboard to the main window */
+X- 	if (win != current) {
+X- 	    sleep(1);	/* ugh, delay so window is showing.. */
+X- 	    XSetInputFocus(dpy, win, revert, CurrentTime);
+X- 	}
+X-     }
+X- 
+X      /* attempt to catch fatal X11 errors before the program quits */
+X      (void) XtAppSetErrorHandler(app_context, (XtErrorHandler) hangup);
+X  
+X--- 1715,1720 ----
+X***************
+X*** 1618,1623 ****
+X--- 1730,1736 ----
+X      Widget childwid;	/* child to recieve focus (can be None) */
+X  {
+X      XtPopup(w, (XtGrabKind)g);
+X+     XSetWMProtocols(XtDisplay(w), XtWindow(w), &wm_delete_window, 1);
+X      if (appResources.autofocus) XtSetKeyboardFocus(toplevel, childwid);
+X  }
+X  
+X*** /tmp/da10302	Thu Feb 25 10:33:09 1993
+X--- win/X11/winmap.c	Wed Feb 24 16:11:30 1993
+X***************
+X*** 1,4 ****
+X! /*	SCCS Id: @(#)winmap.c	3.1	92/04/30		  */
+X  /* Copyright (c) Dean Luick, 1992				  */
+X  /* NetHack may be freely redistributed.  See license for details. */
+X  
+X--- 1,4 ----
+X! /*	SCCS Id: @(#)winmap.c	3.1	93/02/02		  */
+X  /* Copyright (c) Dean Luick, 1992				  */
+X  /* NetHack may be freely redistributed.  See license for details. */
+X  
+X***************
+X*** 14,19 ****
+X--- 14,24 ----
+X   *	  values in the Window widget.  I am _not_ in favor of including
+X   *	  some nethack include file for Window.c.
+X   */
+X+ 
+X+ #ifndef SYSV
+X+ #define PRESERVE_NO_SYSV	/* X11 include files may define SYSV */
+X+ #endif
+X+ 
+X  #include <X11/Intrinsic.h>
+X  #include <X11/StringDefs.h>
+X  #include <X11/Shell.h>
+X***************
+X*** 20,25 ****
+X--- 25,39 ----
+X  #include <X11/Xaw/Cardinals.h>
+X  #include <X11/Xaw/Scrollbar.h>
+X  #include <X11/Xaw/Viewport.h>
+X+ #include <X11/Xatom.h>
+X+ 
+X+ #ifdef PRESERVE_NO_SYSV
+X+ # ifdef SYSV
+X+ #  undef SYSV
+X+ # endif
+X+ # undef PRESERVE_NO_SYSV
+X+ #endif
+X+ 
+X  #include "Window.h"	/* map widget declarations */
+X  
+X  #include "hack.h"
+X***************
+X*** 30,44 ****
+X  /* #define VERBOSE_UPDATE	/* print screen update bounds */
+X  /* #define VERBOSE_INPUT	/* print input events */
+X  
+X! static void set_button_values();
+X! static void map_check_size_change();
+X! static void map_update();
+X! static void map_exposed();
+X! static void map_input();
+X! static void set_gc();
+X! static void get_gc();
+X! static void get_char_info();
+X! static void display_cursor();
+X  
+X  /* Global functions ======================================================== */
+X  
+X--- 44,57 ----
+X  /* #define VERBOSE_UPDATE	/* print screen update bounds */
+X  /* #define VERBOSE_INPUT	/* print input events */
+X  
+X! static void FDECL(set_button_values, (Widget,int,int,unsigned));
+X! static void FDECL(map_check_size_change, (struct xwindow *));
+X! static void FDECL(map_update, (struct xwindow *,int,int,int,int,BOOLEAN_P));
+X! static void FDECL(map_exposed, (Widget,XtPointer,XtPointer));
+X! static void FDECL(set_gc, (Widget,Font,char *,Pixel,GC *,GC *));
+X! static void FDECL(get_gc, (struct xwindow *,Font));
+X! static void FDECL(get_char_info, (struct xwindow *));
+X! static void FDECL(display_cursor, (struct xwindow *));
+X  
+X  /* Global functions ======================================================== */
+X  
+X***************
+X*** 514,540 ****
+X  int inptr = 0;	/* points to valid data */
+X  
+X  
+X- void
+X- extern_map_input(event)
+X-     XEvent *event;
+X- {
+X-     if(event->type == KeyPress)
+X- 	map_input(window_list[WIN_MAP].w, (XtPointer) 0, (XtPointer) event);
+X- }
+X- 
+X  /*
+X   * Keyboard and button event handler for map window.
+X   */
+X! /* ARGSUSED */
+X! static void
+X! map_input(w, client_data, call_data)
+X!     Widget w;
+X!     XtPointer client_data, call_data;
+X  {
+X-     XEvent *event = (XEvent *) call_data;
+X      XKeyEvent *key;
+X      XButtonEvent *button;
+X      int i, nbytes;
+X      char c;
+X      char keystring[MAX_KEY_STRING];
+X  
+X--- 527,547 ----
+X  int inptr = 0;	/* points to valid data */
+X  
+X  
+X  /*
+X   * Keyboard and button event handler for map window.
+X   */
+X! void
+X! map_input(w, event, params, num_params)
+X!     Widget   w;
+X!     XEvent   *event;
+X!     String   *params;
+X!     Cardinal *num_params;
+X  {
+X      XKeyEvent *key;
+X      XButtonEvent *button;
+X+     boolean meta = FALSE;
+X      int i, nbytes;
+X+     Cardinal in_nparams = (num_params ? *num_params : 0);
+X      char c;
+X      char keystring[MAX_KEY_STRING];
+X  
+X***************
+X*** 544,549 ****
+X--- 551,562 ----
+X  #ifdef VERBOSE_INPUT
+X  	    printf("button press\n");
+X  #endif
+X+ 	    if (in_nparams > 0 &&
+X+ 		(nbytes = strlen(params[0])) < MAX_KEY_STRING) {
+X+ 		Strcpy(keystring, params[0]);
+X+ 		key = (XKeyEvent *) event; /* just in case */
+X+ 		goto key_events;
+X+ 	    }
+X  	    set_button_values(w, button->x, button->y, button->button);
+X  	    break;
+X  	case KeyPress:
+X***************
+X*** 551,557 ****
+X  	    printf("key: ");
+X  #endif
+X  	    if(appResources.slow && input_func) {
+X! 		(*input_func)(w, event, NULL, NULL);
+X  		break;
+X  	    }
+X  
+X--- 564,570 ----
+X  	    printf("key: ");
+X  #endif
+X  	    if(appResources.slow && input_func) {
+X! 		(*input_func)(w, event, params, num_params);
+X  		break;
+X  	    }
+X  
+X***************
+X*** 560,566 ****
+X  	     * to allow keys mapped to multiple characters.
+X  	     */
+X  	    key = (XKeyEvent *) event;
+X! 	    nbytes = XLookupString(key, keystring, MAX_KEY_STRING, NULL, NULL);
+X  	    /* Modifier keys return a zero length string when pressed. */
+X  	    if (nbytes) {
+X  #ifdef VERBOSE_INPUT
+X--- 573,591 ----
+X  	     * to allow keys mapped to multiple characters.
+X  	     */
+X  	    key = (XKeyEvent *) event;
+X! 	    if (in_nparams > 0 &&
+X! 		(nbytes = strlen(params[0])) < MAX_KEY_STRING) {
+X! 		Strcpy(keystring, params[0]);
+X! 	    } else {
+X! 		/*
+X! 		 * Assume that mod1 is really the meta key.
+X! 		 */
+X! 		meta = !!(key->state & Mod1Mask);
+X! 		nbytes =
+X! 		    XLookupString(key, keystring, MAX_KEY_STRING,
+X! 				  (KeySym *)0, (XComposeStatus *)0);
+X! 	    }
+X! 	key_events:
+X  	    /* Modifier keys return a zero length string when pressed. */
+X  	    if (nbytes) {
+X  #ifdef VERBOSE_INPUT
+X***************
+X*** 571,586 ****
+X  
+X  		    if (incount < INBUF_SIZE) {
+X  			inbuf[(inptr+incount)%INBUF_SIZE] =
+X! 			    ((int) c) + ((key->state & Mod1Mask) ? 0x80 : 0);
+X  			incount++;
+X  		    } else {
+X  			X11_nhbell();
+X  		    }
+X  #ifdef VERBOSE_INPUT
+X! 		    /*
+X! 		     * Assume that mod1 is really the meta key.
+X! 		     */
+X! 		    if (key->state & Mod1Mask)	/* meta will print as M<c> */
+X  			(void) putchar('M');
+X  		    if (c < ' ') {		/* ctrl will print as ^<c> */
+X  			(void) putchar('^');
+X--- 596,608 ----
+X  
+X  		    if (incount < INBUF_SIZE) {
+X  			inbuf[(inptr+incount)%INBUF_SIZE] =
+X! 			    ((int) c) + (meta ? 0x80 : 0);
+X  			incount++;
+X  		    } else {
+X  			X11_nhbell();
+X  		    }
+X  #ifdef VERBOSE_INPUT
+X! 		    if (meta)			/* meta will print as M<c> */
+X  			(void) putchar('M');
+X  		    if (c < ' ') {		/* ctrl will print as ^<c> */
+X  			(void) putchar('^');
+X***************
+X*** 629,638 ****
+X  /*
+X   * Map window expose callback.
+X   */
+X  static void
+X! map_exposed(w, event)
+X      Widget w;
+X!     XExposeEvent *event;
+X  {
+X      int x, y;
+X      struct xwindow *wp;
+X--- 651,662 ----
+X  /*
+X   * Map window expose callback.
+X   */
+X+ /*ARGSUSED*/
+X  static void
+X! map_exposed(w, client_data, widget_data)
+X      Widget w;
+X!     XtPointer client_data;	/* unused */
+X!     XtPointer widget_data;	/* expose event from Window widget */
+X  {
+X      int x, y;
+X      struct xwindow *wp;
+X***************
+X*** 639,646 ****
+X      struct map_info_t *map_info;
+X      unsigned width, height;
+X      int start_row, stop_row, start_col, stop_col;
+X  
+X!     if (!XtIsRealized(w)) return;
+X  
+X      wp = find_widget(w);
+X      map_info = wp->map_information;
+X--- 663,671 ----
+X      struct map_info_t *map_info;
+X      unsigned width, height;
+X      int start_row, stop_row, start_col, stop_col;
+X+     XExposeEvent *event = (XExposeEvent *) widget_data;
+X  
+X!     if (!XtIsRealized(w) || event->count > 0) return;
+X  
+X      wp = find_widget(w);
+X      map_info = wp->map_information;
+X***************
+X*** 839,844 ****
+X--- 864,873 ----
+X  	wp->popup = parent = XtCreatePopupShell("nethack",
+X  					topLevelShellWidgetClass,
+X  				       toplevel, args, num_args);
+X+ 	/*
+X+ 	 * If we're here, then this is an auxiliary map window.  If we're
+X+ 	 * cancelled via a delete window message, we should just pop down.
+X+ 	 */
+X      }
+X  
+X      num_args = 0;
+X***************
+X*** 869,875 ****
+X  		args,			/* set some values */
+X  		num_args);		/* number of values to set */
+X  
+X-     XtAddCallback(map, XtNcallback,	  map_input,      (XtPointer) 0);
+X      XtAddCallback(map, XtNexposeCallback, map_exposed, (XtPointer) 0);
+X  
+X      get_char_info(wp);
+X--- 898,903 ----
+X***************
+X*** 898,903 ****
+X--- 926,933 ----
+X       */
+X      if (create_popup) {
+X  	XtRealizeWidget(wp->popup);
+X+ 	XSetWMProtocols(XtDisplay(wp->popup), XtWindow(wp->popup),
+X+ 			&wm_delete_window, 1);
+X  	set_map_size(wp, COLNO, ROWNO);
+X      }
+X  }
+X*** /tmp/da10310	Thu Feb 25 10:33:11 1993
+X--- win/X11/winmenu.c	Wed Feb 24 16:11:37 1993
+X***************
+X*** 1,4 ****
+X! /*	SCCS Id: @(#)winmenu.c	3.1	92/3/7
+X  /* Copyright (c) Dean Luick, 1992				  */
+X  /* NetHack may be freely redistributed.  See license for details. */
+X  
+X--- 1,4 ----
+X! /*	SCCS Id: @(#)winmenu.c	3.1	93/02/04	*/
+X  /* Copyright (c) Dean Luick, 1992				  */
+X  /* NetHack may be freely redistributed.  See license for details. */
+X  
+X***************
+X*** 7,12 ****
+X--- 7,17 ----
+X   * 
+X   * 	+ Global functions: start_menu, add_menu, end_menu, select_menu
+X   */
+X+ 
+X+ #ifndef SYSV
+X+ #define PRESERVE_NO_SYSV	/* X11 include files may define SYSV */
+X+ #endif
+X+ 
+X  #include <X11/Intrinsic.h>
+X  #include <X11/StringDefs.h>
+X  #include <X11/Shell.h>
+X***************
+X*** 13,25 ****
+X  #include <X11/Xaw/List.h>
+X  #include <X11/Xaw/Viewport.h>
+X  #include <X11/Xaw/Cardinals.h>
+X  
+X  #include "hack.h"
+X  #include "winX.h"
+X  
+X  
+X! static void clear_old_menu();
+X! static char *copy_of();
+X  
+X  #define check_menu(func_name)					\
+X  {								\
+X--- 18,39 ----
+X  #include <X11/Xaw/List.h>
+X  #include <X11/Xaw/Viewport.h>
+X  #include <X11/Xaw/Cardinals.h>
+X+ #include <X11/Xatom.h>
+X  
+X+ #ifdef PRESERVE_NO_SYSV
+X+ # ifdef SYSV
+X+ #  undef SYSV
+X+ # endif
+X+ # undef PRESERVE_NO_SYSV
+X+ #endif
+X+ 
+X  #include "hack.h"
+X  #include "winX.h"
+X  
+X  
+X! static void FDECL(menu_select, (Widget,XtPointer,XtPointer));
+X! static void FDECL(clear_old_menu, (struct xwindow *));
+X! static char *FDECL(copy_of, (const char *));
+X  
+X  #define check_menu(func_name)					\
+X  {								\
+X***************
+X*** 70,75 ****
+X--- 84,105 ----
+X  }
+X  
+X  /*
+X+  * Called when menu window is deleted.
+X+  */
+X+ /* ARGSUSED */
+X+ void
+X+ menu_delete(w, event, params, num_params)
+X+     Widget w;
+X+     XEvent *event;
+X+     String *params;
+X+     Cardinal *num_params;
+X+ {
+X+     menu_selected = '\033';
+X+     nh_XtPopdown(w);		/* this removes the event grab */
+X+     exit_x_event = TRUE;	/* exit our event handler */
+X+ }
+X+ 
+X+ /*
+X   * Called when we get a key press event on a menu window.
+X   */
+X  /* ARGSUSED */
+X***************
+X*** 247,252 ****
+X--- 277,284 ----
+X  
+X      wp->popup = XtCreatePopupShell("menu", transientShellWidgetClass,
+X  				   toplevel, args, num_args);
+X+     XtOverrideTranslations(wp->popup,
+X+ 	XtParseTranslationTable("<Message>WM_PROTOCOLS: menu_delete()"));
+X  
+X      menu_info->list_pointer =
+X  	(String *) alloc((unsigned) (sizeof(String) * (menu_info->count+1)));
+X***************
+X*** 305,315 ****
+X      }
+X  
+X      XtRealizeWidget(wp->popup);	/* need to realize before we position */
+X!     positionpopup(wp->popup);
+X  
+X      menu_selected = '\0';
+X  
+X!     nh_XtPopup(wp->popup, XtGrabExclusive, wp->w);
+X      (void) x_event(EXIT_ON_EXIT);
+X  
+X      return menu_selected;
+X--- 337,347 ----
+X      }
+X  
+X      XtRealizeWidget(wp->popup);	/* need to realize before we position */
+X!     positionpopup(wp->popup, FALSE);
+X  
+X      menu_selected = '\0';
+X  
+X!     nh_XtPopup(wp->popup, (int)XtGrabExclusive, wp->w);
+X      (void) x_event(EXIT_ON_EXIT);
+X  
+X      return menu_selected;
+X***************
+X*** 319,325 ****
+X  
+X  static char *
+X  copy_of(s)
+X!     char *s;
+X  {
+X      char *copy;
+X      if (s) {
+X--- 351,357 ----
+X  
+X  static char *
+X  copy_of(s)
+X!     const char *s;
+X  {
+X      char *copy;
+X      if (s) {
+X*** /tmp/da10342	Thu Feb 25 10:33:20 1993
+X--- win/X11/wintext.c	Wed Feb 24 16:12:05 1993
+X***************
+X*** 7,12 ****
+X--- 7,17 ----
+X   * 
+X   * 	+ No global functions.
+X   */
+X+ 
+X+ #ifndef SYSV
+X+ #define PRESERVE_NO_SYSV	/* X11 include files may define SYSV */
+X+ #endif
+X+ 
+X  #include <X11/Intrinsic.h>
+X  #include <X11/StringDefs.h>
+X  #include <X11/Shell.h>
+X***************
+X*** 13,19 ****
+X--- 18,32 ----
+X  #include <X11/Xos.h>
+X  #include <X11/Xaw/AsciiText.h>
+X  #include <X11/Xaw/Cardinals.h>
+X+ #include <X11/Xatom.h>
+X  
+X+ #ifdef PRESERVE_NO_SYSV
+X+ # ifdef SYSV
+X+ #  undef SYSV
+X+ # endif
+X+ # undef PRESERVE_NO_SYSV
+X+ #endif
+X+ 
+X  #include "hack.h"
+X  #include "winX.h"
+X  
+X***************
+X*** 25,30 ****
+X--- 38,67 ----
+X       <BtnDown>: dismiss_text()\n\
+X       <Key>: key_dismiss_text()";
+X  
+X+ 
+X+ /*ARGSUSED*/
+X+ void
+X+ delete_text(w, event, params, num_params)
+X+     Widget w;
+X+     XEvent *event;
+X+     String *params;
+X+     Cardinal *num_params;
+X+ {
+X+     struct xwindow *wp;
+X+     struct text_info_t *text_info;
+X+ 
+X+     wp = find_widget(w);
+X+     text_info = wp->text_information;
+X+ 
+X+     nh_XtPopdown(w);
+X+ 
+X+     if (text_info->blocked) {
+X+ 	exit_x_event = TRUE;
+X+     } else if (text_info->destroy_on_ack) {
+X+ 	destroy_text_window(wp);
+X+     }
+X+ }
+X+ 
+X  /*
+X   * Callback used for all text windows.  The window is poped down on any key
+X   * or button down event.  It is destroyed if the main nethack code is done
+X***************
+X*** 141,150 ****
+X  
+X  #ifdef TRANSIENT_TEXT
+X      XtRealizeWidget(wp->popup);
+X!     positionpopup(wp->popup);
+X  #endif
+X  
+X!     nh_XtPopup(wp->popup, XtGrabNone, wp->w);
+X  
+X      /* Kludge alert.  Scrollbars are not sized correctly by the Text widget */
+X      /* if added before the window is displayed, so do it afterward. */
+X--- 178,189 ----
+X  
+X  #ifdef TRANSIENT_TEXT
+X      XtRealizeWidget(wp->popup);
+X!     XSetWMProtocols(XtDisplay(wp->popup), XtWindow(wp->popup), 
+X! 		    &wm_delete_window, 1);
+X!     positionpopup(wp->popup, FALSE);
+X  #endif
+X  
+X!     nh_XtPopup(wp->popup, (int)XtGrabNone, wp->w);
+X  
+X      /* Kludge alert.  Scrollbars are not sized correctly by the Text widget */
+X      /* if added before the window is displayed, so do it afterward. */
+X***************
+X*** 198,203 ****
+X--- 237,244 ----
+X      wp->popup = XtCreatePopupShell("text", topLevelShellWidgetClass,
+X  				   toplevel, args, num_args);
+X  #endif
+X+     XtOverrideTranslations(wp->popup,
+X+ 	XtParseTranslationTable("<Message>WM_PROTOCOLS: delete_text()"));
+X  
+X      num_args = 0;
+X      XtSetArg(args[num_args], XtNdisplayCaret, False);		num_args++;
+X***************
+X*** 266,272 ****
+X      if (!tb->text) panic("append_text_buffer:  null text buffer");
+X  
+X      if (str) {
+X!     	length = strlen(str);
+X      } else {
+X  	length = 0;
+X      }
+X--- 307,313 ----
+X      if (!tb->text) panic("append_text_buffer:  null text buffer");
+X  
+X      if (str) {
+X! 	length = strlen(str);
+X      } else {
+X  	length = 0;
+X      }
+X*** /tmp/da10350	Thu Feb 25 10:33:22 1993
+X--- win/X11/winval.c	Wed Feb 24 16:12:11 1993
+X***************
+X*** 7,17 ****
+X--- 7,29 ----
+X   * form widget.
+X   */
+X  #include <stdio.h>
+X+ 
+X+ #ifndef SYSV
+X+ #define PRESERVE_NO_SYSV	/* X11 include files may define SYSV */
+X+ #endif
+X+ 
+X  #include <X11/Intrinsic.h>
+X  #include <X11/StringDefs.h>
+X  #include <X11/Xaw/Label.h>
+X  #include <X11/Xaw/Form.h>
+X  #include <X11/Xaw/Cardinals.h>
+X+ 
+X+ #ifdef PRESERVE_NO_SYSV
+X+ # ifdef SYSV
+X+ #  undef SYSV
+X+ # endif
+X+ # undef PRESERVE_NO_SYSV
+X+ #endif
+X  
+X  #include "config.h"	/* #define for const for non __STDC__ compilers */
+X  
+X
+END_OF_FILE
+if test 51640 -ne `wc -c <'patches01n'`; then
+    echo shar: \"'patches01n'\" unpacked with wrong size!
+fi
+# end of 'patches01n'
+if test -f 'sys/winnt/Makefile.dat' -a "${1}" != "-c" ; then 
+  echo shar: Renaming existing file \"'sys/winnt/Makefile.dat'\" to \"'sys/winnt/Makefile.dat.orig'\"
+  mv -f 'sys/winnt/Makefile.dat' 'sys/winnt/Makefile.dat.orig'
+fi
+echo shar: Extracting \"'sys/winnt/Makefile.dat'\" \(4339 characters\)
+sed "s/^X//" >'sys/winnt/Makefile.dat' <<'END_OF_FILE'
+X# SCCS Id: @(#)Makefile.dat  3.1   93/02/21
+X# Copyright (c) NetHack PC Development Team 1992,1993
+X# NetHack may be freely redistributed.  See license for details.
+X#
+X#       NT NetHack 3.1 DAT Makefile 
+X#	for MS NMAKE for Windows NT
+X#  
+X#	NT Version Tested:  October 1992 SDK pre-release
+X#			    + December '92 compiler fix
+X#
+X#       For questions read the Install.nt file included with
+X#       the distribution.
+X#
+X#	Michael Allison
+X#
+X#----------------------------------------------------------------------
+X#
+X
+XDAT	= ..\dat
+XINCL	= ..\include
+XUTL	= ..\util
+X
+Xdefault: all
+X
+Xall:	$(DAT)\data	    $(DAT)\rumors	$(DAT)\dungeon \
+X	$(DAT)\oracles	    $(DAT)\quest.dat	$(DAT)\sp_lev.tag
+X
+X$(UTL)\utility.tag: $(UTL)\*.c $(UTL)\*.l $(UTL)\*.y $(INCL)\*.h
+X	@echo You must "make all" in $(UTL) first.
+X	@attrib .foo
+X
+X$(DAT)\data: 	$(UTL)\utility.tag    $(DAT)\data.bas
+X	$(UTL)\makedefs -d
+X
+X$(DAT)\rumors:	$(UTL)\utility.tag    $(DAT)\rumors.tru   $(DAT)\rumors.fal
+X	$(UTL)\makedefs -r
+X
+X$(DAT)\quest.dat: $(UTL)\utility.tag  $(DAT)\quest.txt
+X	$(UTL)\makedefs -q
+X
+X$(DAT)\oracles:	$(UTL)\utility.tag    $(DAT)\oracles.txt
+X	$(UTL)\makedefs -h
+X
+X#
+X# Note: `options` should be created via date.h target in ..\src\makefile
+X#
+X$(DAT)\options: $(UTL)\utility.tag    $(INCL)\config.h    $(INCL)\ntconf.h
+X	$(UTL)\makedefs -v
+X
+X$(DAT)\sp_lev.tag: $(UTL)\utility.tag $(DAT)\bigroom.des  $(DAT)\castle.des \
+X	$(DAT)\endgame.des $(DAT)\gehennom.des $(DAT)\knox.des   \
+X	$(DAT)\medusa.des  $(DAT)\oracle.des   $(DAT)\tower.des  \
+X	$(DAT)\yendor.des  $(DAT)\arch.des     $(DAT)\barb.des   \
+X	$(DAT)\caveman.des $(DAT)\elf.des      $(DAT)\healer.des \
+X	$(DAT)\knight.des  $(DAT)\priest.des   $(DAT)\rogue.des  \
+X	$(DAT)\samurai.des $(DAT)\tourist.des  $(DAT)\valkyrie.des \
+X	$(DAT)\wizard.des
+X	$(UTL)\lev_comp $(DAT)\bigroom.des
+X	$(UTL)\lev_comp $(DAT)\castle.des
+X	$(UTL)\lev_comp $(DAT)\endgame.des
+X	$(UTL)\lev_comp $(DAT)\gehennom.des
+X	$(UTL)\lev_comp $(DAT)\knox.des
+X	$(UTL)\lev_comp $(DAT)\mines.des
+X	$(UTL)\lev_comp $(DAT)\medusa.des
+X	$(UTL)\lev_comp $(DAT)\oracle.des
+X	$(UTL)\lev_comp $(DAT)\tower.des
+X	$(UTL)\lev_comp $(DAT)\yendor.des
+X	$(UTL)\lev_comp $(DAT)\arch.des
+X	$(UTL)\lev_comp $(DAT)\barb.des
+X	$(UTL)\lev_comp $(DAT)\caveman.des
+X	$(UTL)\lev_comp $(DAT)\elf.des
+X	$(UTL)\lev_comp $(DAT)\healer.des
+X	$(UTL)\lev_comp $(DAT)\knight.des
+X	$(UTL)\lev_comp $(DAT)\priest.des
+X	$(UTL)\lev_comp $(DAT)\rogue.des
+X	$(UTL)\lev_comp $(DAT)\samurai.des
+X	$(UTL)\lev_comp $(DAT)\tourist.des
+X	$(UTL)\lev_comp $(DAT)\valkyrie.des
+X	$(UTL)\lev_comp $(DAT)\wizard.des
+X	echo sp_levs done > $(DAT)\sp_lev.tag
+X
+X$(DAT)\dungeon:	$(UTL)\utility.tag  $(DAT)\dungeon.def
+X	$(UTL)\makedefs -e
+X	$(UTL)\dgn_comp $(DAT)\dungeon.pdf
+X
+Xclean: spotless
+X
+Xspotless:
+X	if exist $(DAT)\?-fill?.lev	del $(DAT)\?-fill?.lev
+X	if exist $(DAT)\?-goal.lev	del $(DAT)\?-goal.lev
+X	if exist $(DAT)\?-start.lev	del $(DAT)\?-start.lev
+X	if exist $(DAT)\air.lev		del $(DAT)\air.lev
+X	if exist $(DAT)\asmodeus.lev	del $(DAT)\asmodeus.lev
+X	if exist $(DAT)\astral.lev	del $(DAT)\astral.lev
+X	if exist $(DAT)\baalz.lev	del $(DAT)\baalz.lev
+X	if exist $(DAT)\bigroom.lev	del $(DAT)\bigroom.lev
+X	if exist $(DAT)\castle.lev	del $(DAT)\castle.lev
+X	if exist $(DAT)\data		del $(DAT)\data
+X	if exist $(DAT)\dungeon		del $(DAT)\dungeon
+X	if exist $(DAT)\dungeon.pdf	del $(DAT)\dungeon.pdf
+X	if exist $(DAT)\earth.lev	del $(DAT)\earth.lev
+X	if exist $(DAT)\fakewiz?.lev	del $(DAT)\fakewiz?.lev
+X	if exist $(DAT)\fire.lev	del $(DAT)\fire.lev
+X	if exist $(DAT)\juiblex.lev	del $(DAT)\juiblex.lev
+X	if exist $(DAT)\medusa-?.lev	del $(DAT)\medusa-?.lev
+X	if exist $(DAT)\mine_end.lev	del $(DAT)\mine_end.lev
+X	if exist $(DAT)\minefill.lev	del $(DAT)\minefill.lev
+X	if exist $(DAT)\minetown.lev	del $(DAT)\minetown.lev
+X	if exist $(DAT)\options		del $(DAT)\options
+X	if exist $(DAT)\oracle.lev	del $(DAT)\oracle.lev
+X	if exist $(DAT)\oracles		del $(DAT)\oracles
+X	if exist $(DAT)\orcus.lev	del $(DAT)\orcus.lev
+X	if exist $(DAT)\rumors		del $(DAT)\rumors
+X	if exist $(DAT)\quest.dat	del $(DAT)\quest.dat
+X	if exist $(DAT)\sanctum.lev	del $(DAT)\sanctum.lev
+X	if exist $(DAT)\tower?.lev	del $(DAT)\tower?.lev
+X	if exist $(DAT)\valley.lev	del $(DAT)\valley.lev
+X	if exist $(DAT)\water.lev	del $(DAT)\water.lev
+X	if exist $(DAT)\wizard?.lev	del $(DAT)\wizard?.lev
+X	if exist $(DAT)\sp_lev.tag	del $(DAT)\sp_lev.tag
+X#	if exist $(DAT)\?-locate.lev	del $(DAT)\?-locate
+END_OF_FILE
+if test 4339 -ne `wc -c <'sys/winnt/Makefile.dat'`; then
+    echo shar: \"'sys/winnt/Makefile.dat'\" unpacked with wrong size!
+fi
+# end of 'sys/winnt/Makefile.dat'
+echo shar: End of archive 19 \(of 31\).
+cp /dev/null ark19isdone
+MISSING=""
+for I in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 ; do
+    if test ! -f ark${I}isdone ; then
+	MISSING="${MISSING} ${I}"
+    fi
+done
+if test "${MISSING}" = "" ; then
+    echo You have unpacked all 31 archives.
+    echo "Now execute 'patchit.sh'"
+    rm -f ark[1-9]isdone ark[1-9][0-9]isdone
+else
+    echo You still need to unpack the following archives:
+    echo "        " ${MISSING}
+fi
+##  End of shell archive.
+exit 0

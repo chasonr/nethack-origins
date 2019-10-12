@@ -1,0 +1,1603 @@
+Subject:  v17i064:  nethack31 - display oriented dungeons & dragons (Ver. 3.1), Patch1w/31
+Newsgroups: comp.sources.games
+Approved: billr@saab.CNA.TEK.COM
+
+Submitted-by: izchak@linc.cis.upenn.edu (Izchak Miller)
+Posting-number: Volume 17, Issue 64
+Archive-name: nethack31/Patch1w
+Patch-To: nethack31: Volume 16, Issue 1-116
+Environment: Amiga, Atari, Mac, MS-DOS, Windows-NT, OS2, Unix, VMS, X11
+
+
+
+#! /bin/sh
+# This is a shell archive.  Remove anything before this line, then unpack
+# it by saving it into a file and typing "sh file".  To overwrite existing
+# files, type "sh file -c".  You can also feed this as standard input via
+# unshar, or by typing "sh <file", e.g..  If this archive is complete, you
+# will see the following message at the end:
+#		"End of archive 23 (of 31)."
+# Contents:  sys/mac/NHmake.hqx sys/share/lev_lex.c2
+# Wrapped by billr@saab on Fri Mar  5 10:50:47 1993
+PATH=/bin:/usr/bin:/usr/ucb ; export PATH
+if test -f 'sys/mac/NHmake.hqx' -a "${1}" != "-c" ; then 
+  echo shar: Renaming existing file \"'sys/mac/NHmake.hqx'\" to \"'sys/mac/NHmake.hqx.orig'\"
+  mv -f 'sys/mac/NHmake.hqx' 'sys/mac/NHmake.hqx.orig'
+fi
+echo shar: Extracting \"'sys/mac/NHmake.hqx'\" \(34635 characters\)
+sed "s/^X//" >'sys/mac/NHmake.hqx' <<'END_OF_FILE'
+X(This file must be converted with BinHex 4.0)
+X:$%jPG%KKBfXZE@&VC3"849K869"6)!%!!!"KmJ!!!DcQN5-J9'KTFb"TFb"K)'0
+X[EA"XCA4P)%e39b"YB@YPCQPXC5"QEh)J6Q9dD'&MDb"KEQ3JB@aX)'PdFb"KFh0
+X[BfPKG'9N)'CTE'9c$5-J8Q9aG@PbCA-J69"A)%-c,M+R-b"[FL"XBA4PFLiJ4@&
+XbE'PPFL"fCA*cD@pZFb"hD@aX)'CKD@`JD'pbFQPLE(NJBQ9MBA9cC3dM)(4SCAN
+XJBf&Z*h3JBfp`C5"hDA4S)#mU)#mU)#S[)'0[E@ePER4c$5-0)b"'Eh)J6Q9d5'&
+XMDb!c,M%J6Qpf)$%j16%0)`dM)'*j)%eTBfKKC@bU)%KKE@9X)'&ZC#"5Eh0c)%*
+XbEhGZ)$%j16%J1L"YD@0SB@9X3'pdB@G[,Q&M,Qjk$3dM,5dY,5dY,5dY,5dY,5d
+XY,5dY,5dY,5dY,5dY,5dY,5dY,5dY,5dY,5dY,5dY,5dY,5dY,5dY,5dY,5dY,5d
+XY,5dY,5dY,5dY,5d0)`dM)%*&4Np545"C6e8J3P9*6%3J4Np5)&4)45"'59*69#"
+X858e&$5-J)&0PG#"dD'Pc)'9aG@&dC5"dEb"dD'8JCQpXC'9b)'0[ER4KD@jTEQF
+XJB@aX)(4SC5"1CA4)B@0V)(0[GA*MC5"QEfaNCA*c$3e8Eh!J)#!*)#!J25"l69"
+XAI@jS-c%k$3dM)#"6CA3JG'KP)'4PCQ&eE(3JC'PbC@0dEh*j)(4[)(Y8Eh"p$5-
+XJ)%e[GQ8J6Q9d5'&MDbjYB@YP)'PZG'mJHe4[F(d0)b!J6@&VC5"dGfmJEQ9h)'9
+XYF(4j)'C[E'4PFR-JD@iJG'p`1JdM)#!J)#dJ6f*U)'C[FL"dD'8JEf*UC@0d)'C
+XTE'9c$5-J)#!J,5"%G@jRC@pZ)'C[FL"dD'8JBfpYF'aPG'9N)'GKE@80)b!J4@j
+XcGA*P)(4SBA3JH@pe)'KKGQ8JBA3JE'9KFh3J0c!`-%XJB@aXEf0KG'9N)(4[)(4
+XSC5"08&FJ8fKPE'`0)`dM,5dY,5dY,5dY,5dY,5dY,5dY,5dY,5dY,5dY,5dY,5d
+XY,5dY,5dY,5dY,5dY,5dY,5dY,5dY,5dY,5dY,5dY,5dY,5dY,5dY,5d0$5-J8f9
+Xd)(9`)(0jE@*[E(-JCQpb)'C[E'4PFR-JCR*[E5"dD'8JC'PcG(*TBR9dD@pZ$90
+XbBb!J)!NJ)#!p)(Y8Eh"p8h*M1Je9G'PX)!NJ)#!p)(Y8Eh"p9A4TE$S04'&d#3N
+XJ)#!p)(Y8Eh"p4'&d1Je*EQ0XG@4P)#!J)$dJHe4[F(e*EQ0XG@4P1Je0B@0%DA)
+X*)#!J25"l9'p`I90jFcT0B@-k$90SBA*P#5!J)$dJHe4[F(e6HA-k8fKKFQ8k$3d
+XM)&4SCA0P)(4hEb"QEfaNCA*c)'&bC5"ZCAF06f*U4'Pb)#!J)#!p)(Y8Eh"p6f*
+XU1JN*#3NM)#*8C@e`Eh*KFRNL)(0dG@CQ$9*PFh9XG(-*)#!J25"l9'p`I84eEQG
+XPEfik#3N*)b"AD'9bC5"dD'8JCf&YC5"REf9c$3dM)%pfCA*bD@4P)(4SC5"cCA4
+XdD@jRFb"TEL!LHdPZBfaeC'9p)Q0[EQCTCbjS$8j)3fpZCQPR)$dJ,@3J8d028N9
+XI6djI3Np86#!YC#"@590*6djI9%&#6%96$3dM)&4jF'8JB@jN)'0bC@&dEh)J,5"
+XZEh4P)(4SBA3JGf8JGA0P)#*38N9')L"QEh)JB@aX)'j[ELecBACP)'CTE'9c$5-
+XJBh9bFQ9ZG'aj,L"6D@jMC5"hC5"hD@aX)'PZG'9RFQ&dC5"dD'8JC'&dB5"QD@a
+XPFb"TER4[)(4SC5"RB@eP$5-JFfp[EQ9b)'pb)'aKG'9b,#"dD'Pc)'4[CA0Z*h3
+XJE@&dG'9b)'eeBfJZ$8CTE'98HA"P)#!J25"38N9'$8CTE'9$FQ9KG'pb25"ZD$-
+Xa$3dM)%jPG%KKBfXJDA-JB@iJB@*cG(*KBh3JG'&bCf9d)(GSD@0S)'PZ)'CKBh3
+XJBfpZFfPcG(-JEfBk$3e6F'9MD@&X6'9fC@ac)$dJ)RY5CA0eE(4cI5*#D@G5Efp
+XY,QaPGL!JYJd*#3N*)RY5CA0eE(4cI5*$BA0dE'8ZE'9f)#!JYJd*#3N*)RY5CA0
+XeE(4cI5*KDA)ZE'9f#3Qf$3N*#3NLHe*PFh9XG(0p)NePC(9cB5da,QaPGL#f$3N
+X*#3NLHe*PFh9XG(0p)P&eCA0d,N4KG#!*YJd*#3N*)RY5CA0eE(4cI5*@B@aXCAN
+XZE'9f#EB0#3N*#5*l8Q9cG@adFhdL6h*KBfaP,QaPGL!J),B0#3N*#5*l8Q9cG@a
+XdFhdL9'phCA)a,QaPGL!J),B0#3N*#5*l8Q9cG@adFhdL35ecG'&bG#jXCABJ),B
+X0#3N*#5*l8Q9cG@adFhdL3LecG'&bG#jXCABJ),B0#3N*#5*l8Q9cG@adFhdL3be
+XcG'&bG#jXCABJ),B0#3N*#5*l8Q9cG@adFhdL45ecG'&bG#jXCABJ),B0#3N*#5*
+Xl8Q9cG@adFhdL5#ecG'&bG#jXCABJ),B0#3N*#5*l8Q9cG@adFhdL5becG'&bG#j
+XXCABJ),B0#3N*#5*l8Q9cG@adFhdL8#ecG'&bG#jXCABJ),B0#3N*#5*l8Q9cG@a
+XdFhdL8LecG'&bG#jXCABJ),B0#3N*#5*l8Q9cG@adFhdL8becG'&bG#jXCABJ),B
+X0#3N*#5*l8Q9cG@adFhdL9#ecG'&bG#jXCABJ),B0#3N*#5*l8Q9cG@adFhdL9Le
+XcG'&bG#jXCABJ),B0#3N*#5*l8Q9cG@adFhdL9becG'&bG#jXCABJ),B0#3N*#5*
+Xl8Q9cG@adFhdL6@PZC9p&EQ3ZE'9f),B0#3N*#5*l8Q9cG@adFhdLDfj[H#jXCAB
+X*#EB0#3N*#5*l8Q9cG@adFhdLGfPkBA*N-5jXCAB0$84KG'&'D@aPFb!*23NLHe*
+XPFh9XG(0p)N4eEQGPEfi*YJd*#3N*)RY5CA0eE(4cI5*5C@0[FQ3J)##f$3N*#3N
+XLHe*PFh9XG(0p)NjPG%KKBfZf)%4PCQ&eE(4c)#!JYJd*#3N*)RY5CA0eE(4cI5*
+X%BA4K)!Qf$3N*#3NLHe*PFh9XG(0p)P*eE@pbF`Qf$3N*#3NLHe*PFh9XG(0p)Np
+XbB@0XCA-*YJd*#3N*)RY5CA0eE(4cI5*$E@4SC@a`$3N*#3N06Q9d5'&MDb$%)#!
+XJHe0`C@0TB@a-CACPE(0p)(Y%BA4K4QPXCA0p)#*l8Q9cG@adFhdL6Q9d5'&MDb!
+X0$5-J9'KPFf8JCQPXCA-JBA*P)(0PF'9bBA4P)'pZ)'pdD'9b)'eKBfKTEQ9c,#"
+XLGA3JD'9bC5"dD'9j)'&bC5"LG@PXG!dM)'PZG'mJG'KP)'&`F'aTBf&dD@pZ)'*
+Xj)%jPG%KKBfXZFJd03R9TE(4*EN4KG'%J25!J)#*l4'&dI5*SD#!*#3Qf$3N*#3N
+XLHd4KG(dL5'PcG'pbH5!*#EB0#3N*#5*l4'&dI5*-D@0PER0P)!N*YJd*#3N*)RY
+X%BA4p)NKPE(!J#3Qf$3N*#3NLHd4KG(dL9fPkD'9XF#!*#EB0)`N*#3NLHd4KG(d
+XL3feND'9XF#!*#EB0#3N*#5*l4'&dI5*2F(4SC@a`#3Qf$3N*#3NLHdeKBd4TFRd
+XL6@&MD'9XF!Qf$3N*#3NLHdeKBd4TFRdL6Q9hF`N*YJd*#3N*)RY2BQT%DA*p)Np
+X`G'P[ER-0#3N*#3N*)#!J$3dM)%C[FL"NC@*eCfGTEQFk)'PQ)(P[G5"MD'&ZCf8
+XJG'KTFb"jEh8JEQ9PC#"dEb"NDA0MBA*N)'9fCA*jG'KTEQFJD@iJHdpLDR0p$90
+X"4%92F(4TEfjc)$dJ)b!YFhPY)'pZ$3dM)$`c-NXJCQPXC5eXCACPE#"cC@GYC@j
+XdBA4TEfiJFf0SC@eP$8aTEQY8HA"P)$dJ,@eQ)#ecFR3J#3N*#3N*#3N*#3Qf$3N
+X*)#!J,A0R)%eKD@ipB@aXE@&TELaYB@0YB@PZ,(*KEQ4[E5abEQ3X8e4%3da*3La
+X69%4*6`Qf$3N*)#!J,A0R)%&5CA-pBA"`E(N*#3N*#3N*#3N*YJd*#5!J)#ecCb"
+X#8Q9c2@*[G'`XC'PcF'aKH5afDA0TEfi*#3N*#3N*YJd*#5!J)#ecCb"$8Q9c2@4
+X[AhGPBA)XBfeN,(4bB@0V#3N*#3N*#EB0#3NJ)#!YFfFJ4&*PFceNE`N*#3N*#3N
+X*#3N*YJd*#5!J)#ecCb"&8Q9c2@4[CbaNEfGYEhCP#3N*#3N*#3N*YJd*#5!J)#e
+XcCb"'8Q9c2@9KG!N*#3N*#3N*#3N*YJd*#5!J)#ecCb"(8Q9c2@9ZCh*KGQ8XC(9
+XZCf9[ELaNBR*TC'GP#3N*#3N*YJd*#5!J)#ecCb")8Q9c2@KKBfXXD'&MDfaTBJN
+X*#3N*#3N*YJd*#5!J)#ecCb"*8Q9c2@PZGQ9ZG!N*#3N*#3N*#3Qf$3N*)#!J,A0
+XR)%T5CA-pE@pZE@pfC5aYEfi*#3N*#3N*#3Qf$3N*)#!J,A0R)%Y5CA-pE@pZC'&
+XdB5aYG'KbEhGe,'eeFf8XGf9bC5ahDATKFQ3*#3Qf$3N*)#!J,A0R)%a5CA-pE@&
+XMGfPZ#3N*#3N*#3N*#EB0#3NJ)#!YFfFJ69*PFce`D@0VGA!XFfpeEQ4c,(CKG@a
+Xd#3N*#3N*#EB0#3NJ)#!YFfFJ6P*PFceaG@9cG#adFQ&`#3N*#3N*#3N*YJd*#5!
+XJ)#ecCb"28Q9c2A4TE@9[GA3XBA4dFQPL,'a[BfX03R9TE'48HA"P)$dJ,@dJ,A-
+XJHd4PCQ&eE(4p)!NM)%eKDf8JB5"ZCAFJFf9RE@9ZG#"QEh)JC@&MD#"QD@aP)'*
+Xj)'4PCQ&eE(3J$3dM)%&XG'9bEQ&dDACPE(NJH@pe)'0KEL"eFf8J$5-J6'PZDe4
+XjF'8J25!YE@pNC@`JCQ&b$5-J3R9TE'48HA"P)$dJ,@e[C'9X)'CKFL!YC#"06d4
+X&6&p'39)0$5-J9f8JGA0P)(4SC5"NC@CKG@ad)(*eE'8JG'KKG#!ZBbj[)'CTE'9
+Xc)'4PF'9ZC#"[EL!ZBb"QD@aPFcSJFf9d)(9`)(4SCA0P$5-JC'PbC@0dEh*j)(C
+XKFQPKBQaPFb"cEb"TG#"VEQphFb"hD'9bC5"dEb"QD@jN)(4SC@d0$5*l6f*U4'P
+XbI5)Ja#!LHe0bBhdL)#*l9A4TE(dL)#*l6@&M4'PbI5)J)RY6D'&bCAdL$5!J$5-
+XJ3fpYF'PXCA)JEh"dD@pZFbiJ9f8JFf9d)(9`)(4[)'a[EfXJD@iJG'KP)%eKBb"
+XNDA)JCQPbFh3JCQpb)'PZBfaeC'8JCQPXCA-0)b"cEb"hC5"MB@iJG'&VC5"[GQ9
+Xb)'KKBfXZD#"KEQ3JGA0P)'%JC(9YF#"QD@aP$802F(4TEfjc)$dJ,A)J#3N*#3N
+X*#5-J9f&bEL"KBQpeG#"eEQ4PCQPZC@3JCR9ZBh4TEfjc)!N*YJd*#5!J)#eT)#*
+Xl6@&M4'PbI5)X)RY*EQ0XG@4PI5)J#5-J9fKPFQ8JG'mJE'p[Db"QEh)JD@jME(9
+XNC5"QD@aPFb!*#EB0#3NJ)#"l3R9TE'48HA"PI3N*#3N*YJd*#5!J)#eYBQFJ-6B
+X*#3N*#3Qf$3N*)#!JHdj)3fpZCQPRI3N*#3N*YJd*#5!J)(Y6384&6h"dD@pZFhd
+X0$8jPG%KKBfY-D@jV)$dJHdaTEQY8HA"PI5!YBb!REQJc-5FJ,A3J39"36#!YE@B
+XJYJd*#3NJ)(Y6384&6h"dD@pZFhdJ)#!M)#!YE@&`)$jXD@jV,QeKF#!0$8e39e4
+X[Efa-D@jV#6dJ,@*b)'pZ)#ecFR3J,@3J,@-J*de38b!R)#ed)%e38e3J,A0Z)#9
+X"08PZDA3p5@jTG!d0)!dM)#dY,5dY,5dY,5dY,5"8D'8JD@jME(9NC5"QD@aPFb"
+XNCA"PEQ3JEfiJEfjP)'&ZEh4SCA)J,5dY,5dY,5dY,5dY,5dY$5-J8Q&dD'9b)(4
+XSB@iJG'peBfKTEQFJG'KPE5"hD'PMD#"YB@YPFb"TG#"XEfpV)'&c)(4SEh9RD#"
+XdD'9j)'KKGQ8JBfKKEQGPC!dM)(GSC@iJG'KPH5"SBACPELGd)'&ZC#"RC@jPFQ&
+XdCA-JG@jZC@0PFh0KFRNJBQ&MDh9`Fb`JGf8JC'9QD@jP)(0jE@*[E(-k$3eYB@0
+XMEfjQ,QJJ25!LHdPZBfaeC'9p)QeKBf0[EQBZD#!LHdPZBfaeC'9p)R0jFh4PE5j
+XS$3e`Bf0[EQBZD#!p)#*l5@jME(9NCAdLF'0MEfjQ,QJJ)RY*EQ0XG@4PI5*YD@0
+XbEbjS)#*l5@jME(9NCAdLFhPcG'9Y,QJ0$@GXEf*KE#jS)$dJ)RY*EQ0XG@4PI5*
+XRE'pLB@`ZD#!LHdPZBfaeC'9p)Q0[Eh*N,QJJHh"MBfpZCLjSI5"lE@&MBfpZCLj
+XSI3d0BfpZCQPR,QJJ25!LHdPZBfaeC'9p)Q0[EQCTCbjS)#*l5@jME(9NCAdLG(*
+XKC(0dC'-ZD#"lCfa[BQ&X,QKp$3ejEh9`FQp`,QJJ25!LHdPZBfaeC'9p)RP[GA"
+XbEh!ZD#!LHdPZBfaeC'9p)R"bEh!ZD#"lF'9bE@pZFh3ZD(dJ)RY*EQ0XG@4PI5*
+XYEfjNBA4K,QJJYJd*#3NLHdPZBfaeC'9p)R"Y,QJ0$AP[G5jS)$dJ)RY*EQ0XG@4
+XPI5*jEh8ZD#!LHdPZBfaeC'9p)Q&dG(*TBLjS)#*l5@jME(9NCAdLE@pZFh3ZD#"
+XlH@peF(*[F#jSI3d0C'9ME#jS#6dJ)RY*EQ0XG@4PI5*NC@0X,QJ*)RY*EQ0XG@4
+XPI5*cF'9XE#jS)#*l5@jME(9NCAdLBfpXEh)ZD#!LHdPZBfaeC'9p)QpLDLjS),B
+X0#3NJ)(YjEh8ZD(dJ)RY*EQ0XG@4PI5*[EQ&YCA-ZD!d0C'PcF'aKH5jS)$dJ)RY
+X*EQ0XG@4PI5*NDA0`E'&j,QJJ)RY*EQ0XG@4PI5*fDA0TEfiZD#!LHdPZBfaeC'9
+Xp)Qe[EQ4KG'%ZD!d0C@eTELjS)$dJ)RY*EQ0XG@4PI5*PE@PZ,QJJ)RY*EQ0XG@4
+XPI5*NG@jRC@pZ,QJ0$@9`FQNZD#!p)#*l5@jME(9NCAdLCA"bD5jS)#*l5@jME(9
+XNCAdLC(9ZCf9[ELjS$3ePFfKV,QJJ25!LHdPZBfaeC'9p)Q9cD'XZD#!LHdPZBfa
+XeC'9p)Q4eEQGPEfiZD!d0$A"PFQe[ER0d,QJJ25!LHdPZBfaeC'9p)R"PFQe[ER0
+Xd,QJJ#5*l5@jME(9NCAdLE@pZBA4dDbjS)#*l5@jME(9NCAdLE@pZCQaKCbjS$3e
+XfBA9XG#jS)$dJ)RY*EQ0XG@4PI5*fBA9XG#jS)#*l5@jME(9NCAdLC(9ZCf9[ELj
+XS$3N*#3dM,5dY,5dY,5dY,5dY,5dY,5dY,5"9Ff8JB5"NG@e`)'CTE'8JCQpb)'K
+XKBfXZD#"dEb"cF'9PC#"MEfe`D@aPFb!Y,5dY,5dY,5dY,5dY,5dY,3dM)&GP)'4
+X[)(4SDA-JBRNJD'&fD@jR)'peFL"[GfiJD'&MDbjS)'PZ)$TcHA-kE@&M)(GSD@0
+XS)'TeFh3JCh*KBR-JG'KP)'4eEA!JCQPXC3dM)'CbEfdJ6f*U,L"8D'8JC'9`C@j
+XNC@jMD@9c)'&bC5"cCA3JGA!JG'mJBR9TE'3JG'KP)'4eEA!JCQPXC5"TCL"TG(-
+XJE@PcFfPZC`d0FQ9KE'KKBfXZD#!p)#*l5@jME(9NCAdLD'&MDbjS)(YMEfjQD@F
+XZD(dJ)RY*EQ0XG@4PI5*NG@jRC@pZ,QJJHf4PBf`ZD(dJYJd*#3NJ)RY*EQ0XG@4
+XPI5*YEfjcH@dZD#!LHdPZBfaeC'9p)QeVFQp[E5jS)#*l5@jME(9NCAdLEf*UBfa
+XKFh-ZD##f$3N*#5!LHdPZBfaeC'9p)R4bBA!ZD#!LHdPZBfaeC'9p)QCXB@FZD#!
+XLHdPZBfaeC'9p)R*Y,QJJYJd*#3NJHf4TFh"XBANZD(dJ)RY*EQ0XG@4PI5*hD@j
+XdHA"P,QJJ)RY*EQ0XG@4PI5*PEQGbBACP,QJJYJd*#3NJ)RY*EQ0XG@4PI5*bC@0
+Xd,QJJ)#*l5@jME(9NCAdLG(*KEA"[E'NZD#!LHdPZBfaeC'9p)Q9iG'9bELjS)!d
+X0D'&MDbjS)$dJ)RY2BQT%DA*p)QKKBfXZD'4eEA!0$5-J9'KTFb"MEfe`D@aP)'P
+Xc)'4[EQ8JFfpXC@aj)'C[FL"dD'8JFfPNC5"PCQCPBh3JEfBJCf9ZCA*KG'PZCb"
+XSB@0V,QKNG@e`$5*l6f*U4'PbI5*SB@0V,QKNG@e`)-3JHh*PB@aSB@0V,QKp)#*
+Xl6@&M4'PbI5*YD'4eEA!ZB`d*3b!YD5!LHdPZBfaeC'9p)L"l6NK$EfjQD@Gp)(Y
+X6384&6h"dD@pZFhdJYJd*)#!LHdeKBd4TFRdLE@KNG@e`,Q-J,@mJ)RY2BQT%DA*
+Xp)QeSC(9YF#jM,Qm0$3dLHdPZBfaeC'9p)QaPGPpMEfe`,QJJa#!LHe0SBA*PI5*
+XXCACIBfpYF#jS$3PNGA"XD@0KG'8J,ANJ)RY6D'&bCAdLE'9fAf0[EA!ZD#!LHdP
+XZBfaeC'9p)QaPGPpMEfe`,QJ0$5*l5@jME(9NCAdLC'GZAf0[EA!ZD#$%)#*l8fK
+XKFQ9p)Q4REPpMEfe`,QJ0#@4eF'aTBf&dC5!YH5!LHe0SBA*PI5*NCfjIBfpYF#j
+XS)#*l5@jME(9NCAdLC'GZAf0[EA!ZD!d0)bdY,5dY,5dY,5dY,5dY,5dY,5dJ6Q9
+Xd5'&MDb"[BQTPBh4c)#dY,5dY,5dY,5dY,5dY,5dY$3e$6f*UFb!p)#*l6f*U4'P
+XbI5*KE'aYB@PZ,Q-ZEb#f$5!J)#!J)#!J)RY2BQT%DA*p)Q&XE'pM,Q-ZEb#f$5!
+XJ)#!J)#!J)RY2BQT%DA*p)Q&`F'aj,Q-ZEb#f$5!J)#!J)#!J)RY2BQT%DA*p)Q&
+XbG'PQB@0d,Q-ZEb#f$5!J)#!J)#!J)RY2BQT%DA*p)Q&dG(*TBLjM,QmJYJd*#5*
+Xl6f*U4'PbI5*LB@aX,Q-ZEb#f$5!J)#!J)#!J)RY2BQT%DA*p)Q*[EQ9c,Q-ZEb#
+Xf$5!J)#!J)#!J)RY2BQT%DA*p)Q*[G'`ZBbj[),B0)#!J)#!J)#!LHdpLDN4TFRd
+XLBfeN,Q-ZEb#f$5!J)#!J)#!J)RY2BQT%DA*p)Q4LFQPNCf8ZBbj[),B0)#!J)#!
+XJ)#!LHdpLDN4TFRdLC'9ME#jM,QmJYJd*#5*l6f*U4'PbI5*NCA4PBh3ZBbj[),B
+X0)#!J)#!J)#!LHdpLDN4TFRdLC'PcF'aKH5jM,QmJYJdJ)#!J)#!J)#*l6f*U4'P
+XbI5*NEbjM,QmJYJdJ)#!J)#!J)#*l6f*U4'PbI5*NEepZB@eP,Q-ZEb#f$5!J)#!
+XJ)#!J)RY2BQT%DA*p)Q4[AhGPBA)ZBbj[),B0)#!J)#!J)#!LHdpLDN4TFRdLC'p
+XR,Q-ZEb#f$5!J)#!J)#!J)RY2BQT%DA*p)Q4[Cfe[GQ8ZBbj[),B0)#!J)#!J)#!
+XLHdpLDN4TFRdLC'pVD@0V,Q-ZEb#f$5!J)#!J)#!J)RY2BQT%DA*p)Q4[G'KbEhF
+XZBbj[),B0#3NLHdpLDN4TFRdLC(*KGfPZCbjM,QmJYJdJ)#!J)#!J)#*l6f*U4'P
+XbI5*NG@jRC@pZ,Q-ZEb#f$5!J)#!J)#!J)RY2BQT%DA*p)Q9KG#jM,QmJYJdJ)#!
+XJ)#!J)#*l6f*U4'PbI5*PEQ3ZBbj[),B0)#!J)#!J)#!LHdpLDN4TFRdLC@jRFQ&
+XfC5jM,QmJYJdJ)#!J)#!J)#*l6f*U4'PbI5*PH("PFLjM,QmJYJdJ)#!J)#!J)#*
+Xl6f*U4'PbI5*PH("XEf4P,Q-ZEb#f$5!J)#!J)#!J)RY2BQT%DA*p)Q9iG(*KE'9
+Xf,Q-ZEb#f$5!J)#!J)#!J)RY2BQT%DA*p)QCTE'9c,Q-ZEb#f$5!J)#!J)#!J)RY
+X2BQT%DA*p)QC[G@jdB@PZ,Q-ZEb#f$5!J)#!J)#!J)RY2BQT%DA*p)QKKBfXZBbj
+X[),B0)#!J)#!J)#!LHdpLDN4TFRdLD'&MDfaTBLjM,QmJYJdJ)#!J)#!J)#*l6f*
+XU4'PbI5*TERCPER3ZBbj[),B0)#!J)#!J)#!LHdpLDN4TFRdLE'pMDbjM,QmJYJd
+XJ)#!J)#!J)#*l6f*U4'PbI5*YB@0eEQPi,Q-ZEb#f$5!J)#!J)#!J)RY2BQT%DA*
+Xp)QeKBfCTE'8ZBbj[),B0#3NLHdpLDN4TFRdLEA0dFQPZCbjM,QmJYJd*#5*l6f*
+XU4'PbI5*YB@0cEQ3ZBbj[),B0)#!J)#!J)#!LHdpLDN4TFRdLE@&MGfPZ,Q-ZEb#
+Xf$5!J)#!J)#!J)RY2BQT%DA*p)QeKBf0eFR-ZBbj[),B0)#!J)#!J)#!LHdpLDN4
+XTFRdLE@&VC@e[ELjM,QmJYJdJ)#!J)#!J)#*l6f*U4'PbI5*YBf&cG(8ZBbj[),B
+X0)#!J)#!J)#!LHdpLDN4TFRdLE@KTG'dZBbj[),B0)#!J)#!J)#!LHdpLDN4TFRd
+XLE@KTG(8ZBbj[),B0)#!J)#!J)#!LHdpLDN4TFRdLE@PZD@pZ,Q-ZEb#f$5!J)#!
+XJ)#!J)RY2BQT%DA*p)QeVE'9f,Q-ZEb#f$3N*)RY2BQT%DA*p)QeVE@&`,Q-ZEb#
+Xf$5!J)#!J)#!J)RY2BQT%DA*p)QeVE@&kC5jM,QmJYJdJ)#!J)#!J)#*l6f*U4'P
+XbI5*YDfpLDLjM,QmJYJdJ)#!J)#!J)#*l6f*U4'PbI5*YDh*[EfdZBbj[),B0)#!
+XJ)#!J)#!LHdpLDN4TFRdLE@e[C'&X,Q-ZEb#f$5!J)#!J)#!J)RY2BQT%DA*p)Qe
+X[ELjM,QmJYJdJ)#!J)#!J)#*l6f*U4'PbI5*YEfjNBA4K,Q-ZEb#f$5!J)#!J)#!
+XJ)RY2BQT%DA*p)Qe[EQe[GQ8ZBbj[),B0)#!J)#!J)#!LHdpLDN4TFRdLE@pZFh3
+XZBbj[),B0#3NLHdpLDN4TFRdLE@pZFh4b,Q-ZEb#f$3N*)RY2BQT%DA*p)Qe`E'&
+XjCA)ZBbj[),B0)#!J)#!J)#!LHdpLDN4TFRdLEA4SFQphG5jM,QmJYJdJ)#!J)#!
+XJ)#*l6f*U4'PbI5*YGA0P,Q-ZEb#f$5!J)#!J)#!J)RY2BQT%DA*p)QeeFfPM,Q-
+XZEb#f$5!J)#!J)#!J)RY2BQT%DA*p)QpID@jTG#jM,QmJYJdJ)#!J)#!J)#*l6f*
+XU4'PbI5*[BQTPBh4c,Q-ZEb#f$5!J)#!J)#!J)RY2BQT%DA*p)QpLDQjKE5jM,Qm
+XJYJdJ)#!J)#!J)#*l6f*U4'PbI5*[F(4TEfjc,Q-ZEb#f$5!J)#!J)#!J)RY2BQT
+X%DA*p)R"KCf9b,Q-ZEb#f$5!J)#!J)#!J)RY2BQT%DA*p)R"TBfYeF#jM,QmJYJd
+XJ)#!J)#!J)#*l6f*U4'PbI5*`E'PZC5jM,QmJYJdJ)#!J)#!J)#*l6f*U4'PbI5*
+X`EfajFf9XCLjM,QmJYJdJ)#!J)#!J)#*l6f*U4'PbI5*`Eh4TEfiZBbj[),B0)#!
+XJ)#!J)#!LHdpLDN4TFRdLF(*KH5jM,QmJYJdJ)#!J)#!J)#*l6f*U4'PbI5*`FQP
+XPFh3ZBbj[),B0#3NLHdpLDN4TFRdLFA9PFh3ZBbj[),B0#3NLHdpLDN4TFRdLFA9
+XPFh4`Ch)ZBbj[),B0)#!J)#!J)#!LHdpLDN4TFRdLFQ&ZC'pY,Q-ZEb#f$5!J)#!
+XJ)#!J)RY2BQT%DA*p)R*PB@3ZBbj[),B0)#!J)#!J)#!LHdpLDN4TFRdLFQ9MG#j
+XM,QmJYJdJ)#!J)#!J)#*l6f*U4'PbI5*bCA0dEh*P,Q-ZEb#f$5!J)#!J)#!J)RY
+X2BQT%DA*p)R*TF#jM,QmJYJdJ)#!J)#!J)#*l6f*U4'PbI5*bEQ3ZBbj[),B0)#!
+XJ)#!J)#!LHdpLDN4TFRdLFR9YEh*c,Q-ZEb#f$5!J)#!J)#!J)RY2BQT%DA*p)R0
+XKGQ8ZBbj[),B0)#!J)#!J)#!LHdpLDN4TFRdLFfKV,Q-ZEb#f$5!J)#!J)#!J)RY
+X2BQT%DA*p)R0SDfjKE5jM,QmJYJdJ)#!J)#!J)#*l6f*U4'PbI5*cDA3ZBbj[),B
+X0)#!J)#!J)#!LHdpLDN4TFRdLFfpeEQ4c,Q-ZEb#f$5!J)#!J)#!J)RY2BQT%DA*
+Xp)R0`AfaPGLjM,QmJYJdJ)#!J)#!J)#*l6f*U4'PbI5*cF'9XE#jM,QmJYJdJ)#!
+XJ)#!J)#*l6f*U4'PbI5*cG'9KE#jM,QmJYJdJ)#!J)#!J)#*l6f*U4'PbI5*dD@e
+XPEh9d,Q-ZEb#f$5!J)#!J)#!J)RY2BQT%DA*p)QeKBh4[F'`ZBbj[),B0)#!J)#!
+XJ)#!LHdpLDN4TFRdLG'p`G'9Z,Q-ZEb#f$5!J)#!J)#!J)RY2BQT%DA*p)R4bB@0
+XV,Q-ZEb#f$5!J)#!J)#!J)RY2BQT%DA*p)R4bBA!ZBbj[),B0)#!J)#!J)#!LHdp
+XLDN4TFRdLG9pTEQPd,Q-ZEb#f$5!J)#!J)#!J)RY2BQT%DA*p)R9SDA4Y,Q-ZEb#
+Xf$5!J)#!J)#!J)RY2BQT%DA*p)RCKG@ad,Q-ZEb#f$5!J)#!J)#!J)RY2BQT%DA*
+Xp)RCPFR0TEfiZBbj[),B0)#!J)#!J)#!LHdpLDN4TFRdLGQPcD@pZ,Q-ZEb#f$5!
+XJ)#!J)#!J)RY2BQT%DA*p)RCTFepdB@)ZBbj[),B0)#!J)#!J)#!LHdpLDN4TFRd
+XLGf9KF'pZ,Q-ZEb#f$5!J)#!J)#!J)RY2BQT%DA*p)RGPFQ8ZBbj[),B0)#!J)#!
+XJ)#!LHdpLDN4TFRdLGfPPE'3ZBbj[),B0#3NLHdpLDN4TFRdLGfPZC'phFbjM,Qm
+XJYJdJ)#!J)#!J)#*l6f*U4'PbI5*hDATKFQ3ZBbj[),B0)#!J)#!J)#!LHdpLDN4
+XTFRdLGfpbE5jM,QmJYJdJ)#!J)#!J)#*l6f*U4'PbI5*hEh*Z,Q-ZEb#f$5!J)#!
+XJ)#!J)RY2BQT%DA*p)RGbDA4P,Q-ZEb#f$5!J)#!J)#!J)RY2BQT%DA*p)RTKF#j
+XM,QmJYJd*#5*l6f*U4'PbI5*YB@0PFR*c,Q-ZEb#f$5!J)#!J)#!J)RY2BQT%DA*
+Xp)QeRCA4XD@jP,Q-ZEb#f$5!J)#!J)#!J)RY2BQT%DA*p)QeKBfeKD@iZBbj[),B
+X0#3NLHd0-D@*bBA*TCA0p)P0dC%0XD@)ZEb#f$3N*)RY-D@*bBA*TCA0p)P*eER4
+XTE@8ZEb#f$3N*)RY-D@*bBA*TCA0p)NPZG'9bCQ&MC5j[)!d0)bdY,5dY,5dY,5d
+XY,5dJ9'KP)'pLDQ9MG#"QD@aPFb"NCA"PEQ3JGA"[EL"dD'8JD@jME(9NC5"QD@a
+XPFb"KFb"QEfaXEhGc)#dY,5dY$3dLHdpLDN4TFRdLB@aXE@&TELjM,Qm*a#!JHfK
+XKBfXZD(d0)RY2BQT%DA*p)Q&XE'pM,Q-ZEb!J#F3J)(YMEfjQD@FZD(d0)RY2BQT
+X%DA*p)Q&`F'aj,Q-ZE`N*a#!JHfKKBfXZD(dJ)RY*EQ0XG@4PI5*PC'pR,QJ0)RY
+X2BQT%DA*p)Q&bG'PQB@0d,Q-ZE`R%)#"lD'&MDbjSI5!LHdPZBfaeC'9p)Q&bG'P
+XQB@0d,QJJ)RY*EQ0XG@4PI5*KFR4TE'PcG#jS$5*l6f*U4'PbI5*KG(4bD@)ZBbj
+X[#F3J)(YSB@0V,QKp)#*l5@jME(9NCAdLBA*dD@CKBh3ZD!dLHdpLDN4TFRdLBQ&
+XXE#jM,Qm*#F3J)(YSB@0V,QKp$5*l6f*U4'PbI5*LEfjPFbjM,Qm*#F3J)(YSB@0
+XV,QKp)#*l5@jME(9NCAdLE'9f,QJ0)RY2BQT%DA*p)Q*[G'`ZBbj[#3R%)#"lD'&
+XMDbjSI3dLHdpLDN4TFRdLBfeN,Q-ZE`N*a#!JHfKKBfXZD(dJ)RY*EQ0XG@4PI5*
+XQG@jMAh4KBLjS$5*l6f*U4'PbI5*NBR*TC'GP,Q-ZE`R%)#"lD'&MDbjSI3dLHdp
+XLDN4TFRdLC'9ME#jM,Qm*#F3J)(YSB@0V,QKp)#*l5@jME(9NCAdLFA9PFh3ZD!d
+XLHdpLDN4TFRdLC'9dC@0d,Q-ZE`R%)#"lD'&MDbjSI5!LHdPZBfaeC'9p)Q&bG'P
+XQB@0d,QJ0)RY2BQT%DA*p)Q4TFh"XBANZBbj[#F3J)(YSB@0V,QKp$5*l6f*U4'P
+XbI5*NEbjM,Qm*#F3J)(YSB@0V,QKp)#*l5@jME(9NCAdLE'9f,QJ0)RY2BQT%DA*
+Xp)Q4[AfjKE@8ZBbj[#F3J)(YSB@0V,QKp$5*l6f*U4'PbI5*NEephC@&b,Q-ZE`R
+X%)#"lD'&MDbjSI3dLHdpLDN4TFRdLC'pR,Q-ZE`N*a#!JHfKKBfXZD(dJ)RY*EQ0
+XXG@4PI5*PC'pR,QJ0)RY2BQT%DA*p)Q4[Cfe[GQ8ZBbj[#F3J)(YSB@0V,QKp)#*
+Xl5@jME(9NCAdLE@CZC("[FbjS)#*l5@jME(9NCAdLC@4[CbjS$5*l6f*U4'PbI5*
+XNEfYTBfXZBbj[#F3J)(YSB@0V,QKp)(YPFfKV,QKp$5*l6f*U4'PbI5*NEh4SFQp
+Xh,Q-ZE`R%)#"lD'&MDbjSI3dLHdpLDN4TFRdLC(*KGfPZCbjM,Qm*a#!JHfKKBfX
+XZD(d0)RY2BQT%DA*p)Q4eEQGPEfiZBbj[#F3J)(YSB@0V,QKp)#*l5@jME(9NCAd
+XLC'GZAfCTE'8ZD!dLHdpLDN4TFRdLC@&d,Q-ZE`N*a#!JHfKKBfXZD(d0)RY2BQT
+X%DA*p)Q9ZC#jM,Qm*#F3J)(YSB@0V,QKp)(YPFfKV,QKp$5*l6f*U4'PbI5*PEQG
+XbBACP,Q-ZE`R%)#"lD'&MDbjSI5!LHdPZBfaeC'9p)QaPGLjS$5*l6f*U4'PbI5*
+XPH("PFLjM,Qm*#F3J)(YSB@0V,QKp$5*l6f*U4'PbI5*PH("XEf4P,Q-ZE`R%)#"
+XlD'&MDbjSI3dLHdpLDN4TFRdLCAKdFQ&XCABZBbj[#F3J)(YSB@0V,QKp$5*l6f*
+XU4'PbI5*QD@aPFbjM,Qm*#F3J)(YSB@0V,QKp$5*l6f*U4'PbI5*QEh9ZG'&TELj
+XM,Qm*a#!JHfKKBfXZD(d0)RY2BQT%DA*p)QKKBfXZBbj[#3R%)#"lD'&MDbjSI3d
+XLHdpLDN4TFRdLD'&MDfaTBLjM,Qm*a#!JHf0[EQCTCbjSI3dLHdpLDN4TFRdLD@j
+XfC@jd,Q-ZE`R%)#"lD'&MDbjSI5!LHdPZBfaeC'9p)Q&bG'PQB@0d,QJ0)RY2BQT
+X%DA*p)Qa[BfXZBbj[#3R%)#"lD'&MDbjSI3dLHdpLDN4TFRdLE@&ME@&TELjM,Qm
+X*a#!JHfKKBfXZD(d0)RY2BQT%DA*p)QeYEf4KE#jM,Qm*a#!JHfKKBfXZD(d0)RY
+X2BQT%DA*p)QeKBh0ZC#jM,Qm*a#!JHfKKBfXZD(d0)RY2BQT%DA*p)QeKBhGTELj
+XM,Qm*a#!JHfKKBfXZD(dJ)RY*EQ0XG@4PI5*QG@jMAh4KBLjS$5*l6f*U4'PbI5*
+XYB@0MGA*c,Q-ZE`R%)#"lD'&MDbjSI3dLHdpLDN4TFRdLE@&MCQPXC5jM,Qm*a#!
+XJHfKKBfXZD(d0)RY2BQT%DA*p)QeKBf9bFR-ZBbj[#F3J)(YSB@0V,QKp$5*l6f*
+XU4'PbI5*YB@0dEh"X,Q-ZE`R%)#"lD'&MDbjSI3dLHdpLDN4TFRdLE@&MG@jTH#j
+XM,Qm*a#!JHfKKBfXZD(d0)RY2BQT%DA*p)QeKD@`ZBbj[#3R%)#"lD'&MDbjSI3d
+XLHdpLDN4TFRdLE@&VC@e[ELjM,Qm*a#!JHfKKBfXZD(dJHf9`FQNZD(dJHf9YD@i
+XZD(d0)RY2BQT%DA*p)QeMBA0dG5jM,Qm*a#!JHfKKBfXZD(d0)RY2BQT%DA*p)Qe
+XRCA4XD@jP,Q-ZE`R%)#"lD'&MDbjSI3dLHdpLDN4TFRdLE@KTG'dZBbj[#3R%)#"
+XlD'&MDbjSI5!LHdPZBfaeC'9p)Q&bG'PQB@0d,QJJ)RY*EQ0XG@4PI5*PC'pR,QJ
+X0)RY2BQT%DA*p)QeSDA4e,Q-ZE`N*a#!JHfKKBfXZD(dJ)RY*EQ0XG@4PI5*KFR4
+XTCQ&MG#jS)#*l5@jME(9NCAdLC@4[CbjS$5*l6f*U4'PbI5*YD@jTEfiZBbj[#F3
+XJ)(YSB@0V,QKp)(YPE@PZ,QKp)(YPF(*T,QKp$5*l6f*U4'PbI5*YDfaPGLjM,Qm
+X*#F3J)(YSB@0V,QKp$5*l6f*U4'PbI5*YDfeKF#jM,Qm*#F3J)(YSB@0V,QKp)#*
+Xl5@jME(9NCAdLFh"IE'9f,QJ0)RY2BQT%DA*p)QeVE@&kC5jM,Qm*a#!JHfKKBfX
+XZD(d0)RY2BQT%DA*p)QeVEf*U,Q-ZE`N*a#!JHfKKBfXZD(dJ)RY*EQ0XG@4PI5*
+XKFR4TCQ&MG#jS)#*l5@jME(9NCAdLF(*[F#jS$5*l6f*U4'PbI5*YDh*[EfdZBbj
+X[#F3J)(YSB@0V,QKp$5*l6f*U4'PbI5*YEfiZBbj[#3R%)#"lD'&MDbjSI5!LHdP
+XZBfaeC'9p)QeQEQ4`Eh-ZD#!LHdPZBfaeC'9p)Q9NEfFZD!dLHdpLDN4TFRdLE@p
+XZC'&dB5jM,Qm*a#!JHfKKBfXZD(dJHf9cD'XZD(dJHf9`FQNZD(d0)RY2BQT%DA*
+Xp)Qe[EQe[GQ8ZBbj[#F3J)(YSB@0V,QKp)#*l5@jME(9NCAdLE@CZC("[FbjS)#*
+Xl5@jME(9NCAdLBA*dD@CKBh3ZD!dLHdpLDN4TFRdLE@pZFh3ZBbj[#3R%)#"lBfp
+XZCQPR,QKp)(Y`CA*YEfjcG#jSI5!LHdPZBfaeC'9p)Qe[ER0jE5jS),B0#3N*#3N
+X*)#!JHf9cD'XZD(dJHhCKG@ad,QKp)(YPF(*T,QKpYJd*#3N*#3NJ)#!LHdPZBfa
+XeC'9p)Q0[E'pb,QJ0)RY2BQT%DA*p)Qe`E'&jCA)ZBbj[#F3J)(YSB@0V,QKp$5*
+Xl6f*U4'PbI5*YG'KbEhGe,Q-ZE`R%)#"lD'&MDbjSI3dLHdpLDN4TFRdLEA9cC5j
+XM,Qm*#F3J)(YSB@0V,QKp$5*l6f*U4'PbI5*YGA0TBbjM,Qm*#F3J)(YSB@0V,QK
+Xp$5*l6f*U4'PbI5*[AfPZDA3ZBbj[#F3J)(YSB@0V,QKp$5*l6f*U4'PbI5*[BQT
+XPBh4c,Q-ZE`R%)#"lBfpZCQPR,QKp)#*l5@jME(9NCAdLEf*U,QJJ)RY*EQ0XG@4
+XPI5*[BQTME'&cFbjSYJd*#3N*#3NJ)#!LHdPZBfaeC'9p)R"bEh!ZD#!LHdPZBfa
+XeC'9p)Q0[E'pb,QJ0)RY2BQT%DA*p)QpLDQjKE5jM,Qm*a#!JHfKKBfXZD(d0)RY
+X2BQT%DA*p)Qp`G'P[ER-ZBbj[#F3J)(YSB@0V,QKp)#*l5@jME(9NCAdLG'9bE@0
+XKF#jS$5*l6f*U4'PbI5*`B@GPFLjM,Qm*#F3J)(YYB@0MEfjQ,QKp$5*l6f*U4'P
+XbI5*`B@jTBbjM,Qm*#F3J)(YMEfjQD@FZD(d0)RY2BQT%DA*p)R"TBfYeF#jM,Qm
+X*a#!JHfKKBfXZD(d0)RY2BQT%DA*p)R"XD@jP,Q-ZE`N*a#!JHfKKBfXZD(dJHf9
+X`FQNZD(d0)RY2BQT%DA*p)R"[E(PcC@aQ,Q-ZE`R%)#"lD'&MDbjSI3dLHdpLDN4
+XTFRdLF'pdD@pZ,Q-ZE`R%)#"lD'&MDbjSI3dLHdpLDN4TFRdLF(*KH5jM,Qm*#F3
+XJ)(YSB@0V,QKp)(YPF(*T,QKp$5*l6f*U4'PbI5*`FQPPFh3ZBbj[#F3J)(YSB@0
+XV,QKp)#*l5@jME(9NCAdLE@CZC("[FbjS)(YPFfKV,QKpYJd*#3N*#3NJ)#"lCA"
+XbD5jSI5"lC@eTELjSI3dLHdpLDN4TFRdLFA9PFh3ZBbj[#3R%)#"lD'&MDbjSI5!
+XLHdPZBfaeC'9p)R&eCA0d,QJJ)RY*EQ0XG@4PI5*aG'9iG#jS$5*l6f*U4'PbI5*
+XaG@9cG("RFLjM,Qm*a#!JHfKKBfXZD(dJ)RY*EQ0XG@4PI5*aG'9iG#jS$5*l6f*
+XU4'PbI5*bC@&N,Q-ZE`N*a#!JHfKKBfXZD(d0)RY2BQT%DA*p)R*PBh3ZBbj[#3R
+X%)#"lD'&MDbjSI3dLHdpLDN4TFRdLFQ9cG'pbC5jM,Qm*a#!JHfKKBfXZD(dJ)RY
+X*EQ0XG@4PI5*XCABZD#!LHdPZBfaeC'9p)R4PFQeMBA!ZD#!LHdPZBfaeC'9p)R&
+XeCA0d,QJ0)RY2BQT%DA*p)R*TF#jM,Qm*#F3J)(YSB@0V,QKp$5*l6f*U4'PbI5*
+XbEQ3ZBbj[#3R%)#"lD'&MDbjSI3dLHdpLDN4TFRdLFR9YEh*c,Q-ZE`R%)#"lD'&
+XMDbjSI3dLHdpLDN4TFRdLFf&fC5jM,Qm*#F3J)(YSB@0V,QKp)#*l5@jME(9NCAd
+XLE'9f,QJJ)RY*EQ0XG@4PI5*aG@9cG#jS$5*l6f*U4'PbI5*cD'XZBbj[#3R%)#"
+XlD'&MDbjSI5"lCA0SDbjSI3dLHdpLDN4TFRdLFfKVEQ&Y,Q-ZE`R%)#"lD'&MDbj
+XSI5"lCA0SDbjSI3dLHdpLDN4TFRdLFfPd,Q-ZE`N*a#!JHfKKBfXZD(dJ)RY*EQ0
+XXG@4PI5*KFR4TCQ&MG#jS$5*l6f*U4'PbI5*cEh9ZC(-ZBbj[#F3J)(YSB@0V,QK
+Xp)#*l5@jME(9NCAdLC@4[CbjS)(YPFfKV,QKp$5*l6f*U4'PbI5*cF&pXCABZBbj
+X[#F3J)(YSB@0V,QKp)#*l5@jME(9NCAdLFh"IE'9f,QJJ)RY*EQ0XG@4PI5*bC@0
+Xd,QJ0)RY2BQT%DA*p)R0`C@aX,Q-ZE`N*a#!JHfKKBfXZD(d0)RY2BQT%DA*p)R0
+XdC@&X,Q-ZE`N*a#!JHfKKBfXZD(d0)RY2BQT%DA*p)R4TE@9[GA3ZBbj[#F3J)(Y
+XSB@0V,QKp$5*l6f*U4'PbI5*dEh"dC@iZBbj[#F3J)(YSB@0V,QKp$5*l6f*U4'P
+XbI5*dFQ&MDbjM,Qm*#F3J)(YSB@0V,QKp$5*l6f*U4'PbI5*dFQ&`,Q-ZE`N*a#!
+XJHfKKBfXZD(d0)RY2BQT%DA*p)R9ID@jTG#jM,Qm*a#!JHfKKBfXZD(d0)RY2BQT
+X%DA*p)R9SDA4Y,Q-ZE`N*a#!JHfKKBfXZD(d0)RY2BQT%DA*p)RCKG@ad,Q-ZE`N
+X*a#!JHfKKBfXZD(dJHhCKG@ad,QKp$5*l6f*U4'PbI5*fCA*cD@pZ,Q-ZE`R%)#"
+XlD'&MDbjSI5!LHdPZBfaeC'9p)Q4KG'8ZD#!J)RY*EQ0XG@4PI5*`BA4MD'aPGQ9
+XX,QJJ)RY*EQ0XG@4PI5*dCA*YBf&`,QJ0)RY2BQT%DA*p)RCTFfP[ELjM,Qm*a#!
+XJHfKKBfXZD(dJ)RY*EQ0XG@4PI5*fDA0IG'&L,QJ0)RY2BQT%DA*p)RGPBA"[ELj
+XM,Qm*a#!JHfKKBfXZD(d0)RY2BQT%DA*p)RGPFQ8ZBbj[#3R%)#"lD'&MDbjSI3d
+XLHdpLDN4TFRdLGfPPE'3ZBbj[#3R%)#"lD'&MDbjSI3dLHdpLDN4TFRdLGfPZC'p
+XhFbjM,Qm*a#!JHfKKBfXZD(d0)RY2BQT%DA*p)RGTHQ&bC#jM,Qm*a#!JHfKKBfX
+XZD(dJ)RY*EQ0XG@4PI5*aG'9iG#jS$5*l6f*U4'PbI5*hEh*Y,Q-ZE`N*a#!JHfK
+XKBfXZD(dJ)RY*EQ0XG@4PI5*XCABZD!dLHdpLDN4TFRdLGfpbELjM,Qm*#F3J)(Y
+XSB@0V,QKp$5*l6f*U4'PbI5*hFQPdC5jM,Qm*#F3J)(YSB@0V,QKp$5*l6f*U4'P
+XbI5*kBA!ZBbj[#3R%)#"lD'&MDbjSI3d0$5*l6f*U4'PbI5*0B@YP4'9QFbjM,Qm
+XJ)-3J)(YMEfjQD@FZD(dJHh"PFQe[ER0d,QKp)#*l5@jME(9NCAdLEf*UBfaKFh-
+XZD##f$3N*#3N*#5!J)#*l5@jME(9NCAdLE@pZFhPY,QJJ)RY*EQ0XG@4PI5*KFR4
+XTE'PcG#jS)#*l5@jME(9NCAdLFA4PH(3ZD!d0)RY2BQT%DA*p)Q4REPpjB@0M,Q-
+XZE`R%)#"lBfpZCQPR,QKp)#*l5@jME(9NCAdLC'GZAfCTE'8ZD!dLHdpLDN4TFRd
+XLC'GZAfaPH#jM,Qm*a#!JHf0[EQCTCbjSI5!LHdPZBfaeC'9p)Q4REPpMEfe`,QJ
+XJ)RY*EQ0XG@4PI5*NCfjICQPXC5jS$5*l6f*U4'PbI5*NCfjIE@&TELjM,Qm*a#!
+XJHf0[EQCTCbjSI3d0)RY2BQT%DA*p)QaPGPpjB@0M,Q-ZE`R%)#"lD'&MDbjSI5!
+XLHdPZBfaeC'9p)R0`AfaPGLjS$5*l6f*U4'PbI5*XCACIE'9i,Q-ZE`R%)#"lD'&
+XMDbjSI5!LHdPZBfaeC'9p)QaPGPpMEfe`,QJJ)RY*EQ0XG@4PI5*cF&pXCABZD!d
+XLHdpLDN4TFRdLE'9fAfeKD@iZBbj[#F3J)(YSB@0V,QKp)#*l5@jME(9NCAdLFh"
+XIE'9f,QJ0$5-J,5dY,5dY,5dJ3R9TE'3JG'KP)'4eEQGPEfiJBfpYF'PXCA)X)'&
+Xc)'&Z)%e39b"dEfpX)#dY,5dY,5dY,5dY,5dY,3d*$84RENpLDR-p)#*l6f*U4'P
+XbI5*NCfjIE'9i,Q-ZE`N*YJd*#5!LHdpLDN4TFRdLC'GZAfeKD@iZBbj[#3Qf$3N
+X*)#*l6f*U4'PbI5*NCfjIH@&MBbjM,Qm*#EB0#3NJ)RY2BQT%DA*p)Q&XE'pM,Q-
+XZE`N*YJd*#5!LHdpLDN4TFRdLF'&ZD@-ZBbj[#3Qf$3N*)#*l6'PLFQ&bD@9cI5*
+X6G(9LFbj[#3Qf$3N*)#*l6'PLFQ&bD@9cI5*5G@jdD@eP,QmJ#EB0#3NJ)RY-D@*
+XbBA*TCA0p)P4[Efa-D@*c,Qm*YJd*#5!LHdaTBR*KFQPPFhdL5@jdCA*QB@0P,Qm
+X*YJd*#5!LHd0-D@*bBA*TCA0p)P0dC%0-D@)ZE`d04'GZ3fpYF!R%)(Y%Cfj2BQT
+XcI3d*6'PZDb"l69"A9'p[E%aTEQYp)##f$3N*)(Y%Cfj2BQTcI5!YEb"l9'&bChd
+XJYJdM#3NJ)#ecCb"0B@PZ2@&XE'pM,'4REPpXCAJXC'GZAfeKD@iXC'GZAhPKBf-
+XXF'&ZD@-X8e4%58mX58j848j@,&0"4%9@),B0#3N0)b!Y,5dY,5dY,5"#G@PXC#"
+XdD'8JFh"PBfPKE#eXCACPE#"MEfe`D@aPFL`JBA-JB@iJ69"A)(4[Ef`J,5dY,5d
+XY,5dY,5dY,5dY$3N06'9f6f*UFcdJ)RY2BQT%DA*p)Qe[ER0d,Q-ZE`N*YJd*#5!
+XLHdpLDN4TFRdLEf*UC@0dFbjM,Qm*#EB0#3NJ)RY2BQT%DA*p)Q4bBAGTEQFZBbj
+X[#3Qf$3N*)#*l6f*U4'PbI5*KE'a[BbjM,Qm*#EB0#3NJ)RY2BQT%DA*p)R"KEQP
+XM,Q-ZE`N*YJd*#5!LHdpLDN4TFRdLE'9fAfaPH#jM,Qm*#EB0#3NJ)RY2BQT%DA*
+Xp)QaPGPpjB@0M,Q-ZE`N*YJd*#5!LHdpLDN4TFRdLE@&MCQPXC5jM,Qm*#EB0#3N
+XJ)RY2BQT%DA*p)QeKBf9bFR-ZBbj[#3Qf$3N*)#*l6f*U4'PbI5*QD@aPFbjM,Qm
+X*#EB0#3NJ)RY2BQT%DA*p)Q4PBf`ZBbj[#3N*YJd*#5!LHdaTBR*KFQPPFhdL8h4
+XeBR-ZE`N*YJd*#5!LHdpLDN4TFRdLE'9fAfeKD@iZBbj[#3Qf$3N*)#*l3daTBR*
+XKFQPPFhdL8h4N3daTBLj[#EB0#3NJ)#*l6'PLFQ&bD@9cI5*8EfpX6'PLFbj[#EB
+X0#3NJ)RY-D@*bBA*TCA0p)P*eER4TE@8ZEb!*YJd*#5!LHdaTBR*KFQPPFhdL5@j
+XdCA*QB@0P,QmJ)!d06'9f3fpYF!R%)(Y-CAC2BQTcI3d*6'PZDb"l69"A9'p[E%a
+XTEQYp),B0#3NJHdaPGNpLDR0p)#e[)(Y8BA*RI5#f$5-*#5!YFfFJ6@&TEMe[BQT
+XPBh4c,'e[ER0d,'eKBfCTE'8XCQPXCA-XE@&MCA*bFbaXCACIE'9i,'aPGPpYB@P
+XZ,'aPGPpjB@0M),B0#3N0)b!Y,5dY,5dY,5"#G@PXC#"0B@YP4'9QFb`JBA-JB@i
+XJ69"A)(4[Ef`J,5dY,5dY,5dY,5dY,5dY$3e0B@YP4'9QFdpLDR-p)#*l6f*U4'P
+XbI5*[BQTPBh4c,Q-ZE`N*YJd*#3NJ)#*l6f*U4'PbI5*YEfjcG#jM,Qm*#EB0#3N
+X*)#!LHdpLDN4TFRdL6@&VC84PCR-ZBbj[#EB0#3N*)#!LHdaTBR*KFQPPFhdL8h4
+XeBR-ZE`N*YJdJ)#!J#3NJ)#*l6'PLFQ&bD@9cI5*5G@jdD@eP,QmJ#EB0#3N*)#!
+XLHdaTBR*KFQPPFhdL5@jdCA*QB@0P,Qm*YJd*#3NJ)#*l6'PLFQ&bD@9cI5*8Efp
+XX6'PLFbj[#EB0#3N*)#!LHd0-D@*bBA*TCA0p)P0dC%0-D@)ZE`d06@&VC84PCR-
+X*a-3JHdeKDf9%C@Cc6f*UFhd0#8aTEQXJHde39e4[Efa-D@jVI5#f$3N*)(Y0B@Y
+XP4'9QFdpLDR0p)#e[)(Y8BA*RI3d*$3N*$5-J,5dY,5dY,5dY,5dY)%PQ)%eKDf9
+X%C@Cc)'0SB@jRCA-JGf8JEQ9PC#"dEb"bC@*eD@aN)(0[E@8JD@jME(9NC5"QD@a
+XPFb!Y,5dY,5dY,5dY,3d0)RY*EQ0XG@4PI5*NBA4P,QJJ#F3J#8eKDf9%C@Cc$3P
+X0B@YP4'9QFb!YGJd*6@pfC5!YH5!LHd4KG(dL6h"dD@pZFb!LHdpLDN4TFRdL$3d
+XLHdpLDN4TFRdL6h"dD@pZF`R%#5*l5@jME(9NCAdLC'&dC5jS$3dLHdPZBfaeC'9
+Xp)QpZB@ePFbjS)-3*6@&VC84PCR-0#8eKDf9%C@Cc)#e[$3dLHdPZBfaeC'9p)R"
+XY,QJJ#F3*6@&VC84PCR-0#8eKDf9%C@Cc)#e`$3dLHe0bBhdLGQPcAh4KBLjM#F3
+X*6@&VC84PCR-J)RY*EQ0XG@4PI5*fDA0IG'&L,QJ0$5*l5@jME(9NCAdLGQPcAh4
+XKBLjS)-3*6@&VC84PCR-0#8eKDf9%C@Cc)#ek$3N0)RY2BQT%DA*p)N4eEQGPEfi
+XZF'4Q)#$%)#*l4'&dI5*%G@jRC@pZ,Q4PCL"0B@YP4'9QF`d*6@&VC84PCR-J,@8
+X0#8e[GQ8J,ANJ)RY%BA4p)N4eEQGPEfiZF'4Q)#*l6f*U4'PbI5)0#3dLHe0bBhd
+XLE@pZFh4b,Q-Ja#"0B@YPC'9QFb"lBfpZCQPR,QKp$3P0B@YP4'9QFb!YE3d0)bd
+XY,5dY,5dY,5dY,5dY,5dJ6@&TEL"NCA"PEQ4PEQ0TCA-JB@jN)(4SC5"KF("XD@0
+XKG'P[EL`JBA3JE'&cG#!Y,5dY,5dY,5dY,5dY,5dY,5dY$3dLHe*PFh9XG(0p)N4
+XKG'%J)-3J)RY%BA4p)N4KG'%ZBQ&cC5"0B@YP4'9QF`d*#8eKDf9%C@Cc)#eN$3N
+X*6@pfC5!YH5!LHd4KG(dL4'&dB5!LHe*PFh9XG(0p)Jd*#90PG%CTE'8J,A3J)RY
+X'D@aP9(P`CAdL)#eM)#*l4QPXC80bC@&dEh*p)L!LHe*PFh9XG(0p)N4KG'%0$5*
+Xl8Q9cG@adFhdL8R9YEh*c)#$%)#*l4'&dI5*5G@e[FR-ZG(*e)#*l4'&dI5*5G@e
+X[FR-ZCQ&X)%eKDf9%C@Cc$3N*6@&VC84PCR-J,A)0#3P0EhCP)#ej)#*l4'&dI5*
+X5G@e[FR-J)RY5CA0eE(4cI5)0#3P6CA4'D@aP)#ed)#*l4QPXC94jF'9p)L!YBb!
+XLHdCTE'9$FQ9KG'pbI5)J)RY5CA0eE(4cI5*5G@e[FR-0$5*l8Q9cG@adFhdL6h*
+XKBfaPFb$%)#*l4'&dI5*2FQ&ME'9c,R4iG#"0B@YP4'9QF`d*#8eKDf9%C@Cc)#e
+XS$3N*6@pfC5!YH5!LHd4KG(dL6h*KBfaPFb!LHe*PFh9XG(0p)Jd*#90PG%CTE'8
+XJ,A3J)RY'D@aP9(P`CAdL)#eM)#*l4QPXC80bC@&dEh*p)L!LHe*PFh9XG(0p)Np
+XbB@0XCA-0$5*l8Q9cG@adFhdL3feND'9XF#$%)#*l4'&dI5*$E@4SC@a`$3N*C(9
+X`E'PMBA4P)#ej)#*l4'&dI5*$E@4SC@a`)#*l8Q9cG@adFhdL$3N*8f9d4QPXC5!
+XYG#!LHdCTE'98HA"PI5)J,@-J)RY'D@aP3h*PBA4[FRdL)#*l8Q9cG@adFhdL3fe
+XND'9XF!d0)RY5CA0eE(4cI5*5C@0[FQ3J)-3J$3N*6h"PEL!YEL!YG#!LHe*PFh9
+XXG(0p)P*PBfpbC!d*#9*PF'aKBf8J,k8[)#*8D'Pc)'Pc)(4SC5"bC@0[FQ3JCQP
+XXC5)0#3P$E'pcC5!YH5!LHe*PFh9XG(0p)P*PBfpbC!d0)RY5CA0eE(4cI5*1CA4
+X)B@0VYL"%C@CKG@adFb!Ja#!0#3P2F'9Z)#eZ)#ed)#*l8Q9cG@adFhdL6Q9d5'&
+XMDlBJ4'9QBA9XG(-0#3P5CA"XB@0P)#qP,b!L6e"858p18cebCA0d,#&`D@0V,#&
+XdD@eP,#&cD@aPER3XC'pREQ&YC6T5EhCPFLaMBA4ZB@eP1P"TH'9X)Jd*#80XEh0
+XP)#ej)#*l8Q9cG@adFhdL6Q9d5'&MDlBJ4'9QBA9XG(-0$5*l8Q9cG@adFhdL4(9
+XZCf9[EL!Ja#!LHdpLDN4TFRdL4(9ZCf9[ELj`C'BJ4'GZ3fpYF!d*#84REN0[EA!
+XJ)RY2BQT%DA*p)Q4eEQGPEfiZF'4Q$3N*6@pfC5!YH5!LHdpLDN4TFRdL4(9ZCf9
+X[EL!LHe*PFh9XG(0p)Jd*#90PG%CTE'8J,A3J)RY'D@aP9(P`CAdL)#eM)#*l4QP
+XXC80bC@&dEh*p)L!LHe*PFh9XG(0p)N4eEQGPEfi0$5*l8Q9cG@adFhdL3QPR8Qp
+X[E5jXCABJ)-3J)RY%BA4p)N*TCe*[EfdZC'9c)%aPGN0[EA!0#3P-CAC$Efe`)#*
+Xl4'&dI5*#D@G5EfpY,Q4PF`d*#90PG%CTE'8J,A3J)RY'D@aP9(P`CAdL)#eM)#*
+Xl4QPXC80bC@&dEh*p)L$&,QaPGJd*#8e[GQ8J,ANJ3QPR8Qp[E5jXCABJ)RY5CA0
+XeE(4cI5)0$5*l8Q9cG@adFhdL3f&cG'aP,QaPGL!Ja#!LHd4KG(dL3f&cG'aP,Q4
+XPFb"-CAC$Efe`$3N*6'9f3fpYF#!LHd4KG(dL3f&cG'aP,Q4PF`d*#90PG%CTE'8
+XJ,A3J)RY'D@aP9(P`CAdL)#eM)#*l4QPXC80bC@&dEh*p)L$&,QaPGJd*#8e[GQ8
+XJ,ANJ3f&cG'aP,QaPGL!LHe*PFh9XG(0p)Jd0)RY5CA0eE(4cI5*KDA)ZE'9f#3R
+X%)#*lC'&dI5*PEQ4RB@eP,Q4PFb"XCACMEfe`$3P-CAC$Efe`)#*lC'&dI5*PEQ4
+XRB@eP,Q4PF`d*#90PG%CTE'8J,A3J)RY'D@aP9(P`CAdL)#eM)#*l4QPXC80bC@&
+XdEh*p)L$&,QaPGJd*6@pfC5!YH5"KDA)ZE'9f)#*lFQ9cG@adFhdL$3P0EhCP)#e
+Xj)'&cG(*KE#jXCABJ)RY5CA0eE(4cI5)0#8e[GQ8J,ANJC@&bG'JZE'9f)#*l8Q9
+XcG@adFhdL$3P0EhCP)#ej)'CTFQ8ZE'9f)#*l8Q9cG@adFhdL$3P0EhCP)#ej)(G
+XKG'9b,QaPGL!LHe*PFh9XG(0p)Jd0)RY5CA0eE(4cI5*0C@4eFf%Y-5jXCABJa#!
+XLHd4KG(dL6@9NGA0K,Q4PFb"-CAC$Efe`$3N*6'9f3fpYF#!LHd4KG(dL6@9NGA0
+XK,Q4PF`d*#90PG%CTE'8J,A3J)RY'D@aP9(P`CAdL)#eM)#*l4QPXC80bC@&dEh*
+Xp)L$&,QaPGJd*#8e[GQ8J,ANJ6@9NGA0K,6%ZE'9f)#*l8Q9cG@adFhdL$3N*6@p
+XfC5!YH5"0C@4eFf%Y-LjXCABJ)RY5CA0eE(4cI5)0$5*l8Q9cG@adFhdL6h*KBfa
+XP,QaPGL!Ja#!LHd4KG(dL6h*KBfaP,Q4PFb"-CAC$Efe`$3N*6'9f3fpYF#!LHd4
+XKG(dL6h*KBfaP,Q4PF`d*#90PG%CTE'8J,A3J)RY'D@aP9(P`CAdL)#eM)#*l4QP
+XXC80bC@&dEh*p)L$&,QaPGJd*#8e[GQ8J,ANJ6h*KBfaP,QaPGL!LHe*PFh9XG(0
+Xp)Jd0)RY5CA0eE(4cI5*0D@jPAd9ZC#jXCABJ)-3J)RY%BA4p)NeTEQ9c,Q4PFb"
+X-CAC$Efe`$3N*6'9f3fpYF#!LHd4KG(dL6@PZCA-ZC'9c$3N*8f9d4QPXC5!YG#!
+XLHdCTE'98HA"PI5)J,@-J)RY'D@aP3h*PBA4[FRdL)-8ZE'9f$3N*6@pfC5!YH5"
+X0D@jPAd9ZC#jXCABJ)RY5CA0eE(4cI5)J$3N*6@pfC5!YH5"0D@jP4QPXE#jXCAB
+XJ)RY5CA0eE(4cI5)0#3P0EhCP)#ej)%eTEQ98EhGZ,QaPGL!LHe*PFh9XG(0p)Jd
+X0)RY5CA0eE(4cI5*8EhGPFM%ZE'9f)#$%)#*l4'&dI5*8EhGPFLjNCA-J6'9f3fp
+XYF!d*#8aPGN0[EA!J)RY%BA4p)P4[Gf9b,Q4PF`d*#90PG%CTE'8J,A3J)RY'D@a
+XP9(P`CAdL)#eM)#*l4QPXC80bC@&dEh*p)L$&,QaPGJd*#8e[GQ8J,ANJ9'phCA)
+Xa,QaPGL!LHe*PFh9XG(0p)Jd*#8e[GQ8J,ANJ9'phCA)b,QaPGL!LHe*PFh9XG(0
+Xp)Jd*#8e[GQ8J,ANJ9'phCA)c,QaPGL!LHe*PFh9XG(0p)Jd0)RY5CA0eE(4cI5*
+XVEQpi,QaPGL$%)#*l4'&dI5*VEQpi,Q4PFb"-CAC$Efe`$3N*6'9f3fpYF#!LHd4
+XKG(dLDfj[H#jNCA-0#3P6CA4'D@aP)#ed)#*l4QPXC94jF'9p)L!YBb!LHdCTE'9
+X$FQ9KG'pbI5)Ja5jXCAB0#3P0EhCP)#ej)'YZEhJZE'9f)#*l8Q9cG@adFhdL$3d
+XLHe*PFh9XG(0p)RGTHQ&bC$%ZE'9f)-3J)RY%BA4p)RPPEQ4[FLjNCA-J6'9f3fp
+XYF!d*#8aPGN0[EA!J)RY%BA4p)RPPEQ4[FLjNCA-0#3P6CA4'D@aP)#ed)#*l4QP
+XXC94jF'9p)L!YBb!LHdCTE'9$FQ9KG'pbI5)Ja5jXCAB0#3P0EhCP)#ej)(GTHQ&
+XbC$%ZE'9f)#*l8Q9cG@adFhdL$3N*6@pfC5!YH5"hDATKFQ3b,QaPGL!LHe*PFh9
+XXG(0p)Jd*#8e[GQ8J,ANJGfPkBA*N-bjXCABJ)RY5CA0eE(4cI5)0#3P0EhCP)#e
+Xj)'CKDf9hDASa,QaPGL!LHe*PFh9XG(0p)Jd*#8e[GQ8J,ANJCQ&VCAGTHM)ZE'9
+Xf)#*l8Q9cG@adFhdL$3dLHe*PFh9XG(0p)N%YFh4KFR3ZE'9f)#$%)#*l4'&dI5*
+X"FQ0S,Q4PFb"-CAC$Efe`$3N*6'9f3fpYF#!LHd4KG(dL3A*MD#jNCA-0#3P6CA4
+X'D@aP)#ed)#*l4QPXC94jF'9p)L!YBb!LHdCTE'9$FQ9KG'pbI5)Ja5jXCAB0#3P
+X0EhCP)#ej)%%YCQPXE-8ZE'9f#5*l8Q9cG@adFhdL$3N*6@pfC5!YH5"",@G[B@`
+XZE'9f)#*l8Q9cG@adFhdL$3N*6@pfC5!YH5"",@a[Bf&dC5jXCABJ)RY5CA0eE(4
+XcI5)0#3P0EhCP)#ej)%%YFh4KFR3ZE'9f)#*l8Q9cG@adFhdL$3dLHe*PFh9XG(0
+Xp)N)YFh4KFR3ZE'9f)#$%)#*l4'&dI5*#BA*L,Q4PFb"-CAC$Efe`$3N*6'9f3fp
+XYF#!LHd4KG(dL3Q&bBLjNCA-0#3P6CA4'D@aP)#ed)#*l4QPXC94jF'9p)L!YBb!
+XLHdCTE'9$FQ9KG'pbI5)Ja5jXCAB0#3P0EhCP)#ej)%)YCQPXE-8ZE'9f#5*l8Q9
+XcG@adFhdL$3N*6@pfC5!YH5"#,@G[B@`ZE'9f)#*l8Q9cG@adFhdL$3N*6@pfC5!
+XYH5"#,@a[Bf&dC5jXCABJ)RY5CA0eE(4cI5)0#3P0EhCP)#ej)%)YFh4KFR3ZE'9
+Xf)#*l8Q9cG@adFhdL$3dLHe*PFh9XG(0p)N-YFh4KFR3ZE'9f)#$%)#*l4'&dI5*
+X$BACPE@&Z,Q4PFb"-CAC$Efe`$3N*6'9f3fpYF#!LHd4KG(dL3f&fC@eKELjNCA-
+X0#3P6CA4'D@aP)#ed)#*l4QPXC94jF'9p)L!YBb!LHdCTE'9$FQ9KG'pbI5)Ja5j
+XXCAB0#3P0EhCP)#ej)%-YCQPXE-8ZE'9f#5*l8Q9cG@adFhdL$3N*6@pfC5!YH5"
+X$,@G[B@`ZE'9f)#*l8Q9cG@adFhdL$3N*6@pfC5!YH5"$,@a[Bf&dC5jXCABJ)RY
+X5CA0eE(4cI5)0#3P0EhCP)#ej)%-YFh4KFR3ZE'9f)#*l8Q9cG@adFhdL$3dLHe*
+XPFh9XG(0p)N8YFh4KFR3ZE'9f)#$%)#*l4'&dI5*&E'BZC'9c)%aPGN0[EA!0#3P
+X-CAC$Efe`)#*l4'&dI5*&E'BZC'9c$3N*8f9d4QPXC5!YG#!LHdCTE'98HA"PI5)
+XJ,@-J)RY'D@aP3h*PBA4[FRdL)-8ZE'9f$3N*6@pfC5!YH5"&,@CTE'c&,QaPGJN
+XLHe*PFh9XG(0p)Jd*#8e[GQ8J,ANJ45eREf&X,QaPGL!LHe*PFh9XG(0p)Jd*#8e
+X[GQ8J,ANJ45eXEf0KG'8ZE'9f)#*l8Q9cG@adFhdL$3N*6@pfC5!YH5"&,A0dBA*
+Xd,QaPGL!LHe*PFh9XG(0p)Jd0)RY5CA0eE(4cI5*),A0dBA*d,QaPGL!Ja#!LHd4
+XKG(dL5'9KE'9b,Q4PFb"-CAC$Efe`$3N*6'9f3fpYF#!LHd4KG(dL5'9KE'9b,Q4
+XPF`d*#90PG%CTE'8J,A3J)RY'D@aP9(P`CAdL)#eM)#*l4QPXC80bC@&dEh*p)L$
+X&,QaPGJd*#8e[GQ8J,ANJ5#eQD@aXa5jXCAB*)RY5CA0eE(4cI5)0#3P0EhCP)#e
+Xj)%JYCfpKE#jXCABJ)RY5CA0eE(4cI5)0#3P0EhCP)#ej)%JYE'pMBA4P,QaPGL!
+XLHe*PFh9XG(0p)Jd*#8e[GQ8J,ANJ5#ecG'&bG#jXCABJ)RY5CA0eE(4cI5)0$5*
+Xl8Q9cG@adFhdL5becG'&bG#jXCABJ)-3J)RY%BA4p)NYZD@GSG#jNCA-J6'9f3fp
+XYF!d*#8aPGN0[EA!J)RY%BA4p)NYZD@GSG#jNCA-0#3P6CA4'D@aP)#ed)#*l4QP
+XXC94jF'9p)L!YBb!LHdCTE'9$FQ9KG'pbI5)Ja5jXCAB0#3P0EhCP)#ej)%XYCQP
+XXE-8ZE'9f#5*l8Q9cG@adFhdL$3N*6@pfC5!YH5",,@G[B@`ZE'9f)#*l8Q9cG@a
+XdFhdL$3N*6@pfC5!YH5",,@a[Bf&dC5jXCABJ)RY5CA0eE(4cI5)0#3P0EhCP)#e
+Xj)%XYFh4KFR3ZE'9f)#*l8Q9cG@adFhdL$3dLHe*PFh9XG(0p)P!YFh4KFR3ZE'9
+Xf)#$%)#*l4'&dI5*3FQPPFh3ZC'9c)%aPGN0[EA!0#3P-CAC$Efe`)#*l4'&dI5*
+X3FQPPFh3ZC'9c$3N*8f9d4QPXC5!YG#!LHdCTE'98HA"PI5)J,@-J)RY'D@aP3h*
+XPBA4[FRdL)-8ZE'9f$3N*6@pfC5!YH5"3,@CTE'c&,QaPGJNLHe*PFh9XG(0p)Jd
+X*#8e[GQ8J,ANJ8#eREf&X,QaPGL!LHe*PFh9XG(0p)Jd*#8e[GQ8J,ANJ8#eXEf0
+XKG'8ZE'9f)#*l8Q9cG@adFhdL$3N*6@pfC5!YH5"3,A0dBA*d,QaPGL!LHe*PFh9
+XXG(0p)Jd0)RY5CA0eE(4cI5*5,A0dBA*d,QaPGL!Ja#!LHd4KG(dL8QpRG@8ZC'9
+Xc)%aPGN0[EA!0#3P-CAC$Efe`)#*l4'&dI5*5EfGeC5jNCA-0#3P6CA4'D@aP)#e
+Xd)#*l4QPXC94jF'9p)L!YBb!LHdCTE'9$FQ9KG'pbI5)Ja5jXCAB0#3P0EhCP)#e
+Xj)&)YCQPXE-8ZE'9f#5*l8Q9cG@adFhdL$3N*6@pfC5!YH5"5,@G[B@`ZE'9f)#*
+Xl8Q9cG@adFhdL$3N*6@pfC5!YH5"5,@a[Bf&dC5jXCABJ)RY5CA0eE(4cI5)0#3P
+X0EhCP)#ej)&)YFh4KFR3ZE'9f)#*l8Q9cG@adFhdL$3dLHe*PFh9XG(0p)P-YFh4
+XKFR3ZE'9f)#$%)#*l4'&dI5*6B@eeFQ&T,Q4PFb"-CAC$Efe`$3N*6'9f3fpYF#!
+XLHd4KG(dL8f&YGA*KD5jNCA-0#3P6CA4'D@aP)#ed)#*l4QPXC94jF'9p)L!YBb!
+XLHdCTE'9$FQ9KG'pbI5)Ja5jXCAB0#3P0EhCP)#ej)&-YCQPXE-8ZE'9f#5*l8Q9
+XcG@adFhdL$3N*6@pfC5!YH5"6,@G[B@`ZE'9f)#*l8Q9cG@adFhdL$3N*6@pfC5!
+XYH5"6,@a[Bf&dC5jXCABJ)RY5CA0eE(4cI5)0#3P0EhCP)#ej)&-YFh4KFR3ZE'9
+Xf)#*l8Q9cG@adFhdL$3dLHe*PFh9XG(0p)P3YFh4KFR3ZE'9f)#$%)#*l4'&dI5*
+X8Eh9bDA0d,Q4PFb"-CAC$Efe`$3N*6'9f3fpYF#!LHd4KG(dL9'peFQPcG#jNCA-
+X0#3P6CA4'D@aP)#ed)#*l4QPXC94jF'9p)L!YBb!LHdCTE'9$FQ9KG'pbI5)Ja5j
+XXCAB0#3P0EhCP)#ej)&3YCQPXE-8ZE'9f#5*l8Q9cG@adFhdL$3N*6@pfC5!YH5"
+X8,@G[B@`ZE'9f)#*l8Q9cG@adFhdL$3N*6@pfC5!YH5"8,@a[Bf&dC5jXCABJ)RY
+X5CA0eE(4cI5)0#3P0EhCP)#ej)&3YFh4KFR3ZE'9f)#*l8Q9cG@adFhdL$3dLHe*
+XPFh9XG(0p)PBYFh4KFR3ZE'9f)#$%)#*l4'&dI5*@B@aVHA*TC5jNCA-J6'9f3fp
+XYF!d*#8aPGN0[EA!J)RY%BA4p)PCKE'YjFQPP,Q4PF`d*#90PG%CTE'8J,A3J)RY
+X'D@aP9(P`CAdL)#eM)#*l4QPXC80bC@&dEh*p)L$&,QaPGJd*#8e[GQ8J,ANJ9Le
+XQD@aXa5jXCAB*)RY5CA0eE(4cI5)0#3P0EhCP)#ej)&BYCfpKE#jXCABJ)RY5CA0
+XeE(4cI5)0#3P0EhCP)#ej)&BYE'pMBA4P,QaPGL!LHe*PFh9XG(0p)Jd*#8e[GQ8
+XJ,ANJ9LecG'&bG#jXCABJ)RY5CA0eE(4cI5)0$5*l8Q9cG@adFhdL9becG'&bG#j
+XXCABJ)-3J)RY%BA4p)PGTHQ&bC#jNCA-J6'9f3fpYF!d*#8aPGN0[EA!J)RY%BA4
+Xp)PGTHQ&bC#jNCA-0#3P6CA4'D@aP)#ed)#*l4QPXC94jF'9p)L!YBb!LHdCTE'9
+X$FQ9KG'pbI5)Ja5jXCAB0#3P0EhCP)#ej)&FYCQPXE-8ZE'9f#5*l8Q9cG@adFhd
+XL$3N*6@pfC5!YH5"A,@G[B@`ZE'9f)#*l8Q9cG@adFhdL$3N*6@pfC5!YH5"A,@a
+X[Bf&dC5jXCABJ)RY5CA0eE(4cI5)0#3P0EhCP)#ej)&FYFh4KFR3ZE'9f)#*l8Q9
+XcG@adFhdL$3dLHe*PFh9XG(0p)P&eCA0d,N4KG!R%)#*l4'&dI5*4G@9cG#jdH(3
+XJ6@&VC84PCR-0#3P0B@YP4'9QFb!YF3d*#8e[GQ8J,ANJ)RY%BA4p)P&eCA0d,N4
+XKG#!LHe*PFh9XG(0p)Jd*#90PG%CTE'8J,A3J)RY'D@aP9(P`CAdL)#eM)#*l4QP
+XXC80bC@&dEh*p)L!LHe*PFh9XG(0p)P&eCA0d,Q4KG!d0)RY5CA0eE(4cI5*@B@a
+XXCANZE'9f)#$%)#*l4'&dI5*(C@KPEQj[E5jNCA-J6'9f3fpYF!d*#8aPGN0[EA!
+XJ)RY%BA4p)NGPD'9ZEQpY,Q4PF`d*#90PG%CTE'8J,A3J)RY'D@aP9(P`CAdL)#e
+XM)#*l4QPXC80bC@&dEh*p)L$&,QaPGJd*#8e[GQ8J,ANJ3A0YEf4PGA-ZE'9f)#*
+Xl8Q9cG@adFhdL$3N*6@pfC5!YH5"#B@&XHLjXCABJ)RY5CA0eE(4cI5)0#3P0EhC
+XP)#ej)%TeD@*XCAJZE'9f)#*l8Q9cG@adFhdL$3N*6@pfC5!YH5"2FQ0eFbjXCAB
+XJ)RY5CA0eE(4cI5)0#3P0EhCP)#ej)&0KEQ0dG@dZE'9f)#*l8Q9cG@adFhdL$3N
+X*6@pfC5!YH5"@B@aXCANZE'9f)#*l8Q9cG@adFhdL$3dLHe*PFh9XG(0p)NjPG%K
+XKBfXJ)-6%)#*l6@&M4'PbI5*1CA4)B@0V,R)J)RY0B@0%DA*p)NjPG%KKBfXZFR0
+XbBb"l3R9TE(4*EN4KG'&p)#*l6@&M4'PbI5*6Eh9ZC(-ZFR0bB`d*#90PG#"%BA3
+XJ)RY%BA4p)JN*#5-J6@&VC5"dD'8JD@jdCA*ZB@`J6@&VC5"fBA*TB@*XC5"K)&0
+XSC@aX)(CKFQPKBQaP$3N*4AK`Eh*d)%4KG!N*#3NM)'&ZC#"PH("[FR3JDA3JFfm
+XJ8Q9k)'0KEL"eFf8JDA3JG'mJCQPZC#"dD'PZCh-0#3P6CA3J6f*U4'Pb)#*l6f*
+XU4'PbI5)0#3P&H("[FR3J6f*U4'Pb$3N*8Q9k)#*l6@&M4'PbI5*1CA4)B@0V,R)
+XJ)#ec)#*l6@&M4'PbI5)J,@&`F'9ZC#!YEb!LHe*PFh9XG(0p)NjPG%KKBfX0$5*
+Xl8Q9cG@adFhdL6Q9d5'&MD`R%a#"l3dpLDR0p$3N*6'PZDb"l6Q9d5'&MDdaTEQY
+Xp)(Y$6f*UFhdJ,@mJ)RY5CA0eE(4cI5*1CA4)B@0V$5!J)!N*8f9dCQPXC5!YB5"
+X#)#*l8Q9cG@adFhdL6Q9d5'&MD`d*#8*PCA!J3b`a-L"",$%b)%-X-6)J3L`a-L"
+X$,$%e$FHG!!!"!!!!!@i!!!"Z!!!!2RGbDA4P,Q-ZEb$%)#"l5@jME(9NCAeSB@0
+XV,QJ0)RY2$%jPG%KKBfXZE@&VC5d#!!!!9%9B9%e38b!"!!"S!!!!!&4&@&408&-
+XJ!3!!D!!!!!!!!!!!!!!!!!!!!!!!!('mTiifY3!!BI)!!!'X!R8+NJ!!!!!!!!!
+X!!eFC$J4e&3)%9K8%!e3C,J!!!%!!!!!!"eF)!!Cf"!!&G"`!"PFF!!!!!!!!!!!
+X!"RF!!!8N!!!')J!!"5F!!!!!!)!!!!!!!!!!!!!!!!!!!!!!45836#G9%+6P94$
+XNj5)5T!!!"!!!!!!!!AF*%J&&%UN&0J!!!%J!#8e[EQ&ME`!!!!!!!!()!!(SG!!
+X+!!!!H3#U!I%!#i)!!!B!"!(5!!8$B3*l!G)!"30K!RZRRRCQ!!!!!!!!!!!!!!!
+X!!3!!!!!H!G)!"30K!RX"dJ!&!f%#H`!!!!!!!!!!!!!!!!!!!!!"!!!!!@i!!!"
+XZ!!!!2J$QJd`19!!!!"`!2J!!69"68J!"!!S$lIrr!!!!!!!!!!!$m2rr!!!!6!$
+XX`B!q!3:
+END_OF_FILE
+if test 34635 -ne `wc -c <'sys/mac/NHmake.hqx'`; then
+    echo shar: \"'sys/mac/NHmake.hqx'\" unpacked with wrong size!
+fi
+# end of 'sys/mac/NHmake.hqx'
+if test -f 'sys/share/lev_lex.c2' -a "${1}" != "-c" ; then 
+  echo shar: Renaming existing file \"'sys/share/lev_lex.c2'\" to \"'sys/share/lev_lex.c2.orig'\"
+  mv -f 'sys/share/lev_lex.c2' 'sys/share/lev_lex.c2.orig'
+fi
+echo shar: Extracting \"'sys/share/lev_lex.c2'\" \(21415 characters\)
+sed "s/^X//" >'sys/share/lev_lex.c2' <<'END_OF_FILE'
+X	switch ( yy_act )
+X	    {
+X	    case 0: /* must backtrack */
+X	    /* undo the effects of YY_DO_BEFORE_ACTION */
+X	    *yy_cp = yy_hold_char;
+X	    yy_cp = yy_last_accepting_cpos;
+X	    yy_current_state = yy_last_accepting_state;
+X	    goto yy_find_action;
+X
+Xcase 1:
+X# line 109 "lev_comp.l"
+X{
+X#ifdef FLEX_SCANNER
+X		  /*
+X		   * There is a bug in Flex 2.3 patch level < 6
+X		   * (absent in previous versions)
+X		   * that results in the following behaviour :
+X		   * Once you enter an yymore(), you never exit from it.
+X		   * This should do the trick!
+X		   */
+X		  extern int yy_more_len;
+X
+X		  yy_more_len = 0;
+X#endif
+X		  BEGIN(INITIAL);
+X		  yylval.map = (char *) alloc(yyleng-5);
+X		  strncpy(yylval.map, yytext,yyleng-6);
+X		  yylval.map[yyleng-6] = 0;
+X		  return MAP_ID;
+X		}
+X	YY_BREAK
+Xcase 2:
+X# line 128 "lev_comp.l"
+X{ line_number++; yymore(); }
+X	YY_BREAK
+Xcase 3:
+X# line 129 "lev_comp.l"
+X{ line_number++; }
+X	YY_BREAK
+Xcase 4:
+X# line 130 "lev_comp.l"
+X{ colon_line_number = line_number; return ':'; }
+X	YY_BREAK
+Xcase 5:
+X# line 131 "lev_comp.l"
+Xreturn MESSAGE_ID;
+X	YY_BREAK
+Xcase 6:
+X# line 132 "lev_comp.l"
+Xreturn MAZE_ID;
+X	YY_BREAK
+Xcase 7:
+X# line 133 "lev_comp.l"
+Xreturn NOMAP_ID;
+X	YY_BREAK
+Xcase 8:
+X# line 134 "lev_comp.l"
+Xreturn LEVEL_ID;
+X	YY_BREAK
+Xcase 9:
+X# line 135 "lev_comp.l"
+Xreturn LEV_INIT_ID;
+X	YY_BREAK
+Xcase 10:
+X# line 136 "lev_comp.l"
+Xreturn FLAGS_ID;
+X	YY_BREAK
+Xcase 11:
+X# line 137 "lev_comp.l"
+Xreturn GEOMETRY_ID;
+X	YY_BREAK
+Xcase 12:
+X# line 138 "lev_comp.l"
+X{ BEGIN(MAPC); line_number++; }
+X	YY_BREAK
+Xcase 13:
+X# line 139 "lev_comp.l"
+Xreturn OBJECT_ID;
+X	YY_BREAK
+Xcase 14:
+X# line 140 "lev_comp.l"
+Xreturn MONSTER_ID;
+X	YY_BREAK
+Xcase 15:
+X# line 141 "lev_comp.l"
+Xreturn TRAP_ID;
+X	YY_BREAK
+Xcase 16:
+X# line 142 "lev_comp.l"
+Xreturn DOOR_ID;
+X	YY_BREAK
+Xcase 17:
+X# line 143 "lev_comp.l"
+Xreturn DRAWBRIDGE_ID;
+X	YY_BREAK
+Xcase 18:
+X# line 144 "lev_comp.l"
+Xreturn MAZEWALK_ID;
+X	YY_BREAK
+Xcase 19:
+X# line 145 "lev_comp.l"
+Xreturn WALLIFY_ID;
+X	YY_BREAK
+Xcase 20:
+X# line 146 "lev_comp.l"
+Xreturn REGION_ID;
+X	YY_BREAK
+Xcase 21:
+X# line 147 "lev_comp.l"
+Xreturn RANDOM_OBJECTS_ID;
+X	YY_BREAK
+Xcase 22:
+X# line 148 "lev_comp.l"
+Xreturn RANDOM_MONSTERS_ID;
+X	YY_BREAK
+Xcase 23:
+X# line 149 "lev_comp.l"
+Xreturn RANDOM_PLACES_ID;
+X	YY_BREAK
+Xcase 24:
+X# line 150 "lev_comp.l"
+Xreturn ALTAR_ID;
+X	YY_BREAK
+Xcase 25:
+X# line 151 "lev_comp.l"
+Xreturn LADDER_ID;
+X	YY_BREAK
+Xcase 26:
+X# line 152 "lev_comp.l"
+Xreturn STAIR_ID;
+X	YY_BREAK
+Xcase 27:
+X# line 153 "lev_comp.l"
+Xreturn PORTAL_ID;
+X	YY_BREAK
+Xcase 28:
+X# line 154 "lev_comp.l"
+Xreturn TELEPRT_ID;
+X	YY_BREAK
+Xcase 29:
+X# line 155 "lev_comp.l"
+Xreturn BRANCH_ID;
+X	YY_BREAK
+Xcase 30:
+X# line 156 "lev_comp.l"
+Xreturn FOUNTAIN_ID;
+X	YY_BREAK
+Xcase 31:
+X# line 157 "lev_comp.l"
+Xreturn SINK_ID;
+X	YY_BREAK
+Xcase 32:
+X# line 158 "lev_comp.l"
+Xreturn POOL_ID;
+X	YY_BREAK
+Xcase 33:
+X# line 159 "lev_comp.l"
+Xreturn NON_DIGGABLE_ID;
+X	YY_BREAK
+Xcase 34:
+X# line 160 "lev_comp.l"
+Xreturn NON_PASSWALL_ID;
+X	YY_BREAK
+Xcase 35:
+X# line 161 "lev_comp.l"
+Xreturn ROOM_ID;
+X	YY_BREAK
+Xcase 36:
+X# line 162 "lev_comp.l"
+Xreturn SUBROOM_ID;
+X	YY_BREAK
+Xcase 37:
+X# line 163 "lev_comp.l"
+Xreturn RAND_CORRIDOR_ID;
+X	YY_BREAK
+Xcase 38:
+X# line 164 "lev_comp.l"
+Xreturn CORRIDOR_ID;
+X	YY_BREAK
+Xcase 39:
+X# line 165 "lev_comp.l"
+Xreturn GOLD_ID;
+X	YY_BREAK
+Xcase 40:
+X# line 166 "lev_comp.l"
+Xreturn ENGRAVING_ID;
+X	YY_BREAK
+Xcase 41:
+X# line 167 "lev_comp.l"
+Xreturn NAME_ID;
+X	YY_BREAK
+Xcase 42:
+X# line 168 "lev_comp.l"
+Xreturn CHANCE_ID;
+X	YY_BREAK
+Xcase 43:
+X# line 169 "lev_comp.l"
+Xreturn LEV;
+X	YY_BREAK
+Xcase 44:
+X# line 170 "lev_comp.l"
+X{ yylval.i=D_ISOPEN; return DOOR_STATE; }
+X	YY_BREAK
+Xcase 45:
+X# line 171 "lev_comp.l"
+X{ yylval.i=D_CLOSED; return DOOR_STATE; }
+X	YY_BREAK
+Xcase 46:
+X# line 172 "lev_comp.l"
+X{ yylval.i=D_LOCKED; return DOOR_STATE; }
+X	YY_BREAK
+Xcase 47:
+X# line 173 "lev_comp.l"
+X{ yylval.i=D_NODOOR; return DOOR_STATE; }
+X	YY_BREAK
+Xcase 48:
+X# line 174 "lev_comp.l"
+X{ yylval.i=D_BROKEN; return DOOR_STATE; }
+X	YY_BREAK
+Xcase 49:
+X# line 175 "lev_comp.l"
+X{ yylval.i=W_NORTH; return DIRECTION; }
+X	YY_BREAK
+Xcase 50:
+X# line 176 "lev_comp.l"
+X{ yylval.i=W_EAST; return DIRECTION; }
+X	YY_BREAK
+Xcase 51:
+X# line 177 "lev_comp.l"
+X{ yylval.i=W_SOUTH; return DIRECTION; }
+X	YY_BREAK
+Xcase 52:
+X# line 178 "lev_comp.l"
+X{ yylval.i=W_WEST; return DIRECTION; }
+X	YY_BREAK
+Xcase 53:
+X# line 179 "lev_comp.l"
+X{ yylval.i = -1; return RANDOM_TYPE; }
+X	YY_BREAK
+Xcase 54:
+X# line 180 "lev_comp.l"
+X{ yylval.i = -2; return NONE; }
+X	YY_BREAK
+Xcase 55:
+X# line 181 "lev_comp.l"
+Xreturn O_REGISTER;
+X	YY_BREAK
+Xcase 56:
+X# line 182 "lev_comp.l"
+Xreturn M_REGISTER;
+X	YY_BREAK
+Xcase 57:
+X# line 183 "lev_comp.l"
+Xreturn P_REGISTER;
+X	YY_BREAK
+Xcase 58:
+X# line 184 "lev_comp.l"
+Xreturn A_REGISTER;
+X	YY_BREAK
+Xcase 59:
+X# line 185 "lev_comp.l"
+X{ yylval.i=1; return LEFT_OR_RIGHT; }
+X	YY_BREAK
+Xcase 60:
+X# line 186 "lev_comp.l"
+X{ yylval.i=2; return LEFT_OR_RIGHT; }
+X	YY_BREAK
+Xcase 61:
+X# line 187 "lev_comp.l"
+X{ yylval.i=3; return CENTER; }
+X	YY_BREAK
+Xcase 62:
+X# line 188 "lev_comp.l"
+X{ yylval.i=4; return LEFT_OR_RIGHT; }
+X	YY_BREAK
+Xcase 63:
+X# line 189 "lev_comp.l"
+X{ yylval.i=5; return LEFT_OR_RIGHT; }
+X	YY_BREAK
+Xcase 64:
+X# line 190 "lev_comp.l"
+X{ yylval.i=1; return TOP_OR_BOT; }
+X	YY_BREAK
+Xcase 65:
+X# line 191 "lev_comp.l"
+X{ yylval.i=5; return TOP_OR_BOT; }
+X	YY_BREAK
+Xcase 66:
+X# line 192 "lev_comp.l"
+X{ yylval.i=1; return LIGHT_STATE; }
+X	YY_BREAK
+Xcase 67:
+X# line 193 "lev_comp.l"
+X{ yylval.i=0; return LIGHT_STATE; }
+X	YY_BREAK
+Xcase 68:
+X# line 194 "lev_comp.l"
+X{ yylval.i=0; return FILLING; }
+X	YY_BREAK
+Xcase 69:
+X# line 195 "lev_comp.l"
+X{ yylval.i=1; return FILLING; }
+X	YY_BREAK
+Xcase 70:
+X# line 196 "lev_comp.l"
+X{ yylval.i= AM_NONE; return ALIGNMENT; }
+X	YY_BREAK
+Xcase 71:
+X# line 197 "lev_comp.l"
+X{ yylval.i= AM_LAWFUL; return ALIGNMENT; }
+X	YY_BREAK
+Xcase 72:
+X# line 198 "lev_comp.l"
+X{ yylval.i= AM_NEUTRAL; return ALIGNMENT; }
+X	YY_BREAK
+Xcase 73:
+X# line 199 "lev_comp.l"
+X{ yylval.i= AM_CHAOTIC; return ALIGNMENT; }
+X	YY_BREAK
+Xcase 74:
+X# line 200 "lev_comp.l"
+X{ yylval.i=1; return MON_ATTITUDE; }
+X	YY_BREAK
+Xcase 75:
+X# line 201 "lev_comp.l"
+X{ yylval.i=0; return MON_ATTITUDE; }
+X	YY_BREAK
+Xcase 76:
+X# line 202 "lev_comp.l"
+X{ yylval.i=1; return MON_ALERTNESS; }
+X	YY_BREAK
+Xcase 77:
+X# line 203 "lev_comp.l"
+X{ yylval.i=0; return MON_ALERTNESS; }
+X	YY_BREAK
+Xcase 78:
+X# line 204 "lev_comp.l"
+X{ yylval.i= M_AP_FURNITURE; return MON_APPEARANCE; }
+X	YY_BREAK
+Xcase 79:
+X# line 205 "lev_comp.l"
+X{ yylval.i= M_AP_MONSTER;   return MON_APPEARANCE; }
+X	YY_BREAK
+Xcase 80:
+X# line 206 "lev_comp.l"
+X{ yylval.i= M_AP_OBJECT;    return MON_APPEARANCE; }
+X	YY_BREAK
+Xcase 81:
+X# line 207 "lev_comp.l"
+X{ yylval.i=2; return ALTAR_TYPE; }
+X	YY_BREAK
+Xcase 82:
+X# line 208 "lev_comp.l"
+X{ yylval.i=1; return ALTAR_TYPE; }
+X	YY_BREAK
+Xcase 83:
+X# line 209 "lev_comp.l"
+X{ yylval.i=0; return ALTAR_TYPE; }
+X	YY_BREAK
+Xcase 84:
+X# line 210 "lev_comp.l"
+X{ yylval.i=1; return UP_OR_DOWN; }
+X	YY_BREAK
+Xcase 85:
+X# line 211 "lev_comp.l"
+X{ yylval.i=0; return UP_OR_DOWN; }
+X	YY_BREAK
+Xcase 86:
+X# line 212 "lev_comp.l"
+X{ yylval.i=0; return BOOLEAN; }
+X	YY_BREAK
+Xcase 87:
+X# line 213 "lev_comp.l"
+X{ yylval.i=1; return BOOLEAN; }
+X	YY_BREAK
+Xcase 88:
+X# line 214 "lev_comp.l"
+X{ yylval.i=DUST; return ENGRAVING_TYPE; }
+X	YY_BREAK
+Xcase 89:
+X# line 215 "lev_comp.l"
+X{ yylval.i=ENGRAVE; return ENGRAVING_TYPE; }
+X	YY_BREAK
+Xcase 90:
+X# line 216 "lev_comp.l"
+X{ yylval.i=BURN; return ENGRAVING_TYPE; }
+X	YY_BREAK
+Xcase 91:
+X# line 217 "lev_comp.l"
+X{ yylval.i=MARK; return ENGRAVING_TYPE; }
+X	YY_BREAK
+Xcase 92:
+X# line 218 "lev_comp.l"
+X{ yylval.i=1; return CURSE_TYPE; }
+X	YY_BREAK
+Xcase 93:
+X# line 219 "lev_comp.l"
+X{ yylval.i=2; return CURSE_TYPE; }
+X	YY_BREAK
+Xcase 94:
+X# line 220 "lev_comp.l"
+X{ yylval.i=3; return CURSE_TYPE; }
+X	YY_BREAK
+Xcase 95:
+X# line 221 "lev_comp.l"
+X{ yylval.i=NOTELEPORT; return FLAG_TYPE; }
+X	YY_BREAK
+Xcase 96:
+X# line 222 "lev_comp.l"
+X{ yylval.i=HARDFLOOR; return FLAG_TYPE; }
+X	YY_BREAK
+Xcase 97:
+X# line 223 "lev_comp.l"
+X{ yylval.i=NOMMAP; return FLAG_TYPE; }
+X	YY_BREAK
+Xcase 98:
+X# line 224 "lev_comp.l"
+X{ yylval.i=SHORTSIGHTED; return FLAG_TYPE; }
+X	YY_BREAK
+Xcase 99:
+X# line 225 "lev_comp.l"
+X{ yylval.i=atoi(yytext); return INTEGER; }
+X	YY_BREAK
+Xcase 100:
+X# line 226 "lev_comp.l"
+X{ yytext[yyleng-1] = 0; /* Discard the trailing \" */
+X		  yylval.map = (char *) alloc(strlen(yytext+1)+1);
+X		  strcpy(yylval.map, yytext+1); /* Discard the first \" */
+X		  return STRING; }
+X	YY_BREAK
+Xcase 101:
+X# line 230 "lev_comp.l"
+X{ line_number++; }
+X	YY_BREAK
+Xcase 102:
+X# line 231 "lev_comp.l"
+X;
+X	YY_BREAK
+Xcase 103:
+X# line 232 "lev_comp.l"
+X{ yylval.i = yytext[1]; return CHAR; }
+X	YY_BREAK
+Xcase 104:
+X# line 233 "lev_comp.l"
+X{ return yytext[0]; }
+X	YY_BREAK
+Xcase 105:
+X# line 234 "lev_comp.l"
+XECHO;
+X	YY_BREAK
+Xcase YY_STATE_EOF(INITIAL):
+Xcase YY_STATE_EOF(MAPC):
+X    yyterminate();
+X
+X	    case YY_END_OF_BUFFER:
+X		{
+X		/* amount of text matched not including the EOB char */
+X		int yy_amount_of_matched_text = yy_cp - yytext - 1;
+X
+X		/* undo the effects of YY_DO_BEFORE_ACTION */
+X		*yy_cp = yy_hold_char;
+X
+X		/* note that here we test for yy_c_buf_p "<=" to the position
+X		 * of the first EOB in the buffer, since yy_c_buf_p will
+X		 * already have been incremented past the NUL character
+X		 * (since all states make transitions on EOB to the end-
+X		 * of-buffer state).  Contrast this with the test in yyinput().
+X		 */
+X		if ( yy_c_buf_p <= &yy_current_buffer->yy_ch_buf[yy_n_chars] )
+X		    /* this was really a NUL */
+X		    {
+X		    yy_state_type yy_next_state;
+X
+X		    yy_c_buf_p = yytext + yy_amount_of_matched_text;
+X
+X		    yy_current_state = yy_get_previous_state();
+X
+X		    /* okay, we're now positioned to make the
+X		     * NUL transition.  We couldn't have
+X		     * yy_get_previous_state() go ahead and do it
+X		     * for us because it doesn't know how to deal
+X		     * with the possibility of jamming (and we
+X		     * don't want to build jamming into it because
+X		     * then it will run more slowly)
+X		     */
+X
+X		    yy_next_state = yy_try_NUL_trans( yy_current_state );
+X
+X		    yy_bp = yytext + YY_MORE_ADJ;
+X
+X		    if ( yy_next_state )
+X			{
+X			/* consume the NUL */
+X			yy_cp = ++yy_c_buf_p;
+X			yy_current_state = yy_next_state;
+X			goto yy_match;
+X			}
+X
+X		    else
+X			{
+X			    yy_cp = yy_last_accepting_cpos;
+X			    yy_current_state = yy_last_accepting_state;
+X			goto yy_find_action;
+X			}
+X		    }
+X
+X		else switch ( yy_get_next_buffer() )
+X		    {
+X		    case EOB_ACT_END_OF_FILE:
+X			{
+X			yy_did_buffer_switch_on_eof = 0;
+X
+X			if ( yywrap() )
+X			    {
+X			    /* note: because we've taken care in
+X			     * yy_get_next_buffer() to have set up yytext,
+X			     * we can now set up yy_c_buf_p so that if some
+X			     * total hoser (like flex itself) wants
+X			     * to call the scanner after we return the
+X			     * YY_NULL, it'll still work - another YY_NULL
+X			     * will get returned.
+X			     */
+X			    yy_c_buf_p = yytext + YY_MORE_ADJ;
+X
+X			    yy_act = YY_STATE_EOF((yy_start - 1) / 2);
+X			    goto do_action;
+X			    }
+X
+X			else
+X			    {
+X			    if ( ! yy_did_buffer_switch_on_eof )
+X				YY_NEW_FILE;
+X			    }
+X			}
+X			break;
+X
+X		    case EOB_ACT_CONTINUE_SCAN:
+X			yy_c_buf_p = yytext + yy_amount_of_matched_text;
+X
+X			yy_current_state = yy_get_previous_state();
+X
+X			yy_cp = yy_c_buf_p;
+X			yy_bp = yytext + YY_MORE_ADJ;
+X			goto yy_match;
+X
+X		    case EOB_ACT_LAST_MATCH:
+X			yy_c_buf_p =
+X			    &yy_current_buffer->yy_ch_buf[yy_n_chars];
+X
+X			yy_current_state = yy_get_previous_state();
+X
+X			yy_cp = yy_c_buf_p;
+X			yy_bp = yytext + YY_MORE_ADJ;
+X			goto yy_find_action;
+X		    }
+X		break;
+X		}
+X
+X	    default:
+X#ifdef FLEX_DEBUG
+X		printf( "action # %d\n", yy_act );
+X#endif
+X		YY_FATAL_ERROR(
+X			"fatal flex scanner internal error--no action found" );
+X	    }
+X	}
+X    }
+X
+X
+X/* yy_get_next_buffer - try to read in a new buffer
+X *
+X * synopsis
+X *     int yy_get_next_buffer();
+X *     
+X * returns a code representing an action
+X *     EOB_ACT_LAST_MATCH - 
+X *     EOB_ACT_CONTINUE_SCAN - continue scanning from current position
+X *     EOB_ACT_END_OF_FILE - end of file
+X */
+X
+Xstatic int yy_get_next_buffer()
+X
+X    {
+X    register YY_CHAR *dest = yy_current_buffer->yy_ch_buf;
+X    register YY_CHAR *source = yytext - 1; /* copy prev. char, too */
+X    register int number_to_move, i;
+X    int ret_val;
+X
+X    if ( yy_c_buf_p > &yy_current_buffer->yy_ch_buf[yy_n_chars + 1] )
+X	YY_FATAL_ERROR(
+X		"fatal flex scanner internal error--end of buffer missed" );
+X
+X    /* try to read more data */
+X
+X    /* first move last chars to start of buffer */
+X    number_to_move = yy_c_buf_p - yytext;
+X
+X    for ( i = 0; i < number_to_move; ++i )
+X	*(dest++) = *(source++);
+X
+X    if ( yy_current_buffer->yy_eof_status != EOF_NOT_SEEN )
+X	/* don't do the read, it's not guaranteed to return an EOF,
+X	 * just force an EOF
+X	 */
+X	yy_n_chars = 0;
+X
+X    else
+X	{
+X	int num_to_read = yy_current_buffer->yy_buf_size - number_to_move - 1;
+X
+X	if ( num_to_read > YY_READ_BUF_SIZE )
+X	    num_to_read = YY_READ_BUF_SIZE;
+X
+X	else if ( num_to_read <= 0 )
+X	    YY_FATAL_ERROR( "fatal error - scanner input buffer overflow" );
+X
+X	/* read in more data */
+X	YY_INPUT( (&yy_current_buffer->yy_ch_buf[number_to_move]),
+X		  yy_n_chars, num_to_read );
+X	}
+X
+X    if ( yy_n_chars == 0 )
+X	{
+X	if ( number_to_move == 1 )
+X	    {
+X	    ret_val = EOB_ACT_END_OF_FILE;
+X	    yy_current_buffer->yy_eof_status = EOF_DONE;
+X	    }
+X
+X	else
+X	    {
+X	    ret_val = EOB_ACT_LAST_MATCH;
+X	    yy_current_buffer->yy_eof_status = EOF_PENDING;
+X	    }
+X	}
+X
+X    else
+X	ret_val = EOB_ACT_CONTINUE_SCAN;
+X
+X    yy_n_chars += number_to_move;
+X    yy_current_buffer->yy_ch_buf[yy_n_chars] = YY_END_OF_BUFFER_CHAR;
+X    yy_current_buffer->yy_ch_buf[yy_n_chars + 1] = YY_END_OF_BUFFER_CHAR;
+X
+X    /* yytext begins at the second character in yy_ch_buf; the first
+X     * character is the one which preceded it before reading in the latest
+X     * buffer; it needs to be kept around in case it's a newline, so
+X     * yy_get_previous_state() will have with '^' rules active
+X     */
+X
+X    yytext = &yy_current_buffer->yy_ch_buf[1];
+X
+X    return ( ret_val );
+X    }
+X
+X
+X/* yy_get_previous_state - get the state just before the EOB char was reached
+X *
+X * synopsis
+X *     yy_state_type yy_get_previous_state();
+X */
+X
+Xstatic yy_state_type yy_get_previous_state()
+X
+X    {
+X    register yy_state_type yy_current_state;
+X    register YY_CHAR *yy_cp;
+X
+X    register YY_CHAR *yy_bp = yytext;
+X
+X    yy_current_state = yy_start;
+X    if ( yy_bp[-1] == '\n' )
+X	++yy_current_state;
+X
+X    for ( yy_cp = yytext + YY_MORE_ADJ; yy_cp < yy_c_buf_p; ++yy_cp )
+X	{
+X	register YY_CHAR yy_c = (*yy_cp ? yy_ec[*yy_cp] : 1);
+X	if ( yy_accept[yy_current_state] )
+X	    {
+X	    yy_last_accepting_state = yy_current_state;
+X	    yy_last_accepting_cpos = yy_cp;
+X	    }
+X	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
+X	    {
+X	    yy_current_state = yy_def[yy_current_state];
+X	    if ( yy_current_state >= 573 )
+X		yy_c = yy_meta[yy_c];
+X	    }
+X	yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
+X	}
+X
+X    return ( yy_current_state );
+X    }
+X
+X
+X/* yy_try_NUL_trans - try to make a transition on the NUL character
+X *
+X * synopsis
+X *     next_state = yy_try_NUL_trans( current_state );
+X */
+X
+X#ifdef YY_USE_PROTOS
+Xstatic yy_state_type yy_try_NUL_trans( register yy_state_type yy_current_state )
+X#else
+Xstatic yy_state_type yy_try_NUL_trans( yy_current_state )
+Xregister yy_state_type yy_current_state;
+X#endif
+X
+X    {
+X    register int yy_is_jam;
+X    register YY_CHAR *yy_cp = yy_c_buf_p;
+X
+X    register YY_CHAR yy_c = 1;
+X    if ( yy_accept[yy_current_state] )
+X	{
+X	yy_last_accepting_state = yy_current_state;
+X	yy_last_accepting_cpos = yy_cp;
+X	}
+X    while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
+X	{
+X	yy_current_state = yy_def[yy_current_state];
+X	if ( yy_current_state >= 573 )
+X	    yy_c = yy_meta[yy_c];
+X	}
+X    yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
+X    yy_is_jam = (yy_current_state == 572);
+X
+X    return ( yy_is_jam ? 0 : yy_current_state );
+X    }
+X
+X
+X#ifdef YY_USE_PROTOS
+Xstatic void yyunput( YY_CHAR c, register YY_CHAR *yy_bp )
+X#else
+Xstatic void yyunput( c, yy_bp )
+XYY_CHAR c;
+Xregister YY_CHAR *yy_bp;
+X#endif
+X
+X    {
+X    register YY_CHAR *yy_cp = yy_c_buf_p;
+X
+X    /* undo effects of setting up yytext */
+X    *yy_cp = yy_hold_char;
+X
+X    if ( yy_cp < yy_current_buffer->yy_ch_buf + 2 )
+X	{ /* need to shift things up to make room */
+X	register int number_to_move = yy_n_chars + 2; /* +2 for EOB chars */
+X	register YY_CHAR *dest =
+X	    &yy_current_buffer->yy_ch_buf[yy_current_buffer->yy_buf_size + 2];
+X	register YY_CHAR *source =
+X	    &yy_current_buffer->yy_ch_buf[number_to_move];
+X
+X	while ( source > yy_current_buffer->yy_ch_buf )
+X	    *--dest = *--source;
+X
+X	yy_cp += dest - source;
+X	yy_bp += dest - source;
+X	yy_n_chars = yy_current_buffer->yy_buf_size;
+X
+X	if ( yy_cp < yy_current_buffer->yy_ch_buf + 2 )
+X	    YY_FATAL_ERROR( "flex scanner push-back overflow" );
+X	}
+X
+X    if ( yy_cp > yy_bp && yy_cp[-1] == '\n' )
+X	yy_cp[-2] = '\n';
+X
+X    *--yy_cp = c;
+X
+X    /* note: the formal parameter *must* be called "yy_bp" for this
+X     *       macro to now work correctly
+X     */
+X    YY_DO_BEFORE_ACTION; /* set up yytext again */
+X    }
+X
+X
+X#ifdef __cplusplus
+Xstatic int yyinput()
+X#else
+Xstatic int input()
+X#endif
+X
+X    {
+X    int c;
+X    YY_CHAR *yy_cp = yy_c_buf_p;
+X
+X    *yy_cp = yy_hold_char;
+X
+X    if ( *yy_c_buf_p == YY_END_OF_BUFFER_CHAR )
+X	{
+X	/* yy_c_buf_p now points to the character we want to return.
+X	 * If this occurs *before* the EOB characters, then it's a
+X	 * valid NUL; if not, then we've hit the end of the buffer.
+X	 */
+X	if ( yy_c_buf_p < &yy_current_buffer->yy_ch_buf[yy_n_chars] )
+X	    /* this was really a NUL */
+X	    *yy_c_buf_p = '\0';
+X
+X	else
+X	    { /* need more input */
+X	    yytext = yy_c_buf_p;
+X	    ++yy_c_buf_p;
+X
+X	    switch ( yy_get_next_buffer() )
+X		{
+X		case EOB_ACT_END_OF_FILE:
+X		    {
+X		    if ( yywrap() )
+X			{
+X			yy_c_buf_p = yytext + YY_MORE_ADJ;
+X			return ( EOF );
+X			}
+X
+X		    YY_NEW_FILE;
+X
+X#ifdef __cplusplus
+X		    return ( yyinput() );
+X#else
+X		    return ( input() );
+X#endif
+X		    }
+X		    break;
+X
+X		case EOB_ACT_CONTINUE_SCAN:
+X		    yy_c_buf_p = yytext + YY_MORE_ADJ;
+X		    break;
+X
+X		case EOB_ACT_LAST_MATCH:
+X#ifdef __cplusplus
+X		    YY_FATAL_ERROR( "unexpected last match in yyinput()" );
+X#else
+X		    YY_FATAL_ERROR( "unexpected last match in input()" );
+X#endif
+X		}
+X	    }
+X	}
+X
+X    c = *yy_c_buf_p;
+X    yy_hold_char = *++yy_c_buf_p;
+X
+X    return ( c );
+X    }
+X
+X
+X#ifdef YY_USE_PROTOS
+Xvoid yyrestart( FILE *input_file )
+X#else
+Xvoid yyrestart( input_file )
+XFILE *input_file;
+X#endif
+X
+X    {
+X    yy_init_buffer( yy_current_buffer, input_file );
+X    yy_load_buffer_state();
+X    }
+X
+X
+X#ifdef YY_USE_PROTOS
+Xvoid yy_switch_to_buffer( YY_BUFFER_STATE new_buffer )
+X#else
+Xvoid yy_switch_to_buffer( new_buffer )
+XYY_BUFFER_STATE new_buffer;
+X#endif
+X
+X    {
+X    if ( yy_current_buffer == new_buffer )
+X	return;
+X
+X    if ( yy_current_buffer )
+X	{
+X	/* flush out information for old buffer */
+X	*yy_c_buf_p = yy_hold_char;
+X	yy_current_buffer->yy_buf_pos = yy_c_buf_p;
+X	yy_current_buffer->yy_n_chars = yy_n_chars;
+X	}
+X
+X    yy_current_buffer = new_buffer;
+X    yy_load_buffer_state();
+X
+X    /* we don't actually know whether we did this switch during
+X     * EOF (yywrap()) processing, but the only time this flag
+X     * is looked at is after yywrap() is called, so it's safe
+X     * to go ahead and always set it.
+X     */
+X    yy_did_buffer_switch_on_eof = 1;
+X    }
+X
+X
+X#ifdef YY_USE_PROTOS
+Xvoid yy_load_buffer_state( void )
+X#else
+Xvoid yy_load_buffer_state()
+X#endif
+X
+X    {
+X    yy_n_chars = yy_current_buffer->yy_n_chars;
+X    yytext = yy_c_buf_p = yy_current_buffer->yy_buf_pos;
+X    yyin = yy_current_buffer->yy_input_file;
+X    yy_hold_char = *yy_c_buf_p;
+X    }
+X
+X
+X#ifdef YY_USE_PROTOS
+XYY_BUFFER_STATE yy_create_buffer( FILE *file, int size )
+X#else
+XYY_BUFFER_STATE yy_create_buffer( file, size )
+XFILE *file;
+Xint size;
+X#endif
+X
+X    {
+X    YY_BUFFER_STATE b;
+X
+X    b = (YY_BUFFER_STATE) malloc( sizeof( struct yy_buffer_state ) );
+X
+X    if ( ! b )
+X	YY_FATAL_ERROR( "out of dynamic memory in yy_create_buffer()" );
+X
+X    b->yy_buf_size = size;
+X
+X    /* yy_ch_buf has to be 2 characters longer than the size given because
+X     * we need to put in 2 end-of-buffer characters.
+X     */
+X    b->yy_ch_buf = (YY_CHAR *) malloc( (unsigned) (b->yy_buf_size + 2) );
+X
+X    if ( ! b->yy_ch_buf )
+X	YY_FATAL_ERROR( "out of dynamic memory in yy_create_buffer()" );
+X
+X    yy_init_buffer( b, file );
+X
+X    return ( b );
+X    }
+X
+X
+X#ifdef YY_USE_PROTOS
+Xvoid yy_delete_buffer( YY_BUFFER_STATE b )
+X#else
+Xvoid yy_delete_buffer( b )
+XYY_BUFFER_STATE b;
+X#endif
+X
+X    {
+X    if ( b == yy_current_buffer )
+X	yy_current_buffer = (YY_BUFFER_STATE) 0;
+X
+X    free( (char *) b->yy_ch_buf );
+X    free( (char *) b );
+X    }
+X
+X
+X#ifdef YY_USE_PROTOS
+Xvoid yy_init_buffer( YY_BUFFER_STATE b, FILE *file )
+X#else
+Xvoid yy_init_buffer( b, file )
+XYY_BUFFER_STATE b;
+XFILE *file;
+X#endif
+X
+X    {
+X    b->yy_input_file = file;
+X
+X    /* we put in the '\n' and start reading from [1] so that an
+X     * initial match-at-newline will be true.
+X     */
+X
+X    b->yy_ch_buf[0] = '\n';
+X    b->yy_n_chars = 1;
+X
+X    /* we always need two end-of-buffer characters.  The first causes
+X     * a transition to the end-of-buffer state.  The second causes
+X     * a jam in that state.
+X     */
+X    b->yy_ch_buf[1] = YY_END_OF_BUFFER_CHAR;
+X    b->yy_ch_buf[2] = YY_END_OF_BUFFER_CHAR;
+X
+X    b->yy_buf_pos = &b->yy_ch_buf[1];
+X
+X    b->yy_eof_status = EOF_NOT_SEEN;
+X    }
+X# line 234 "lev_comp.l"
+X
+X#ifdef	AMIGA
+Xlong *alloc(n)
+X	unsigned n;
+X{
+X	return ((long *)malloc (n));
+X}
+X#endif
+X
+X/* routine to switch to another input file; needed for flex */
+Xvoid init_yyin( input_f )
+XFILE *input_f;
+X{
+X#ifdef FLEX_SCANNER
+X	if (yyin)
+X	    yyrestart(input_f);
+X	else
+X#endif
+X	    yyin = input_f;
+X}
+X/* analogous routine (for completeness) */
+Xvoid init_yyout( output_f )
+XFILE *output_f;
+X{
+X	yyout = output_f;
+X}
+X
+X
+END_OF_FILE
+if test 21415 -ne `wc -c <'sys/share/lev_lex.c2'`; then
+    echo shar: \"'sys/share/lev_lex.c2'\" unpacked with wrong size!
+fi
+# end of 'sys/share/lev_lex.c2'
+echo shar: End of archive 23 \(of 31\).
+cp /dev/null ark23isdone
+MISSING=""
+for I in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 ; do
+    if test ! -f ark${I}isdone ; then
+	MISSING="${MISSING} ${I}"
+    fi
+done
+if test "${MISSING}" = "" ; then
+    echo You have unpacked all 31 archives.
+    echo "Now execute 'patchit.sh'"
+    rm -f ark[1-9]isdone ark[1-9][0-9]isdone
+else
+    echo You still need to unpack the following archives:
+    echo "        " ${MISSING}
+fi
+##  End of shell archive.
+exit 0
