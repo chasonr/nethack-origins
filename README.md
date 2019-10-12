@@ -7,8 +7,8 @@ Sources of these files are as follows:
   available at https://archive.org/details/utzoo-wiseman-usenet-archive and numerous
   other sites.
 
-* For NetHack 3.1.0 through 3.1.3: These are files saved from the UUNet FTP site while
-  that site still operated.
+* For NetHack 3.1.0 through 3.1.3, and the nethack-2.3e-uunet directory: These are files
+  saved from the UUNet FTP site while that site still operated.
 
 These posts contain "shar" archives, which when run by a POSIX-compatible shell, generate
 the archived files in the current directory. I have run these shar archives on my own
