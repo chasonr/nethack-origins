@@ -1,20 +1,43 @@
-These files preserve the patch posted to rec.games.hack to give the differences
-between NetHack 3.1.3 and NetHack-- 3.1.3.
+This is part 3 of the NetHack-- 3.1.3 patch, as posted to rec.games.hack
+and extracted from the Internet Archive at
+https://archive.org/download/usenet-rec/rec.games.hack.mbox.zip .
 
-=== Reconstructed Usenet post begins here ===
-Chris Herborth's profile photo
-Chris Herborth
-unread,
-Aug 25, 1993, 9:43:24 PM
-to
-Submitted-by: cher...@semprini.tdkcs.waterloo.on.ca
+The resulting patch applies cleanly to NetHack 3.1.3.
+
+=== Begin Usenet post ===
+X-Google-Language: ENGLISH,ASCII-7-bit
+X-Google-Thread: 110b21,a3688873aa39ac4d,start
+X-Google-Attributes: gid110b21,public
+X-Google-Thread: 1117c9,a3688873aa39ac4d,start
+X-Google-Attributes: gid1117c9,public
+X-Google-ArrivalTime: 1993-08-25 21:32:55 PST
+Xref: gmd.de rec.games.hack:14723 alt.sources:1454
+Path: gmd.de!xlink.net!howland.reston.ans.net!usenet.ins.cwru.edu!magnus.acs.ohio-state.edu!math.ohio-state.edu!uunet.ca!news2.uunet.ca!xenitec!tdkcs!semprini.tdkcs.waterloo.on.ca!cherborth
+From: cherborth@semprini.tdkcs.waterloo.on.ca (Chris Herborth)
+Newsgroups: rec.games.hack,alt.sources
+Distribution: world
+Message-ID: <H.eg.Y15ve997T_E@semprini.tdkcs.waterloo.on.ca>
+Organization: InterZONE Design
+Subject: NetHack-- 3.1.3 Patch (Fixed, 03/03)
+Keywords: oops, patch, fixed, expansion
+Summary: Use this instead of the .tar.Z file.
+Followup-To: rec.games.hack
+Reply-To: cherborth@semprini.tdkcs.waterloo.on.ca
+X-Software: HERMES GUS 1.10 Rev. May 17 1993
+Date: Wed, 25 Aug 1993 20:43:24 EST
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Lines: 945
+
+Submitted-by: cherborth@semprini.tdkcs.waterloo.on.ca
 Archive-name: NetHack--/part03
 
-Here is the fixed version of the NetHack-- 3.1.3 Patch. Use this
-instead of the compressed tar version that I posted a few days ago.
+Here is the fixed version of the NetHack-- 3.1.3 Patch.  Use this
+instead of the compressed tar version that I posted a few days ago. 
 Sorry for the confusion.
 
-NetHack-- is an unauthorised expansion to NetHack. This patch will turn
+NetHack-- is an unauthorised expansion to NetHack.  This patch will turn
 your NetHack 3.1.3 source code into NetHack-- 3.1.3.
 
 Binary versions are available for the Atari ST/TT/Falcon030, OS/2 2.x,
@@ -27,19 +50,19 @@ and DOS (386 or better); check your favourite ftp sites.
 # file NH31C--.Patch continued
 #
 if test ! -r _shar_seq_.tmp; then
-echo 'Please unpack part 1 first!'
-exit 1
+	echo 'Please unpack part 1 first!'
+	exit 1
 fi
 (read Scheck
-if test "$Scheck" != 3; then
-echo Please unpack part "$Scheck" next!
-exit 1
-else
-exit 0
-fi
+ if test "$Scheck" != 3; then
+	echo Please unpack part "$Scheck" next!
+	exit 1
+ else
+	exit 0
+ fi
 ) < _shar_seq_.tmp || exit 1
 if test ! -f _shar_wnt_.tmp; then
-echo 'x - still skipping NH31C--.Patch'
+	echo 'x - still skipping NH31C--.Patch'
 else
 echo 'x - continuing file NH31C--.Patch'
 sed 's/^X//' << 'SHAR_EOF' >> 'NH31C--.Patch' &&
@@ -185,8 +208,8 @@ X  /*	ARRAY TERMINATOR	*/
 X  	{ "", 0, 0, 0, 0, 0, 0, 0,
 X  	  { NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK },
 Xdiff -c -r ../nh31c/src/o_init.c ./src/o_init.c
-X*** ../nh31c/src/o_init.c Thu Aug 05 10:24:30 1993
-X--- ./src/o_init.c Fri Aug 20 13:28:10 1993
+X*** ../nh31c/src/o_init.c	Thu Aug 05 10:24:30 1993
+X--- ./src/o_init.c	Fri Aug 20 13:28:10 1993
 X***************
 X*** 3,9 ****
 X--- 3,13 ----
@@ -222,8 +245,8 @@ X      if (ct == 0) {
 X  	You("haven't discovered anything yet...");
 X      } else
 Xdiff -c -r ../nh31c/src/objects.c ./src/objects.c
-X*** ../nh31c/src/objects.c Fri Jun 11 14:37:20 1993
-X--- ./src/objects.c Fri Aug 20 13:25:54 1993
+X*** ../nh31c/src/objects.c	Fri Jun 11 14:37:20 1993
+X--- ./src/objects.c	Fri Aug 20 13:25:54 1993
 X***************
 X*** 96,106 ****
 X  WEAPON("lance",         NULL,           1, 0, 0,  8,180, 10, 6, 8, 0, IRON, HI_METAL),
@@ -448,8 +471,8 @@ X  WAND("magic missile",   "steel",        50, 150, 1, RAY,       IRON,     HI_M
 X  WAND("fire",            "hexagonal",    40, 175, 1, RAY,       IRON,     HI_METAL),
 X  WAND("cold",            "short",        40, 175, 1, RAY,       IRON,     HI_METAL),
 Xdiff -c -r ../nh31c/src/objnam.c ./src/objnam.c
-X*** ../nh31c/src/objnam.c Thu Aug 05 10:24:32 1993
-X--- ./src/objnam.c Fri Aug 20 13:25:58 1993
+X*** ../nh31c/src/objnam.c	Thu Aug 05 10:24:32 1993
+X--- ./src/objnam.c	Fri Aug 20 13:25:58 1993
 X***************
 X*** 25,31 ****
 X--- 25,39 ----
@@ -469,8 +492,8 @@ X  	{ LOCK_PICK, "osaku" },
 X  	{ WOODEN_HARP, "koto" },
 X  	{ KNIFE, "shito" },
 Xdiff -c -r ../nh31c/src/potion.c ./src/potion.c
-X*** ../nh31c/src/potion.c Thu Aug 05 10:24:38 1993
-X--- ./src/potion.c Fri Aug 20 13:26:00 1993
+X*** ../nh31c/src/potion.c	Thu Aug 05 10:24:38 1993
+X--- ./src/potion.c	Fri Aug 20 13:26:00 1993
 X***************
 X*** 307,312 ****
 X--- 307,316 ----
@@ -485,8 +508,8 @@ X  	case POT_WATER:
 X  		if(!otmp->blessed && !otmp->cursed) {
 X  			pline("This tastes like %swater.",
 Xdiff -c -r ../nh31c/src/shk.c ./src/shk.c
-X*** ../nh31c/src/shk.c Thu Aug 05 10:24:58 1993
-X--- ./src/shk.c Fri Aug 20 13:30:30 1993
+X*** ../nh31c/src/shk.c	Thu Aug 05 10:24:58 1993
+X--- ./src/shk.c	Fri Aug 20 13:30:30 1993
 X***************
 X*** 225,231 ****
 X  	nokops = ((mons[PM_KEYSTONE_KOP].geno & (G_GENOD | G_EXTINCT)) &&
@@ -547,8 +570,8 @@ X  	}
 X  }
 X  #endif	/* KOPS */
 Xdiff -c -r ../nh31c/src/sounds.c ./src/sounds.c
-X*** ../nh31c/src/sounds.c Fri Jun 11 13:39:42 1993
-X--- ./src/sounds.c Fri Aug 20 13:26:06 1993
+X*** ../nh31c/src/sounds.c	Fri Jun 11 13:39:42 1993
+X--- ./src/sounds.c	Fri Aug 20 13:26:06 1993
 X***************
 X*** 113,118 ****
 X--- 113,119 ----
@@ -587,8 +610,8 @@ X      if (level.flags.has_zoo && !rn2(200)) {
 X  	static const char *zoo_msg[3] = {
 X  		"hear a sound reminiscent of an elephant stepping on a peanut.",
 Xdiff -c -r ../nh31c/src/spell.c ./src/spell.c
-X*** ../nh31c/src/spell.c Thu Aug 05 10:25:04 1993
-X--- ./src/spell.c Fri Aug 20 13:26:10 1993
+X*** ../nh31c/src/spell.c	Thu Aug 05 10:25:04 1993
+X--- ./src/spell.c	Fri Aug 20 13:26:10 1993
 X***************
 X*** 305,310 ****
 X--- 305,311 ----
@@ -610,8 +633,8 @@ X  		(void) seffects(pseudo);
 X  		break;
 X  	case SPE_HASTE_SELF:
 Xdiff -c -r ../nh31c/src/wizard.c ./src/wizard.c
-X*** ../nh31c/src/wizard.c Thu Aug 05 10:25:20 1993
-X--- ./src/wizard.c Fri Aug 20 13:26:12 1993
+X*** ../nh31c/src/wizard.c	Thu Aug 05 10:25:20 1993
+X--- ./src/wizard.c	Fri Aug 20 13:26:12 1993
 X***************
 X*** 30,36 ****
 X  	PM_ELF_LORD, PM_ELVENKING, PM_YELLOW_DRAGON, PM_LEOCROTTA,
@@ -630,8 +653,8 @@ X  #endif
 X  	};
 X  
 Xdiff -c -r ../nh31c/sys/atari/Install.tos ./sys/atari/Install.tos
-X*** ../nh31c/sys/atari/Install.tos Mon Jan 25 14:32:40 1993
-X--- ./sys/atari/Install.tos Fri Aug 20 13:42:10 1993
+X*** ../nh31c/sys/atari/Install.tos	Mon Jan 25 14:32:40 1993
+X--- ./sys/atari/Install.tos	Fri Aug 20 13:42:10 1993
 X***************
 X*** 3,8 ****
 X--- 3,9 ----
@@ -657,8 +680,8 @@ X
 X      Next, go to the top, util, dat, and doc directories, and edit the Makefiles
 X      there, as necessary.  You'll need nroff and/or TeX to do the files in doc;
 Xdiff -c -r ../nh31c/sys/msdos/MakeMSC.src ./sys/msdos/MakeMSC.src
-X*** ../nh31c/sys/msdos/MakeMSC.src Thu Aug 05 10:25:56 1993
-X--- ./sys/msdos/MakeMSC.src Fri Aug 20 13:27:18 1993
+X*** ../nh31c/sys/msdos/MakeMSC.src	Thu Aug 05 10:25:56 1993
+X--- ./sys/msdos/MakeMSC.src	Fri Aug 20 13:27:18 1993
 X***************
 X*** 67,73 ****
 X  # command line exceeds the MSDOS 128 character limit.
@@ -677,8 +700,8 @@ X  OVLMUCKING =	# None required
 X  MSC6MUCK =	# None required
 X  OVERLAY =	# None required
 Xdiff -c -r ../nh31c/sys/unix/Makefile.src ./sys/unix/Makefile.src
-X*** ../nh31c/sys/unix/Makefile.src Thu Aug 05 10:26:36 1993
-X--- ./sys/unix/Makefile.src Fri Aug 20 13:34:28 1993
+X*** ../nh31c/sys/unix/Makefile.src	Thu Aug 05 10:26:36 1993
+X--- ./sys/unix/Makefile.src	Fri Aug 20 13:34:28 1993
 X***************
 X*** 21,26 ****
 X--- 21,31 ----
@@ -727,8 +750,8 @@ rm -f _shar_wnt_.tmp
 fi
 # ============= ReadMe.Too ==============
 if test -f 'ReadMe.Too' -a X"$1" != X"-c"; then
-echo 'x - skipping ReadMe.Too (File already exists)'
-rm -f _shar_wnt_.tmp
+	echo 'x - skipping ReadMe.Too (File already exists)'
+	rm -f _shar_wnt_.tmp
 else
 > _shar_wnt_.tmp
 echo 'x - extracting ReadMe.Too (Text)'
@@ -736,153 +759,153 @@ sed 's/^X//' << 'SHAR_EOF' > 'ReadMe.Too' &&
 XNetHack-- 3.1 pl 3
 X~~~~~~~~~~~~~~~~~~
 X
-XOnce upon a time there was NetHack 3.0. NetHack 3.0 was a great game,
-Xand many people loved to play it. Hopes were high as the fabled
+XOnce upon a time there was NetHack 3.0.  NetHack 3.0 was a great game,
+Xand many people loved to play it.  Hopes were high as the fabled
 XDevelopment Team, the raving horde responsible for the code, worked on
 Xversion 3.1.
 X
-XUnfortunately, it took them a long time. Actually, this was good,
+XUnfortunately, it took them a long time.  Actually, this was good,
 Xbecause it gave them a chance to work out many bugs, and rethink almost
-Xeverything. The result was NetHack 3.1, a brilliant successor to 3.0.
+Xeverything.  The result was NetHack 3.1, a brilliant successor to 3.0.
 X
 XDuring the Time of Great Waiting between 3.0 and 3.1, some people played
-XNetHack too much, and got a bit sick of not seeing anything new. A
-Xcouple of these hackers, Yuval Oren (yu...@ocf.berkeley.edu) and Tom
-XProudfoot (pro...@ocf.berkeley.edu), decided to expand Nethack.
+XNetHack too much, and got a bit sick of not seeing anything new.  A
+Xcouple of these hackers, Yuval Oren (yuval@ocf.berkeley.edu) and Tom
+XProudfoot (proudft@ocf.berkeley.edu), decided to expand Nethack. 
 XThey added a bunch of new Artifacts, many monsters, and over a dozen new
 Xcharacter classes (each letter of the alphabet had a corresponding
-Xcharacter class when they were through!). Many people played NetHack--
+Xcharacter class when they were through!).  Many people played NetHack--
 X(which is what their changed version became known as) and loved it
 Xbecause of all the neat new stuff.
 X
 XIt was only about a month or so after NetHack-- came out that NetHack
-X3.1 was released. Much fanfare, and NetHack-- was no longer needed.
+X3.1 was released.  Much fanfare, and NetHack-- was no longer needed.
 X
 XOr was it?
 X
 XHere, for the enjoyment of one and all, are the changes to NetHack 3.1.3
-Xto incorporate NetHack--. The only things in NetHack-- that isn't in
+Xto incorporate NetHack--.  The only things in NetHack-- that isn't in
 XNetHack-- 3.1.3 are the extra character classes; I was too busy to
 Xincorporate them and create quests and whatnot.
 X
 XI've also gone and added a few Artifacts and quite a few monsters.
 X
 XThese additions include new Artifacts:
-X Icebiter (Axe) Firebiter (Axe)
-X Soultheif (Sword) Equalizer (Sword)
-X Kopkiller (Sword) Deathsword (Sword)
-X Fungisword (Sword) Liontamer (Whip)
-X Dirk (Dagger) Elfrist (Sword)
-X Firestar (Morning Star) Disruptor (Mace)
-X Cuthbert's Cudgel (Quarterstaff)
+X    Icebiter (Axe)                      Firebiter (Axe)
+X    Soultheif (Sword)                   Equalizer (Sword)
+X    Kopkiller (Sword)                   Deathsword (Sword)
+X    Fungisword (Sword)                  Liontamer (Whip)
+X    Dirk (Dagger)                       Elfrist (Sword)
+X    Firestar (Morning Star)             Disruptor (Mace)
+X    Cuthbert's Cudgel (Quarterstaff)
 X
 XNew rooms:
-X Wasp Hive Giant Court
-X Leprechaun Court Bad Food Shop
-X Real Zoo Anthill
-X Room Eleven
+X    Wasp Hive                           Giant Court
+X    Leprechaun Court                    Bad Food Shop
+X    Real Zoo                            Anthill
+X    Room Eleven
 X
 XTwo new monster classes:
-X Bad Coins ($) Bad Lunch (%)
+X    Bad Coins ($)                       Bad Lunch (%)
 X
 XNew monsters:
-X snow ant black ant
-X queen ant yellow jacket
-X killer beetle giant wasp
-X black wasp the King Bee
-X red blob white blob
-X blue blob poisonous blob
-X gigantic blob The Blob
-X chickatrice dingo
-X coyote pit bull
-X Wile E. Coyote burning eye
-X glowing eye flaming sphere
-X bloodshot eye blinking eye
-X beholder leopard
-X panther sabre-toothed cat
-X hellcat Rexfelis
-X gremlin leader hobbit theif
-X hobbit bandit Bilbo
-X huge bugbear bugbear cheiftan
-X dwarven theif duergar
-X dretch rutterkin
-X red jelly The Jelly That Ate Cleveland
-X kobold cheiftan Kroo the Kobold King
-X Krooella the Kobold Queen leprechaun elder
-X O'Brien Aphrodite
-X goblin theif goblin shaman
-X Grund the Orc King glass piercer
-X Jumbo the Elephant scramper
-X mangler berator
-X bogwumpus rabbit
-X black rat killer rabbit
-X hellrat vampire bunny
-X Energizer Bunny Bugs Bunny
-X recluse spider giant scorpion
-X Girtab nightmare
-X maggot rot worm
-X acid worm tunnel worm
-X arc bug spark bug
-X lightning bug rhumbat
-X mongbat hellbat
-X centaur shaman centaur cheiftan
-X Silva the Centaur King undead dragon
-X Tiamat black mold
-X digusting mold creeping mold
-X gnome theif large giant
-X Kop Kommisioner The Mummy
-X blue naga hatchling blue naga
-X ogre magi tapioca pudding
-X auto mechanic giant rust monster
-X asp asphyx
-X black troll hulk
-X the Incredible Hulk Yuval
-X cave ape J.R. `Bob' Dobbs
-X ghoul ghast
-X juju zombi mist golem
-X elven mage elven priest
-X bandit evil mage
-X evil priest general
-X Morgan La Fey Tom
-X Butch Mordred
-X bearded devil demon
-X nycadaemon efreeti
-X marid dao
-X shark salamander
-X basilisk Barney
-X giant chameleon tyrannosaur
-X Godzilla killer food ration
-X killer tripe ration killer tomato
-X ravenous cream pie goldbug
-X pile of silver coins gold mimic
-X pile of creeping coins pile of killer gold coins
+X    snow ant                            black ant
+X    queen ant                           yellow jacket
+X    killer beetle                       giant wasp
+X    black wasp                          the King Bee
+X    red blob                            white blob
+X    blue blob                           poisonous blob
+X    gigantic blob                       The Blob
+X    chickatrice                         dingo
+X    coyote                              pit bull
+X    Wile E. Coyote                      burning eye
+X    glowing eye                         flaming sphere
+X    bloodshot eye                       blinking eye
+X    beholder                            leopard
+X    panther                             sabre-toothed cat
+X    hellcat                             Rexfelis
+X    gremlin leader                      hobbit theif
+X    hobbit bandit                       Bilbo
+X    huge bugbear                        bugbear cheiftan
+X    dwarven theif                       duergar
+X    dretch                              rutterkin
+X    red jelly                           The Jelly That Ate Cleveland
+X    kobold cheiftan                     Kroo the Kobold King
+X    Krooella the Kobold Queen           leprechaun elder
+X    O'Brien                             Aphrodite
+X    goblin theif                        goblin shaman
+X    Grund the Orc King                  glass piercer
+X    Jumbo the Elephant                  scramper
+X    mangler                             berator
+X    bogwumpus                           rabbit
+X    black rat                           killer rabbit
+X    hellrat                             vampire bunny
+X    Energizer Bunny                     Bugs Bunny
+X    recluse spider                      giant scorpion
+X    Girtab                              nightmare
+X    maggot                              rot worm
+X    acid worm                           tunnel worm
+X    arc bug                             spark bug
+X    lightning bug                       rhumbat
+X    mongbat                             hellbat
+X    centaur shaman                      centaur cheiftan
+X    Silva the Centaur King              undead dragon
+X    Tiamat                              black mold
+X    digusting mold                      creeping mold
+X    gnome theif                         large giant
+X    Kop Kommisioner                     The Mummy
+X    blue naga hatchling                 blue naga
+X    ogre magi                           tapioca pudding
+X    auto mechanic                       giant rust monster
+X    asp                                 asphyx
+X    black troll                         hulk
+X    the Incredible Hulk                 Yuval
+X    cave ape                            J.R. `Bob' Dobbs
+X    ghoul                               ghast
+X    juju zombi                          mist golem
+X    elven mage                          elven priest
+X    bandit                              evil mage
+X    evil priest                         general
+X    Morgan La Fey                       Tom
+X    Butch                               Mordred
+X    bearded devil                       demon
+X    nycadaemon                          efreeti
+X    marid                               dao
+X    shark                               salamander
+X    basilisk                            Barney
+X    giant chameleon                     tyrannosaur
+X    Godzilla                            killer food ration
+X    killer tripe ration                 killer tomato
+X    ravenous cream pie                  goldbug
+X    pile of silver coins                gold mimic
+X    pile of creeping coins              pile of killer gold coins
 X
-XNew clothing, new rings, new weapons, new this, new that. LOTS of stuff!
+XNew clothing, new rings, new weapons, new this, new that.  LOTS of stuff!
 X
 XCredits
 X~~~~~~~
-X NetHack-- (based on NetHack 3.0 pl 10) was created by Yuval Oren
-X and Tom Proudfoot.
+X    NetHack-- (based on NetHack 3.0 pl 10) was created by Yuval Oren
+X    and Tom Proudfoot.
 X
-X NetHack-- was adapted to NetHack 3.1 by Chris Herborth
-X (cher...@semprini.tdkcs.waterloo.on.ca) for pl 1.
+X    NetHack-- was adapted to NetHack 3.1 by Chris Herborth
+X    (cherborth@semprini.tdkcs.waterloo.on.ca) for pl 1.
 X
-X Dan Riley (d...@lns598.tn.cornell.edu) patched my adaptation to fix
-X some bugs, properly implement some monsters, and generally polish
-X things.
+X    Dan Riley (dsr@lns598.tn.cornell.edu) patched my adaptation to fix
+X    some bugs, properly implement some monsters, and generally polish
+X    things.
 X
-X NetHack-- 3.1.2 was fixed/merged by Chris Herborth. Not a big job,
-X but a couple of files wouldn't patch due to the changes from 3.1.1
-X to 3.1.2. NetHack-- 3.1.2 contains all of NetHack 3.1.2, my original
-X NetHack-- changes, Dan's patches, and my "genocided monsters" list
-X patch (it lets you see what monsters you've genocided when you hit
-X the '/' key).
+X    NetHack-- 3.1.2 was fixed/merged by Chris Herborth.  Not a big job,
+X    but a couple of files wouldn't patch due to the changes from 3.1.1
+X    to 3.1.2.  NetHack-- 3.1.2 contains all of NetHack 3.1.2, my original
+X    NetHack-- changes, Dan's patches, and my "genocided monsters" list
+X    patch (it lets you see what monsters you've genocided when you hit
+X    the '/' key).
 X
-X NetHack-- 3.1.3 was easy; I just applied my (unreleased) 3.1.2 patch
-X to the NetHack 3.1.3 code.
+X    NetHack-- 3.1.3 was easy; I just applied my (unreleased) 3.1.2 patch
+X    to the NetHack 3.1.3 code.
 X
-X And, of course, the Dev Team is to thank for working on this great
-X game. Their names are listed in the Guidebook. Thanks!
+X    And, of course, the Dev Team is to thank for working on this great
+X    game.  Their names are listed in the Guidebook.  Thanks!
 X
 X-Chris-
 XJuly 22/93
@@ -892,8 +915,8 @@ rm -f _shar_wnt_.tmp
 fi
 # ============= blah ==============
 if test -f 'blah' -a X"$1" != X"-c"; then
-echo 'x - skipping blah (File already exists)'
-rm -f _shar_wnt_.tmp
+	echo 'x - skipping blah (File already exists)'
+	rm -f _shar_wnt_.tmp
 else
 > _shar_wnt_.tmp
 echo 'x - extracting blah (Text)'
@@ -901,34 +924,34 @@ sed 's/^X//' << 'SHAR_EOF' > 'blah' &&
 Xshar: No input files
 Xshar 3.49
 Xusage: shar [ options ] file ...
-X shar -S [ options ]
-X-V produce "vanilla" shars demanding little of the unshar environment
-X-v verbose messages OFF while executing
-X-m restore file modification dates & times with "touch" commands
-X-w don't check with 'wc -c' after unpack
-X-a generate Submitted-by: & Archive-name: headers
-X-nXXX use XXX as the name of the archive (documentation)
-X-s override automatically determined submitter name
-X-x overwrite existing files without checking if they already exist
-X-X interactively overwrite existing files (NOT FOR NET SHARS)
-X-B treat all files as binary, use uuencode
-X-T treat all files as text (default)
-X-C compress and uuencode all files
-X-bXX pass -bXX (default 12) to compress when compressing (implies -C)
-X-p allow positional parameter options. The options "-B" and "-T"
-X and "-C" may be embedded, and files to the right of the
-X option will be processed in the specified mode
-X-M mixed mode. Determine if the files are text or
-X binary and archive correctly.
-X-P use temp files instead of pipes in the shar file
-X-F force the prefix character on every line (even if not required)
-X-c start the shar with a cut line
-X-f restore by filename only, rather than path
-X-dXXX use XXX to delimit the files in the shar
-X-oXXX (or -o XXX) output to file XXX.01 thru XXX.nn
-X-lXX limit output file size to XXk bytes (but don't split files)
-X-LXX limit output file size to XXk bytes (may split files)
-X-S read files to wrap from stdin, ignoring argument line
+X       shar -S [ options ]
+X-V  produce "vanilla" shars demanding little of the unshar environment
+X-v  verbose messages OFF while executing
+X-m  restore file modification dates & times with "touch" commands
+X-w  don't check with 'wc -c' after unpack
+X-a  generate Submitted-by: & Archive-name: headers
+X-nXXX   use XXX as the name of the archive (documentation)
+X-s  override automatically determined submitter name
+X-x  overwrite existing files without checking if they already exist
+X-X  interactively overwrite existing files (NOT FOR NET SHARS)
+X-B  treat all files as binary, use uuencode
+X-T  treat all files as text (default)
+X-C  compress and uuencode all files
+X-bXX    pass -bXX (default 12) to compress when compressing (implies -C)
+X-p  allow positional parameter options. The options "-B" and "-T"
+X    and "-C" may be embedded, and files to the right of the
+X    option will be processed in the specified mode
+X-M  mixed mode. Determine if the files are text or
+X    binary and archive correctly.
+X-P  use temp files instead of pipes in the shar file
+X-F  force the prefix character on every line (even if not required)
+X-c  start the shar with a cut line
+X-f  restore by filename only, rather than path
+X-dXXX   use XXX to delimit the files in the shar
+X-oXXX   (or -o XXX) output to file XXX.01 thru XXX.nn
+X-lXX    limit output file size to XXk bytes (but don't split files)
+X-LXX    limit output file size to XXk bytes (may split files)
+X-S      read files to wrap from stdin, ignoring argument line
 X
 XThe -S option reads filenames one per line from stdin; input
 Xformat must be similar to 'find' output, except that if -p
@@ -949,3 +972,6 @@ rm -f _shar_seq_.tmp
 echo You have unpacked the last part
 exit 0
 -- 
+-------------------========================================-------------------
+                                       cherborth@semprini.tdkcs.waterloo.on.ca
+                                                                Chris Herborth

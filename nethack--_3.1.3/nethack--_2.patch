@@ -1,22 +1,43 @@
-These files preserve the patch posted to rec.games.hack to give the differences
-between NetHack 3.1.3 and NetHack-- 3.1.3.
+This is part 2 of the NetHack-- 3.1.3 patch, as posted to rec.games.hack
+and extracted from the Internet Archive at
+https://archive.org/download/usenet-rec/rec.games.hack.mbox.zip .
 
-=== Reconstructed Usenet post begins here ===
-NetHack-- 3.1.3 Patch (Fixed, 02/03)
-13 views
-Chris Herborth's profile photo
-Chris Herborth
-unread,
-Aug 25, 1993, 9:41:50 PM
-to
-Submitted-by: cher...@semprini.tdkcs.waterloo.on.ca
+The resulting patch applies cleanly to NetHack 3.1.3.
+
+=== Begin Usenet post ===
+X-Google-Language: ENGLISH,ASCII-7-bit
+X-Google-Thread: 110b21,7277d565c623cf90,start
+X-Google-Attributes: gid110b21,public
+X-Google-Thread: 1117c9,7277d565c623cf90,start
+X-Google-Attributes: gid1117c9,public
+X-Google-ArrivalTime: 1993-08-25 21:32:50 PST
+Xref: gmd.de rec.games.hack:14722 alt.sources:1453
+Path: gmd.de!xlink.net!howland.reston.ans.net!math.ohio-state.edu!uunet.ca!news2.uunet.ca!xenitec!tdkcs!semprini.tdkcs.waterloo.on.ca!cherborth
+From: cherborth@semprini.tdkcs.waterloo.on.ca (Chris Herborth)
+Newsgroups: rec.games.hack,alt.sources
+Distribution: world
+Message-ID: <H.eg.MBYaNNcBhQo@semprini.tdkcs.waterloo.on.ca>
+Organization: InterZONE Design
+Subject: NetHack-- 3.1.3 Patch (Fixed, 02/03)
+Keywords: oops, expansion, fixed
+Summary: Use this instead of the .tar.Z file.
+Followup-To: rec.games.hack
+Reply-To: cherborth@semprini.tdkcs.waterloo.on.ca
+X-Software: HERMES GUS 1.10 Rev. May 17 1993
+Date: Wed, 25 Aug 1993 20:41:50 EST
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Lines: 1099
+
+Submitted-by: cherborth@semprini.tdkcs.waterloo.on.ca
 Archive-name: NetHack--/part02
 
-Here is the fixed version of the NetHack-- 3.1.3 Patch. Use this
-instead of the compressed tar version that I posted a few days ago.
+Here is the fixed version of the NetHack-- 3.1.3 Patch.  Use this
+instead of the compressed tar version that I posted a few days ago. 
 Sorry for the confusion.
 
-NetHack-- is an unauthorised expansion to NetHack. This patch will turn
+NetHack-- is an unauthorised expansion to NetHack.  This patch will turn
 your NetHack 3.1.3 source code into NetHack-- 3.1.3.
 
 Binary versions are available for the Atari ST/TT/Falcon030, OS/2 2.x,
@@ -29,19 +50,19 @@ and DOS (386 or better); check your favourite ftp sites.
 # file NH31C--.Patch continued
 #
 if test ! -r _shar_seq_.tmp; then
-echo 'Please unpack part 1 first!'
-exit 1
+	echo 'Please unpack part 1 first!'
+	exit 1
 fi
 (read Scheck
-if test "$Scheck" != 2; then
-echo Please unpack part "$Scheck" next!
-exit 1
-else
-exit 0
-fi
+ if test "$Scheck" != 2; then
+	echo Please unpack part "$Scheck" next!
+	exit 1
+ else
+	exit 0
+ fi
 ) < _shar_seq_.tmp || exit 1
 if test ! -f _shar_wnt_.tmp; then
-echo 'x - still skipping NH31C--.Patch'
+	echo 'x - still skipping NH31C--.Patch'
 else
 echo 'x - continuing file NH31C--.Patch'
 sed 's/^X//' << 'SHAR_EOF' >> 'NH31C--.Patch' &&
@@ -1105,3 +1126,6 @@ echo 'File NH31C--.Patch is continued in part 3'
 echo 3 > _shar_seq_.tmp
 exit 0
 -- 
+-------------------========================================-------------------
+                                       cherborth@semprini.tdkcs.waterloo.on.ca
+                                                                Chris Herborth

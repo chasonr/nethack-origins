@@ -1,48 +1,43 @@
-These files preserve the patch posted to rec.games.hack to give the differences
-between NetHack 3.1.3 and NetHack-- 3.1.3.
+This is part 1 of the NetHack-- 3.1.3 patch, as posted to rec.games.hack
+and extracted from the Internet Archive at
+https://archive.org/download/usenet-rec/rec.games.hack.mbox.zip .
 
-At one time, Google Groups offered access to a "raw" version of Usenet posts.
-Those links no longer work, and only badly mangled versions survive at:
+The resulting patch applies cleanly to NetHack 3.1.3.
 
-* https://groups.google.com/g/rec.games.hack/c/S4rmQdHdchY/m/PjsIB4STiOUJ
-* https://groups.google.com/g/rec.games.hack/c/cnfVZcYjz5A/m/C2iWhiKD4WwJ
-* https://groups.google.com/g/rec.games.hack/c/o2iIc6o5rE0/m/EbYceXrhB0kJ
+=== Begin Usenet post ===
+X-Google-Language: ENGLISH,ASCII-7-bit
+X-Google-Thread: 110b21,4b8ae641d1dd7216,start
+X-Google-Attributes: gid110b21,public
+X-Google-Thread: 1117c9,4b8ae641d1dd7216,start
+X-Google-Attributes: gid1117c9,public
+X-Google-ArrivalTime: 1993-08-25 21:30:26 PST
+Xref: gmd.de rec.games.hack:14721 alt.sources:1452
+Path: gmd.de!xlink.net!howland.reston.ans.net!math.ohio-state.edu!uunet.ca!dmog10.bell.ca!news2.uunet.ca!xenitec!tdkcs!semprini.tdkcs.waterloo.on.ca!cherborth
+From: cherborth@semprini.tdkcs.waterloo.on.ca (Chris Herborth)
+Newsgroups: rec.games.hack,alt.sources
+Distribution: world
+Message-ID: <H.eg.CXAT1cAQ9pM@semprini.tdkcs.waterloo.on.ca>
+Organization: InterZONE Design
+Subject: NetHack-- 3.1.3 Patch (Fixed, 01/03)
+Keywords: expanded, fixed, duh, oops
+Summary: Use this, not the compressed tar version of the patch.
+Followup-To: rec.games.hack
+Reply-To: cherborth@semprini.tdkcs.waterloo.on.ca
+X-Software: HERMES GUS 1.10 Rev. May 17 1993
+Date: Wed, 25 Aug 1993 20:40:28 EST
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Lines: 1352
 
-The Google Groups versions ha mangled the white spaces and the resulting
-patch does not work.
-
-I have constructed a new patch, based on NetHack-- archived at
-http://www.juiblex.co.uk/nethack/source/nh31c--src.zip, the NetHack 3.1.3
-sources derived from the Usenet posts preserved in this repository, and the
-mangled patch at Google Groups.
-
-The patch presented here applies cleanly to the NetHack 3.1.3 sources and
-differs from the Google Groups version only in adjusted whitespace, except for
-one munged email address (which is likely long dead); "diff -w" reports no
-other changes in the patch.  The www.juiblex.co.uk source differs from the
-result only in these files, not covered by the patch:
-
-* sys/mac/NHrsrc.hqx
-* sys/mac/NHsound.hqx
-* sys/unix/cpp[123].shr
-
-Ray Chason
-1 March 2025
-
-=== Reconstructed Usenet post begins here ===
-Chris Herborth's profile photo
-Chris Herborth
-unread,
-Aug 25, 1993, 9:40:28 PM
-to
-Submitted-by: cher...@semprini.tdkcs.waterloo.on.ca
+Submitted-by: cherborth@semprini.tdkcs.waterloo.on.ca
 Archive-name: NetHack--/part01
 
-Here is the fixed version of the NetHack-- 3.1.3 Patch. Use this
-instead of the compressed tar version that I posted a few days ago.
+Here is the fixed version of the NetHack-- 3.1.3 Patch.  Use this
+instead of the compressed tar version that I posted a few days ago. 
 Sorry for the confusion.
 
-NetHack-- is an unauthorised expansion to NetHack. This patch will turn
+NetHack-- is an unauthorised expansion to NetHack.  This patch will turn
 your NetHack 3.1.3 source code into NetHack-- 3.1.3.
 
 Binary versions are available for the Atari ST/TT/Falcon030, OS/2 2.x,
@@ -54,88 +49,88 @@ and DOS (386 or better); check your favourite ftp sites.
 # To extract the files from this archive, save it to a file, remove
 # everything above the "!/bin/sh" line above, and type "sh file_name".
 #
-# made 08/25/1993 17:31 UTC by cher...@semprini.tdkcs.waterloo.on.ca
+# made 08/25/1993 17:31 UTC by cherborth@semprini.tdkcs.waterloo.on.ca
 # Source directory /usr/acct2/herborth/src/nh31c--patch
 #
 # existing files will NOT be overwritten unless -c is specified
 # This format requires very little intelligence at unshar time.
 # "if test", "cat", "rm", "echo", "true", and "sed" may be needed.
 #
-# This is part 1 of a multipart archive
-# do not concatenate these parts, unpack them in order with /bin/sh
+# This is part 1 of a multipart archive                                    
+# do not concatenate these parts, unpack them in order with /bin/sh        
 #
 # This shar contains:
-# length mode name
+# length  mode       name
 # ------ ---------- ------------------------------------------
-# 3053 -rw------- HowToPatch
+#   3053 -rw------- HowToPatch
 # 125277 -rw------- NH31C--.Patch
-# 6938 -rw------- ReadMe.Too
-# 2088 -rw------- blah
+#   6938 -rw------- ReadMe.Too
+#   2088 -rw------- blah
 #
 if test -r _shar_seq_.tmp; then
-echo 'Must unpack archives in sequence!'
-echo Please unpack part `cat _shar_seq_.tmp` next
-exit 1
+	echo 'Must unpack archives in sequence!'
+	echo Please unpack part `cat _shar_seq_.tmp` next
+	exit 1
 fi
 # ============= HowToPatch ==============
 if test -f 'HowToPatch' -a X"$1" != X"-c"; then
-echo 'x - skipping HowToPatch (File already exists)'
-rm -f _shar_wnt_.tmp
+	echo 'x - skipping HowToPatch (File already exists)'
+	rm -f _shar_wnt_.tmp
 else
 > _shar_wnt_.tmp
 echo 'x - extracting HowToPatch (Text)'
 sed 's/^X//' << 'SHAR_EOF' > 'HowToPatch' &&
-XNetHack-- 3.1.3 - Patching Instructions August 20/93
+XNetHack-- 3.1.3 - Patching Instructions                           August 20/93
 X~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 X
 XHere are some instructions on how to patch NetHack 3.1.3 with the
-XNetHack-- 3.1.3 patch. The NetHack-- 3.1.3 patch adds over a hundred
+XNetHack-- 3.1.3 patch.  The NetHack-- 3.1.3 patch adds over a hundred
 Xmonsters, new artifacts, new items, new special rooms, and a list of
 XGenocided monsters in your "Discovered Items" screen (when you press
 X"\").
 X
 XNetHack-- 3.1.3 is an unauthorised modification of the NetHack 3.1.3
-Xgame. Any bugs introduced into NetHack due to this patch are my
+Xgame.  Any bugs introduced into NetHack due to this patch are my
 Xproblem, not the Development Team's.
 X
 XHow to Patch
 X
-X 1. Get the NetHack 3.1.3 source code. If you haven't got it, read the
-X rec.games.hack Frequently Asked Questions (FAQ) for a list of sites
-X that carry the NetHack 3.1.3 source code.
+X 1. Get the NetHack 3.1.3 source code.  If you haven't got it, read the
+X    rec.games.hack Frequently Asked Questions (FAQ) for a list of sites
+X    that carry the NetHack 3.1.3 source code.
 X
 X 2. Unpack the NetHack 3.1.3 source code and be sure you've got
-X everything. The Files file will list all of the files and
-X directories you should have.
+X    everything.  The Files file will list all of the files and
+X    directories you should have.
 X
 X 3. Copy the files from the NetHack-- 3.1.3 patch into the root
-X directory of your NetHack 3.1.3 source directory.
+X    directory of your NetHack 3.1.3 source directory.
 X
 X 4. To apply the main NetHack-- 3.1.3 patch, use:
-X patch -p1 < NH31C--.Patch
-X from the root of your NetHack source directory.
+X        patch -p1 < NH31C--.Patch
+X    from the root of your NetHack source directory.
 X
 X 5. If all goes well, the patch will apply itself, modifying a whole bunch
-X of files.
+X    of files.
 X
 X 6. To build NetHack-- 3.1.3, go into sys/{your computer here} and follow
-X the instructions in the Install.* file.
+X    the instructions in the Install.* file.
 X
 X 7. You should probably copy the ReadMe.Too file to your NetHack game
-X directory (ie, where all the .lev and other files end up) and rename
-X it news; you can also trim it down a bit. This will warn people that
-X they're playing a modified version of NetHack (you should definitely
-X delete the artifact and monster lists so you don't ruin the surprise).
+X    directory (ie, where all the .lev and other files end up) and rename
+X    it news; you can also trim it down a bit.  This will warn people that
+X    they're playing a modified version of NetHack (you should definitely
+X    delete the artifact and monster lists so you don't ruin the surprise).
 X
 XIf you have any problems or find any bugs, I can be reached at:
 X
-Xcher...@semprini.tdkcs.waterloo.on.ca
-Xher...@53iss6.waterloo.ncr.com
+Xcherborth@semprini.tdkcs.waterloo.on.ca
+Xherborth@53iss6.waterloo.ncr.com
 X
 XA bug in the plain NetHack 3.1.3 source code should be reported to the
 XDevelopment Team at:
 X
-Xnetha...@linc.cis.upenn.edu
+Xnethack-bugs@linc.cis.upenn.edu
 X
 XDon't bother the Development Team with bugs caused by the NetHack-- 3.1.3
 Xpatch; it's my fault and not theirs.
@@ -145,21 +140,21 @@ X-Chris-
 X
 XBugs Fixed, While You Wait (and wait and wait...)
 X~~~~~~~~~~~~~~~~~~~~~~~~~~
-X A few days after I announced the immenant release of the NetHack-- 3.1.3
-X patch to the world, I lost my patch archive. Argh!
+X    A few days after I announced the immenant release of the NetHack-- 3.1.3
+X    patch to the world, I lost my patch archive.  Argh!
 X
-X After rebuilding my patch archive from files living on my Atari (which
-X necessitated creating a nice Minix partition so I could use long
-X mixed-case filenames), I got a bug report; if you robbed a shop,
-X NetHack-- 3.1.3 would go into an infinite loop trying to create the
-X Keystone Kops. Oops.
+X    After rebuilding my patch archive from files living on my Atari (which
+X    necessitated creating a nice Minix partition so I could use long
+X    mixed-case filenames), I got a bug report; if you robbed a shop,
+X    NetHack-- 3.1.3 would go into an infinite loop trying to create the
+X    Keystone Kops.  Oops.
 X
-X So, now, about a month later, I've got my act in gear, and I fixed the
-X bug. Now NetHack-- 3.1.3 is ready for the public!
+X    So, now, about a month later, I've got my act in gear, and I fixed the
+X    bug.  Now NetHack-- 3.1.3 is ready for the public!
 X
-X Remember, if you run into any bugs, check to see if you can reproduce
-X it under normal NetHack. If you can, send a bug report to nethack-bugs.
-X If not, send one to me and I'll see if I can reproduce it.
+X    Remember, if you run into any bugs, check to see if you can reproduce
+X    it under normal NetHack.  If you can, send a bug report to nethack-bugs.
+X    If not, send one to me and I'll see if I can reproduce it.
 X
 X-Chris-
 XAugust 20/93
@@ -169,15 +164,15 @@ rm -f _shar_wnt_.tmp
 fi
 # ============= NH31C--.Patch ==============
 if test -f 'NH31C--.Patch' -a X"$1" != X"-c"; then
-echo 'x - skipping NH31C--.Patch (File already exists)'
-rm -f _shar_wnt_.tmp
+	echo 'x - skipping NH31C--.Patch (File already exists)'
+	rm -f _shar_wnt_.tmp
 else
 > _shar_wnt_.tmp
 echo 'x - extracting NH31C--.Patch (Text)'
 sed 's/^X//' << 'SHAR_EOF' > 'NH31C--.Patch' &&
 Xdiff -c -r ../nh31c/dat/data.base ./dat/data.base
-X*** ../nh31c/dat/data.base Fri Jun 11 14:42:36 1993
-X--- ./dat/data.base Fri Aug 20 13:24:44 1993
+X*** ../nh31c/dat/data.base	Fri Jun 11 14:42:36 1993
+X--- ./dat/data.base	Fri Aug 20 13:24:44 1993
 X***************
 X*** 188,193 ****
 X--- 188,194 ----
@@ -189,8 +184,8 @@ X  		A metal of characteristic yellow colour, the  most  precious
 X  		metal  used as a common commercial medium of exchange.  Sym-
 X  		bol, Au; at.  no. 79; at. wt. 197.2.  It is the most  malle-
 Xdiff -c -r ../nh31c/include/artilist.h ./include/artilist.h
-X*** ../nh31c/include/artilist.h Thu Aug 05 10:26:24 1993
-X--- ./include/artilist.h Fri Aug 20 13:24:46 1993
+X*** ../nh31c/include/artilist.h	Thu Aug 05 10:26:24 1993
+X--- ./include/artilist.h	Fri Aug 20 13:24:46 1993
 X***************
 X*** 135,140 ****
 X--- 135,185 ----
@@ -246,8 +241,8 @@ X  #ifdef MULDGN
 X  /*
 X   *	The artifacts for the quest dungeon, all self-willed.
 Xdiff -c -r ../nh31c/include/mkroom.h ./include/mkroom.h
-X*** ../nh31c/include/mkroom.h Tue Mar 09 12:45:32 1993
-X--- ./include/mkroom.h Fri Aug 20 13:24:48 1993
+X*** ../nh31c/include/mkroom.h	Tue Mar 09 12:45:32 1993
+X--- ./include/mkroom.h	Fri Aug 20 13:24:48 1993
 X***************
 X*** 58,76 ****
 X  #define ZOO		 8	/* floor covered with treasure and monsters */
@@ -297,8 +292,8 @@ X
 X  /* Special type for search_special() */
 X  #define ANY_TYPE	(-1)
 Xdiff -c -r ../nh31c/include/monsym.h ./include/monsym.h
-X*** ../nh31c/include/monsym.h Mon Jan 25 02:24:36 1993
-X--- ./include/monsym.h Fri Aug 20 13:24:50 1993
+X*** ../nh31c/include/monsym.h	Mon Jan 25 02:24:36 1993
+X--- ./include/monsym.h	Fri Aug 20 13:24:50 1993
 X***************
 X*** 72,79 ****
 X  #define S_WORM_TAIL	59
@@ -333,8 +328,8 @@ X
 X  #define G_UNIQ		0x1000		/* generated only once */
 X  #define G_NOHELL	0x0800		/* not generated in "hell" */
 Xdiff -c -r ../nh31c/include/patchlevel.h ./include/patchlevel.h
-X*** ../nh31c/include/patchlevel.h Thu Aug 05 10:26:28 1993
-X--- ./include/patchlevel.h Fri Aug 20 13:59:16 1993
+X*** ../nh31c/include/patchlevel.h	Thu Aug 05 10:26:28 1993
+X--- ./include/patchlevel.h	Fri Aug 20 13:59:16 1993
 X***************
 X*** 13,19 ****
 X   * Incrementing EDITLEVEL can be used to force invalidation of old bones
@@ -370,8 +365,8 @@ X
 X  /*
 X   *  Patch 3, July 12, 1993
 Xdiff -c -r ../nh31c/src/do_wear.c ./src/do_wear.c
-X*** ../nh31c/src/do_wear.c Thu Aug 05 10:23:42 1993
-X--- ./src/do_wear.c Fri Aug 20 13:24:56 1993
+X*** ../nh31c/src/do_wear.c	Thu Aug 05 10:23:42 1993
+X--- ./src/do_wear.c	Fri Aug 20 13:24:56 1993
 X***************
 X*** 226,231 ****
 X--- 226,233 ----
@@ -441,8 +436,8 @@ X  		flags.botl = 1;
 X  		break;
 X  	case RIN_INCREASE_DAMAGE:
 Xdiff -c -r ../nh31c/src/dokick.c ./src/dokick.c
-X*** ../nh31c/src/dokick.c Thu Aug 05 10:23:46 1993
-X--- ./src/dokick.c Fri Aug 20 13:25:00 1993
+X*** ../nh31c/src/dokick.c	Thu Aug 05 10:23:46 1993
+X--- ./src/dokick.c	Fri Aug 20 13:25:00 1993
 X***************
 X*** 260,265 ****
 X--- 260,267 ----
@@ -455,8 +450,8 @@ X
 X  			if (goldreqd) {
 X  			   if (gold->quan > goldreqd +
 Xdiff -c -r ../nh31c/src/drawing.c ./src/drawing.c
-X*** ../nh31c/src/drawing.c Fri Jun 11 14:36:22 1993
-X--- ./src/drawing.c Fri Aug 20 13:25:02 1993
+X*** ../nh31c/src/drawing.c	Fri Jun 11 14:36:22 1993
+X--- ./src/drawing.c	Fri Aug 20 13:25:02 1993
 X***************
 X*** 152,157 ****
 X--- 152,159 ----
@@ -487,8 +482,8 @@ X  };
 X  
 X  /*
 Xdiff -c -r ../nh31c/src/engrave.c ./src/engrave.c
-X*** ../nh31c/src/engrave.c Thu Aug 05 10:23:56 1993
-X--- ./src/engrave.c Fri Aug 20 13:25:06 1993
+X*** ../nh31c/src/engrave.c	Thu Aug 05 10:23:56 1993
+X--- ./src/engrave.c	Fri Aug 20 13:25:06 1993
 X***************
 X*** 865,871 ****
 X  	    case ENGRAVE:
@@ -508,8 +503,8 @@ X  		    multi = -len;
 X  		    maxelen = ((otmp->spe + 3) * 2) + 1;
 X  			/* -2 = 3, -1 = 5, 0 = 7, +1 = 9, +2 = 11
 Xdiff -c -r ../nh31c/src/hack.c ./src/hack.c
-X*** ../nh31c/src/hack.c Thu Aug 05 10:24:00 1993
-X--- ./src/hack.c Fri Aug 20 13:25:08 1993
+X*** ../nh31c/src/hack.c	Thu Aug 05 10:24:00 1993
+X--- ./src/hack.c	Fri Aug 20 13:25:08 1993
 X***************
 X*** 1220,1226 ****
 X  		    if(monstinroom(&mons[PM_SOLDIER], roomno) ||
@@ -529,8 +524,8 @@ X  			You("enter a military barracks!");
 X  		    else 
 X  			You("enter an abandoned barracks.");
 Xdiff -c -r ../nh31c/src/makemon.c ./src/makemon.c
-X*** ../nh31c/src/makemon.c Thu Aug 05 10:24:08 1993
-X--- ./src/makemon.c Fri Aug 20 13:25:12 1993
+X*** ../nh31c/src/makemon.c	Thu Aug 05 10:24:08 1993
+X--- ./src/makemon.c	Fri Aug 20 13:25:12 1993
 X***************
 X*** 174,179 ****
 X--- 174,180 ----
@@ -613,8 +608,8 @@ X  		default: return 0;
 X  	}
 X  }
 Xdiff -c -r ../nh31c/src/mhitu.c ./src/mhitu.c
-X*** ../nh31c/src/mhitu.c Thu Aug 05 10:24:12 1993
-X--- ./src/mhitu.c Fri Aug 20 13:25:16 1993
+X*** ../nh31c/src/mhitu.c	Thu Aug 05 10:24:12 1993
+X--- ./src/mhitu.c	Fri Aug 20 13:25:16 1993
 X***************
 X*** 1671,1676 ****
 X--- 1671,1682 ----
@@ -631,8 +626,8 @@ X  	    case AD_BLND:
 X  		if(!mtmp->mcan && canseemon(mtmp) && !defends(AD_BLND, uwep) &&
 X  		   distu(mtmp->mx,mtmp->my) <= BOLT_LIM*BOLT_LIM) {
 Xdiff -c -r ../nh31c/src/mklev.c ./src/mklev.c
-X*** ../nh31c/src/mklev.c Thu Aug 05 10:24:16 1993
-X--- ./src/mklev.c Fri Aug 20 13:25:18 1993
+X*** ../nh31c/src/mklev.c	Thu Aug 05 10:24:16 1993
+X--- ./src/mklev.c	Fri Aug 20 13:25:18 1993
 X***************
 X*** 719,727 ****
 X--- 719,733 ----
@@ -652,8 +647,8 @@ X  	else
 X  #ifdef ARMY
 X  	if(depth(&u.uz) > 14 && !rn2(4) &&
 Xdiff -c -r ../nh31c/src/mkroom.c ./src/mkroom.c
-X*** ../nh31c/src/mkroom.c Thu Aug 05 10:24:18 1993
-X--- ./src/mkroom.c Fri Aug 20 13:25:24 1993
+X*** ../nh31c/src/mkroom.c	Thu Aug 05 10:24:18 1993
+X--- ./src/mkroom.c	Fri Aug 20 13:25:24 1993
 X***************
 X*** 22,27 ****
 X--- 22,34 ----
@@ -919,8 +914,8 @@ X  };
 X  
 X  static struct permonst *
 Xdiff -c -r ../nh31c/src/mon.c ./src/mon.c
-X*** ../nh31c/src/mon.c Thu Aug 05 10:24:20 1993
-X--- ./src/mon.c Fri Aug 20 13:25:26 1993
+X*** ../nh31c/src/mon.c	Thu Aug 05 10:24:20 1993
+X--- ./src/mon.c	Fri Aug 20 13:25:26 1993
 X***************
 X*** 51,56 ****
 X--- 51,74 ----
@@ -970,8 +965,8 @@ X  	    default_1:
 X  	    default:
 X  		if (mdat->geno & G_NOCORPSE)
 Xdiff -c -r ../nh31c/src/mondata.c ./src/mondata.c
-X*** ../nh31c/src/mondata.c Thu Aug 05 10:24:22 1993
-X--- ./src/mondata.c Fri Aug 20 13:25:28 1993
+X*** ../nh31c/src/mondata.c	Thu Aug 05 10:24:22 1993
+X--- ./src/mondata.c	Fri Aug 20 13:25:28 1993
 X***************
 X*** 359,364 ****
 X--- 359,365 ----
@@ -983,8 +978,8 @@ X  #endif
 X  	{PM_WATCHMAN, PM_WATCH_CAPTAIN},
 X  	{PM_BABY_CROCODILE, PM_CROCODILE},
 Xdiff -c -r ../nh31c/src/monst.c ./src/monst.c
-X*** ../nh31c/src/monst.c Fri Jun 11 14:37:08 1993
-X--- ./src/monst.c Fri Aug 20 13:25:50 1993
+X*** ../nh31c/src/monst.c	Fri Jun 11 14:37:08 1993
+X--- ./src/monst.c	Fri Aug 20 13:25:50 1993
 X***************
 X*** 123,128 ****
 X--- 123,138 ----
@@ -1382,3 +1377,8 @@ echo 'End of NetHack-- part 1'
 echo 'File NH31C--.Patch is continued in part 2'
 echo 2 > _shar_seq_.tmp
 exit 0
+
+-- 
+-------------------========================================-------------------
+                                       cherborth@semprini.tdkcs.waterloo.on.ca
+                                                                Chris Herborth
