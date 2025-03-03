@@ -1,3 +1,15 @@
+This is the original Usenet post providing the patch for NetHack-- 3.0.10,
+extracted from the archives of rec.games.hack on the Internet Archive at
+https://archive.org/download/usenet-rec/rec.games.hack.mbox.zip .
+
+The whitespace in this post is as posted, and in many places it is different
+from the original NetHack 3.0.10 source. See nethack--clean.patch for a
+version that applies cleanly to NetHack 3.0.10.
+
+This patch adds a #endif to src/makedefs.c at line 485. This line is incorrect
+and needs to be removed or the file will not compile.
+
+=== Usenet post begins here ===
 X-Google-Language: ENGLISH,ASCII-7-bit
 X-Google-Thread: 110b21,915df4f57feb356e,start
 X-Google-Attributes: gid110b21,public
