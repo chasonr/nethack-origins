@@ -9,6 +9,10 @@ Sources of these files are as follows:
 * For NetHack 3.1.0 through 3.1.3, and the nethack-2.3e-uunet directory: These are files
   saved from the UUNet FTP site while that site still operated.
 
+* For NetHack-- 3.0.10 and 3.1.3: The files are extracted from the Internet Archive's
+  mirror of rec.games.hack at https://archive.org/download/usenet-rec/rec.games.hack.mbox.zip.
+  This is a mirror from Google Groups, extracted when that web site was still useful.
+
 These posts contain "shar" archives, which when run by a POSIX-compatible shell, generate
 the archived files in the current directory. I have run these shar archives on my own
 computer and have no reason to believe they contain any harmful commands; but I assume no
